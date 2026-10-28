@@ -1,0 +1,22 @@
+{
+  "name": "localcare-infinity",
+  "version": "2.0.0",
+  "description": "LocalCare Infinity - Every Local Need. One Intelligent Platform. AI-Powered Local Services & Discovery Marketplace",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "node tests/api.test.js"
+  },
+  "keywords": [
+    "local-services",
+    "marketplace",
+    "ai-search",
+    "booking-engine",
+    "quote-marketplace",
+    "hyperlocal",
+    "india"
+  ],
+  "author": "LocalCare Technologies Pvt. Ltd.",
+  "license": "MIT"
+}

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff7f1a" />
+      <stop offset="100%" stop-color="#e65100" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000000" flood-opacity="0.25" />
+    </filter>
+  </defs>
+  <rect width="512" height="512" rx="128" fill="url(#bgGrad)" />
+  <g filter="url(#shadow)">
+    <!-- Infinity Symbol -->
+    <path d="M168 180 C 114 180, 80 216, 80 256 C 80 296, 114 332, 168 332 C 220 332, 246 294, 256 276 C 266 294, 292 332, 344 332 C 398 332, 432 296, 432 256 C 432 216, 398 180, 344 180 C 292 180, 266 218, 256 236 C 246 218, 220 180, 168 180 Z M 168 220 C 196 220, 218 244, 234 256 C 218 268, 196 292, 168 292 C 136 292, 120 274, 120 256 C 120 238, 136 220, 168 220 Z M 344 220 C 376 220, 392 238, 392 256 C 392 274, 376 292, 344 292 C 316 292, 294 268, 278 256 C 294 244, 316 220, 344 220 Z" fill="#ffffff" />
+    <!-- Care Accent Dot / Heart Sparkle -->
+    <circle cx="256" cy="180" r="14" fill="#ffffff" />
+  </g>
+</svg>
