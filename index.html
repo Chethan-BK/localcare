@@ -183,16 +183,39 @@
         </button>
 
         <div class="location-dropdown" id="locationDropdown" role="menu">
+          <!-- Pan-India Locality & Village Search Bar -->
           <div style="display: flex; gap: 0.4rem; margin-bottom: 0.5rem;">
-            <input type="text" id="citySearchInput" class="dropdown-search" style="margin-bottom: 0;"
-              placeholder="Search 10+ cities..." autocomplete="off" />
-            <button class="action-btn action-btn-outline" style="padding: 0.4rem 0.6rem; font-size: 0.75rem;"
-              onclick="window.LocalCare.autoDetectLocation()" title="Use GPS Location">
-              🛰️ GPS
+            <input type="text" id="citySearchInput" class="dropdown-search" style="margin-bottom: 0; flex: 1;"
+              placeholder="Search Indian village, town, PIN code (e.g. Olachi, Wayanad, 575028)..." autocomplete="off" />
+            <button class="action-btn action-btn-outline" style="padding: 0.4rem 0.6rem; font-size: 0.75rem; white-space: nowrap; border-color: var(--primary); color: var(--primary);"
+              onclick="window.LocalCare.autoDetectLocation()" title="Detect My Current GPS Location">
+              🎯 My GPS
             </button>
           </div>
-          <ul class="city-list" id="cityList" role="listbox">
-            <!-- Populated dynamically from CITIES -->
+
+          <!-- Quick State Filter Tabs -->
+          <div class="location-state-tabs" id="locationStateTabs" style="display: flex; gap: 0.3rem; overflow-x: auto; padding-bottom: 0.4rem; margin-bottom: 0.5rem; border-bottom: 1px solid var(--border-subtle); scrollbar-width: none;">
+            <button class="location-tab-btn active" onclick="window.LocalCare.filterLocationByState('ALL')">All India</button>
+            <button class="location-tab-btn" onclick="window.LocalCare.filterLocationByState('KA')">Karnataka</button>
+            <button class="location-tab-btn" onclick="window.LocalCare.filterLocationByState('KL')">Kerala</button>
+            <button class="location-tab-btn" onclick="window.LocalCare.filterLocationByState('TN')">Tamil Nadu</button>
+            <button class="location-tab-btn" onclick="window.LocalCare.filterLocationByState('MH')">Maharashtra</button>
+            <button class="location-tab-btn" onclick="window.LocalCare.filterLocationByState('DL')">Delhi</button>
+            <button class="location-tab-btn" onclick="window.LocalCare.filterLocationByState('RJ')">Rajasthan</button>
+          </div>
+
+          <!-- Quick Village & Locality Chips -->
+          <div style="display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.6rem;">
+            <span style="font-size: 0.72rem; color: var(--text-muted); width: 100%; font-weight: 700;">Popular Villages & Hubs:</span>
+            <button class="badge badge-subtle" style="cursor: pointer; font-size: 0.72rem; padding: 2px 7px;" onclick="window.LocalCare.setCity('Valachil (Olachi Village)', { lat: 12.8711, lng: 74.9312 })">🏡 Olachi / Valachil (Mangalore)</button>
+            <button class="badge badge-subtle" style="cursor: pointer; font-size: 0.72rem; padding: 2px 7px;" onclick="window.LocalCare.setCity('Udupi', { lat: 13.3409, lng: 74.7421 })">📍 Manipal / Udupi</button>
+            <button class="badge badge-subtle" style="cursor: pointer; font-size: 0.72rem; padding: 2px 7px;" onclick="window.LocalCare.setCity('Wayanad (Kalpetta & Sulthan Bathery)', { lat: 11.6103, lng: 76.0827 })">🌴 Wayanad (Kerala)</button>
+            <button class="badge badge-subtle" style="cursor: pointer; font-size: 0.72rem; padding: 2px 7px;" onclick="window.LocalCare.setCity('Jodhpur', { lat: 26.2389, lng: 73.0243 })">🏜️ Osian / Jodhpur</button>
+            <button class="badge badge-subtle" style="cursor: pointer; font-size: 0.72rem; padding: 2px 7px;" onclick="window.LocalCare.setCity('Jaipur', { lat: 26.9124, lng: 75.7873 })">🏰 Sanganer / Jaipur</button>
+          </div>
+
+          <ul class="city-list" id="cityList" role="listbox" style="max-height: 260px; overflow-y: auto;">
+            <!-- Populated dynamically from IndiaLocations -->
           </ul>
         </div>
       </div>
@@ -2216,6 +2239,7 @@
   <script src="js/modules/aiSearch.js?v=3.3.0"></script>
   <!-- Leaflet Map Runtime Library -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="js/indiaLocations.js?v=3.5.0"></script>
   <script src="js/modules/mapEngine.js?v=3.3.0"></script>
   <script src="js/modules/careAI.js?v=3.3.0"></script>
   <script src="js/modules/bookingEngine.js?v=3.3.0"></script>

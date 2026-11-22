@@ -328,15 +328,22 @@
 
     DOM.cityList.innerHTML = matched.map(city => {
       const areasCount = city.areas ? city.areas.length : 0;
-      const areasPreview = city.areas && city.areas.length ? city.areas.slice(0, 2).join(', ') : (city.state || 'India');
+      const areasPreview = city.areas && city.areas.length ? city.areas.slice(0, 3).join(', ') : (city.district || city.state || 'India');
       const stateBadge = city.state ? `<span style="font-size: 0.7rem; color: var(--text-muted); background: var(--bg-subtle); padding: 1px 5px; border-radius: 4px; margin-left: 0.35rem;">${city.state}</span>` : '';
+      const typeBadge = city.parentHub ? `<span style="font-size: 0.68rem; color: #ff6800; background: rgba(255,104,0,0.1); padding: 1px 5px; border-radius: 4px; font-weight: 700; margin-left: 0.25rem;">🏡 Village</span>` : '';
+      const pinBadge = (city.pincodes && city.pincodes[0]) ? `<span style="font-size: 0.68rem; color: #2563eb; background: rgba(37,99,235,0.08); padding: 1px 5px; border-radius: 4px; margin-left: 0.25rem;">PIN ${city.pincodes[0]}</span>` : '';
       return `
-        <li class="city-item ${city.name.toLowerCase() === state.selectedCity.toLowerCase() ? 'active' : ''}" data-city="${city.name}">
-          <div style="display: flex; flex-direction: column; gap: 2px;">
-            <span style="display: inline-flex; align-items: center; gap: 0.35rem; font-weight: 700;">
-              ${window.ReactIcons ? window.ReactIcons.render('mapPin', { size: 14 }) : '📍'} ${city.name} ${stateBadge}
-            </span>
-            <small style="color: var(--text-muted); font-size: 0.74rem;">${areasCount} Localities (${areasPreview}...)</small>
+        <li class="city-item ${city.name.toLowerCase() === state.selectedCity.toLowerCase() ? 'active' : ''}" data-city="${city.name}" data-lat="${city.lat || ''}" data-lng="${city.lng || ''}">
+          <div style="display: flex; flex-direction: column; gap: 2px; width: 100%;">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <span style="display: inline-flex; align-items: center; gap: 0.35rem; font-weight: 700;">
+                ${city.parentHub ? '🏡' : '📍'} ${city.name} ${typeBadge} ${stateBadge}
+              </span>
+              ${pinBadge}
+            </div>
+            <small style="color: var(--text-muted); font-size: 0.74rem;">
+              ${city.district ? city.district + ' • ' : ''}${areasCount} Localities (${areasPreview})
+            </small>
           </div>
         </li>
       `;
@@ -345,16 +352,29 @@
     DOM.cityList.querySelectorAll('.city-item').forEach(item => {
       item.addEventListener('click', () => {
         const city = item.getAttribute('data-city');
-        setCity(city);
+        const lat = parseFloat(item.getAttribute('data-lat'));
+        const lng = parseFloat(item.getAttribute('data-lng'));
+        const coords = (!isNaN(lat) && !isNaN(lng)) ? { lat, lng } : null;
+        setCity(city, coords);
         DOM.locationDropdown.classList.remove('active');
       });
     });
   }
 
-  function setCity(cityName) {
+  function setCity(cityName, coords = null) {
     state.selectedCity = cityName;
     state.filterLocality = '';
     localStorage.setItem('localcare_city', cityName);
+
+    if (coords && coords.lat && coords.lng) {
+      state.userCoordinates = coords;
+    } else if (window.IndiaLocations) {
+      const p = window.IndiaLocations.findCityByName(cityName);
+      if (p && p.lat && p.lng) {
+        state.userCoordinates = { lat: p.lat, lng: p.lng };
+      }
+    }
+
     updateCityLabels();
     renderCityList();
     renderDeals();
@@ -362,16 +382,22 @@
     renderCuratedShowcase();
     renderStickyChips();
     renderListings();
-    if (window.MapEngine && typeof window.MapEngine.jumpToCurrentCity === 'function') {
-      window.MapEngine.jumpToCurrentCity();
+
+    if (window.MapEngine) {
+      if (state.userCoordinates && typeof window.MapEngine.setDiscoveryRadius === 'function') {
+        window.MapEngine.setDiscoveryRadius(state.filterMaxRadius || 5, state.userCoordinates.lat, state.userCoordinates.lng);
+      } else if (typeof window.MapEngine.jumpToCurrentCity === 'function') {
+        window.MapEngine.jumpToCurrentCity();
+      }
     }
+
     document.dispatchEvent(new CustomEvent('cityChanged', { detail: cityName }));
     const jdCityEl = document.getElementById('jdServicesCityName');
     if (jdCityEl) jdCityEl.textContent = cityName;
     if (window.JDFeatures && window.JDFeatures.renderLocalityPills) {
       window.JDFeatures.renderLocalityPills();
     }
-    showToast(`Location set to ${cityName}`, 'info');
+    showToast(`📍 Location set to ${cityName} (Whole India Coverage)`, 'success');
   }
 
   function updateCityLabels() {

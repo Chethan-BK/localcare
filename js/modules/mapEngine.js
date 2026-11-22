@@ -13,6 +13,8 @@ window.MapEngine = (function () {
   let tileLayers = {};
   let villageMarker = null;
   let userGpsMarker = null;
+  let searchRadiusCircle = null;
+  let activeCenterCoords = { lat: 12.9716, lng: 77.5946 };
   let currentBusinesses = [];
   let selectedBusinessId = null;
   let activeFilterRadius = 5; // km
@@ -126,9 +128,10 @@ window.MapEngine = (function () {
               <div class="map-radius-selector" title="Search Radius">
                 <span class="radius-label">Radius:</span>
                 <select id="mapRadiusSelect" class="radius-dropdown" aria-label="Search Radius">
-                  <option value="2">2 km</option>
+                  <option value="1">1 km</option>
                   <option value="5" selected>5 km</option>
                   <option value="10">10 km</option>
+                  <option value="15">15 km</option>
                   <option value="25">25 km</option>
                   <option value="50">50 km</option>
                 </select>
@@ -630,6 +633,37 @@ window.MapEngine = (function () {
 
     if (window.LocalCare && window.LocalCare.setLocalityFilter) {
       window.LocalCare.setLocalityFilter(area);
+    }
+  }
+
+  function setDiscoveryRadius(radiusKm, centerLat, centerLng) {
+    if (!leafletMap || typeof window.L === 'undefined') return;
+
+    if (searchRadiusCircle) {
+      try { leafletMap.removeLayer(searchRadiusCircle); } catch (e) {}
+      searchRadiusCircle = null;
+    }
+
+    const lat = centerLat || activeCenterCoords.lat;
+    const lng = centerLng || activeCenterCoords.lng;
+    const rKm = parseFloat(radiusKm) || 5;
+
+    activeCenterCoords = { lat, lng };
+
+    try {
+      searchRadiusCircle = window.L.circle([lat, lng], {
+        radius: rKm * 1000,
+        color: '#ff6800',
+        weight: 2,
+        opacity: 0.85,
+        fillColor: '#ff6800',
+        fillOpacity: 0.08,
+        dashArray: '5, 8'
+      }).addTo(leafletMap);
+
+      leafletMap.fitBounds(searchRadiusCircle.getBounds(), { padding: [35, 35], maxZoom: 15 });
+    } catch (e) {
+      console.warn('Radius circle error', e);
     }
   }
 
