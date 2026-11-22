@@ -17,6 +17,8 @@ const bookingEngine = require('./backend/bookingEngine.js');
 const paymentGateway = require('./backend/paymentGateway.js');
 const aiService = require('./backend/aiService.js');
 const security = require('./backend/security.js');
+const indiaGeo = require('./backend/indiaGeo.js');
+const googlePlacesService = require('./backend/googlePlacesService.js');
 
 // Google Sheets CRM Sync Engine
 const GoogleSheetsCRMEngine = require('./crmSync.js');
@@ -244,14 +246,68 @@ async function handleApi(req, res, { pathname, query }) {
   if (pathname === '/api/businesses' && method === 'GET') {
     let list = db.find('businesses');
 
-    // City Filter
+    // Pan-India City / Village / Locality Filter
     if (query.city) {
-      list = list.filter(b => (b.city || '').toLowerCase() === query.city.toLowerCase());
+      const qCity = query.city.toLowerCase().trim();
+      const matchedPlace = indiaGeo.PAN_INDIA_PLACES.find(p => 
+        p.name.toLowerCase() === qCity || 
+        (p.aliases && p.aliases.includes(qCity))
+      );
+
+      if (matchedPlace && matchedPlace.parentHub) {
+        // Discovered village: filter parent hub or direct locality and calculate distance to village
+        const directOrHub = list.filter(b => 
+          (b.city || '').toLowerCase() === matchedPlace.parentHub.toLowerCase() ||
+          (b.city || '').toLowerCase() === matchedPlace.name.toLowerCase() ||
+          (b.locality || '').toLowerCase().includes(qCity) ||
+          (matchedPlace.aliases && matchedPlace.aliases.some(a => (b.locality || '').toLowerCase().includes(a)))
+        );
+        if (directOrHub.length > 0) {
+          list = directOrHub.map(b => {
+            const bLat = parseFloat(b.lat) || matchedPlace.lat;
+            const bLng = parseFloat(b.lng) || matchedPlace.lng;
+            const dist = indiaGeo.calculateDistance(matchedPlace.lat, matchedPlace.lng, bLat, bLng);
+            return { ...b, distanceKm: dist, distance: `${dist.toFixed(1)} km` };
+          });
+        }
+      } else {
+        list = list.filter(b => (b.city || '').toLowerCase() === qCity);
+      }
     }
 
     // Category Filter
     if (query.category && query.category !== 'all') {
       list = list.filter(b => b.category_id === query.category || b.category === query.category);
+    }
+
+    // GPS Lat / Lng Proximity Calculation
+    if (query.lat && query.lng) {
+      const qLat = parseFloat(query.lat);
+      const qLng = parseFloat(query.lng);
+      if (!isNaN(qLat) && !isNaN(qLng)) {
+        list = list.map(b => {
+          let bLat = parseFloat(b.lat);
+          let bLng = parseFloat(b.lng);
+          if (isNaN(bLat) || isNaN(bLng)) {
+            const p = indiaGeo.PAN_INDIA_PLACES.find(pl => pl.name.toLowerCase() === (b.city || '').toLowerCase());
+            bLat = p ? p.lat : 12.9716;
+            bLng = p ? p.lng : 77.5946;
+          }
+          const dist = indiaGeo.calculateDistance(qLat, qLng, bLat, bLng);
+          return { ...b, distanceKm: dist, distance: `${dist.toFixed(1)} km` };
+        });
+
+        if (query.radius) {
+          const r = parseFloat(query.radius) || 5;
+          const withinRadius = list.filter(b => b.distanceKm <= r);
+          if (withinRadius.length > 0) {
+            list = withinRadius;
+          } else {
+            // Auto-expand radius so small villages always get closest verified options
+            list.sort((a, b) => a.distanceKm - b.distanceKm);
+          }
+        }
+      }
     }
 
     // Natural Language Search via AI Intent Parser
@@ -272,7 +328,7 @@ async function handleApi(req, res, { pathname, query }) {
         if (locMatched.length > 0) list = locMatched;
       }
       // Check city mention in query (e.g. "bengaluru", "mangaluru", "mysuru", etc.)
-      const knownCities = ['bengaluru', 'mangaluru', 'mysuru', 'hubballi', 'mumbai', 'delhi', 'pune', 'chennai', 'hyderabad', 'kolkata', 'jaipur', 'ahmedabad'];
+      const knownCities = ['bengaluru', 'mangaluru', 'mysuru', 'hubballi', 'mumbai', 'delhi', 'pune', 'chennai', 'hyderabad', 'kolkata', 'jaipur', 'ahmedabad', 'udupi', 'kochi', 'kozhikode', 'kannur', 'madurai', 'coimbatore', 'nagpur'];
       for (const city of knownCities) {
         if (query.q.toLowerCase().includes(city)) {
           const cityMatched = list.filter(b => (b.city || '').toLowerCase() === city);
@@ -910,6 +966,74 @@ async function handleApi(req, res, { pathname, query }) {
       'Content-Disposition': `attachment; filename="${filename}"`
     });
     return res.end(csvData);
+  }
+
+  // ==========================================================================
+  // SECTION G: PAN-INDIA GEOSPATIAL & GOOGLE PLACES SERVICES
+  // ==========================================================================
+
+  // GET /api/geo/states (All 28 States & 8 Union Territories)
+  if (pathname === '/api/geo/states' && method === 'GET') {
+    return sendJson(res, 200, {
+      total: indiaGeo.STATES_AND_UTS.length,
+      states: indiaGeo.STATES_AND_UTS
+    });
+  }
+
+  // GET /api/geo/search (Search Villages, Taluks, Towns, Metros & PIN Codes)
+  if (pathname === '/api/geo/search' && method === 'GET') {
+    const q = query.q || '';
+    const results = indiaGeo.searchLocations(q);
+    return sendJson(res, 200, {
+      query: q,
+      count: results.length,
+      places: results
+    });
+  }
+
+  // GET /api/geo/lookup (Reverse Geocode GPS lat/lng to Village/Town)
+  if (pathname === '/api/geo/lookup' && method === 'GET') {
+    const lat = parseFloat(query.lat);
+    const lng = parseFloat(query.lng);
+    if (isNaN(lat) || isNaN(lng)) {
+      return sendJson(res, 400, { error: 'Valid lat and lng required' });
+    }
+    const nearest = indiaGeo.findNearestPlace(lat, lng);
+    return sendJson(res, 200, {
+      targetCoords: { lat, lng },
+      place: nearest
+    });
+  }
+
+  // GET /api/geo/nearby-businesses (Haversine discovery with auto-radius expansion)
+  if (pathname === '/api/geo/nearby-businesses' && method === 'GET') {
+    const lat = parseFloat(query.lat);
+    const lng = parseFloat(query.lng);
+    const radius = parseFloat(query.radius) || 5;
+    const category = query.category || 'all';
+
+    if (isNaN(lat) || isNaN(lng)) {
+      return sendJson(res, 400, { error: 'Valid lat and lng required' });
+    }
+
+    const allBusinesses = db.find('businesses');
+    const result = indiaGeo.discoverNearbyBusinesses(allBusinesses, lat, lng, radius, category);
+    return sendJson(res, 200, result);
+  }
+
+  // POST /api/places/nearby (Google Places API New / Hybrid Directory Proxy)
+  if (pathname === '/api/places/nearby' && method === 'POST') {
+    const body = await parseRequestBody(req);
+    const allBusinesses = db.find('businesses');
+    const result = await googlePlacesService.searchNearby(body, allBusinesses);
+    return sendJson(res, result.success ? 200 : 400, result);
+  }
+
+  // GET /api/places/geocode (Google Geocoding / IndiaGeo Geocoder)
+  if (pathname === '/api/places/geocode' && method === 'GET') {
+    const address = query.address || query.q || '';
+    const result = await googlePlacesService.geocode(address);
+    return sendJson(res, result.success ? 200 : 400, result);
   }
 
   // Health Check

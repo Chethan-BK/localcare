@@ -30111,6 +30111,320 @@
       "retries": 0,
       "timestamp": "2026-11-22T04:45:13.279Z",
       "status": "pending"
+    },
+    {
+      "id": "evt-1795324423963-19",
+      "sheet": "Customers",
+      "action": "CREATE",
+      "record": {
+        "id": "CUST-5875",
+        "user_id": "usr_048c98a8-a7ef-4058-866e-db59baf39c20",
+        "full_name": "Rohan Sharma",
+        "mobile": "+91 9376292165",
+        "city": "Bengaluru",
+        "locality": "Indiranagar",
+        "account_status": "Active",
+        "ltv_spend": 0,
+        "bookings_count": 0,
+        "created_at": "2026-11-22T05:13:43.947Z",
+        "updated_at": "2026-11-22T05:13:43.947Z"
+      },
+      "retries": 0,
+      "timestamp": "2026-11-22T05:13:43.963Z",
+      "status": "pending"
+    },
+    {
+      "id": "evt-1795324424056-101",
+      "sheet": "Bookings",
+      "action": "CREATE",
+      "record": {
+        "id": "LC-BK-1220",
+        "customer_id": "CUST-1001",
+        "business_id": "b-101",
+        "service_id": null,
+        "scheduled_date": "2026-12-17",
+        "time_slot": "11:00 AM - 12:00 PM",
+        "status": "Confirmed",
+        "amount": 599,
+        "otp": "4122",
+        "technician_name": "Suresh Gowda",
+        "technician_phone": "+91 98450 11223",
+        "technician_vehicle": "KA-01-EA-4921 (Hero Splendor)",
+        "address": "Koramangala 4th Block, Bengaluru",
+        "notes": "",
+        "payment_method": "UPI",
+        "created_at": "2026-11-22T05:13:44.033Z",
+        "updated_at": "2026-11-22T05:13:44.033Z"
+      },
+      "retries": 0,
+      "timestamp": "2026-11-22T05:13:44.056Z",
+      "status": "pending"
+    },
+    {
+      "id": "evt-1795324424063-864",
+      "sheet": "Payments",
+      "action": "CREATE",
+      "record": {
+        "transactionId": "pay_951e2bb0-377c-4f4c-b1b7-eae02482f0d7",
+        "bookingId": "LC-BK-1220",
+        "amount": 599,
+        "paymentStatus": "Captured (Escrow Protected)"
+      },
+      "retries": 0,
+      "timestamp": "2026-11-22T05:13:44.063Z",
+      "status": "pending"
+    },
+    {
+      "id": "evt-1795324424159-546",
+      "sheet": "Payments",
+      "action": "UPDATE",
+      "record": {
+        "id": "pay_18532434-50f1-4e26-9755-ae2ac670d463",
+        "booking_id": "LC-BK-1220",
+        "customer_id": "CUST-1001",
+        "amount": 1050,
+        "gst_amount": 50,
+        "currency": "INR",
+        "payment_gateway": "Razorpay",
+        "gateway_order_id": "order_44234ba446b442",
+        "gateway_payment_id": "pay_real_txn_999",
+        "status": "Captured",
+        "merchant_vpa": "localcare.merchant@icici",
+        "created_at": "2026-11-22T05:13:44.120Z",
+        "updated_at": "2026-11-22T05:13:44.135Z"
+      },
+      "retries": 0,
+      "timestamp": "2026-11-22T05:13:44.159Z",
+      "status": "pending"
+    },
+    {
+      "id": "evt-1795324425040-578",
+      "sheet": "Businesses",
+      "action": "CREATE",
+      "record": {
+        "name": "Apex Robotics & Laptop Lab",
+        "category_id": "tech",
+        "category": "tech",
+        "subcategory": "General Services",
+        "city": "Bengaluru",
+        "locality": "Koramangala 5th Block",
+        "address": "Koramangala 5th Block, Bengaluru",
+        "phone": "+91 98450 44696",
+        "whatsapp": "919845044696",
+        "operating_hours": "9:00 AM - 8:00 PM",
+        "starting_price": 599,
+        "rating": 5,
+        "reviews_count": 1,
+        "verified": false,
+        "trust_score": 85,
+        "description": "Verified local service provider on LocalCare Infinity.",
+        "id": "bus_4363bc52-0c4f-4784-b1f2-1587f43af766",
+        "created_at": "2026-11-22T05:13:45.016Z",
+        "updated_at": "2026-11-22T05:13:45.016Z"
+      },
+      "retries": 0,
+      "timestamp": "2026-11-22T05:13:45.040Z",
+      "status": "pending"
+    },
+    {
+      "id": "evt-1795324425067-972",
+      "sheet": "Businesses",
+      "action": "UPDATE",
+      "record": {
+        "name": "Apex Robotics & Laptop Lab",
+        "category_id": "tech",
+        "category": "tech",
+        "subcategory": "General Services",
+        "city": "Bengaluru",
+        "locality": "Koramangala 5th Block",
+        "address": "Koramangala 5th Block, Bengaluru",
+        "phone": "+91 98450 44696",
+        "whatsapp": "919845044696",
+        "operating_hours": "9:00 AM - 8:00 PM",
+        "starting_price": 599,
+        "rating": 5,
+        "reviews_count": 1,
+        "verified": true,
+        "trust_score": 95,
+        "description": "Verified local service provider on LocalCare Infinity.",
+        "id": "bus_4363bc52-0c4f-4784-b1f2-1587f43af766",
+        "created_at": "2026-11-22T05:13:45.016Z",
+        "updated_at": "2026-11-22T05:13:45.052Z",
+        "police_verified": true
+      },
+      "retries": 0,
+      "timestamp": "2026-11-22T05:13:45.067Z",
+      "status": "pending"
+    },
+    {
+      "id": "evt-1795324425104-112",
+      "sheet": "Bookings",
+      "action": "CREATE",
+      "record": {
+        "id": "LC-BK-1514",
+        "customer_id": "CUST-1001",
+        "business_id": "b-101",
+        "service_id": null,
+        "scheduled_date": "Tomorrow",
+        "time_slot": "11:00 AM - 12:00 PM",
+        "status": "Confirmed",
+        "amount": 499,
+        "otp": "9210",
+        "technician_name": "Suresh Gowda",
+        "technician_phone": "+91 98450 11223",
+        "technician_vehicle": "KA-01-EA-4921 (Hero Splendor)",
+        "address": "42, 5th Cross, Koramangala, Bengaluru",
+        "notes": "",
+        "payment_method": "UPI",
+        "created_at": "2026-11-22T05:13:45.079Z",
+        "updated_at": "2026-11-22T05:13:45.079Z",
+        "customer_phone": "+91 98451 98765"
+      },
+      "retries": 0,
+      "timestamp": "2026-11-22T05:13:45.104Z",
+      "status": "pending"
+    },
+    {
+      "id": "evt-1795324425117-435",
+      "sheet": "Payments",
+      "action": "CREATE",
+      "record": {
+        "transactionId": "pay_8a894050-8c9f-4b3e-8b5a-db2228a77275",
+        "bookingId": "LC-BK-1514",
+        "amount": 499,
+        "paymentStatus": "Captured (Escrow Protected)"
+      },
+      "retries": 0,
+      "timestamp": "2026-11-22T05:13:45.117Z",
+      "status": "pending"
+    },
+    {
+      "id": "evt-1795324425169-880",
+      "sheet": "Bookings",
+      "action": "UPDATE",
+      "record": {
+        "id": "LC-BK-1514",
+        "customer_id": "CUST-1001",
+        "business_id": "b-101",
+        "service_id": null,
+        "scheduled_date": "Tomorrow",
+        "time_slot": "11:00 AM - 12:00 PM",
+        "status": "Cancelled",
+        "amount": 499,
+        "otp": "9210",
+        "technician_name": "Suresh Gowda",
+        "technician_phone": "+91 98450 11223",
+        "technician_vehicle": "KA-01-EA-4921 (Hero Splendor)",
+        "address": "42, 5th Cross, Koramangala, Bengaluru",
+        "notes": "Cancellation Reason: Customer requested cancellation",
+        "payment_method": "UPI",
+        "created_at": "2026-11-22T05:13:45.079Z",
+        "updated_at": "2026-11-22T05:13:45.142Z",
+        "customer_phone": "+91 98451 98765"
+      },
+      "retries": 0,
+      "timestamp": "2026-11-22T05:13:45.169Z",
+      "status": "pending"
+    },
+    {
+      "id": "evt-1795324425197-501",
+      "sheet": "Enquiries",
+      "action": "CREATE",
+      "record": {
+        "id": "LC-QT-8301",
+        "customer_id": "CUST-1001",
+        "category_id": "home",
+        "requirement": "Urgent burst pipe repair under kitchen sink",
+        "locality": "Valachil, Mangaluru",
+        "urgency": "Immediate (Next 30 mins)",
+        "budget": "Under ₹600",
+        "status": "3 Bids Received",
+        "bids": [
+          {
+            "id": "bid-1",
+            "providerName": "QuickPro Solutions",
+            "price": 450,
+            "rating": 4.8
+          },
+          {
+            "id": "bid-2",
+            "providerName": "Apex HomeCare",
+            "price": 420,
+            "rating": 4.9
+          },
+          {
+            "id": "bid-3",
+            "providerName": "LocalCare Express",
+            "price": 390,
+            "rating": 4.7
+          }
+        ],
+        "created_at": "2026-11-22T05:13:45.184Z",
+        "updated_at": "2026-11-22T05:13:45.184Z"
+      },
+      "retries": 0,
+      "timestamp": "2026-11-22T05:13:45.197Z",
+      "status": "pending"
+    },
+    {
+      "id": "evt-1795324425237-540",
+      "sheet": "Reviews",
+      "action": "CREATE",
+      "record": {
+        "business_id": "b-101",
+        "customer_id": "CUST-1001",
+        "rating": 5,
+        "comment": "Outstanding painless dental cleaning. Very hygienic!",
+        "verified_booking": true,
+        "id": "rev_8b16f00b-806f-48c8-8133-279fb0b320c8",
+        "created_at": "2026-11-22T05:13:45.220Z",
+        "updated_at": "2026-11-22T05:13:45.220Z"
+      },
+      "retries": 0,
+      "timestamp": "2026-11-22T05:13:45.237Z",
+      "status": "pending"
+    },
+    {
+      "id": "evt-1795324425354-734",
+      "sheet": "Customers",
+      "action": "CREATE",
+      "record": {
+        "id": "CUST-3117",
+        "full_name": "Aarav Patel",
+        "name": "Aarav Patel",
+        "mobile": "+91 9987148053",
+        "phone": "+91 9987148053",
+        "email": "aarav.patel@test.in",
+        "city": "Bengaluru",
+        "locality": "Whitefield",
+        "created_at": "2026-11-22T05:13:45.347Z",
+        "updated_at": "2026-11-22T05:13:45.347Z"
+      },
+      "retries": 0,
+      "timestamp": "2026-11-22T05:13:45.354Z",
+      "status": "pending"
+    },
+    {
+      "id": "evt-1795324425374-252",
+      "sheet": "Complaints",
+      "action": "CREATE",
+      "record": {
+        "id": "CMP-2570",
+        "customer_id": "CUST-1001",
+        "customer_name": "Kavita Menon",
+        "customer_phone": "+91 98450 55443",
+        "category": "Service Quality",
+        "subject": "Technician caused minor damage to pipe fitting",
+        "description": "While tightening the water valve, technician caused minor pipe damage.",
+        "severity": "Critical",
+        "status": "Open",
+        "aiTriage": "Immediate Technician Suspension & Escrow Freeze",
+        "created_at": "2026-11-22T05:13:45.366Z",
+        "updated_at": "2026-11-22T05:13:45.366Z"
+      },
+      "retries": 0,
+      "timestamp": "2026-11-22T05:13:45.374Z",
+      "status": "pending"
     }
   ],
   "crmConfig": {

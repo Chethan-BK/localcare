@@ -102,7 +102,7 @@ class AIService {
 
     // Locality detection
     let detectedLocality = null;
-    const localities = ['koramangala', 'indiranagar', 'hsr layout', 'whitefield', 'jayanagar', 'bandra', 'andheri', 'valachil', 'kadri'];
+    const localities = ['koramangala', 'indiranagar', 'hsr layout', 'whitefield', 'jayanagar', 'bandra', 'andheri', 'valachil', 'olachi', 'kadri', 'ullal', 'manipal', 'wayanad', 'kalpetta', 'sulthan bathery', 'kannur', 'osian', 'sanganer', 'coimbatore', 'madurai'];
     for (const loc of localities) {
       if (q.includes(loc)) {
         detectedLocality = loc.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
