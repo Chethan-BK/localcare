@@ -469,6 +469,28 @@
       "is_verified": false,
       "created_at": "2026-11-22T05:13:43.946Z",
       "updated_at": "2026-11-22T05:13:43.946Z"
+    },
+    {
+      "id": "usr_f4b9567f-0378-4851-9898-6bde80a406e6",
+      "email": "test_1795324994337@localcare.in",
+      "password_hash": "f94f95d82e8e61714c883a91e14a32e75996bf07cbe95e6050edb4d719df693dcd4a538b34ecec207ca188b9e59b4de84bca05a40823671d95f6dba682fc3b3f",
+      "salt": "2931074c33a724c8b9ef1b943e05f963",
+      "role": "customer",
+      "phone": "+91 9459930829",
+      "is_verified": false,
+      "created_at": "2026-11-22T05:23:14.365Z",
+      "updated_at": "2026-11-22T05:23:14.365Z"
+    },
+    {
+      "id": "usr_da14fe58-75f0-4860-988a-ef0feff9aa2e",
+      "email": "test_1795325054026@localcare.in",
+      "password_hash": "3798d543debcf50642a41b9216ec3d147c5009961e7f039396a47b89082c7431da0c02c8705fe1552cfbfccc412cdbfb250b2e05b14d0277815adc775305aaab",
+      "salt": "5eb3bacea9a594b161ea9ebbc6cd64c9",
+      "role": "customer",
+      "phone": "+91 9824896954",
+      "is_verified": false,
+      "created_at": "2026-11-22T05:24:14.054Z",
+      "updated_at": "2026-11-22T05:24:14.054Z"
     }
   ],
   "customer_profiles": [
@@ -481,10 +503,10 @@
       "locality": "Koramangala 4th Block",
       "address": "House #42, 7th Cross, Koramangala 4th Block, Bengaluru",
       "account_status": "Active (VIP)",
-      "ltv_spend": 53058,
-      "bookings_count": 96,
+      "ltv_spend": 55753,
+      "bookings_count": 101,
       "created_at": "2026-11-01T10:53:03.259Z",
-      "updated_at": "2026-11-22T05:13:45.079Z"
+      "updated_at": "2026-11-22T05:24:15.050Z"
     },
     {
       "id": "CUST-3879",
@@ -1221,6 +1243,56 @@
       "locality": "Whitefield",
       "created_at": "2026-11-22T05:13:45.347Z",
       "updated_at": "2026-11-22T05:13:45.347Z"
+    },
+    {
+      "id": "CUST-7731",
+      "user_id": "usr_f4b9567f-0378-4851-9898-6bde80a406e6",
+      "full_name": "Rohan Sharma",
+      "mobile": "+91 9459930829",
+      "city": "Bengaluru",
+      "locality": "Indiranagar",
+      "account_status": "Active",
+      "ltv_spend": 0,
+      "bookings_count": 0,
+      "created_at": "2026-11-22T05:23:14.365Z",
+      "updated_at": "2026-11-22T05:23:14.365Z"
+    },
+    {
+      "id": "CUST-4004",
+      "full_name": "Aarav Patel",
+      "name": "Aarav Patel",
+      "mobile": "+91 9919926181",
+      "phone": "+91 9919926181",
+      "email": "aarav.patel@test.in",
+      "city": "Bengaluru",
+      "locality": "Whitefield",
+      "created_at": "2026-11-22T05:23:15.513Z",
+      "updated_at": "2026-11-22T05:23:15.513Z"
+    },
+    {
+      "id": "CUST-7183",
+      "user_id": "usr_da14fe58-75f0-4860-988a-ef0feff9aa2e",
+      "full_name": "Rohan Sharma",
+      "mobile": "+91 9824896954",
+      "city": "Bengaluru",
+      "locality": "Indiranagar",
+      "account_status": "Active",
+      "ltv_spend": 0,
+      "bookings_count": 0,
+      "created_at": "2026-11-22T05:24:14.054Z",
+      "updated_at": "2026-11-22T05:24:14.054Z"
+    },
+    {
+      "id": "CUST-7436",
+      "full_name": "Aarav Patel",
+      "name": "Aarav Patel",
+      "mobile": "+91 9999316114",
+      "phone": "+91 9999316114",
+      "email": "aarav.patel@test.in",
+      "city": "Bengaluru",
+      "locality": "Whitefield",
+      "created_at": "2026-11-22T05:24:15.258Z",
+      "updated_at": "2026-11-22T05:24:15.258Z"
     }
   ],
   "business_owners": [
@@ -1564,6 +1636,30 @@
       ],
       "created_at": "2026-11-22T05:13:45.318Z",
       "updated_at": "2026-11-22T05:13:45.318Z"
+    },
+    {
+      "id": "petcare_4503",
+      "title": "Pet Care & Veterinary",
+      "icon": "🐾",
+      "subcategories": [
+        "Vets",
+        "Pet Grooming",
+        "Pet Boarding"
+      ],
+      "created_at": "2026-11-22T05:23:15.487Z",
+      "updated_at": "2026-11-22T05:23:15.487Z"
+    },
+    {
+      "id": "petcare_3644",
+      "title": "Pet Care & Veterinary",
+      "icon": "🐾",
+      "subcategories": [
+        "Vets",
+        "Pet Grooming",
+        "Pet Boarding"
+      ],
+      "created_at": "2026-11-22T05:24:15.233Z",
+      "updated_at": "2026-11-22T05:24:15.233Z"
     }
   ],
   "businesses": [
@@ -2294,14 +2390,14 @@
       "operating_hours": "9:00 AM - 9:00 PM",
       "starting_price": 499,
       "rating": 5,
-      "reviews_count": 20,
+      "reviews_count": 22,
       "verified": true,
       "trust_score": 106,
       "police_verified": true,
       "gst_number": "29AABCU9603R1ZM",
       "image_url": "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=800&q=80",
       "description": "Premier multi-speciality dental healthcare clinic in Koramangala with 15+ years of verified clinical experience. Fully sanitized operatories with German painless imaging systems.",
-      "updated_at": "2026-11-22T05:13:45.228Z",
+      "updated_at": "2026-11-22T05:24:15.148Z",
       "distance": "13.2 km"
     },
     {
@@ -7299,6 +7395,50 @@
       "created_at": "2026-11-22T05:13:45.016Z",
       "updated_at": "2026-11-22T05:13:45.052Z",
       "police_verified": true
+    },
+    {
+      "name": "Apex Robotics & Laptop Lab",
+      "category_id": "tech",
+      "category": "tech",
+      "subcategory": "General Services",
+      "city": "Bengaluru",
+      "locality": "Koramangala 5th Block",
+      "address": "Koramangala 5th Block, Bengaluru",
+      "phone": "+91 98450 41619",
+      "whatsapp": "919845041619",
+      "operating_hours": "9:00 AM - 8:00 PM",
+      "starting_price": 599,
+      "rating": 5,
+      "reviews_count": 1,
+      "verified": true,
+      "trust_score": 95,
+      "description": "Verified local service provider on LocalCare Infinity.",
+      "id": "bus_1e780c28-e492-4eee-9218-db35c7e1fffb",
+      "created_at": "2026-11-22T05:23:15.275Z",
+      "updated_at": "2026-11-22T05:23:15.301Z",
+      "police_verified": true
+    },
+    {
+      "name": "Apex Robotics & Laptop Lab",
+      "category_id": "tech",
+      "category": "tech",
+      "subcategory": "General Services",
+      "city": "Bengaluru",
+      "locality": "Koramangala 5th Block",
+      "address": "Koramangala 5th Block, Bengaluru",
+      "phone": "+91 98450 57940",
+      "whatsapp": "919845057940",
+      "operating_hours": "9:00 AM - 8:00 PM",
+      "starting_price": 599,
+      "rating": 5,
+      "reviews_count": 1,
+      "verified": true,
+      "trust_score": 95,
+      "description": "Verified local service provider on LocalCare Infinity.",
+      "id": "bus_578daef3-36eb-458b-8209-334320200d76",
+      "created_at": "2026-11-22T05:24:15.001Z",
+      "updated_at": "2026-11-22T05:24:15.028Z",
+      "police_verified": true
     }
   ],
   "services": [
@@ -12260,6 +12400,24 @@
       "id": "ser_4a859394-5c03-46dc-9561-b0db3e8bd8ac",
       "created_at": "2026-11-22T05:13:45.025Z",
       "updated_at": "2026-11-22T05:13:45.025Z"
+    },
+    {
+      "business_id": "bus_1e780c28-e492-4eee-9218-db35c7e1fffb",
+      "name": "Motherboard & Screen Diagnostics",
+      "price": 599,
+      "duration": "45 mins",
+      "id": "ser_bd220871-fa6a-431f-a3a8-a3c0d791c29e",
+      "created_at": "2026-11-22T05:23:15.282Z",
+      "updated_at": "2026-11-22T05:23:15.282Z"
+    },
+    {
+      "business_id": "bus_578daef3-36eb-458b-8209-334320200d76",
+      "name": "Motherboard & Screen Diagnostics",
+      "price": 599,
+      "duration": "45 mins",
+      "id": "ser_13db5608-baa0-4e13-8f37-145c4b07ab8e",
+      "created_at": "2026-11-22T05:24:15.007Z",
+      "updated_at": "2026-11-22T05:24:15.007Z"
     }
   ],
   "service_pricing": [],
@@ -26938,44 +27096,6 @@
       "updated_at": "2026-11-21T16:43:08.837Z"
     },
     {
-      "id": "LC-BK-1945",
-      "customer_id": "CUST-1001",
-      "business_id": "b-101",
-      "service_id": null,
-      "scheduled_date": "2026-12-11",
-      "time_slot": "11:00 AM - 12:00 PM",
-      "status": "Confirmed",
-      "amount": 599,
-      "otp": "7527",
-      "technician_name": "Suresh Gowda",
-      "technician_phone": "+91 98450 11223",
-      "technician_vehicle": "KA-01-EA-4921 (Hero Splendor)",
-      "address": "Koramangala 4th Block, Bengaluru",
-      "notes": "",
-      "payment_method": "UPI",
-      "created_at": "2026-11-21T16:47:40.914Z",
-      "updated_at": "2026-11-21T16:47:40.963Z"
-    },
-    {
-      "id": "LC-BK-1096",
-      "customer_id": "CUST-1001",
-      "business_id": "b-101",
-      "service_id": null,
-      "scheduled_date": "2026-12-11",
-      "time_slot": "11:00 AM - 12:00 PM",
-      "status": "Confirmed",
-      "amount": 499,
-      "otp": "9277",
-      "technician_name": "Suresh Gowda",
-      "technician_phone": "+91 98450 11223",
-      "technician_vehicle": "KA-01-EA-4921 (Hero Splendor)",
-      "address": "Koramangala 4th Block, Bengaluru",
-      "notes": "",
-      "payment_method": "UPI",
-      "created_at": "2026-11-21T16:47:40.938Z",
-      "updated_at": "2026-11-21T16:47:40.938Z"
-    },
-    {
       "id": "LC-BK-485552",
       "quoteId": "LC-QT-3924",
       "customer_id": "CUST-1001",
@@ -27344,26 +27464,6 @@
       "updated_at": "2026-11-22T05:13:44.070Z"
     },
     {
-      "id": "LC-BK-1514",
-      "customer_id": "CUST-1001",
-      "business_id": "b-101",
-      "service_id": null,
-      "scheduled_date": "Tomorrow",
-      "time_slot": "11:00 AM - 12:00 PM",
-      "status": "Cancelled",
-      "amount": 499,
-      "otp": "9210",
-      "technician_name": "Suresh Gowda",
-      "technician_phone": "+91 98450 11223",
-      "technician_vehicle": "KA-01-EA-4921 (Hero Splendor)",
-      "address": "42, 5th Cross, Koramangala, Bengaluru",
-      "notes": "Cancellation Reason: Customer requested cancellation",
-      "payment_method": "UPI",
-      "created_at": "2026-11-22T05:13:45.079Z",
-      "updated_at": "2026-11-22T05:13:45.142Z",
-      "customer_phone": "+91 98451 98765"
-    },
-    {
       "id": "LC-BK-585447",
       "quoteId": "LC-QT-8301",
       "customer_id": "CUST-1001",
@@ -27376,6 +27476,111 @@
       "otp": "7448",
       "created_at": "2026-11-22T05:13:45.206Z",
       "updated_at": "2026-11-22T05:13:45.206Z"
+    },
+    {
+      "id": "LC-BK-7100",
+      "customer_id": "CUST-1001",
+      "business_id": "b-101",
+      "service_id": null,
+      "scheduled_date": "2026-12-11",
+      "time_slot": "11:00 AM - 12:00 PM",
+      "status": "Confirmed",
+      "amount": 599,
+      "otp": "2466",
+      "technician_name": "Suresh Gowda",
+      "technician_phone": "+91 98450 11223",
+      "technician_vehicle": "KA-01-EA-4921 (Hero Splendor)",
+      "address": "Koramangala 4th Block, Bengaluru",
+      "notes": "",
+      "payment_method": "UPI",
+      "created_at": "2026-11-22T05:23:14.427Z",
+      "updated_at": "2026-11-22T05:23:14.488Z"
+    },
+    {
+      "id": "LC-BK-713068",
+      "quoteId": "LC-QT-8870",
+      "customer_id": "CUST-1001",
+      "customerName": "Chethan B K",
+      "business_id": "b-103",
+      "scheduled_date": "2026-11-22",
+      "time_slot": "2:00 PM - 3:00 PM",
+      "bidId": "bid-1",
+      "status": "Confirmed",
+      "otp": "9554",
+      "created_at": "2026-11-22T05:23:15.386Z",
+      "updated_at": "2026-11-22T05:23:15.386Z"
+    },
+    {
+      "id": "LC-BK-6238",
+      "customer_id": "CUST-1001",
+      "business_id": "b-101",
+      "service_id": null,
+      "scheduled_date": "2026-12-26",
+      "time_slot": "11:00 AM - 12:00 PM",
+      "status": "Confirmed",
+      "amount": 599,
+      "otp": "3203",
+      "technician_name": "Suresh Gowda",
+      "technician_phone": "+91 98450 11223",
+      "technician_vehicle": "KA-01-EA-4921 (Hero Splendor)",
+      "address": "Koramangala 4th Block, Bengaluru",
+      "notes": "",
+      "payment_method": "UPI",
+      "created_at": "2026-11-22T05:24:14.112Z",
+      "updated_at": "2026-11-22T05:24:14.178Z"
+    },
+    {
+      "id": "LC-BK-1176",
+      "customer_id": "CUST-1001",
+      "business_id": "b-101",
+      "service_id": null,
+      "scheduled_date": "2026-12-26",
+      "time_slot": "11:00 AM - 12:00 PM",
+      "status": "Confirmed",
+      "amount": 499,
+      "otp": "1661",
+      "technician_name": "Suresh Gowda",
+      "technician_phone": "+91 98450 11223",
+      "technician_vehicle": "KA-01-EA-4921 (Hero Splendor)",
+      "address": "Koramangala 4th Block, Bengaluru",
+      "notes": "",
+      "payment_method": "UPI",
+      "created_at": "2026-11-22T05:24:14.144Z",
+      "updated_at": "2026-11-22T05:24:14.144Z"
+    },
+    {
+      "id": "LC-BK-2777",
+      "customer_id": "CUST-1001",
+      "business_id": "b-101",
+      "service_id": null,
+      "scheduled_date": "Tomorrow",
+      "time_slot": "11:00 AM - 12:00 PM",
+      "status": "Cancelled",
+      "amount": 499,
+      "otp": "5459",
+      "technician_name": "Suresh Gowda",
+      "technician_phone": "+91 98450 11223",
+      "technician_vehicle": "KA-01-EA-4921 (Hero Splendor)",
+      "address": "42, 5th Cross, Koramangala, Bengaluru",
+      "notes": "Cancellation Reason: Customer requested cancellation",
+      "payment_method": "UPI",
+      "created_at": "2026-11-22T05:24:15.050Z",
+      "updated_at": "2026-11-22T05:24:15.085Z",
+      "customer_phone": "+91 98451 98765"
+    },
+    {
+      "id": "LC-BK-675730",
+      "quoteId": "LC-QT-6993",
+      "customer_id": "CUST-1001",
+      "customerName": "Chethan B K",
+      "business_id": "b-103",
+      "scheduled_date": "2026-11-22",
+      "time_slot": "2:00 PM - 3:00 PM",
+      "bidId": "bid-1",
+      "status": "Confirmed",
+      "otp": "3515",
+      "created_at": "2026-11-22T05:24:15.129Z",
+      "updated_at": "2026-11-22T05:24:15.129Z"
     }
   ],
   "payments": [
@@ -28788,6 +28993,96 @@
       "merchant_vpa": "localcare.merchant@icici",
       "created_at": "2026-11-22T05:13:45.087Z",
       "updated_at": "2026-11-22T05:13:45.087Z"
+    },
+    {
+      "id": "pay_45b932f0-bfde-437e-91e7-90687815061c",
+      "booking_id": "LC-BK-7100",
+      "customer_id": "CUST-1001",
+      "amount": 599,
+      "gst_amount": 28.52,
+      "currency": "INR",
+      "payment_gateway": "Razorpay",
+      "gateway_order_id": "order_4bfebd033eae4f",
+      "gateway_payment_id": null,
+      "status": "Created",
+      "merchant_vpa": "localcare.merchant@icici",
+      "created_at": "2026-11-22T05:23:14.435Z",
+      "updated_at": "2026-11-22T05:23:14.435Z"
+    },
+    {
+      "id": "pay_6d70355f-2fe6-4ed1-b987-1e355602d5e0",
+      "booking_id": "LC-BK-7100",
+      "customer_id": "CUST-1001",
+      "amount": 1050,
+      "gst_amount": 50,
+      "currency": "INR",
+      "payment_gateway": "Razorpay",
+      "gateway_order_id": "order_7ab8459fc40045",
+      "gateway_payment_id": "pay_real_txn_999",
+      "status": "Captured",
+      "merchant_vpa": "localcare.merchant@icici",
+      "created_at": "2026-11-22T05:23:14.480Z",
+      "updated_at": "2026-11-22T05:23:14.488Z"
+    },
+    {
+      "id": "pay_695e8f4f-f94c-46f8-8a66-5f755e1e5611",
+      "booking_id": "LC-BK-2620",
+      "customer_id": "CUST-1001",
+      "amount": 499,
+      "gst_amount": 23.76,
+      "currency": "INR",
+      "payment_gateway": "Razorpay",
+      "gateway_order_id": "order_a7ac455f820041",
+      "gateway_payment_id": null,
+      "status": "Created",
+      "merchant_vpa": "localcare.merchant@icici",
+      "created_at": "2026-11-22T05:23:15.327Z",
+      "updated_at": "2026-11-22T05:23:15.327Z"
+    },
+    {
+      "id": "pay_97678e3b-7142-443a-be73-b1e13d9d9649",
+      "booking_id": "LC-BK-6238",
+      "customer_id": "CUST-1001",
+      "amount": 599,
+      "gst_amount": 28.52,
+      "currency": "INR",
+      "payment_gateway": "Razorpay",
+      "gateway_order_id": "order_10e3992fb9d74a",
+      "gateway_payment_id": null,
+      "status": "Created",
+      "merchant_vpa": "localcare.merchant@icici",
+      "created_at": "2026-11-22T05:24:14.119Z",
+      "updated_at": "2026-11-22T05:24:14.119Z"
+    },
+    {
+      "id": "pay_4e0af614-be31-4501-a92d-63a95a87cdbd",
+      "booking_id": "LC-BK-6238",
+      "customer_id": "CUST-1001",
+      "amount": 1050,
+      "gst_amount": 50,
+      "currency": "INR",
+      "payment_gateway": "Razorpay",
+      "gateway_order_id": "order_ea8b760c62af41",
+      "gateway_payment_id": "pay_real_txn_999",
+      "status": "Captured",
+      "merchant_vpa": "localcare.merchant@icici",
+      "created_at": "2026-11-22T05:24:14.170Z",
+      "updated_at": "2026-11-22T05:24:14.178Z"
+    },
+    {
+      "id": "pay_a66640db-dd7d-4c48-863c-d68e8d1fd6e5",
+      "booking_id": "LC-BK-2777",
+      "customer_id": "CUST-1001",
+      "amount": 499,
+      "gst_amount": 23.76,
+      "currency": "INR",
+      "payment_gateway": "Razorpay",
+      "gateway_order_id": "order_1089020bd2de44",
+      "gateway_payment_id": null,
+      "status": "Created",
+      "merchant_vpa": "localcare.merchant@icici",
+      "created_at": "2026-11-22T05:24:15.057Z",
+      "updated_at": "2026-11-22T05:24:15.057Z"
     }
   ],
   "reviews": [
@@ -29180,6 +29475,26 @@
       "id": "rev_8b16f00b-806f-48c8-8133-279fb0b320c8",
       "created_at": "2026-11-22T05:13:45.220Z",
       "updated_at": "2026-11-22T05:13:45.220Z"
+    },
+    {
+      "business_id": "b-101",
+      "customer_id": "CUST-1001",
+      "rating": 5,
+      "comment": "Outstanding painless dental cleaning. Very hygienic!",
+      "verified_booking": true,
+      "id": "rev_7a020c50-2f59-466e-ae67-de1ffdc555f7",
+      "created_at": "2026-11-22T05:23:15.393Z",
+      "updated_at": "2026-11-22T05:23:15.393Z"
+    },
+    {
+      "business_id": "b-101",
+      "customer_id": "CUST-1001",
+      "rating": 5,
+      "comment": "Outstanding painless dental cleaning. Very hygienic!",
+      "verified_booking": true,
+      "id": "rev_4a54e7ec-5fcb-44bb-b8e4-28986fe847a1",
+      "created_at": "2026-11-22T05:24:15.139Z",
+      "updated_at": "2026-11-22T05:24:15.139Z"
     }
   ],
   "enquiries": [
@@ -29782,6 +30097,70 @@
       ],
       "created_at": "2026-11-22T05:13:45.184Z",
       "updated_at": "2026-11-22T05:13:45.184Z"
+    },
+    {
+      "id": "LC-QT-8870",
+      "customer_id": "CUST-1001",
+      "category_id": "home",
+      "requirement": "Urgent burst pipe repair under kitchen sink",
+      "locality": "Valachil, Mangaluru",
+      "urgency": "Immediate (Next 30 mins)",
+      "budget": "Under ₹600",
+      "status": "3 Bids Received",
+      "bids": [
+        {
+          "id": "bid-1",
+          "providerName": "QuickPro Solutions",
+          "price": 450,
+          "rating": 4.8
+        },
+        {
+          "id": "bid-2",
+          "providerName": "Apex HomeCare",
+          "price": 420,
+          "rating": 4.9
+        },
+        {
+          "id": "bid-3",
+          "providerName": "LocalCare Express",
+          "price": 390,
+          "rating": 4.7
+        }
+      ],
+      "created_at": "2026-11-22T05:23:15.372Z",
+      "updated_at": "2026-11-22T05:23:15.372Z"
+    },
+    {
+      "id": "LC-QT-6993",
+      "customer_id": "CUST-1001",
+      "category_id": "home",
+      "requirement": "Urgent burst pipe repair under kitchen sink",
+      "locality": "Valachil, Mangaluru",
+      "urgency": "Immediate (Next 30 mins)",
+      "budget": "Under ₹600",
+      "status": "3 Bids Received",
+      "bids": [
+        {
+          "id": "bid-1",
+          "providerName": "QuickPro Solutions",
+          "price": 450,
+          "rating": 4.8
+        },
+        {
+          "id": "bid-2",
+          "providerName": "Apex HomeCare",
+          "price": 420,
+          "rating": 4.9
+        },
+        {
+          "id": "bid-3",
+          "providerName": "LocalCare Express",
+          "price": 390,
+          "rating": 4.7
+        }
+      ],
+      "created_at": "2026-11-22T05:24:15.115Z",
+      "updated_at": "2026-11-22T05:24:15.115Z"
     }
   ],
   "complaints": [
@@ -30036,6 +30415,34 @@
       "aiTriage": "Immediate Technician Suspension & Escrow Freeze",
       "created_at": "2026-11-22T05:13:45.366Z",
       "updated_at": "2026-11-22T05:13:45.366Z"
+    },
+    {
+      "id": "CMP-3548",
+      "customer_id": "CUST-1001",
+      "customer_name": "Kavita Menon",
+      "customer_phone": "+91 98450 55443",
+      "category": "Service Quality",
+      "subject": "Technician caused minor damage to pipe fitting",
+      "description": "While tightening the water valve, technician caused minor pipe damage.",
+      "severity": "Critical",
+      "status": "Open",
+      "aiTriage": "Immediate Technician Suspension & Escrow Freeze",
+      "created_at": "2026-11-22T05:23:15.530Z",
+      "updated_at": "2026-11-22T05:23:15.530Z"
+    },
+    {
+      "id": "CMP-8543",
+      "customer_id": "CUST-1001",
+      "customer_name": "Kavita Menon",
+      "customer_phone": "+91 98450 55443",
+      "category": "Service Quality",
+      "subject": "Technician caused minor damage to pipe fitting",
+      "description": "While tightening the water valve, technician caused minor pipe damage.",
+      "severity": "Critical",
+      "status": "Open",
+      "aiTriage": "Immediate Technician Suspension & Escrow Freeze",
+      "created_at": "2026-11-22T05:24:15.273Z",
+      "updated_at": "2026-11-22T05:24:15.273Z"
     }
   ],
   "notifications": [
@@ -31865,6 +32272,105 @@
       "type": "booking",
       "created_at": "2026-11-22T05:13:45.079Z",
       "updated_at": "2026-11-22T05:13:45.079Z"
+    },
+    {
+      "id": "notif_ed8079f8-5d33-4d03-bc7e-7f9e3cb8a4a4",
+      "user_id": "usr_cust_1",
+      "title": "Booking Confirmed",
+      "message": "Your service booking LC-BK-7100 with Apollo Dental & Laser Clinic is confirmed for 2026-12-11 (11:00 AM - 12:00 PM). OTP: 2466.",
+      "type": "booking",
+      "created_at": "2026-11-22T05:23:14.428Z",
+      "updated_at": "2026-11-22T05:23:14.428Z"
+    },
+    {
+      "id": "notif_4454271f-3f28-4671-82fa-a107a10d0c87",
+      "user_id": "usr_cust_1",
+      "title": "Booking On The Way",
+      "message": "Booking LC-BK-7100 has been updated to \"On The Way\".",
+      "type": "booking",
+      "created_at": "2026-11-22T05:23:14.459Z",
+      "updated_at": "2026-11-22T05:23:14.459Z"
+    },
+    {
+      "id": "notif_b2427209-fb17-4bb0-b9e4-6f96fbd8e5c0",
+      "user_id": "usr_cust_1",
+      "title": "Booking In Progress",
+      "message": "Booking LC-BK-7100 has been updated to \"In Progress\".",
+      "type": "booking",
+      "created_at": "2026-11-22T05:23:14.466Z",
+      "updated_at": "2026-11-22T05:23:14.466Z"
+    },
+    {
+      "id": "notif_a7425b69-b017-4c47-8355-3b1c63157430",
+      "user_id": "usr_cust_1",
+      "title": "Booking Completed",
+      "message": "Booking LC-BK-7100 has been updated to \"Completed\".",
+      "type": "booking",
+      "created_at": "2026-11-22T05:23:14.472Z",
+      "updated_at": "2026-11-22T05:23:14.472Z"
+    },
+    {
+      "id": "notif_a44d6444-518b-4d7f-ba1a-9a09ae893156",
+      "user_id": "usr_cust_1",
+      "title": "Booking Confirmed",
+      "message": "Your service booking LC-BK-2620 with Apollo Dental & Laser Clinic is confirmed for Tomorrow (11:00 AM - 12:00 PM). OTP: 4506.",
+      "type": "booking",
+      "created_at": "2026-11-22T05:23:15.320Z",
+      "updated_at": "2026-11-22T05:23:15.320Z"
+    },
+    {
+      "id": "notif_b4352288-08c2-4930-9700-35052a63e301",
+      "user_id": "usr_cust_1",
+      "title": "Booking Confirmed",
+      "message": "Your service booking LC-BK-6238 with Apollo Dental & Laser Clinic is confirmed for 2026-12-26 (11:00 AM - 12:00 PM). OTP: 3203.",
+      "type": "booking",
+      "created_at": "2026-11-22T05:24:14.112Z",
+      "updated_at": "2026-11-22T05:24:14.112Z"
+    },
+    {
+      "id": "notif_5cb2d1df-add0-46a7-b177-1e68944ed761",
+      "user_id": "usr_cust_1",
+      "title": "Booking Confirmed",
+      "message": "Your service booking LC-BK-1176 with Apollo Dental & Laser Clinic is confirmed for 2026-12-26 (11:00 AM - 12:00 PM). OTP: 1661.",
+      "type": "booking",
+      "created_at": "2026-11-22T05:24:14.144Z",
+      "updated_at": "2026-11-22T05:24:14.144Z"
+    },
+    {
+      "id": "notif_ba98c519-854a-4226-962c-9296d4c5636e",
+      "user_id": "usr_cust_1",
+      "title": "Booking On The Way",
+      "message": "Booking LC-BK-6238 has been updated to \"On The Way\".",
+      "type": "booking",
+      "created_at": "2026-11-22T05:24:14.151Z",
+      "updated_at": "2026-11-22T05:24:14.151Z"
+    },
+    {
+      "id": "notif_6b83c211-0c06-49b9-b892-2437f02f8fe9",
+      "user_id": "usr_cust_1",
+      "title": "Booking In Progress",
+      "message": "Booking LC-BK-6238 has been updated to \"In Progress\".",
+      "type": "booking",
+      "created_at": "2026-11-22T05:24:14.157Z",
+      "updated_at": "2026-11-22T05:24:14.157Z"
+    },
+    {
+      "id": "notif_66d22bab-612f-42b0-8463-4a5028746d92",
+      "user_id": "usr_cust_1",
+      "title": "Booking Completed",
+      "message": "Booking LC-BK-6238 has been updated to \"Completed\".",
+      "type": "booking",
+      "created_at": "2026-11-22T05:24:14.163Z",
+      "updated_at": "2026-11-22T05:24:14.163Z"
+    },
+    {
+      "id": "notif_fa989a0e-6f70-4c85-82a3-7aaa49414f28",
+      "user_id": "usr_cust_1",
+      "title": "Booking Confirmed",
+      "message": "Your service booking LC-BK-2777 with Apollo Dental & Laser Clinic is confirmed for Tomorrow (11:00 AM - 12:00 PM). OTP: 5459.",
+      "type": "booking",
+      "created_at": "2026-11-22T05:24:15.050Z",
+      "updated_at": "2026-11-22T05:24:15.050Z"
     }
   ],
   "subscriptions": [],
@@ -32238,6 +32744,26 @@
       "reference_id": "pay_real_txn_999",
       "created_at": "2026-11-22T05:13:44.135Z",
       "updated_at": "2026-11-22T05:13:44.135Z"
+    },
+    {
+      "id": "txn_ba3fab0b-d7f7-489f-83e1-51e4a01bd0cb",
+      "payment_id": "pay_6d70355f-2fe6-4ed1-b987-1e355602d5e0",
+      "type": "Payment",
+      "amount": 1050,
+      "status": "Success",
+      "reference_id": "pay_real_txn_999",
+      "created_at": "2026-11-22T05:23:14.488Z",
+      "updated_at": "2026-11-22T05:23:14.488Z"
+    },
+    {
+      "id": "txn_9e226d48-7d85-44b6-86a0-0ef37daeb90a",
+      "payment_id": "pay_4e0af614-be31-4501-a92d-63a95a87cdbd",
+      "type": "Payment",
+      "amount": 1050,
+      "status": "Success",
+      "reference_id": "pay_real_txn_999",
+      "created_at": "2026-11-22T05:24:14.178Z",
+      "updated_at": "2026-11-22T05:24:14.178Z"
     }
   ],
   "ai_interaction_logs": [
@@ -34412,6 +34938,198 @@
       "fallback_used": true,
       "created_at": "2026-11-22T05:13:45.338Z",
       "updated_at": "2026-11-22T05:13:45.338Z"
+    },
+    {
+      "id": "ai_a0ea9ea0-245b-4333-aa22-94a61578d4c5",
+      "user_id": "anonymous",
+      "service_name": "parseNaturalQuery",
+      "prompt_tokens": 13,
+      "completion_tokens": 35,
+      "latency_ms": 1,
+      "cost_estimate_inr": 0.0002,
+      "fallback_used": true,
+      "created_at": "2026-11-22T05:23:14.511Z",
+      "updated_at": "2026-11-22T05:23:14.511Z"
+    },
+    {
+      "id": "ai_fdaa2778-74ac-4687-a635-aa9cb86648ff",
+      "user_id": "anonymous",
+      "service_name": "parseNaturalQuery",
+      "prompt_tokens": 1.75,
+      "completion_tokens": 35,
+      "latency_ms": 0,
+      "cost_estimate_inr": 0.0002,
+      "fallback_used": true,
+      "created_at": "2026-11-22T05:23:15.267Z",
+      "updated_at": "2026-11-22T05:23:15.267Z"
+    },
+    {
+      "id": "ai_4718b5e1-c3d2-4336-be74-e4aaf6bcbee0",
+      "user_id": "anonymous",
+      "service_name": "parseNaturalQuery",
+      "prompt_tokens": 6.5,
+      "completion_tokens": 35,
+      "latency_ms": 0,
+      "cost_estimate_inr": 0.0002,
+      "fallback_used": true,
+      "created_at": "2026-11-22T05:23:15.415Z",
+      "updated_at": "2026-11-22T05:23:15.415Z"
+    },
+    {
+      "id": "ai_070a65d8-b3df-4336-8c92-6e847a05f674",
+      "user_id": "anonymous",
+      "service_name": "parseNaturalQuery",
+      "prompt_tokens": 6.75,
+      "completion_tokens": 35,
+      "latency_ms": 1,
+      "cost_estimate_inr": 0.0002,
+      "fallback_used": true,
+      "created_at": "2026-11-22T05:23:15.425Z",
+      "updated_at": "2026-11-22T05:23:15.425Z"
+    },
+    {
+      "id": "ai_162a9a83-8883-48bb-a802-fd752999ed7d",
+      "user_id": "anonymous",
+      "service_name": "parseNaturalQuery",
+      "prompt_tokens": 6.25,
+      "completion_tokens": 35,
+      "latency_ms": 0,
+      "cost_estimate_inr": 0.0002,
+      "fallback_used": true,
+      "created_at": "2026-11-22T05:23:15.433Z",
+      "updated_at": "2026-11-22T05:23:15.433Z"
+    },
+    {
+      "id": "ai_ba4858be-e53c-4dae-b609-2ec5da832ace",
+      "user_id": "anonymous",
+      "service_name": "parseNaturalQuery",
+      "prompt_tokens": 9.25,
+      "completion_tokens": 35,
+      "latency_ms": 0,
+      "cost_estimate_inr": 0.0002,
+      "fallback_used": true,
+      "created_at": "2026-11-22T05:23:15.444Z",
+      "updated_at": "2026-11-22T05:23:15.444Z"
+    },
+    {
+      "id": "ai_22936a87-76e2-4150-ae17-3de3dc87b398",
+      "user_id": "anonymous",
+      "service_name": "parseNaturalQuery",
+      "prompt_tokens": 7.25,
+      "completion_tokens": 35,
+      "latency_ms": 0,
+      "cost_estimate_inr": 0.0002,
+      "fallback_used": true,
+      "created_at": "2026-11-22T05:23:15.456Z",
+      "updated_at": "2026-11-22T05:23:15.456Z"
+    },
+    {
+      "id": "ai_d3436042-c1cc-43e3-b539-31616bf998a9",
+      "user_id": "anonymous",
+      "service_name": "parseNaturalQuery",
+      "prompt_tokens": 4.75,
+      "completion_tokens": 35,
+      "latency_ms": 0,
+      "cost_estimate_inr": 0.0002,
+      "fallback_used": true,
+      "created_at": "2026-11-22T05:23:15.504Z",
+      "updated_at": "2026-11-22T05:23:15.504Z"
+    },
+    {
+      "id": "ai_e4620a42-1daf-41db-9abf-8e67dcd454d8",
+      "user_id": "anonymous",
+      "service_name": "parseNaturalQuery",
+      "prompt_tokens": 13,
+      "completion_tokens": 35,
+      "latency_ms": 1,
+      "cost_estimate_inr": 0.0002,
+      "fallback_used": true,
+      "created_at": "2026-11-22T05:24:14.205Z",
+      "updated_at": "2026-11-22T05:24:14.205Z"
+    },
+    {
+      "id": "ai_bb36a504-b78c-4ffb-9ace-631d63d7e5ae",
+      "user_id": "anonymous",
+      "service_name": "parseNaturalQuery",
+      "prompt_tokens": 1.75,
+      "completion_tokens": 35,
+      "latency_ms": 0,
+      "cost_estimate_inr": 0.0002,
+      "fallback_used": true,
+      "created_at": "2026-11-22T05:24:14.992Z",
+      "updated_at": "2026-11-22T05:24:14.992Z"
+    },
+    {
+      "id": "ai_30b62d61-ebd1-4dfa-8f88-73ba2e600bbb",
+      "user_id": "anonymous",
+      "service_name": "parseNaturalQuery",
+      "prompt_tokens": 6.5,
+      "completion_tokens": 35,
+      "latency_ms": 0,
+      "cost_estimate_inr": 0.0002,
+      "fallback_used": true,
+      "created_at": "2026-11-22T05:24:15.168Z",
+      "updated_at": "2026-11-22T05:24:15.168Z"
+    },
+    {
+      "id": "ai_47ed66fe-284e-452b-944b-fb31685b2857",
+      "user_id": "anonymous",
+      "service_name": "parseNaturalQuery",
+      "prompt_tokens": 6.75,
+      "completion_tokens": 35,
+      "latency_ms": 0,
+      "cost_estimate_inr": 0.0002,
+      "fallback_used": true,
+      "created_at": "2026-11-22T05:24:15.180Z",
+      "updated_at": "2026-11-22T05:24:15.180Z"
+    },
+    {
+      "id": "ai_53c8ecb3-2a53-487e-9972-a0b2bb9be7bd",
+      "user_id": "anonymous",
+      "service_name": "parseNaturalQuery",
+      "prompt_tokens": 6.25,
+      "completion_tokens": 35,
+      "latency_ms": 0,
+      "cost_estimate_inr": 0.0002,
+      "fallback_used": true,
+      "created_at": "2026-11-22T05:24:15.190Z",
+      "updated_at": "2026-11-22T05:24:15.190Z"
+    },
+    {
+      "id": "ai_6d9fc74f-c3c8-4398-b7fb-20b7300936fa",
+      "user_id": "anonymous",
+      "service_name": "parseNaturalQuery",
+      "prompt_tokens": 9.25,
+      "completion_tokens": 35,
+      "latency_ms": 0,
+      "cost_estimate_inr": 0.0002,
+      "fallback_used": true,
+      "created_at": "2026-11-22T05:24:15.204Z",
+      "updated_at": "2026-11-22T05:24:15.204Z"
+    },
+    {
+      "id": "ai_5cedc397-61dd-463b-9ac8-bada9db96af8",
+      "user_id": "anonymous",
+      "service_name": "parseNaturalQuery",
+      "prompt_tokens": 7.25,
+      "completion_tokens": 35,
+      "latency_ms": 0,
+      "cost_estimate_inr": 0.0002,
+      "fallback_used": true,
+      "created_at": "2026-11-22T05:24:15.215Z",
+      "updated_at": "2026-11-22T05:24:15.215Z"
+    },
+    {
+      "id": "ai_039a5f6e-6f71-48bb-be0b-c83881d0640e",
+      "user_id": "anonymous",
+      "service_name": "parseNaturalQuery",
+      "prompt_tokens": 4.75,
+      "completion_tokens": 35,
+      "latency_ms": 0,
+      "cost_estimate_inr": 0.0002,
+      "fallback_used": true,
+      "created_at": "2026-11-22T05:24:15.249Z",
+      "updated_at": "2026-11-22T05:24:15.249Z"
     }
   ],
   "admin_activity_logs": [
@@ -37175,6 +37893,204 @@
       "ip_address": "127.0.0.1",
       "created_at": "2026-11-22T05:13:45.325Z",
       "updated_at": "2026-11-22T05:13:45.325Z"
+    },
+    {
+      "id": "aud_d82bba0a-f960-452f-b0b5-eb28b7c96c25",
+      "admin_user_id": "usr_f4b9567f-0378-4851-9898-6bde80a406e6",
+      "action": "USER_REGISTER",
+      "target_type": "users",
+      "target_id": "usr_f4b9567f-0378-4851-9898-6bde80a406e6",
+      "details": "Role: customer",
+      "ip_address": "127.0.0.1",
+      "created_at": "2026-11-22T05:23:14.371Z",
+      "updated_at": "2026-11-22T05:23:14.371Z"
+    },
+    {
+      "id": "aud_68ef9ee4-810d-4706-8a89-e0cfcdb615dd",
+      "admin_user_id": "usr_admin_1",
+      "action": "USER_LOGIN",
+      "target_type": "users",
+      "target_id": "usr_admin_1",
+      "details": "Successful login",
+      "ip_address": "127.0.0.1",
+      "created_at": "2026-11-22T05:23:14.408Z",
+      "updated_at": "2026-11-22T05:23:14.408Z"
+    },
+    {
+      "id": "aud_6ede0ed2-675c-4d69-962c-0770a9e3fa08",
+      "admin_user_id": "CUST-1001",
+      "action": "CREATE_BOOKING",
+      "target_type": "bookings",
+      "target_id": "LC-BK-7100",
+      "details": "Amount: ₹599",
+      "ip_address": "127.0.0.1",
+      "created_at": "2026-11-22T05:23:14.441Z",
+      "updated_at": "2026-11-22T05:23:14.441Z"
+    },
+    {
+      "id": "aud_ac2752fb-bd5f-4299-9dc4-502e654dd490",
+      "admin_user_id": "CUST-1001",
+      "action": "VERIFY_PAYMENT",
+      "target_type": "payments",
+      "target_id": "pay_6d70355f-2fe6-4ed1-b987-1e355602d5e0",
+      "details": "Amount: ₹1050",
+      "ip_address": "127.0.0.1",
+      "created_at": "2026-11-22T05:23:14.496Z",
+      "updated_at": "2026-11-22T05:23:14.496Z"
+    },
+    {
+      "id": "aud_10be8485-c021-458d-a3a1-a4c6cc67cab8",
+      "admin_user_id": "system",
+      "action": "REGISTER_BUSINESS",
+      "target_type": "businesses",
+      "target_id": "bus_1e780c28-e492-4eee-9218-db35c7e1fffb",
+      "details": "Registered \"Apex Robotics & Laptop Lab\" in Bengaluru",
+      "ip_address": "127.0.0.1",
+      "created_at": "2026-11-22T05:23:15.288Z",
+      "updated_at": "2026-11-22T05:23:15.288Z"
+    },
+    {
+      "id": "aud_eee99e28-b461-426b-9d8a-53f8620a6dd2",
+      "admin_user_id": "admin-1",
+      "action": "APPROVE_KYC",
+      "target_type": "businesses",
+      "target_id": "bus_1e780c28-e492-4eee-9218-db35c7e1fffb",
+      "details": "Approved KYC verification for \"Apex Robotics & Laptop Lab\"",
+      "ip_address": "127.0.0.1",
+      "created_at": "2026-11-22T05:23:15.307Z",
+      "updated_at": "2026-11-22T05:23:15.307Z"
+    },
+    {
+      "id": "aud_209e9008-8d1e-42b6-bafd-e66eca61d379",
+      "admin_user_id": "CUST-1001",
+      "action": "CREATE_BOOKING",
+      "target_type": "bookings",
+      "target_id": "LC-BK-2620",
+      "details": "Amount: ₹499",
+      "ip_address": "127.0.0.1",
+      "created_at": "2026-11-22T05:23:15.333Z",
+      "updated_at": "2026-11-22T05:23:15.333Z"
+    },
+    {
+      "id": "aud_b624e329-c8c6-44f5-8f6f-a2a12ba79116",
+      "admin_user_id": "system",
+      "action": "CANCEL_BOOKING",
+      "target_type": "bookings",
+      "target_id": "LC-BK-2620",
+      "details": "undefined",
+      "ip_address": "127.0.0.1",
+      "created_at": "2026-11-22T05:23:15.359Z",
+      "updated_at": "2026-11-22T05:23:15.359Z"
+    },
+    {
+      "id": "aud_c239636e-92d6-4c37-aa00-f1711a85fe1b",
+      "admin_user_id": "admin",
+      "action": "CREATE_CATEGORY",
+      "target_type": "categories",
+      "target_id": "petcare_4503",
+      "details": "Created Pet Care & Veterinary",
+      "ip_address": "127.0.0.1",
+      "created_at": "2026-11-22T05:23:15.495Z",
+      "updated_at": "2026-11-22T05:23:15.495Z"
+    },
+    {
+      "id": "aud_0754890f-fda2-499b-9a07-c4a11db6fbdd",
+      "admin_user_id": "usr_da14fe58-75f0-4860-988a-ef0feff9aa2e",
+      "action": "USER_REGISTER",
+      "target_type": "users",
+      "target_id": "usr_da14fe58-75f0-4860-988a-ef0feff9aa2e",
+      "details": "Role: customer",
+      "ip_address": "127.0.0.1",
+      "created_at": "2026-11-22T05:24:14.062Z",
+      "updated_at": "2026-11-22T05:24:14.062Z"
+    },
+    {
+      "id": "aud_f009e892-94a6-4ea6-8820-ec06cdaa2ba4",
+      "admin_user_id": "usr_admin_1",
+      "action": "USER_LOGIN",
+      "target_type": "users",
+      "target_id": "usr_admin_1",
+      "details": "Successful login",
+      "ip_address": "127.0.0.1",
+      "created_at": "2026-11-22T05:24:14.104Z",
+      "updated_at": "2026-11-22T05:24:14.104Z"
+    },
+    {
+      "id": "aud_75561f8d-29b7-4fbc-be48-58b82c4acf8d",
+      "admin_user_id": "CUST-1001",
+      "action": "CREATE_BOOKING",
+      "target_type": "bookings",
+      "target_id": "LC-BK-6238",
+      "details": "Amount: ₹599",
+      "ip_address": "127.0.0.1",
+      "created_at": "2026-11-22T05:24:14.126Z",
+      "updated_at": "2026-11-22T05:24:14.126Z"
+    },
+    {
+      "id": "aud_753782f1-dc66-4305-a743-e936ba0e79c2",
+      "admin_user_id": "CUST-1001",
+      "action": "VERIFY_PAYMENT",
+      "target_type": "payments",
+      "target_id": "pay_4e0af614-be31-4501-a92d-63a95a87cdbd",
+      "details": "Amount: ₹1050",
+      "ip_address": "127.0.0.1",
+      "created_at": "2026-11-22T05:24:14.188Z",
+      "updated_at": "2026-11-22T05:24:14.188Z"
+    },
+    {
+      "id": "aud_7b83ff3c-7560-4da3-9514-89643ac8799f",
+      "admin_user_id": "system",
+      "action": "REGISTER_BUSINESS",
+      "target_type": "businesses",
+      "target_id": "bus_578daef3-36eb-458b-8209-334320200d76",
+      "details": "Registered \"Apex Robotics & Laptop Lab\" in Bengaluru",
+      "ip_address": "127.0.0.1",
+      "created_at": "2026-11-22T05:24:15.014Z",
+      "updated_at": "2026-11-22T05:24:15.014Z"
+    },
+    {
+      "id": "aud_5174ac80-d9a8-46c3-83f2-eaef5b25bfb7",
+      "admin_user_id": "admin-1",
+      "action": "APPROVE_KYC",
+      "target_type": "businesses",
+      "target_id": "bus_578daef3-36eb-458b-8209-334320200d76",
+      "details": "Approved KYC verification for \"Apex Robotics & Laptop Lab\"",
+      "ip_address": "127.0.0.1",
+      "created_at": "2026-11-22T05:24:15.034Z",
+      "updated_at": "2026-11-22T05:24:15.034Z"
+    },
+    {
+      "id": "aud_7ac0771c-2675-40c6-a1a3-ea3a18fdaa80",
+      "admin_user_id": "CUST-1001",
+      "action": "CREATE_BOOKING",
+      "target_type": "bookings",
+      "target_id": "LC-BK-2777",
+      "details": "Amount: ₹499",
+      "ip_address": "127.0.0.1",
+      "created_at": "2026-11-22T05:24:15.064Z",
+      "updated_at": "2026-11-22T05:24:15.064Z"
+    },
+    {
+      "id": "aud_07c48da4-ebe0-4413-a354-ae39b1e0848a",
+      "admin_user_id": "system",
+      "action": "CANCEL_BOOKING",
+      "target_type": "bookings",
+      "target_id": "LC-BK-2777",
+      "details": "undefined",
+      "ip_address": "127.0.0.1",
+      "created_at": "2026-11-22T05:24:15.091Z",
+      "updated_at": "2026-11-22T05:24:15.091Z"
+    },
+    {
+      "id": "aud_0a79e142-9472-43ea-8c0b-c12bd9102884",
+      "admin_user_id": "admin",
+      "action": "CREATE_CATEGORY",
+      "target_type": "categories",
+      "target_id": "petcare_3644",
+      "details": "Created Pet Care & Veterinary",
+      "ip_address": "127.0.0.1",
+      "created_at": "2026-11-22T05:24:15.240Z",
+      "updated_at": "2026-11-22T05:24:15.240Z"
     }
   ]
 }

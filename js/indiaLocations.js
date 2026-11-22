@@ -389,20 +389,20 @@
   function getCitiesByState(stateNameOrCode) {
     const q = (stateNameOrCode || '').toLowerCase().trim();
     return CITIES_DB.filter(c =>
-      c.state.toLowerCase() === q ||
-      c.stateCode.toLowerCase() === q
-    );
+        c.state.toLowerCase() === q ||
+        c.stateCode.toLowerCase() === q
+      );
   }
 
   function findCityByName(name) {
     if (!name) return null;
     const clean = name.toLowerCase().trim();
     return CITIES_DB.find(c =>
-      c.name.toLowerCase() === clean ||
-      c.id.toLowerCase() === clean ||
+        c.name.toLowerCase() === clean ||
+        c.id.toLowerCase() === clean ||
       c.name.toLowerCase().includes(clean) ||
-      (c.areas || []).some(a => a.toLowerCase().includes(clean))
-    ) || null;
+        (c.areas || []).some(a => a.toLowerCase().includes(clean))
+      ) || null;
   }
 
   function searchLocations(query) {
@@ -414,16 +414,16 @@
       const pinMatches = CITIES_DB.filter(c =>
         (c.pincodes || []).some(p => p.startsWith(q))
       );
-      if (pinMatches.length > 0) return pinMatches;
-    }
+        if (pinMatches.length > 0) return pinMatches;
+      }
 
-    // 2. Village / Locality / City matching
-    const matched = [];
-    for (const city of CITIES_DB) {
-      let score = 0;
-      if (city.name.toLowerCase().includes(q)) score += 50;
-      if (city.state.toLowerCase().includes(q)) score += 30;
-      if (city.areas && city.areas.some(a => a.toLowerCase().includes(q))) score += 40;
+      // 2. Village / Locality / City matching
+      const matched = [];
+      for (const city of CITIES_DB) {
+        let score = 0;
+        if (city.name.toLowerCase().includes(q)) score += 50;
+        if (city.state.toLowerCase().includes(q)) score += 30;
+        if (city.areas && city.areas.some(a => a.toLowerCase().includes(q))) score += 40;
 
       // Special alias checks (e.g. olachi, valachil, wayanad)
       if (q.includes('olachi') && city.id === 'valachil') score += 100;
@@ -431,41 +431,41 @@
       if (q.includes('wayanad') && city.id === 'wayanad') score += 100;
       if (q.includes('osian') && (city.id === 'jodhpur' || city.id === 'osian')) score += 100;
 
-      if (score > 0) {
-        matched.push({ city, score });
-      }
-    }
-
-    matched.sort((a, b) => b.score - a.score);
-    return matched.map(m => m.city);
-  }
-
-  function findNearestCity(userLat, userLng) {
-    let nearest = CITIES_DB[0];
-    let minDistance = Infinity;
-
-    for (const city of CITIES_DB) {
-      if (city.lat && city.lng) {
-        const d = calculateDistance(userLat, userLng, city.lat, city.lng);
-        if (d < minDistance) {
-          minDistance = d;
-          nearest = { ...city, distanceKm: d };
+        if (score > 0) {
+          matched.push({ city, score });
         }
       }
-    }
-    return nearest;
-  }
 
-  return {
-    STATES_AND_UTS,
-    CITIES_DB,
-    getAllStates,
-    getAllCities,
-    getPopularCities,
-    getCitiesByState,
-    findCityByName,
-    searchLocations,
-    findNearestCity,
-    calculateDistance
-  };
-});
+      matched.sort((a, b) => b.score - a.score);
+      return matched.map(m => m.city);
+    }
+
+    function findNearestCity(userLat, userLng) {
+      let nearest = CITIES_DB[0];
+      let minDistance = Infinity;
+
+      for (const city of CITIES_DB) {
+        if (city.lat && city.lng) {
+          const d = calculateDistance(userLat, userLng, city.lat, city.lng);
+          if (d < minDistance) {
+            minDistance = d;
+            nearest = { ...city, distanceKm: d };
+          }
+        }
+      }
+      return nearest;
+    }
+
+    return {
+      STATES_AND_UTS,
+      CITIES_DB,
+      getAllStates,
+      getAllCities,
+      getPopularCities,
+      getCitiesByState,
+      findCityByName,
+      searchLocations,
+      findNearestCity,
+      calculateDistance
+    };
+  });

@@ -27,14 +27,14 @@ class BookingEngine {
     }
 
     const dayOfWeek = apptDate.getDay();
-    const availability = db.findOne('business_availability', a => 
+    const availability = db.findOne('business_availability', a =>
       a.business_id === businessId && a.day_of_week === dayOfWeek
     );
 
     // If custom availability is specified, check max concurrent bookings
     const maxConcurrent = availability ? availability.max_concurrent_bookings : 2;
 
-    const existingActiveBookings = db.find('bookings', b => 
+    const existingActiveBookings = db.find('bookings', b =>
       b.business_id === businessId &&
       b.scheduled_date === scheduledDate &&
       b.time_slot === timeSlot &&
@@ -97,7 +97,10 @@ class BookingEngine {
 
       // Generate secure 4-digit verification OTP
       const otp = crypto.randomInt(1000, 9999).toString();
-      const bookingId = `LC-BK-${Math.floor(1000 + Math.random() * 9000)}`;
+      let bookingId = `LC-BK-${Math.floor(1000 + Math.random() * 9000)}`;
+      while (db.findById('bookings', bookingId)) {
+        bookingId = `LC-BK-${Math.floor(1000 + Math.random() * 9000)}`;
+      }
 
       return await db.transaction(async (tx) => {
         const newBooking = tx.insert('bookings', {
