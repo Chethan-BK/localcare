@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js",
-    "test": "node tests/backend.test.js"
+    "test": "node tests/backend.test.js && node tests/api.test.js && node tests/pan_india_geo.test.js"
   },
   "keywords": [
     "local-services",

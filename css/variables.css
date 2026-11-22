@@ -374,3 +374,98 @@
     0 16px 48px rgba(0,0,0,0.6),
     0 8px 24px rgba(0,0,0,0.4);
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   EYE COMFORT THEME — Warm Paper / Amber Sepia Anti-Glare
+   Scientifically tuned to filter 450nm blue light, soften contrast, and
+   provide an effortless reading and browsing experience with warm amber tones.
+   ═══════════════════════════════════════════════════════════════════════════ */
+[data-theme="eye-comfort"] {
+  /* ─── Backgrounds: Gentle Warm Cream & Oatmeal Paper ─── */
+  --bg-body:              #f5efe6;
+  --bg-surface:           #fbf7f0;
+  --bg-surface-elevated:  #fffdfa;
+  --bg-surface-hover:     #ede4d5;
+  --bg-input:             #f8f2e8;
+  --bg-subtle:            #eee5d7;
+  --border-subtle:        #dfd3c1;
+  --border-strong:        #ccbea8;
+  --border-focus:         #c86121;
+
+  /* ─── Typography: Warm Charcoal / Sepia Ink (Low-Glare) ─── */
+  --text-primary:         #2d241e;
+  --text-secondary:       #5c4e42;
+  --text-muted:           #8c7b6d;
+  --text-inverse:         #faf6ee;
+  --text-link:            #b85314;
+
+  /* ─── Brand Colors: Soothing Amber Terracotta ─── */
+  --primary:              #c86121;
+  --primary-hover:        #ad4e14;
+  --primary-active:       #933f0d;
+  --primary-lightest:     #f8eee3;
+  --primary-glow:         rgba(200, 97, 33, 0.20);
+  --primary-gradient:     linear-gradient(135deg, #c86121 0%, #db7837 50%, #ad4e14 100%);
+  --primary-gradient-subtle: linear-gradient(135deg, rgba(200,97,33,0.08) 0%, rgba(219,120,55,0.02) 100%);
+  --primary-glow-lg:      0 8px 32px rgba(200, 97, 33, 0.25);
+
+  /* ─── Secondary / AI Accents: Warm Plum & Sandalwood ─── */
+  --secondary:            #5b4b7a;
+  --ai-purple:            #6b498f;
+  --ai-purple-hover:      #573977;
+  --ai-purple-light:      #f4edf8;
+  --ai-purple-glow:       rgba(107, 73, 143, 0.20);
+  --ai-gradient:          linear-gradient(135deg, #6b498f 0%, #8d62b5 100%);
+  --ai-gradient-glow:     0 6px 24px rgba(107, 73, 143, 0.25);
+
+  /* ─── Status Colors (Muted Low-Strain Earthy Tones) ─── */
+  --success:              #287d55;
+  --success-hover:        #1f6644;
+  --success-light:        #edf5f0;
+  --success-border:       #b5d9c5;
+  --warning:              #b8740c;
+  --warning-hover:        #995f08;
+  --warning-light:        #fcf5ea;
+  --danger:               #ba3c3c;
+  --danger-hover:         #9e2e2e;
+  --danger-light:         #faeded;
+  --info:                 #2b7396;
+  --info-light:           #ebf4f8;
+
+  /* ─── Map Eye Comfort: Muted Cartographic Earth ─── */
+  --map-bg:               #eae2d3;
+  --map-grid:             rgba(140, 123, 109, 0.25);
+  --map-water:            #bfd2d6;
+  --map-road:             #fbf7f0;
+  --map-highway:          #e6caa0;
+  --map-park:             #dbe5d4;
+  --map-park-label:       #3e6844;
+
+  /* ─── Glassmorphism Eye Comfort ─── */
+  --glass-bg:             rgba(251, 247, 240, 0.94);
+  --glass-border:         rgba(223, 211, 193, 0.85);
+  --glass-ultra:          rgba(251, 247, 240, 0.96);
+  --glass-border-glow:    rgba(200, 97, 33, 0.25);
+  --glass-bg-dark:        rgba(45, 36, 30, 0.92);
+
+  /* ─── Shadows Softened ─── */
+  --shadow-xs:    0 1px 2px rgba(45,36,30,0.04);
+  --shadow-sm:    0 1px 4px rgba(45,36,30,0.06), 0 1px 2px rgba(45,36,30,0.03);
+  --shadow-md:    0 4px 12px rgba(45,36,30,0.07), 0 2px 4px rgba(45,36,30,0.03);
+  --shadow-lg:    0 10px 24px rgba(45,36,30,0.08), 0 4px 8px rgba(45,36,30,0.03);
+  --shadow-xl:    0 20px 40px rgba(45,36,30,0.09), 0 8px 16px rgba(45,36,30,0.04);
+
+  --shadow-card-premium:
+    0 0 0 1px rgba(223, 211, 193, 0.8),
+    0 4px 16px rgba(45, 36, 30, 0.06),
+    0 8px 32px rgba(45, 36, 30, 0.03);
+  --shadow-card-premium-hover:
+    0 0 0 1px rgba(200, 97, 33, 0.3),
+    0 16px 40px rgba(45, 36, 30, 0.12),
+    0 8px 24px rgba(45, 36, 30, 0.06);
+
+  --gradient-hero:
+    radial-gradient(ellipse 80% 60% at 50% -20%, rgba(200,97,33,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 20%, rgba(107,73,143,0.06) 0%, transparent 50%),
+    var(--bg-body);
+}

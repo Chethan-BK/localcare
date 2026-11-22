@@ -136,7 +136,9 @@ window.TrackingEngine = (function () {
                 <button type="button" class="gmap-layer-btn active" id="gmapBtnStreet" onclick="window.TrackingEngine.switchMapStyle('street')">Map</button>
                 <button type="button" class="gmap-layer-btn" id="gmapBtnSat" onclick="window.TrackingEngine.switchMapStyle('satellite')">Satellite</button>
               </div>
-              <button type="button" class="gmap-recenter-btn" onclick="window.TrackingEngine.recenterRoute()" title="Recenter View">🎯</button>
+              <button type="button" class="gmap-recenter-btn" onclick="window.TrackingEngine.recenterRoute()" title="Recenter View">
+                ${window.ReactIcons ? window.ReactIcons.render('crosshair', { size: 15 }) : '🎯'}
+              </button>
             </div>
 
             <!-- 4. ETA Badge Floating Over Map -->
@@ -154,27 +156,27 @@ window.TrackingEngine = (function () {
           <!-- Service Stepper Progress -->
           <div class="track-stepper-container">
             <div class="track-step-node completed">
-              <div class="node-circle">✓</div>
+              <div class="node-circle">${window.ReactIcons ? window.ReactIcons.render('check', { size: 14 }) : '✓'}</div>
               <span class="node-text">Confirmed</span>
             </div>
             <div class="node-line completed"></div>
             <div class="track-step-node completed">
-              <div class="node-circle">✓</div>
+              <div class="node-circle">${window.ReactIcons ? window.ReactIcons.render('check', { size: 14 }) : '✓'}</div>
               <span class="node-text">Assigned</span>
             </div>
             <div class="node-line completed"></div>
             <div class="track-step-node active">
-              <div class="node-circle">🏍️</div>
+              <div class="node-circle">${window.ReactIcons ? window.ReactIcons.render('scooter', { size: 16 }) : '🏍️'}</div>
               <span class="node-text">On The Way</span>
             </div>
             <div class="node-line"></div>
             <div class="track-step-node">
-              <div class="node-circle">🔧</div>
+              <div class="node-circle">${window.ReactIcons ? window.ReactIcons.render('wrench', { size: 14 }) : '🔧'}</div>
               <span class="node-text">Service Started</span>
             </div>
             <div class="node-line"></div>
             <div class="track-step-node">
-              <div class="node-circle">⭐</div>
+              <div class="node-circle">${window.ReactIcons ? window.ReactIcons.render('starFilled', { size: 14, className: 'react-icon-gold' }) : '⭐'}</div>
               <span class="node-text">Completed</span>
             </div>
           </div>
@@ -182,7 +184,7 @@ window.TrackingEngine = (function () {
           <!-- Technician & Safety Verification Card -->
           <div class="track-details-padding">
             <div class="tech-profile-card">
-              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" alt="Technician" class="tech-avatar" id="trackTechPhoto" />
+              <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=240&q=80" alt="Technician" class="tech-avatar" id="trackTechPhoto" />
               <div class="tech-info-column">
                 <div class="tech-name-row">
                   <h4 class="tech-name" id="trackTechName">Suresh Gowda</h4>
@@ -192,8 +194,12 @@ window.TrackingEngine = (function () {
                 <div class="tech-trust-pill">🛡️ Police Verified • Mask & Sanitizer Equipped</div>
               </div>
               <div class="tech-actions-column">
-                <button type="button" class="btn-tech-contact btn-tech-call" id="trackTechCallBtn" onclick="window.TrackingEngine.openTechCall()" title="Call Technician via LocalCare Bridge">📞</button>
-                <button type="button" class="btn-tech-contact btn-tech-wa" id="trackTechWaBtn" onclick="window.TrackingEngine.openTechChat()" title="Chat with Technician">💬</button>
+                <button type="button" class="btn-tech-contact btn-tech-call" id="trackTechCallBtn" onclick="window.TrackingEngine.openTechCall()" title="Call Technician via LocalCare Bridge">
+                  ${window.ReactIcons ? window.ReactIcons.render('phone', { size: 16 }) : '📞'}
+                </button>
+                <button type="button" class="btn-tech-contact btn-tech-wa" id="trackTechWaBtn" onclick="window.TrackingEngine.openTechChat()" title="Chat with Technician">
+                  ${window.ReactIcons ? window.ReactIcons.render('messageCircle', { size: 16 }) : '💬'}
+                </button>
               </div>
             </div>
 
@@ -225,11 +231,11 @@ window.TrackingEngine = (function () {
         </div>
 
         <div class="dialog-footer tracking-modal-footer">
-          <button type="button" class="action-btn action-btn-outline" style="border-color: var(--primary); color: var(--primary);" onclick="window.TrackingEngine.simulateDoorstepArrival()">
-            ⚡ Simulate Doorstep Arrival
+          <button type="button" class="action-btn action-btn-outline" style="border-color: var(--primary); color: var(--primary); display: inline-flex; align-items: center; gap: 0.45rem;" onclick="window.TrackingEngine.simulateDoorstepArrival()">
+            ${window.ReactIcons ? window.ReactIcons.render('zap', { size: 15, className: 'react-icon-primary' }) : '⚡'} Simulate Doorstep Arrival
           </button>
-          <button type="button" class="action-btn action-btn-ghost" onclick="window.LocalCare.showToast('Connecting to 24/7 Priority Support...', 'info')">
-            🚨 Need Help
+          <button type="button" class="action-btn action-btn-ghost" style="display: inline-flex; align-items: center; gap: 0.45rem;" onclick="window.LocalCare.showToast('Connecting to 24/7 Priority Support...', 'info')">
+            ${window.ReactIcons ? window.ReactIcons.render('siren', { size: 15, className: 'react-icon-danger' }) : '🚨'} Need Help
           </button>
           <button type="button" class="action-btn action-btn-primary" onclick="document.getElementById('trackingDialog').close()">
             Close
@@ -270,7 +276,7 @@ window.TrackingEngine = (function () {
         <div class="call-avatar-wrap">
           <div class="call-ripple-ring"></div>
           <div class="call-ripple-ring delay"></div>
-          <img id="techCallAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" alt="Technician" class="call-avatar-img" />
+          <img id="techCallAvatar" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=240&q=80" alt="Technician" class="call-avatar-img" />
         </div>
         <h3 id="techCallName" class="call-tech-name">Suresh Gowda</h3>
         <div id="techCallStatus" class="call-status">Connecting securely...</div>
@@ -319,7 +325,7 @@ window.TrackingEngine = (function () {
         <div class="chat-header">
           <div class="chat-user-info">
             <div class="chat-avatar-wrapper">
-              <img id="techChatAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" alt="Technician" class="chat-avatar" />
+              <img id="techChatAvatar" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=240&q=80" alt="Technician" class="chat-avatar" />
               <span class="online-indicator"></span>
             </div>
             <div>
@@ -530,7 +536,7 @@ window.TrackingEngine = (function () {
       otp: '7014',
       technician: {
         name: 'Suresh Gowda',
-        photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
+        photo: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=240&q=80',
         vehicle: 'KA-01-EA-4921 (Hero Splendor)'
       }
     };
@@ -557,14 +563,13 @@ window.TrackingEngine = (function () {
 
     // Reset Stepper
     document.querySelectorAll('.track-stepper-container .track-step-node').forEach((node, idx) => {
+      const circle = node.querySelector('.node-circle');
       if (idx <= 2) {
         node.classList.add('completed');
-        const circle = node.querySelector('.node-circle');
-        if (circle) circle.textContent = '✓';
+        if (circle) circle.innerHTML = window.ReactIcons ? window.ReactIcons.render(idx === 2 ? 'scooter' : 'check', { size: idx === 2 ? 16 : 14 }) : '✓';
       } else {
         node.classList.remove('completed');
-        const circle = node.querySelector('.node-circle');
-        if (circle) circle.textContent = idx === 3 ? '🔧' : '⭐';
+        if (circle) circle.innerHTML = window.ReactIcons ? window.ReactIcons.render(idx === 3 ? 'wrench' : 'starFilled', { size: 14, className: idx === 4 ? 'react-icon-gold' : '' }) : (idx === 3 ? '🔧' : '⭐');
       }
     });
 
@@ -660,7 +665,7 @@ window.TrackingEngine = (function () {
       if (idx <= 3) {
         node.classList.add('completed');
         const circle = node.querySelector('.node-circle');
-        if (circle) circle.textContent = '✓';
+        if (circle) circle.innerHTML = window.ReactIcons ? window.ReactIcons.render('check', { size: 14 }) : '✓';
       }
     });
 

@@ -151,6 +151,8 @@ function mapBusiness(b) {
     reviews_count: b.reviews_count !== undefined ? b.reviews_count : (b.reviewsCount !== undefined ? b.reviewsCount : 0),
     availableToday: b.available_today !== undefined ? Boolean(b.available_today) : (b.availableToday !== undefined ? Boolean(b.availableToday) : true),
     isVeg: b.is_veg !== undefined ? Boolean(b.is_veg) : (b.isVeg !== undefined ? Boolean(b.isVeg) : false),
+    image: b.image || b.image_url,
+    photos: (Array.isArray(b.photos) && b.photos.length > 0) ? b.photos : (b.image ? [b.image] : (b.image_url ? [b.image_url] : [])),
     services
   };
 }

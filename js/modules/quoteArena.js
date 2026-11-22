@@ -373,7 +373,7 @@ window.QuoteArena = (function () {
         name: 'UrbanCare Express Solutions',
         rating: 4.7,
         reviews: 215,
-        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
+        avatar: 'https://images.unsplash.com/photo-1540569014015-19a7be504e3a?auto=format&fit=crop&w=150&q=80',
         eta: 'Arrives in 22 min',
         basePrice: Math.round(budget * 0.78),
         badge: '💰 Best Deal',

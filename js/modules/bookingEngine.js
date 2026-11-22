@@ -487,7 +487,7 @@ window.BookingEngine = (function () {
         phone: currentBusiness.phone,
         rating: 4.9,
         vehicle: 'KA-01-EA-4921 (Hero Splendor)',
-        photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
+        photo: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=240&q=80',
         etaMinutes: 14
       }
     };

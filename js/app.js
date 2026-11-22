@@ -62,6 +62,7 @@
     citySearchInput: document.getElementById('citySearchInput'),
     cityList: document.getElementById('cityList'),
     themeToggleBtn: document.getElementById('themeToggleBtn'),
+    eyeComfortToggleBtn: document.getElementById('eyeComfortToggleBtn'),
     savedCountBadge: document.getElementById('savedCountBadge'),
     openSavedBtn: document.getElementById('openSavedBtn'),
 
@@ -181,26 +182,85 @@
   }
 
   /* ==========================================================================
-     Theme Initializer
+     Theme & Eye Comfort Initializer
      ========================================================================== */
   function initTheme() {
+    if (!['light', 'dark', 'eye-comfort'].includes(state.theme)) {
+      state.theme = 'light';
+    }
     document.documentElement.setAttribute('data-theme', state.theme);
     updateThemeIcon();
 
-    DOM.themeToggleBtn.addEventListener('click', () => {
-      state.theme = state.theme === 'light' ? 'dark' : 'light';
-      document.documentElement.setAttribute('data-theme', state.theme);
-      localStorage.setItem('localcare_theme', state.theme);
-      updateThemeIcon();
-      showToast(`Switched to ${state.theme} mode`, 'info');
+    DOM.themeToggleBtn?.addEventListener('click', () => {
+      let nextTheme = 'light';
+      if (state.theme === 'light') nextTheme = 'dark';
+      else if (state.theme === 'dark') nextTheme = 'eye-comfort';
+      else if (state.theme === 'eye-comfort') nextTheme = 'light';
+      applyTheme(nextTheme, true);
+    });
+
+    const eyeComfortBtn = document.getElementById('eyeComfortToggleBtn');
+    eyeComfortBtn?.addEventListener('click', () => {
+      toggleEyeComfort();
     });
   }
 
+  function toggleEyeComfort() {
+    if (state.theme === 'eye-comfort') {
+      const prev = (state.previousTheme && state.previousTheme !== 'eye-comfort') ? state.previousTheme : 'light';
+      applyTheme(prev, true);
+    } else {
+      state.previousTheme = state.theme;
+      applyTheme('eye-comfort', true);
+    }
+  }
+
+  function applyTheme(newTheme, showFeedback = false) {
+    state.theme = newTheme;
+    document.documentElement.setAttribute('data-theme', state.theme);
+    localStorage.setItem('localcare_theme', state.theme);
+    updateThemeIcon();
+
+    if (showFeedback) {
+      if (window.SoundFX && typeof window.SoundFX.playClick === 'function') {
+        try { window.SoundFX.playClick(); } catch (e) {}
+      }
+      if (newTheme === 'eye-comfort') {
+        showToast('👓 Eye Comfort Mode: 3400K Warm Paper Anti-Glare Active', 'success', 3500);
+      } else if (newTheme === 'dark') {
+        showToast('🌙 Midnight Dark Theme Applied', 'info', 2500);
+      } else {
+        showToast('☀️ Clean Daylight Theme Applied', 'info', 2500);
+      }
+    }
+  }
+
   function updateThemeIcon() {
-    DOM.themeToggleBtn.innerHTML = window.ReactIcons
-      ? window.ReactIcons.render(state.theme === 'light' ? 'moon' : 'sun', { size: 18 })
-      : (state.theme === 'light' ? '🌙' : '☀️');
-    DOM.themeToggleBtn.setAttribute('title', `Switch to ${state.theme === 'light' ? 'dark' : 'light'} mode`);
+    const isDark = state.theme === 'dark';
+    const isEyeComfort = state.theme === 'eye-comfort';
+
+    if (DOM.themeToggleBtn) {
+      DOM.themeToggleBtn.innerHTML = window.ReactIcons
+        ? window.ReactIcons.render(isDark ? 'sun' : (isEyeComfort ? 'sun' : 'moon'), { size: 18 })
+        : (isDark ? '☀️' : '🌙');
+      DOM.themeToggleBtn.setAttribute('title', isDark ? 'Switch to Daylight Light Mode' : (isEyeComfort ? 'Switch to Light Mode' : 'Switch to Midnight Dark Mode'));
+      DOM.themeToggleBtn.setAttribute('aria-label', isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode');
+    }
+
+    const eyeComfortBtn = document.getElementById('eyeComfortToggleBtn');
+    if (eyeComfortBtn) {
+      eyeComfortBtn.classList.toggle('active', isEyeComfort);
+      eyeComfortBtn.setAttribute('title', isEyeComfort ? 'Eye Comfort Mode Active (Click to Disable)' : 'Enable Eye Comfort Mode (Warm Anti-Glare)');
+      const badge = document.getElementById('eyeComfortBadge');
+      if (badge) badge.style.display = isEyeComfort ? 'block' : 'none';
+    }
+
+    const mobileStatus = document.getElementById('mobileEyeComfortStatus');
+    if (mobileStatus) {
+      mobileStatus.textContent = isEyeComfort ? 'On' : 'Off';
+      mobileStatus.style.color = isEyeComfort ? '#c86121' : 'inherit';
+      mobileStatus.style.fontWeight = isEyeComfort ? '700' : 'normal';
+    }
   }
 
   function escapeHtml(str) {
@@ -664,7 +724,7 @@
     }
 
     curatedGrid.innerHTML = list.map(b => createBusinessCardHTML(b)).join('');
-    attachCardEventListeners();
+    attachCardEventListeners(curatedGrid);
   }
 
   function switchCuratedTab(tab) {
@@ -767,7 +827,7 @@
 
     if (bcCity) bcCity.textContent = state.selectedCity || 'All India';
     if (bcCat) bcCat.textContent = cat.title;
-    if (heroIcon) heroIcon.textContent = cat.icon || '📌';
+    if (heroIcon) heroIcon.innerHTML = window.ReactIcons ? window.ReactIcons.getCategoryIcon(cat.id, { size: 32 }) : (cat.icon || '📌');
     if (heroTitle) heroTitle.textContent = `${cat.title} in ${state.selectedCity || 'India'}`;
     if (heroSubtitle) heroSubtitle.textContent = `Explore verified, background-checked ${cat.title.toLowerCase()} across ${state.selectedCity || 'your city'} with upfront rates & instant appointment booking.`;
 
@@ -1484,7 +1544,9 @@
 
     DOM.listingsGrid.innerHTML = `
       <div style="text-align: center; padding: 3.5rem 1.5rem; background: var(--bg-surface); border: 1px dashed var(--border-subtle); border-radius: var(--radius-xl); max-width: 650px; margin: 0 auto; width: 100%;">
-        <div style="font-size: 3rem; margin-bottom: 0.75rem;">🔍</div>
+        <div style="margin-bottom: 0.75rem; display: flex; align-items: center; justify-content: center; color: var(--primary);">
+          ${window.ReactIcons ? window.ReactIcons.render('search', { size: 48, className: 'react-icon-primary' }) : '🔍'}
+        </div>
         <h3 style="font-size: 1.35rem; font-weight: 800; margin-bottom: 0.35rem;">No exact matches found</h3>
         <p style="color: var(--text-secondary); margin-bottom: 1.25rem; font-size: 0.92rem; line-height: 1.6;">
           ${state.searchQuery ? `We searched for "<em>${escapeHtml(state.searchQuery)}</em>" in ${state.selectedCity}.` : `No providers matched the current combination of filters.`}
@@ -1496,8 +1558,8 @@
           <button class="action-btn action-btn-outline" onclick="window.LocalCare.resetAllFilters()">
             Clear Filters & Reset
           </button>
-          <button class="action-btn action-btn-primary" onclick="window.QuoteMarketplace.openQuotesModal()">
-            ⚡ Broadcast Free Quote Request
+          <button class="action-btn action-btn-primary" style="display: inline-flex; align-items: center; gap: 0.45rem;" onclick="window.QuoteMarketplace.openQuotesModal()">
+            ${window.ReactIcons ? window.ReactIcons.render('zap', { size: 14 }) : '⚡'} Broadcast Free Quote Request
           </button>
         </div>
       </div>
@@ -1638,7 +1700,7 @@
       'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80',
       'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=800&q=80',
       'https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1581579186913-45ac3e6efe93?auto=format&fit=crop&w=800&q=80'
+      'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=800&q=80'
     ],
     tutor: [
       'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80',
@@ -1758,10 +1820,19 @@
     const enquiriesCount = b.enquiriesCount || Math.floor(130 + ((b.trustScore || 90) * 1.5));
     const landmark = b.landmark || (b.address ? b.address.split(',')[0] : b.locality);
     const tradeGallery = getTradePhotos(b);
-    const mainImg = b.image || tradeGallery[0];
-    const photos = (b.photos && b.photos.length >= 3) ? b.photos : tradeGallery;
+    const mainImg = b.image || b.image_url || (b.photos && b.photos[0]) || tradeGallery[0];
+    let photos = (Array.isArray(b.photos) && b.photos.length >= 3)
+      ? b.photos
+      : (b.image ? [b.image, ...tradeGallery.filter(p => p !== b.image)] : tradeGallery);
+    photos = [...new Set(photos)];
+    if (photos.length < 3) {
+      photos = [...photos, ...tradeGallery.filter(p => !photos.includes(p))];
+    }
     const photoThumbs = photos.slice(0, 3).map((p, idx) => `
-      <img src="${p}" alt="${b.name}" class="jd-thumb-img" loading="lazy" onclick="event.stopPropagation(); window.LocalCare.openLightbox('${b.id}', ${idx})" />
+      <img src="${p}" alt="${b.name}" class="jd-thumb-img ${p === mainImg ? 'active' : ''}" loading="lazy"
+        onmouseenter="window.LocalCare && window.LocalCare.previewCardPhoto && window.LocalCare.previewCardPhoto('${b.id}', '${p}', this)"
+        onclick="event.stopPropagation(); if (window.LocalCare && window.LocalCare.previewCardPhoto) window.LocalCare.previewCardPhoto('${b.id}', '${p}', this); if (window.LocalCare && window.LocalCare.openLightbox) window.LocalCare.openLightbox('${b.id}', ${idx});"
+        title="Quick preview photo ${idx + 1}" />
     `).join('');
 
     const isSponsored = b.sponsored || b.promoted;
@@ -1798,8 +1869,9 @@
           </div>
         </div>
 
-        <div class="card-media-wrapper">
-          <img src="${mainImg}" alt="${b.name}" class="card-img" loading="lazy" />
+        <div class="card-media-wrapper" data-action="view-detail" data-id="${b.id}" style="cursor: pointer;">
+          <img src="${mainImg}" alt="${b.name}" id="cardMainImg-${b.id}" class="card-img" loading="lazy" />
+          <div class="card-img-gradient-scrim"></div>
           <div class="card-overlay-badges">
             ${b.superSeller ? `<span class="badge-super">${iconR('starFilled', { size: 11, className: 'react-icon-gold' })} Top Rated</span>` : ''}
             <span class="badge-shield-mini" title="LocalCare ₹10,000 Quality Shield">${iconR('shield', { size: 12 })} ₹10k Shield</span>
@@ -1807,7 +1879,7 @@
           </div>
 
           <!-- Quick Preview Thumbnails Reel -->
-          <div class="jd-photos-thumbnail-strip" data-action="view-detail" data-id="${b.id}">
+          <div class="jd-photos-thumbnail-strip" data-id="${b.id}" title="Click any photo to open full gallery, hover to preview">
             ${photoThumbs}
           </div>
         </div>
@@ -1886,91 +1958,96 @@
     `;
   }
 
-  function attachCardEventListeners() {
+  function attachCardEventListeners(targetRoot) {
     const all = getAllBusinesses();
+    const containers = targetRoot
+      ? [targetRoot]
+      : [DOM.listingsGrid, document.getElementById('curatedGrid')].filter(Boolean);
 
-    DOM.listingsGrid.querySelectorAll('.business-card').forEach(card => {
-      const id = card.getAttribute('data-id');
+    containers.forEach(container => {
+      container.querySelectorAll('.business-card').forEach(card => {
+        const id = card.getAttribute('data-id');
 
-      // Click card body to open full Business Profile Modal
-      card.addEventListener('click', (e) => {
-        if (e.target.closest('[data-action]') || e.target.closest('button') || e.target.closest('a') || e.target.closest('input')) {
-          return;
-        }
-        const business = all.find(b => b.id === id);
-        if (business) {
+        // Click card body to open full Business Profile Modal
+        card.addEventListener('click', (e) => {
+          if (e.target.closest('[data-action]') || e.target.closest('button') || e.target.closest('a') || e.target.closest('input')) {
+            return;
+          }
+          const business = all.find(b => b.id === id);
+          if (business) {
+            if (window.SoundFX) window.SoundFX.playClick();
+            openBusinessDetailModal(business);
+          }
+        });
+
+        // Hover sync with vector map
+        card.addEventListener('mouseenter', () => {
+          if (window.MapEngine && window.MapEngine.selectBusiness) {
+            window.MapEngine.selectBusiness(id, false);
+          }
+        });
+      });
+
+      container.querySelectorAll('[data-action]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const action = btn.getAttribute('data-action');
+          const id = btn.getAttribute('data-id');
+          const business = all.find(b => b.id === id);
+          if (!business) return;
+
           if (window.SoundFX) window.SoundFX.playClick();
-          openBusinessDetailModal(business);
-        }
-      });
 
-      // Hover sync with vector map
-      card.addEventListener('mouseenter', () => {
-        if (window.MapEngine && window.MapEngine.selectBusiness) {
-          window.MapEngine.selectBusiness(id, false);
-        }
-      });
-    });
-
-    DOM.listingsGrid.querySelectorAll('[data-action]').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const action = btn.getAttribute('data-action');
-        const id = btn.getAttribute('data-id');
-        const business = all.find(b => b.id === id);
-        if (!business) return;
-
-        if (window.SoundFX) window.SoundFX.playClick();
-
-        if (action === 'bookmark') {
-          toggleBookmark(id);
-        } else if (action === 'compare') {
-          if (window.ProComparison) {
-            window.ProComparison.toggleCompare(id);
-            btn.classList.toggle('comparing', window.ProComparison.isComparing(id));
+          if (action === 'bookmark') {
+            toggleBookmark(id);
+          } else if (action === 'compare') {
+            if (window.ProComparison) {
+              window.ProComparison.toggleCompare(id);
+              btn.classList.toggle('comparing', window.ProComparison.isComparing(id));
+            }
+          } else if (action === 'teleconsult') {
+            if (window.TeleConsult) {
+              window.TeleConsult.startConsultation(business);
+            }
+          } else if (action === 'view-detail') {
+            openBusinessDetailModal(business);
+          } else if (action === 'book') {
+            if (window.BookingEngine) window.BookingEngine.openBookingModal(business);
+          } else if (action === 'call') {
+            if (/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) && window.innerWidth <= 768) {
+              window.location.href = `tel:${business.phone.replace(/\s+/g, '')}`;
+            } else {
+              openCallModal(business);
+            }
+          } else if (action === 'directions' || action === 'visit') {
+            if (window.MapEngine) {
+              window.MapEngine.selectBusiness(id, true);
+            }
+            const isMobile = window.innerWidth <= 768;
+            if (isMobile) {
+              const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent((business.lat && business.lng) ? `${business.lat},${business.lng}` : `${business.name}, ${business.locality}, ${business.city}`)}`;
+              window.open(mapsUrl, '_blank', 'noopener');
+            } else {
+              showToast(`📍 Showing route & directions to ${business.name} on map`, 'info', 3500);
+              const mapSec = document.getElementById('interactiveMapContainer');
+              if (mapSec) mapSec.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+          } else if (action === 'whatsapp') {
+            if (window.JDFeatures) {
+              window.JDFeatures.openWhatsAppEnquiry(business.name, business.locality, business.city, business.phone);
+            } else {
+              openWhatsAppChat(business);
+            }
+          } else if (action === 'best-deal' || action === 'quote') {
+            if (window.JDFeatures) {
+              window.JDFeatures.openBestDealModal(business.category, business.name);
+            } else if (window.QuoteMarketplace) {
+              window.QuoteMarketplace.openQuotesModal(business.category);
+            }
+          } else if (action === 'jdpay' || action === 'pay') {
+            openPayStudio(business, business.startingPrice || 499);
           }
-        } else if (action === 'teleconsult') {
-          if (window.TeleConsult) {
-            window.TeleConsult.startConsultation(business);
-          }
-        } else if (action === 'view-detail') {
-          openBusinessDetailModal(business);
-        } else if (action === 'book') {
-          if (window.BookingEngine) window.BookingEngine.openBookingModal(business);
-        } else if (action === 'call') {
-          if (/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) && window.innerWidth <= 768) {
-            window.location.href = `tel:${business.phone.replace(/\s+/g, '')}`;
-          } else {
-            openCallModal(business);
-          }
-        } else if (action === 'directions' || action === 'visit') {
-          if (window.MapEngine) {
-            window.MapEngine.selectBusiness(id, true);
-          }
-          const isMobile = window.innerWidth <= 768;
-          if (isMobile) {
-            const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent((business.lat && business.lng) ? `${business.lat},${business.lng}` : `${business.name}, ${business.locality}, ${business.city}`)}`;
-            window.open(mapsUrl, '_blank', 'noopener');
-          } else {
-            showToast(`📍 Showing route & directions to ${business.name} on map`, 'info', 3500);
-            const mapSec = document.getElementById('interactiveMapContainer');
-            if (mapSec) mapSec.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-          }
-        } else if (action === 'whatsapp') {
-          if (window.JDFeatures) {
-            window.JDFeatures.openWhatsAppEnquiry(business.name, business.locality, business.city, business.phone);
-          } else {
-            openWhatsAppChat(business);
-          }
-        } else if (action === 'best-deal' || action === 'quote') {
-          if (window.JDFeatures) {
-            window.JDFeatures.openBestDealModal(business.category, business.name);
-          } else if (window.QuoteMarketplace) {
-            window.QuoteMarketplace.openQuotesModal(business.category);
-          }
-        } else if (action === 'jdpay' || action === 'pay') {
-          openPayStudio(business, business.startingPrice || 499);
-        }
+        });
       });
     });
   }
@@ -2385,10 +2462,17 @@
       return;
     }
 
+    // Clean up any stale cached dog photos from local storage
+    state.recentlyViewed.forEach(b => {
+      if (b && b.image && b.image.includes('1581579186913')) {
+        b.image = 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80';
+      }
+    });
+
     DOM.recentlyViewedSection.style.display = 'block';
     DOM.recentlyViewedGrid.innerHTML = state.recentlyViewed.map(b => `
       <div class="recent-view-mini-card" onclick="window.LocalCare.openDetailModalById('${b.id}')">
-        <img src="${b.image}" alt="${b.name}" class="recent-view-thumb" loading="lazy" />
+        <img src="${b.image && !b.image.includes('1581579186913') ? b.image : 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80'}" alt="${b.name}" class="recent-view-thumb" loading="lazy" />
         <div style="flex: 1; min-width: 0;">
           <h4 style="font-size: 0.88rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 0.2rem;">${b.name}</h4>
           <div style="font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 0.3rem;">★ ${b.rating} • ${b.locality}</div>
@@ -2722,7 +2806,10 @@
     const servicesRows = renderServicesListHTML(b);
     const stickyCartBar = renderStickyCartBarHTML(b);
 
-    const featuresPills = b.features.map(f => `
+    const features = Array.isArray(b.features) && b.features.length
+      ? b.features
+      : ['Verified Local Pro', 'Transparent Pricing', 'Quick Response Guarantee', 'Quality Inspected'];
+    const featuresPills = features.map(f => `
       <span style="display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.35rem 0.7rem; background: var(--success-light); border: 1px solid var(--success-border); color: #065f46; border-radius: var(--radius-full); font-size: 0.78rem; font-weight: 600;">
         ✓ ${f}
       </span>
@@ -2789,73 +2876,93 @@
     `).join('');
 
     DOM.detailContent.innerHTML = `
-      <div style="position: relative; height: 260px; overflow: hidden;">
-        <img src="${mainImg}" alt="${b.name}" style="width: 100%; height: 100%; object-fit: cover;" />
-        <div class="card-overlay-badges">
-          ${b.verified ? '<span class="badge-verified" style="cursor: pointer;" onclick="event.stopPropagation(); window.LocalCare.openTrustAuditModal()" title="Click to view 7-Point Verification Audit">✓ LocalCare Verified Business 🔍</span>' : ''}
-          <span class="badge-open">${b.openNow ? '🟢 Open Now' : 'Closed'}</span>
-          <span style="background: rgba(0,0,0,0.7); color: #fff; font-size: 0.75rem; font-weight: 800; padding: 0.25rem 0.6rem; border-radius: var(--radius-full);">
-            🏆 ${yearsInBusiness} Yrs in Business
-          </span>
+      <div class="detail-pro-hero">
+        <img src="${mainImg}" alt="${b.name}" class="detail-hero-cover-img" />
+        <div class="detail-hero-scrim"></div>
+        <div class="detail-hero-floating-badges">
+          ${b.verified ? `<span class="badge-verified-seal" onclick="event.stopPropagation(); window.LocalCare.openTrustAuditModal('${b.id}')" title="Click to view 7-Point Verification Audit">🛡️ LocalCare Verified Pro</span>` : ''}
+          <span class="badge-open-chip">${b.openNow ? '🟢 Open Now' : '🔴 Closed'}</span>
+          <span class="badge-hero-pill">🏆 ${yearsInBusiness} Yrs in Business</span>
+          <span class="badge-hero-pill">🔥 ${enquiriesCount}+ Enquiries</span>
         </div>
+        <button class="detail-hero-photos-btn" onclick="window.LocalCare.openLightbox('${b.id}', 0)" title="Open Full-Screen Photo Gallery">
+          📷 View ${photos.length}+ Photos
+        </button>
       </div>
 
-      <div style="padding: 1.5rem;">
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 0.75rem;">
+      <div class="detail-pro-body">
+        <div class="detail-header-block">
           <div>
-            <h2 style="font-size: 1.6rem; margin-bottom: 0.25rem;">
-              ${b.name} <span style="color: #2563eb; font-size: 1.2rem;">✓</span>
+            <h2 class="detail-biz-name">
+              ${b.name} <span class="verified-tick-svg">✓</span>
             </h2>
-            <p style="color: var(--text-secondary); font-size: 0.92rem;">📍 ${b.address} (${landmark})</p>
+            <p class="detail-biz-address">📍 <strong>${b.locality}</strong> • ${landmark} • ${b.city} ${b.distance ? `<span class="detail-dist-pill">(${b.distance} away)</span>` : ''}</p>
           </div>
-          <div style="text-align: right;">
-            <span class="rating-badge" style="font-size: 1.05rem; padding: 0.35rem 0.75rem;">★ ${b.rating}</span>
-            <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.25rem;">${b.reviewsCount} verified reviews • 🔥 ${enquiriesCount}+ Enquiries</div>
+          <div class="detail-rating-card">
+            <span class="rating-large-pill">★ ${b.rating}</span>
+            <div class="rating-reviews-sub">${b.reviewsCount} verified ratings</div>
+            <div class="trust-index-tag">Trust Score: ${b.trustScore || 96}/100</div>
           </div>
         </div>
 
-        <!-- Commercial Pro Direct Action Ribbon (Phase 5 Actions - Powered by React Icons) -->
-        <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem; margin: 1rem 0 0.5rem 0;">
-          <a href="tel:${b.phone.replace(/\s+/g, '')}" class="action-btn action-btn-primary" style="justify-content: center; padding: 0.6rem 0.35rem; font-size: 0.82rem; background: #10b981; border-color: #10b981;" title="Call Verified Business">
-            <span>${window.ReactIcons ? window.ReactIcons.render('phone', { size: 14 }) : '📞'}</span> Call Now
+        <!-- High-Impact Commercial Action Toolbar -->
+        <div class="detail-actions-dock">
+          <a href="tel:${b.phone.replace(/\s+/g, '')}" class="dock-btn dock-btn-call" title="Call Verified Business">
+            <span class="dock-btn-icon">${window.ReactIcons ? window.ReactIcons.render('phone', { size: 16 }) : '📞'}</span>
+            <span class="dock-btn-label">Call Now</span>
           </a>
-          <button class="action-btn action-btn-primary" style="justify-content: center; padding: 0.6rem 0.35rem; font-size: 0.82rem; background: #25d366; border-color: #25d366;" onclick="window.JDFeatures.openWhatsAppEnquiry('${b.name}', '${b.locality}', '${b.city}', '${b.phone}')" title="Chat on WhatsApp">
-            <span>${window.ReactIcons ? window.ReactIcons.render('messageSquare', { size: 14 }) : '💬'}</span> WhatsApp
+          <button class="dock-btn dock-btn-wa" onclick="window.JDFeatures.openWhatsAppEnquiry('${b.name}', '${b.locality}', '${b.city}', '${b.phone}')" title="Chat on WhatsApp">
+            <span class="dock-btn-icon">${window.ReactIcons ? window.ReactIcons.render('messageSquare', { size: 16 }) : '💬'}</span>
+            <span class="dock-btn-label">WhatsApp</span>
           </button>
-          <button class="action-btn action-btn-outline" style="justify-content: center; padding: 0.6rem 0.35rem; font-size: 0.82rem;" onclick="DOM.detailDialog.close(); window.LocalCare.openEnquiryModal('${b.id}');" title="Send Direct Enquiry">
-            <span>${window.ReactIcons ? window.ReactIcons.render('mail', { size: 14 }) : '✉️'}</span> Enquire
+          <button class="dock-btn dock-btn-book" onclick="DOM.detailDialog.close(); window.BookingEngine.openBookingModal(window.LocalCare.getActiveBusiness());" title="Book Doorstep Appointment">
+            <span class="dock-btn-icon">${window.ReactIcons ? window.ReactIcons.render('calendar', { size: 16 }) : '📅'}</span>
+            <span class="dock-btn-label">Book Slot</span>
           </button>
-          <button class="action-btn action-btn-primary" style="justify-content: center; padding: 0.6rem 0.35rem; font-size: 0.82rem; background: linear-gradient(135deg, #7c3aed, #4f46e5); border: none;" onclick="DOM.detailDialog.close(); window.QuoteMarketplace.openQuotesModal('${b.category}');" title="Request Price Quotes">
-            <span>${window.ReactIcons ? window.ReactIcons.render('zap', { size: 14 }) : '⚡'}</span> Get Quote
+          <button class="dock-btn dock-btn-quote" onclick="DOM.detailDialog.close(); window.QuoteMarketplace.openQuotesModal('${b.category}');" title="Request Price Quotes">
+            <span class="dock-btn-icon">${window.ReactIcons ? window.ReactIcons.render('zap', { size: 16 }) : '⚡'}</span>
+            <span class="dock-btn-label">Get Quote</span>
           </button>
-          <button class="action-btn action-btn-primary" style="justify-content: center; padding: 0.6rem 0.35rem; font-size: 0.82rem; background: var(--primary);" onclick="DOM.detailDialog.close(); window.BookingEngine.openBookingModal(window.LocalCare.getActiveBusiness());" title="Book Doorstep Appointment">
-            <span>${window.ReactIcons ? window.ReactIcons.render('calendar', { size: 14 }) : '📅'}</span> Book Slot
+          <button class="dock-btn dock-btn-pay" onclick="window.LocalCare.openPayStudio(window.LocalCare.getActiveBusiness())" title="Pay with LocalCare Pay">
+            <span class="dock-btn-icon">${window.ReactIcons ? window.ReactIcons.render('creditCard', { size: 16 }) : '💳'}</span>
+            <span class="dock-btn-label">Pay Merchant</span>
           </button>
         </div>
 
         <!-- Secondary Utility Actions Ribbon -->
-        <div style="display: flex; gap: 0.5rem; margin-bottom: 1.25rem; flex-wrap: wrap;">
-          <a href="https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent((b.lat && b.lng) ? `${b.lat},${b.lng}` : `${b.address || b.name}, ${b.city}`)}" target="_blank" rel="noopener" class="action-btn action-btn-ghost" style="font-size: 0.82rem; padding: 0.4rem 0.75rem; border: 1px solid var(--border-subtle);">
-            <span>${window.ReactIcons ? window.ReactIcons.render('compass', { size: 14 }) : '🗺️'}</span> Get Directions
+        <div class="detail-utility-row">
+          <a href="https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent((b.lat && b.lng) ? `${b.lat},${b.lng}` : `${b.address || b.name}, ${b.city}`)}" target="_blank" rel="noopener" class="detail-sub-action">
+            <span>${window.ReactIcons ? window.ReactIcons.render('compass', { size: 13 }) : '🗺️'}</span> Google Directions
           </a>
-          <button class="action-btn action-btn-ghost" style="font-size: 0.82rem; padding: 0.4rem 0.75rem; border: 1px solid var(--border-subtle);" onclick="window.LocalCare.shareBusiness('${b.id}')">
-            <span>${window.ReactIcons ? window.ReactIcons.render('share', { size: 14 }) : '🔗'}</span> Share Listing
+          <button class="detail-sub-action" onclick="window.LocalCare.shareBusiness('${b.id}')">
+            <span>${window.ReactIcons ? window.ReactIcons.render('share', { size: 13 }) : '🔗'}</span> Share Listing
           </button>
-          <button class="action-btn action-btn-ghost" style="font-size: 0.82rem; padding: 0.4rem 0.75rem; border: 1px solid var(--border-subtle);" onclick="window.LocalCare.toggleSaveListing('${b.id}')">
-            <span>${state.savedIds.has(b.id) ? (window.ReactIcons ? window.ReactIcons.render('heartFilled', { size: 14, className: 'react-icon-danger' }) : '❤️') : (window.ReactIcons ? window.ReactIcons.render('heart', { size: 14 }) : '🤍')}</span> ${state.savedIds.has(b.id) ? 'Saved' : 'Save to Favorites'}
+          <button class="detail-sub-action" onclick="window.LocalCare.toggleSaveListing('${b.id}')">
+            <span>${state.savedIds.has(b.id) ? (window.ReactIcons ? window.ReactIcons.render('heartFilled', { size: 13, className: 'react-icon-danger' }) : '❤️') : (window.ReactIcons ? window.ReactIcons.render('heart', { size: 13 }) : '🤍')}</span> ${state.savedIds.has(b.id) ? 'Saved' : 'Save'}
           </button>
-          <button class="action-btn action-btn-ghost" style="font-size: 0.82rem; padding: 0.4rem 0.75rem; border: 1px solid var(--border-subtle);" onclick="window.LocalCare.openPayStudio(window.LocalCare.getActiveBusiness())" title="Pay with LocalCare Pay">
-            <span>${window.ReactIcons ? window.ReactIcons.render('creditCard', { size: 14, className: 'react-icon-primary' }) : '💳'}</span> Pay Merchant
+          <button class="detail-sub-action" onclick="DOM.detailDialog.close(); window.LocalCare.openEnquiryModal('${b.id}');">
+            <span>${window.ReactIcons ? window.ReactIcons.render('mail', { size: 13 }) : '✉️'}</span> Send Message
           </button>
-          <button class="action-btn action-btn-ghost" style="font-size: 0.82rem; padding: 0.4rem 0.75rem; border: 1px solid var(--border-subtle);" onclick="window.VerificationEngine.openReportModal('${b.name}')">
-            <span>${window.ReactIcons ? window.ReactIcons.render('alertTriangle', { size: 14 }) : '⚠️'}</span> Report
+          <button class="detail-sub-action" style="color: var(--danger);" onclick="window.VerificationEngine.openReportModal('${b.name}')">
+            <span>${window.ReactIcons ? window.ReactIcons.render('alertTriangle', { size: 13 }) : '⚠️'}</span> Report
           </button>
         </div>
 
         <!-- Detail Interactive Tab Bar (Powered by React Icons) -->
-        <div class="jdpay-tabs-bar" style="margin-bottom: 1.25rem; background: var(--bg-surface); border-bottom: 2px solid var(--border-subtle);">
+        <div class="jdpay-tabs-bar">
           <button class="jdpay-tab-btn jd-detail-tab-btn active" data-tab="overview" onclick="window.LocalCare.switchDetailTab('overview')">
             <span>${window.ReactIcons ? window.ReactIcons.render('clipboard', { size: 14 }) : '📌'}</span> Overview & Rates
+          </button>
+          <button class="jdpay-tab-btn jd-detail-tab-btn" data-tab="photos" onclick="window.LocalCare.switchDetailTab('photos')">
+            <span>${window.ReactIcons ? window.ReactIcons.render('image', { size: 14 }) : '🖼️'}</span> Photos (${photos.length})
+          </button>
+          <button class="jdpay-tab-btn jd-detail-tab-btn" data-tab="reviews" onclick="window.LocalCare.switchDetailTab('reviews')">
+            <span>${window.ReactIcons ? window.ReactIcons.render('star', { size: 14 }) : '⭐'}</span> Ratings & Reviews (${b.reviewsCount})
+          </button>
+          <button class="jdpay-tab-btn jd-detail-tab-btn" data-tab="faqs" onclick="window.LocalCare.switchDetailTab('faqs')">
+            <span>${window.ReactIcons ? window.ReactIcons.render('helpCircle', { size: 14 }) : '❓'}</span> FAQs
+          </button>
+        </div>
           </button>
           <button class="jdpay-tab-btn jd-detail-tab-btn" data-tab="photos" onclick="window.LocalCare.switchDetailTab('photos')">
             <span>${window.ReactIcons ? window.ReactIcons.render('image', { size: 14 }) : '🖼️'}</span> Photos (${photos.length})
@@ -3565,7 +3672,13 @@
       } else if (e.key === 'e' || e.key === 'E') {
         if (window.EmergencyMode) window.EmergencyMode.openEmergencyModal();
       } else if (e.key === 't' || e.key === 'T') {
-        DOM.themeToggleBtn?.click();
+        if (e.shiftKey) {
+          toggleEyeComfort();
+        } else {
+          DOM.themeToggleBtn?.click();
+        }
+      } else if (e.key === 'y' || e.key === 'Y') {
+        toggleEyeComfort();
       } else if (e.key === 'o' || e.key === 'O') {
         if (window.CareAISuite?.openPrescriptionOcrModal) window.CareAISuite.openPrescriptionOcrModal();
         if (window.SoundFX) window.SoundFX.playClick();
@@ -3635,14 +3748,19 @@
   let currentLightboxIndex = 0;
   let currentLightboxPhotos = [];
 
-  function openLightbox(bizId, index = 0) {
+  function openLightbox(bizOrId, index = 0) {
     const all = getAllBusinesses();
-    const b = all.find(item => item.id === bizId);
+    const b = (typeof bizOrId === 'object' && bizOrId !== null)
+      ? bizOrId
+      : all.find(item => item.id === bizOrId);
     if (!b) return;
 
     currentLightboxBiz = b;
     currentLightboxIndex = index;
-    currentLightboxPhotos = (b.photos && b.photos.length >= 3) ? b.photos : getTradePhotos(b);
+    const tradeGallery = getTradePhotos(b);
+    let photos = (Array.isArray(b.photos) && b.photos.length >= 1) ? b.photos : tradeGallery;
+    if (b.image && !photos.includes(b.image)) photos = [b.image, ...photos];
+    currentLightboxPhotos = [...new Set(photos)];
 
     const overlay = document.getElementById('photoLightbox');
     if (!overlay) return;
@@ -3911,6 +4029,10 @@
 
   window.LocalCare = {
     setCity,
+    toggleEyeComfort,
+    applyTheme,
+    setTheme: (themeName) => applyTheme(themeName, true),
+    getCurrentTheme: () => state.theme,
     filterLocationByState,
     autoDetectLocation,
     filterCategory,
@@ -4080,8 +4202,19 @@
       compact.style.display = 'flex';
       island.classList.remove('island-active');
     },
+    previewCardPhoto: (bizId, photoUrl, thumbEl) => {
+      const img = document.getElementById(`cardMainImg-${bizId}`);
+      if (img && photoUrl) {
+        img.src = photoUrl;
+      }
+      if (thumbEl && thumbEl.parentElement) {
+        thumbEl.parentElement.querySelectorAll('.jd-thumb-img').forEach(t => t.classList.remove('active'));
+        thumbEl.classList.add('active');
+      }
+    },
     openLightbox,
     closeLightbox,
+    getCurrentLightboxBiz: () => currentLightboxBiz,
     nextLightboxPhoto,
     prevLightboxPhoto,
     setLightboxIndex,

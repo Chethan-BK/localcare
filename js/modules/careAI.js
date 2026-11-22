@@ -14,12 +14,12 @@ window.CareAI = (function () {
       role: 'assistant',
       text: "Namaste! I'm <strong>CareAI 3.0</strong>, your hyper-local intelligent concierge. Ask me anything in <strong>English, ಕನ್ನಡ, हिंदी, or தமிழ்</strong> (e.g. <em>'AC cooling nahi ho raha'</em>, <em>'Dentist under ₹500 near me'</em>, or <em>'Koramangala dalli plumber beku'</em>). You can also launch our Live Bidding Arena!",
       chips: [
-        '⚡ Enter Live Quote Arena',
-        '🩺 Symptom / Fault Wizard',
-        'AC repair today',
-        'Dentist under ₹500',
-        'Emergency ambulance 108',
-        'Best biryani near me'
+        { label: 'Live Quote Arena', query: 'Launch Live Quote Arena', icon: 'zap', isArena: true },
+        { label: 'Symptom & Fault Wizard', query: 'Symptom and Fault Wizard', icon: 'activity' },
+        { label: 'AC repair today', query: 'AC repair available today', icon: 'snowflake' },
+        { label: 'Dentist under ₹500', query: 'Dentist under ₹500 near me', icon: 'stethoscope' },
+        { label: 'Emergency 108', query: '24/7 Emergency Ambulance 108', icon: 'siren' },
+        { label: 'Best biryani near me', query: 'Best biryani restaurants near me', icon: 'utensils' }
       ]
     }
   ];
@@ -63,10 +63,10 @@ window.CareAI = (function () {
           <div class="careai-header-left">
             <div class="careai-avatar-badge-3d" id="careAiAvatarBadge">
               <canvas id="careAiVoiceCanvas" width="48" height="48" class="careai-voice-canvas"></canvas>
-              <span class="careai-avatar-emoji">🤖</span>
+              <span class="careai-avatar-emoji" data-react-icon="bot" data-icon-size="20"></span>
             </div>
             <div>
-              <div style="display: flex; align-items: center; gap: 0.4rem;">
+              <div style="display: flex; align-items: center; gap: 0.45rem;">
                 <h3 class="careai-title" id="careAiTitle">CareAI 3.0 Voice Concierge</h3>
                 <span class="careai-v3-badge">V3 PRO</span>
               </div>
@@ -76,18 +76,32 @@ window.CareAI = (function () {
             </div>
           </div>
           <div class="careai-header-actions">
-            <button class="careai-action-icon" id="careAiVoiceReadoutBtn" onclick="window.CareAI.toggleReadout()" title="Toggle Speech Audio Feedback">🔊</button>
-            <button class="careai-action-icon" id="careAiResetBtn" title="Reset Conversation">🔄</button>
-            <button class="careai-action-icon" id="careAiCloseBtn" title="Close CareAI">✕</button>
+            <button class="careai-action-icon" id="careAiVoiceReadoutBtn" onclick="window.CareAI.toggleReadout()" title="Toggle Speech Audio Feedback">
+              <span data-react-icon="volume2" data-icon-size="15"></span>
+            </button>
+            <button class="careai-action-icon" id="careAiResetBtn" title="Reset Conversation">
+              <span data-react-icon="refresh" data-icon-size="14"></span>
+            </button>
+            <button class="careai-action-icon" id="careAiCloseBtn" title="Close CareAI">
+              <span data-react-icon="x" data-icon-size="15"></span>
+            </button>
           </div>
         </div>
 
         <!-- Quick AI Power Strip -->
         <div class="careai-wizards-strip">
-          <button class="careai-wiz-btn arena-btn-highlight" onclick="window.CareAI.launchArenaFromAI()">⚡ Live Bidding Arena</button>
-          <button class="careai-wiz-btn" onclick="window.CareAI.launchDiagnosticWizard('ac')">❄️ AC Triage</button>
-          <button class="careai-wiz-btn" onclick="window.CareAI.launchDiagnosticWizard('health')">🩺 Health Check</button>
-          <button class="careai-wiz-btn" onclick="window.CareAI.launchDiagnosticWizard('plumbing')">🔧 Leak Detective</button>
+          <button class="careai-wiz-btn arena-btn-highlight" onclick="window.CareAI.launchArenaFromAI()">
+            <span data-react-icon="zap" data-icon-size="13" data-icon-class="react-icon-gold"></span> Live Bidding Arena
+          </button>
+          <button class="careai-wiz-btn" onclick="window.CareAI.launchDiagnosticWizard('ac')">
+            <span data-react-icon="snowflake" data-icon-size="13"></span> AC Triage
+          </button>
+          <button class="careai-wiz-btn" onclick="window.CareAI.launchDiagnosticWizard('health')">
+            <span data-react-icon="stethoscope" data-icon-size="13"></span> Health Check
+          </button>
+          <button class="careai-wiz-btn" onclick="window.CareAI.launchDiagnosticWizard('plumbing')">
+            <span data-react-icon="wrench" data-icon-size="13"></span> Leak Detective
+          </button>
         </div>
 
         <!-- Chat Messages Container -->
@@ -104,7 +118,7 @@ window.CareAI = (function () {
         <div class="careai-footer">
           <form id="careAiForm" class="careai-input-form">
             <button type="button" class="careai-mic-btn" id="careAiMicBtn" onclick="window.CareAI.listenVoiceInput()" title="Speak to CareAI">
-              🎤
+              <span data-react-icon="mic" data-icon-size="16"></span>
             </button>
             <input 
               type="text" 
@@ -114,7 +128,7 @@ window.CareAI = (function () {
               autocomplete="off"
             />
             <button type="submit" class="careai-send-btn" id="careAiSendBtn" aria-label="Send message">
-              <span>➔</span>
+              <span data-react-icon="arrowRight" data-icon-size="14"></span>
             </button>
           </form>
           <div class="careai-disclaimer">
@@ -222,10 +236,10 @@ window.CareAI = (function () {
     const btn = document.getElementById('careAiVoiceReadoutBtn');
     if (btn) {
       btn.style.color = !voiceSynthesisMuted ? 'var(--primary)' : 'inherit';
-      btn.textContent = !voiceSynthesisMuted ? '🔊' : '🔇';
+      btn.innerHTML = window.ReactIcons ? window.ReactIcons.render(!voiceSynthesisMuted ? 'volume2' : 'volumeX', { size: 16 }) : (!voiceSynthesisMuted ? '🔊' : '🔇');
     }
     if (window.LocalCare) {
-      window.LocalCare.showToast(!voiceSynthesisMuted ? 'Voice readout enabled 🔊' : 'Voice readout muted 🔇', 'info');
+      window.LocalCare.showToast(!voiceSynthesisMuted ? 'Voice readout enabled' : 'Voice readout muted', 'info');
     }
     if (voiceSynthesisMuted) {
       stopSpeech();
@@ -534,14 +548,30 @@ window.CareAI = (function () {
 
     const lastAssistantMsg = [...conversationHistory].reverse().find(m => m.role === 'assistant');
     if (lastAssistantMsg && lastAssistantMsg.chips && lastAssistantMsg.chips.length > 0) {
-      chipsBar.innerHTML = lastAssistantMsg.chips.map(chip => `
-        <button class="careai-chip ${chip.includes('Arena') ? 'chip-arena' : ''}" onclick="window.CareAI.sendQuickChip('${chip}')">
-          ${chip}
-        </button>
-      `).join('');
+      chipsBar.innerHTML = lastAssistantMsg.chips.map(chipItem => {
+        if (typeof chipItem === 'object' && chipItem !== null) {
+          const iconHtml = chipItem.icon && window.ReactIcons ? window.ReactIcons.render(chipItem.icon, { size: 13, className: chipItem.isArena ? 'react-icon-gold' : '' }) : '';
+          return `
+            <button class="careai-chip ${chipItem.isArena ? 'chip-arena' : ''}" onclick="window.CareAI.sendQuickChip('${chipItem.query.replace(/'/g, "\\'")}')">
+              ${iconHtml} <span>${chipItem.label}</span>
+            </button>
+          `;
+        }
+        const text = String(chipItem);
+        const isArena = text.includes('Arena');
+        return `
+          <button class="careai-chip ${isArena ? 'chip-arena' : ''}" onclick="window.CareAI.sendQuickChip('${text.replace(/'/g, "\\'")}')">
+            <span>${text}</span>
+          </button>
+        `;
+      }).join('');
       chipsBar.style.display = 'flex';
     } else {
       chipsBar.style.display = 'none';
+    }
+
+    if (window.ReactIcons) {
+      window.ReactIcons.replaceAll(document.getElementById('careAiPanel'));
     }
 
     msgContainer.scrollTop = msgContainer.scrollHeight;
@@ -550,6 +580,10 @@ window.CareAI = (function () {
   function sendQuickChip(text) {
     if (text.includes('Arena')) {
       launchArenaFromAI();
+      return;
+    }
+    if (text.includes('Wizard') || text.includes('Fault')) {
+      launchDiagnosticWizard('health');
       return;
     }
     if (text.includes('Quotes')) {

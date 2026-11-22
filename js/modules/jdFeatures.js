@@ -13,11 +13,12 @@
 (function () {
   'use strict';
 
-  // JD Quick Services Data definition with vibrant icons & badges
+  // JD Quick Services Data definition with authentic trade photography & badges
   const JD_QUICK_SERVICES = [
     {
       id: 'health',
       name: 'Doctors & Clinics',
+      image: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=140&q=80',
       icon: '🩺',
       badge: 'Top Rated',
       badgeClass: 'jd-badge-blue',
@@ -27,6 +28,7 @@
     {
       id: 'electrical',
       name: 'AC Repair & Service',
+      image: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=140&q=80',
       icon: '❄️',
       badge: 'Trending',
       badgeClass: 'jd-badge-orange',
@@ -36,6 +38,7 @@
     {
       id: 'packers',
       name: 'Packers & Movers',
+      image: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=140&q=80',
       icon: '📦',
       badge: 'Hot Deal',
       badgeClass: 'jd-badge-red',
@@ -44,6 +47,7 @@
     {
       id: 'home',
       name: 'Plumbers & Leakage',
+      image: 'https://images.unsplash.com/photo-1585704032915-c3400ca199e7?auto=format&fit=crop&w=140&q=80',
       icon: '🔧',
       badge: 'Sub-10m',
       badgeClass: 'jd-badge-green',
@@ -53,6 +57,7 @@
     {
       id: 'stays',
       name: 'Rent & Real Estate',
+      image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=140&q=80',
       icon: '🏢',
       badge: 'Verified',
       badgeClass: 'jd-badge-blue',
@@ -62,6 +67,7 @@
     {
       id: 'food',
       name: 'Restaurants & Food',
+      image: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=140&q=80',
       icon: '🍽️',
       badge: '50% Off',
       badgeClass: 'jd-badge-orange',
@@ -71,6 +77,7 @@
     {
       id: 'auto',
       name: 'Car Care & Towing',
+      image: 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=140&q=80',
       icon: '🚗',
       badge: '24/7 SOS',
       badgeClass: 'jd-badge-red',
@@ -80,6 +87,7 @@
     {
       id: 'salon',
       name: 'Salons & Spa',
+      image: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=140&q=80',
       icon: '✂️',
       badge: 'Popular',
       badgeClass: 'jd-badge-purple',
@@ -89,6 +97,7 @@
     {
       id: 'b2b',
       name: 'LocalCare Mart B2B',
+      image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=140&q=80',
       icon: '🏭',
       badge: 'B2B Bulk',
       badgeClass: 'jd-badge-gold',
@@ -97,6 +106,7 @@
     {
       id: 'jdpay',
       name: 'LocalCare Pay',
+      image: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=140&q=80',
       icon: '💳',
       badge: 'Cashback',
       badgeClass: 'jd-badge-green',
@@ -105,6 +115,7 @@
     {
       id: 'cleaning',
       name: 'Deep Cleaning',
+      image: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=140&q=80',
       icon: '✨',
       badge: 'Hygiene',
       badgeClass: 'jd-badge-blue',
@@ -114,6 +125,7 @@
     {
       id: 'events',
       name: 'Weddings & Events',
+      image: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=140&q=80',
       icon: '🎉',
       badge: 'Packages',
       badgeClass: 'jd-badge-purple',
@@ -123,6 +135,7 @@
     {
       id: 'tech',
       name: 'Mobile & Laptop',
+      image: 'https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=140&q=80',
       icon: '💻',
       badge: 'Express Fix',
       badgeClass: 'jd-badge-blue',
@@ -132,6 +145,7 @@
     {
       id: 'tutor',
       name: 'Tutors & Classes',
+      image: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=140&q=80',
       icon: '📚',
       badge: 'Top Tutors',
       badgeClass: 'jd-badge-green',
@@ -141,6 +155,7 @@
     {
       id: 'emergency',
       name: '24/7 SOS Helpline',
+      image: 'https://images.unsplash.com/photo-1587745416684-47953f16f02f?auto=format&fit=crop&w=140&q=80',
       icon: '🚨',
       badge: '108 Tollfree',
       badgeClass: 'jd-badge-red',
@@ -149,6 +164,7 @@
     {
       id: 'bestdeal',
       name: 'Get Best Deal',
+      image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=140&q=80',
       icon: '⚡',
       badge: 'Instant Bids',
       badgeClass: 'jd-badge-orange',
@@ -247,7 +263,7 @@
     container.innerHTML = JD_QUICK_SERVICES.map(item => `
       <div class="jd-service-tile" data-action="${item.action}" data-cat="${item.categoryId || ''}" role="button" tabindex="0" title="${item.name}">
         <div class="jd-tile-icon-bubble">
-          <span class="jd-tile-icon">${item.icon}</span>
+          <img src="${item.image}" alt="${item.name}" class="jd-tile-img" loading="lazy" />
           ${item.badge ? `<span class="jd-tile-badge ${item.badgeClass}">${item.badge}</span>` : ''}
         </div>
         <div class="jd-tile-label">${item.name}</div>

@@ -3833,7 +3833,7 @@ var INITIAL_BUSINESSES = [
     "phone": "+91 98450 33221",
     "whatsapp": "919845033221",
     "address": "33, 11th Main Rd, 4th Block, Jayanagar, Bengaluru 560011",
-    "image": "https://images.unsplash.com/photo-1581579186913-45ac3e6efe93?auto=format&fit=crop&w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80",
     "lat": 12.9299,
     "lng": 77.5833,
     "distance": "2.5 km",
@@ -3883,7 +3883,7 @@ var INITIAL_BUSINESSES = [
       }
     ],
     "photos": [
-      "https://images.unsplash.com/photo-1581579186913-45ac3e6efe93?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?auto=format&fit=crop&w=800&q=80"
@@ -4176,7 +4176,13 @@ var INITIAL_BUSINESSES = [
     "phone": "+91 824 244 8899",
     "whatsapp": "918242448899",
     "address": "Near Kadri Temple Road, Kadri, Mangaluru 575002",
-    "image": "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=800&q=85",
+    "photos": [
+      "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=800&q=85",
+      "https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=800&q=85",
+      "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=800&q=85",
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=85"
+    ],
     "lat": 12.8885,
     "lng": 74.8582,
     "distance": "3.1 km",
@@ -4848,7 +4854,7 @@ var INITIAL_BUSINESSES = [
     "phone": "+91 99890 11223",
     "whatsapp": "919989011223",
     "address": "Madhapur Main Road, Near Inorbit Mall, Hitec City, Hyderabad 500081",
-    "image": "https://images.unsplash.com/photo-1581579186913-45ac3e6efe93?auto=format&fit=crop&w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80",
     "lat": 17.4411,
     "lng": 78.3911,
     "distance": "1.8 km",
@@ -4898,7 +4904,7 @@ var INITIAL_BUSINESSES = [
       }
     ],
     "photos": [
-      "https://images.unsplash.com/photo-1581579186913-45ac3e6efe93?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?auto=format&fit=crop&w=800&q=80"
@@ -7422,7 +7428,7 @@ var INITIAL_BUSINESSES = [
       "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1581579186913-45ac3e6efe93?auto=format&fit=crop&w=800&q=80"
+      "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -7478,7 +7484,7 @@ var INITIAL_BUSINESSES = [
     "photos": [
       "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1581579186913-45ac3e6efe93?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80"
     ]
   },
@@ -15978,7 +15984,13 @@ var INITIAL_BUSINESSES = [
     "phone": "+91 99000 00123",
     "whatsapp": "919900000123",
     "address": "Near Kalikamba Temple, Car Street, Bhavathi, Mangaluru",
-    "image": "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=85",
+    "photos": [
+      "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=85",
+      "https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=800&q=85",
+      "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=85",
+      "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=85"
+    ],
     "description": "Old heritage Mangalorean tiled-roof house serving the town's most legendary seafood. Renowned for Anjal (King Fish) Tava Fry in coconut oil, Squid Sukka, Prawns Ghee Roast, and traditional boiled rice with fish curry.",
     "services": [
       {
@@ -16323,7 +16335,7 @@ var INITIAL_BUSINESSES = [
       "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1581579186913-45ac3e6efe93?auto=format&fit=crop&w=800&q=80"
+      "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -16504,7 +16516,7 @@ var INITIAL_BUSINESSES = [
     "phone": "+91 80 4123 9988",
     "whatsapp": "918041239988",
     "address": "ITPB Main Road, Whitefield, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1581579186913-45ac3e6efe93?auto=format&fit=crop&w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80",
     "description": "Professional industrial steam extraction sofa, mattress, and carpet deep cleaning. Utilizes Taski & 3M eco-certified foam chemicals, anti-allergen mite sanitization, and moisture extraction drying within 2 hours.",
     "services": [
       {
@@ -16545,7 +16557,7 @@ var INITIAL_BUSINESSES = [
     "lat": 12.9698,
     "lng": 77.7499,
     "photos": [
-      "https://images.unsplash.com/photo-1581579186913-45ac3e6efe93?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?auto=format&fit=crop&w=800&q=80"
@@ -16881,7 +16893,7 @@ const INITIAL_BOOKINGS = [
       phone: '+91 98450 44556',
       rating: 4.9,
       vehicle: 'KA-01-EA-4921 (Hero Splendor)',
-      photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
+      photo: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=240&q=80',
       etaMinutes: 12
     }
   }

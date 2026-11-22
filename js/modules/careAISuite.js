@@ -26,7 +26,7 @@ window.CareAISuite = (function () {
       estimatedTime: '25 - 40 mins',
       recommendedParts: 'PVC Slip Nut, 1.5" Rubber Beveled Washer, PTFE Sealant Tape',
       icon: '🚰',
-      imagePreview: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80',
+      imagePreview: 'https://images.unsplash.com/photo-1585704032915-c3400ca199e7?auto=format&fit=crop&w=600&q=80',
       sampleTip: 'Shut off the under-sink isolation valve immediately to prevent cabinet water damage.'
     },
     ac: {
@@ -58,7 +58,7 @@ window.CareAISuite = (function () {
       estimatedTime: '20 - 30 mins',
       recommendedParts: '16A Modular Switch & Socket, 2.5 sq mm FR Wire sleeve',
       icon: '⚡',
-      imagePreview: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80',
+      imagePreview: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=600&q=80',
       sampleTip: '⚠️ Do not touch with bare hands! Switch off the main trip switch (MCB) immediately.'
     },
     car: {
@@ -90,7 +90,7 @@ window.CareAISuite = (function () {
       estimatedTime: '45 mins',
       recommendedParts: 'Nanohybrid Composite Resin, Desensitizing Base',
       icon: '🩺',
-      imagePreview: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=600&q=80',
+      imagePreview: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=600&q=80',
       sampleTip: 'Avoid extremely cold or hot beverages. Rinse with lukewarm salt water.'
     }
   };
@@ -184,8 +184,8 @@ window.CareAISuite = (function () {
       <div class="dialog-content-wrapper scanner-modal-wrapper">
         <div class="dialog-header">
           <div style="display: flex; align-items: center; gap: 0.75rem;">
-            <div style="width: 44px; height: 44px; border-radius: var(--radius-md); background: linear-gradient(135deg, #2563eb, #3b82f6); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; color: #fff;">
-              📸
+            <div style="width: 44px; height: 44px; border-radius: var(--radius-md); background: linear-gradient(135deg, #2563eb, #3b82f6); display: flex; align-items: center; justify-content: center; color: #fff;">
+              ${window.ReactIcons ? window.ReactIcons.render('camera', { size: 22 }) : '📸'}
             </div>
             <div>
               <h3 class="dialog-title" id="scannerTitle">CareVision AI — Visual Diagnostic Lab</h3>
@@ -222,7 +222,7 @@ window.CareAISuite = (function () {
 
     isScanningActive = true;
     scanBtn.disabled = true;
-    scanBtn.innerHTML = '<span>⚡ Scanning & Diagnosing...</span>';
+    scanBtn.innerHTML = `<span>${window.ReactIcons ? window.ReactIcons.render('zap', { size: 14 }) : '⚡'} Scanning & Diagnosing...</span>`;
     scanContainer.classList.add('scanning-active');
 
     if (window.SoundFX) window.SoundFX.playBell();
@@ -231,7 +231,7 @@ window.CareAISuite = (function () {
       isScanningActive = false;
       scanContainer.classList.remove('scanning-active');
       scanBtn.disabled = false;
-      scanBtn.innerHTML = '<span>🔄 Re-Scan Image</span>';
+      scanBtn.innerHTML = `<span>${window.ReactIcons ? window.ReactIcons.render('refresh', { size: 14 }) : '🔄'} Re-Scan Image</span>`;
 
       const sc = VISUAL_SCENARIOS[activePhotoScenario];
       displayScanDiagnosis(sc);
@@ -253,19 +253,19 @@ window.CareAISuite = (function () {
         <div class="scanner-image-container">
           <div class="scanner-scenario-tabs">
             <button class="scanner-tab-pill ${scenarioKey === 'leak' ? 'active' : ''}" onclick="window.CareAISuite.selectScannerScenario('leak')">
-              🚰 Pipe Leak
+              ${window.ReactIcons ? window.ReactIcons.render('droplet', { size: 14 }) : '🚰'} Pipe Leak
             </button>
             <button class="scanner-tab-pill ${scenarioKey === 'ac' ? 'active' : ''}" onclick="window.CareAISuite.selectScannerScenario('ac')">
-              ❄️ AC Ice/Drip
+              ${window.ReactIcons ? window.ReactIcons.render('snowflake', { size: 14 }) : '❄️'} AC Ice/Drip
             </button>
             <button class="scanner-tab-pill ${scenarioKey === 'electrical' ? 'active' : ''}" onclick="window.CareAISuite.selectScannerScenario('electrical')">
-              ⚡ Burnt Socket
+              ${window.ReactIcons ? window.ReactIcons.render('zap', { size: 14 }) : '⚡'} Burnt Socket
             </button>
             <button class="scanner-tab-pill ${scenarioKey === 'car' ? 'active' : ''}" onclick="window.CareAISuite.selectScannerScenario('car')">
-              🚗 Car Dent
+              ${window.ReactIcons ? window.ReactIcons.render('car', { size: 14 }) : '🚗'} Car Dent
             </button>
             <button class="scanner-tab-pill ${scenarioKey === 'dental' ? 'active' : ''}" onclick="window.CareAISuite.selectScannerScenario('dental')">
-              🩺 Toothache
+              ${window.ReactIcons ? window.ReactIcons.render('activity', { size: 14 }) : '🩺'} Toothache
             </button>
           </div>
 
@@ -283,15 +283,15 @@ window.CareAISuite = (function () {
             <!-- Live Camera / Custom Photo Upload Bar -->
             <div class="scanner-upload-bar">
               <label class="scanner-upload-label" title="Upload custom photo from your device">
-                <span>📁 Upload Your Own Photo</span>
+                <span>${window.ReactIcons ? window.ReactIcons.render('upload', { size: 14 }) : '📁'} Upload Your Own Photo</span>
                 <input type="file" accept="image/*" style="display: none;" onchange="window.CareAISuite.handleUserPhotoUpload(event)" />
               </label>
             </div>
           </div>
 
           <div style="margin-top: 1rem; text-align: center;">
-            <button class="action-btn action-btn-primary" id="scannerRunBtn" style="padding: 0.75rem 1.8rem; font-size: 0.95rem; width: 100%; justify-content: center;" onclick="window.CareAISuite.runVisualScan()">
-              <span>✨ Run AI Visual Diagnosis</span>
+            <button class="action-btn action-btn-primary" id="scannerRunBtn" style="padding: 0.75rem 1.8rem; font-size: 0.95rem; width: 100%; justify-content: center; display: inline-flex; align-items: center; gap: 0.45rem;" onclick="window.CareAISuite.runVisualScan()">
+              <span>${window.ReactIcons ? window.ReactIcons.render('sparkles', { size: 15 }) : '✨'} Run AI Visual Diagnosis</span>
             </button>
           </div>
         </div>
@@ -299,7 +299,9 @@ window.CareAISuite = (function () {
         <!-- Right: Diagnostic Report & Matched Verified Pros -->
         <div class="scanner-diagnosis-container" id="scannerResultsPanel">
           <div class="scanner-waiting-state">
-            <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🤖</div>
+            <div style="margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center; color: var(--primary);">
+              ${window.ReactIcons ? window.ReactIcons.render('bot', { size: 48, className: 'react-icon-ai' }) : '🤖'}
+            </div>
             <h4 style="font-size: 1.15rem; margin-bottom: 0.35rem;">Click "Run AI Visual Diagnosis"</h4>
             <p style="font-size: 0.88rem; color: var(--text-secondary);">CareAI will detect the physical fault, calculate fair market parts & labour cost, and match top rated verified specialists.</p>
           </div>
