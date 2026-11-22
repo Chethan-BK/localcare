@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Justdial LocalCare Infinity - Full-Stack Local Discovery Platform
 
 > **India's #1 AI-Powered Hyper-Local Discovery, B2B Marketplace & Doorstep Services Engine**  
@@ -87,3 +88,6 @@ Run the automated test suite:
 npm test
 ```
 *Executes 20 enterprise tests covering Relational Integrity, Auth, Booking Concurrency, Payments, and AI Intent Parsing.*
+=======
+# localcare
+>>>>>>> 95107e71b6b5c60506c854d6beafa869c023a0b0
