@@ -3,7 +3,7 @@
    Expanded for next-generation local services platform across 10 major Indian hubs
    ========================================================================== */
 
-const CITIES = [
+var CITIES = [
   {
     "id": "bengaluru",
     "name": "Bengaluru",
@@ -160,7 +160,7 @@ const CITIES = [
   }
 ];
 
-const CATEGORIES = [
+var CATEGORIES = [
   {
     id: 'health',
     title: 'Doctors & Clinics',
@@ -267,7 +267,7 @@ const CATEGORIES = [
   },
   {
     id: 'b2b',
-    title: 'B2B Wholesale / JD Mart',
+    title: 'B2B Wholesale / LocalCare Mart',
     icon: '🏭',
     badgeClass: 'cat-b2b',
     count: '2,650+ suppliers',
@@ -304,10 +304,1651 @@ const CATEGORIES = [
     badgeClass: 'cat-travel',
     count: '1,920+ listings',
     subcategories: ['Hotels & Resorts', 'Travel Agencies', 'Tour Operators', 'Car Rentals', 'Bus & Flight Bookings']
+  },
+  {
+    id: 'jobs',
+    title: 'Jobs & Careers',
+    icon: '💼',
+    badgeClass: 'cat-jobs',
+    count: '980+ openings',
+    subcategories: ['Full-Time Jobs', 'Part-Time Jobs', 'Internships', 'Freelance Projects', 'Walk-in Interviews']
   }
 ];
 
-const INITIAL_BUSINESSES = [
+var INITIAL_BUSINESSES = [
+  {
+    "id": "b-stay-101",
+    "name": "Zolo Stays Tech Hub Co-Living & Luxury PG",
+    "category": "stays",
+    "subcategory": "Hostels & PGs",
+    "city": "Bengaluru",
+    "locality": "Koramangala 1st Block",
+    "rating": 4.8,
+    "reviewsCount": 390,
+    "verified": true,
+    "superSeller": true,
+    "openNow": true,
+    "availableToday": true,
+    "operatingHours": "24 Hours Open",
+    "startingPrice": 6500,
+    "priceRange": "₹₹₹",
+    "responseTime": "~5 min",
+    "trustScore": 98,
+    "trustVerification": {
+      "phoneVerified": true,
+      "businessRegistration": true,
+      "addressInspected": true,
+      "policeBackgroundChecked": true,
+      "verifiedCustomerReviews": 390
+    },
+    "phone": "+91 80 4999 5511",
+    "whatsapp": "918049995511",
+    "address": "Near Wipro Park, Koramangala 1st Block, Bengaluru",
+    "image": "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=80",
+    "description": "Fully furnished private & twin sharing executive rooms with high-speed 300 Mbps Wi-Fi, daily housekeeping, 3-time meals, gaming lounge, and biometrics security.",
+    "services": [
+      {
+        "id": "s-st-1",
+        "name": "Private Executive Studio Room (Monthly)",
+        "price": 12500,
+        "duration": "Per Month"
+      },
+      {
+        "id": "s-st-2",
+        "name": "Twin Sharing Deluxe Room with Meals (Monthly)",
+        "price": 7500,
+        "duration": "Per Month"
+      }
+    ],
+    "features": [
+      "3 Times Nutritious Meals",
+      "300 Mbps Fiber WiFi",
+      "Daily Housekeeping",
+      "No Brokerage Fee"
+    ],
+    "reviews": [
+      {
+        "author": "Siddharth M.",
+        "rating": 5,
+        "date": "2 days ago",
+        "verifiedBooking": true,
+        "comment": "Cleanest PG in Koramangala. Food tastes like home."
+      }
+    ],
+    "lat": 12.9279,
+    "lng": 77.6322,
+    "photos": [
+      "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "id": "b-stay-102",
+    "name": "Olive Serviced Executive Apartments & Studios",
+    "category": "stays",
+    "subcategory": "Serviced Apartments",
+    "city": "Bengaluru",
+    "locality": "Indiranagar",
+    "rating": 4.9,
+    "reviewsCount": 275,
+    "verified": true,
+    "superSeller": true,
+    "openNow": true,
+    "availableToday": true,
+    "operatingHours": "24 Hours Open",
+    "startingPrice": 1999,
+    "priceRange": "₹₹₹₹",
+    "responseTime": "~5 min",
+    "trustScore": 99,
+    "trustVerification": {
+      "phoneVerified": true,
+      "businessRegistration": true,
+      "addressInspected": true,
+      "policeBackgroundChecked": true,
+      "verifiedCustomerReviews": 275
+    },
+    "phone": "+91 80 4888 1122",
+    "whatsapp": "918048881122",
+    "address": "Defense Colony, Indiranagar, Bengaluru 560038",
+    "image": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80",
+    "description": "Luxury serviced studio apartments with modular kitchen, gym access, air conditioning, and 24/7 power backup for business travelers and long stays.",
+    "services": [
+      {
+        "id": "s-st-3",
+        "name": "Studio Suite Stay (Nightly)",
+        "price": 1999,
+        "duration": "Per Night"
+      },
+      {
+        "id": "s-st-4",
+        "name": "1BHK Luxury Apartment (Monthly Stay)",
+        "price": 34999,
+        "duration": "Per Month"
+      }
+    ],
+    "features": [
+      "Modular Kitchen & Microwave",
+      "Dedicated Workspace",
+      "Gym & Terrace Garden"
+    ],
+    "reviews": [
+      {
+        "author": "Priyanka Sen",
+        "rating": 5,
+        "date": "1 week ago",
+        "verifiedBooking": true,
+        "comment": "Stayed for 3 weeks during relocation. Felt super safe and convenient."
+      }
+    ],
+    "lat": 12.9784,
+    "lng": 77.6408,
+    "photos": [
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "id": "b-elec-101",
+    "name": "CoolAir Master AC Deep Jet Servicing & Installation",
+    "category": "electrical",
+    "subcategory": "AC Repair & Service",
+    "city": "Bengaluru",
+    "locality": "Indiranagar",
+    "rating": 4.9,
+    "reviewsCount": 540,
+    "verified": true,
+    "superSeller": true,
+    "openNow": true,
+    "availableToday": true,
+    "operatingHours": "8:00 AM - 9:00 PM",
+    "startingPrice": 449,
+    "priceRange": "₹₹",
+    "responseTime": "~10 min",
+    "trustScore": 99,
+    "trustVerification": {
+      "phoneVerified": true,
+      "businessRegistration": true,
+      "addressInspected": true,
+      "policeBackgroundChecked": true,
+      "verifiedCustomerReviews": 540
+    },
+    "phone": "+91 80 4111 9988",
+    "whatsapp": "918041119988",
+    "address": "100ft Road, Indiranagar, Bengaluru",
+    "image": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80",
+    "description": "High-pressure power jet AC servicing, gas charging (R32/R410A), PCB repair, and copper pipe installation with 60-day cool air guarantee.",
+    "services": [
+      {
+        "id": "s-el-1",
+        "name": "Split AC Power Jet Deep Clean Service",
+        "price": 449,
+        "duration": "45 mins"
+      },
+      {
+        "id": "s-el-2",
+        "name": "AC Gas Leak Fixing & Full Refrigerant Charge",
+        "price": 1499,
+        "duration": "60 mins"
+      },
+      {
+        "id": "s-el-3",
+        "name": "AC Uninstallation & New Installation",
+        "price": 999,
+        "duration": "90 mins"
+      }
+    ],
+    "features": [
+      "60-Day Service Guarantee",
+      "Zero Mess Foam Technology",
+      "Certified HVAC Technicians",
+      "Transparent Rate Card"
+    ],
+    "reviews": [
+      {
+        "author": "Kiran Varun",
+        "rating": 5,
+        "date": "Yesterday",
+        "verifiedBooking": true,
+        "comment": "AC is cooling like brand new. Technician arrived in 25 mins with jet machine."
+      }
+    ],
+    "lat": 12.9784,
+    "lng": 77.6408,
+    "photos": [
+      "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "id": "b-elec-102",
+    "name": "Suraksha 24/7 Master Electricians & Short Circuit Rescue",
+    "category": "electrical",
+    "subcategory": "Electricians",
+    "city": "Bengaluru",
+    "locality": "HSR Layout",
+    "rating": 4.8,
+    "reviewsCount": 310,
+    "verified": true,
+    "superSeller": true,
+    "openNow": true,
+    "availableToday": true,
+    "operatingHours": "24 Hours Open",
+    "startingPrice": 199,
+    "priceRange": "₹",
+    "responseTime": "~12 min",
+    "trustScore": 98,
+    "trustVerification": {
+      "phoneVerified": true,
+      "businessRegistration": true,
+      "addressInspected": true,
+      "policeBackgroundChecked": true,
+      "verifiedCustomerReviews": 310
+    },
+    "phone": "+91 80 4222 1199",
+    "whatsapp": "918042221199",
+    "address": "Sector 3, HSR Layout, Bengaluru 560102",
+    "image": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80",
+    "description": "Emergency MCB tripping resolution, inverter wiring, ceiling fan / chandelier fitting, and complete residential electrical rewiring.",
+    "services": [
+      {
+        "id": "s-el-4",
+        "name": "Emergency MCB / Short Circuit Triage",
+        "price": 349,
+        "duration": "30 mins"
+      },
+      {
+        "id": "s-el-5",
+        "name": "Ceiling Fan & Switchboard Installation",
+        "price": 199,
+        "duration": "30 mins"
+      }
+    ],
+    "features": [
+      "Govt Licensed Wiremen",
+      "Insulated Toolkits",
+      "30-Minute Doorstep SLA"
+    ],
+    "reviews": [
+      {
+        "author": "Gautam Das",
+        "rating": 5,
+        "date": "3 days ago",
+        "verifiedBooking": true,
+        "comment": "Fixed the geyser MCB trip quickly on a Sunday morning."
+      }
+    ],
+    "lat": 12.9116,
+    "lng": 77.6389,
+    "photos": [
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "id": "b-job-101",
+    "name": "NexGen Tech Staffing & Software Recruitment Labs",
+    "category": "jobs",
+    "subcategory": "Full-Time Jobs",
+    "city": "Bengaluru",
+    "locality": "Koramangala 4th Block",
+    "rating": 4.9,
+    "reviewsCount": 380,
+    "verified": true,
+    "superSeller": true,
+    "openNow": true,
+    "availableToday": true,
+    "operatingHours": "9:00 AM - 7:30 PM",
+    "startingPrice": 0,
+    "priceRange": "FREE",
+    "responseTime": "~5 min",
+    "trustScore": 99,
+    "trustVerification": {
+      "phoneVerified": true,
+      "businessRegistration": true,
+      "addressInspected": true,
+      "policeBackgroundChecked": true,
+      "verifiedCustomerReviews": 380
+    },
+    "phone": "+91 80 4120 7700",
+    "whatsapp": "918041207700",
+    "address": "80 Feet Road, Koramangala 4th Block, Bengaluru 560034",
+    "image": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80",
+    "description": "Premier tier-1 tech recruiting consultancy connecting senior software engineers, product managers, and AI specialists to high-growth unicorns and MNCs in Bengaluru.",
+    "services": [
+      {
+        "id": "s-job-1",
+        "name": "Software Engineer Placement (Direct Hire)",
+        "price": 0,
+        "duration": "Immediate Walk-in"
+      },
+      {
+        "id": "s-job-2",
+        "name": "Resume Review & Mock Tech Interview",
+        "price": 499,
+        "duration": "45 mins"
+      },
+      {
+        "id": "s-job-3",
+        "name": "Executive Leadership Search",
+        "price": 0,
+        "duration": "Confidential"
+      }
+    ],
+    "features": [
+      "Zero Fee for Candidates",
+      "Direct Interview Scheduling",
+      "100+ Hiring Partners",
+      "Verified MNC Openings"
+    ],
+    "reviews": [
+      {
+        "author": "Vikram Sundaram",
+        "rating": 5,
+        "date": "2 days ago",
+        "verifiedBooking": true,
+        "comment": "Secured an SDE-2 offer with ₹28 LPA package in 10 days flat!"
+      }
+    ],
+    "lat": 12.9345,
+    "lng": 77.6256,
+    "photos": [
+      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "id": "b-job-102",
+    "name": "CareerCrafters Executive Search & IT Staffing Hub",
+    "category": "jobs",
+    "subcategory": "Full-Time Jobs",
+    "city": "Bengaluru",
+    "locality": "Indiranagar 100ft Road",
+    "rating": 4.8,
+    "reviewsCount": 295,
+    "verified": true,
+    "superSeller": true,
+    "openNow": true,
+    "availableToday": true,
+    "operatingHours": "9:30 AM - 7:00 PM",
+    "startingPrice": 0,
+    "priceRange": "FREE",
+    "responseTime": "~8 min",
+    "trustScore": 98,
+    "trustVerification": {
+      "phoneVerified": true,
+      "businessRegistration": true,
+      "addressInspected": true,
+      "policeBackgroundChecked": true,
+      "verifiedCustomerReviews": 295
+    },
+    "phone": "+91 80 4222 3344",
+    "whatsapp": "918042223344",
+    "address": "100 Feet Road, Indiranagar, Bengaluru 560038",
+    "image": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80",
+    "description": "Leading executive headhunting and technical career advisory firm. Walk-in candidate evaluations, salary benchmarking, and overseas sponsorship opportunities.",
+    "services": [
+      {
+        "id": "s-job-4",
+        "name": "Product Management & Data Science Hiring",
+        "price": 0,
+        "duration": "Daily Slots"
+      },
+      {
+        "id": "s-job-5",
+        "name": "Executive Salary Benchmarking Report",
+        "price": 999,
+        "duration": "Instant Delivery"
+      }
+    ],
+    "features": [
+      "Top Global Tech Employers",
+      "Fast-Track Interviews",
+      "Dedicated Talent Advisor"
+    ],
+    "reviews": [
+      {
+        "author": "Meera Nambiar",
+        "rating": 5,
+        "date": "Yesterday",
+        "verifiedBooking": true,
+        "comment": "Professional headhunters who actually listen to career goals."
+      }
+    ],
+    "lat": 12.9784,
+    "lng": 77.6408,
+    "photos": [
+      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "id": "b-job-103",
+    "name": "Apex Placement & Walk-In Career Bureau",
+    "category": "jobs",
+    "subcategory": "Walk-in Interviews",
+    "city": "Bengaluru",
+    "locality": "Whitefield ITPL Road",
+    "rating": 4.7,
+    "reviewsCount": 210,
+    "verified": true,
+    "superSeller": false,
+    "openNow": true,
+    "availableToday": true,
+    "operatingHours": "9:00 AM - 6:30 PM",
+    "startingPrice": 0,
+    "priceRange": "FREE",
+    "responseTime": "~10 min",
+    "trustScore": 96,
+    "trustVerification": {
+      "phoneVerified": true,
+      "businessRegistration": true,
+      "addressInspected": true,
+      "policeBackgroundChecked": true,
+      "verifiedCustomerReviews": 210
+    },
+    "phone": "+91 80 4333 5566",
+    "whatsapp": "918043335566",
+    "address": "ITPL Main Road, Whitefield, Bengaluru 560066",
+    "image": "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80",
+    "description": "Daily walk-in placement center specializing in non-voice BPO, tech support, accounting, and fresher software engineering drives with on-the-spot offer letters.",
+    "services": [
+      {
+        "id": "s-job-6",
+        "name": "Daily Walk-in Interview Registration",
+        "price": 0,
+        "duration": "1 Hour Drive"
+      },
+      {
+        "id": "s-job-7",
+        "name": "Fresher Aptitude & English Comm Test",
+        "price": 299,
+        "duration": "30 mins"
+      }
+    ],
+    "features": [
+      "Same-Day Offer Letters",
+      "IT & Non-IT Openings",
+      "Whitefield Campus Hub"
+    ],
+    "reviews": [
+      {
+        "author": "Rohan Deshmukh",
+        "rating": 5,
+        "date": "3 days ago",
+        "verifiedBooking": true,
+        "comment": "Attended the walk-in and walked out with a customer support lead role!"
+      }
+    ],
+    "lat": 12.983,
+    "lng": 77.75,
+    "photos": [
+      "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "id": "b-job-104",
+    "name": "TalentSprint Fresher Job & Tech Internship Accelerator",
+    "category": "jobs",
+    "subcategory": "Internships",
+    "city": "Bengaluru",
+    "locality": "HSR Layout Sector 2",
+    "rating": 4.9,
+    "reviewsCount": 340,
+    "verified": true,
+    "superSeller": true,
+    "openNow": true,
+    "availableToday": true,
+    "operatingHours": "9:00 AM - 8:00 PM",
+    "startingPrice": 0,
+    "priceRange": "FREE",
+    "responseTime": "~5 min",
+    "trustScore": 99,
+    "trustVerification": {
+      "phoneVerified": true,
+      "businessRegistration": true,
+      "addressInspected": true,
+      "policeBackgroundChecked": true,
+      "verifiedCustomerReviews": 340
+    },
+    "phone": "+91 80 4555 9900",
+    "whatsapp": "918045559900",
+    "address": "27th Main, HSR Layout Sector 2, Bengaluru 560102",
+    "image": "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80",
+    "description": "Top-rated tech talent incubator. Paid internships and direct fresher software developer placements across 80+ funded startups and IT product companies.",
+    "services": [
+      {
+        "id": "s-job-8",
+        "name": "Paid Tech Internship Matching",
+        "price": 0,
+        "duration": "Immediate Match"
+      },
+      {
+        "id": "s-job-9",
+        "name": "Full-Stack Developer Placement Drive",
+        "price": 0,
+        "duration": "Weekly Batches"
+      }
+    ],
+    "features": [
+      "Stipend Guaranteed Internships",
+      "Full-Stack & Cloud Tracks",
+      "Verified Startup Backing"
+    ],
+    "reviews": [
+      {
+        "author": "Ananya Sharma",
+        "rating": 5,
+        "date": "1 week ago",
+        "verifiedBooking": true,
+        "comment": "Landed a paid React internship which converted to full-time in 3 months!"
+      }
+    ],
+    "lat": 12.9116,
+    "lng": 77.6389,
+    "photos": [
+      "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "id": "b-job-105",
+    "name": "MetroForce Staffing & Corporate HR Solutions",
+    "category": "jobs",
+    "subcategory": "Full-Time Jobs",
+    "city": "Mumbai",
+    "locality": "Bandra Kurla Complex (BKC)",
+    "rating": 4.8,
+    "reviewsCount": 310,
+    "verified": true,
+    "superSeller": true,
+    "openNow": true,
+    "availableToday": true,
+    "operatingHours": "9:00 AM - 7:00 PM",
+    "startingPrice": 0,
+    "priceRange": "FREE",
+    "responseTime": "~10 min",
+    "trustScore": 98,
+    "trustVerification": {
+      "phoneVerified": true,
+      "businessRegistration": true,
+      "addressInspected": true,
+      "policeBackgroundChecked": true,
+      "verifiedCustomerReviews": 310
+    },
+    "phone": "+91 22 4111 8899",
+    "whatsapp": "912241118899",
+    "address": "G Block, BKC, Bandra East, Mumbai 400051",
+    "image": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80",
+    "description": "Leading finance, banking, fintech, and media staffing solutions across Mumbai metropolitan region.",
+    "services": [
+      {
+        "id": "s-job-10",
+        "name": "Banking & Financial Analyst Openings",
+        "price": 0,
+        "duration": "Daily Drives"
+      }
+    ],
+    "features": [
+      "BKC Corporate Network",
+      "Zero Candidate Fees",
+      "Top Investment Banks"
+    ],
+    "reviews": [
+      {
+        "author": "Karan Mehta",
+        "rating": 5,
+        "date": "3 days ago",
+        "verifiedBooking": true,
+        "comment": "Secured an equity research associate position quickly."
+      }
+    ],
+    "lat": 19.0657,
+    "lng": 72.8687,
+    "photos": [
+      "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "id": "b-daily-101",
+    "name": "Spin & Sparkle Express 24-Hr Dry Cleaners",
+    "category": "daily",
+    "subcategory": "Laundry & Dry Cleaning",
+    "city": "Bengaluru",
+    "locality": "Koramangala 5th Block",
+    "rating": 4.9,
+    "reviewsCount": 420,
+    "verified": true,
+    "superSeller": true,
+    "openNow": true,
+    "availableToday": true,
+    "operatingHours": "8:00 AM - 9:30 PM",
+    "startingPrice": 99,
+    "priceRange": "₹",
+    "responseTime": "~10 min",
+    "trustScore": 99,
+    "trustVerification": {
+      "phoneVerified": true,
+      "businessRegistration": true,
+      "addressInspected": true,
+      "policeBackgroundChecked": true,
+      "verifiedCustomerReviews": 420
+    },
+    "phone": "+91 80 4777 2211",
+    "whatsapp": "918047772211",
+    "address": "Near Jyoti Nivas College, Koramangala 5th Block, Bengaluru",
+    "image": "https://images.unsplash.com/photo-1545173168-9f1947eebb7f?auto=format&fit=crop&w=800&q=80",
+    "description": "Eco-friendly European dry cleaning, steam ironing, shoe restoration, and express doorstep pick & drop within 24 hours.",
+    "services": [
+      {
+        "id": "s-dl-1",
+        "name": "Premium Suit / Blazer Dry Cleaning",
+        "price": 299,
+        "duration": "24 Hours"
+      },
+      {
+        "id": "s-dl-2",
+        "name": "Express Steam Pressing (5 Clothes)",
+        "price": 99,
+        "duration": "2 Hours"
+      },
+      {
+        "id": "s-dl-3",
+        "name": "Curtains & Blanket Deep Sanitization",
+        "price": 499,
+        "duration": "48 Hours"
+      }
+    ],
+    "features": [
+      "Doorstep Pick & Drop",
+      "Eco-Friendly Detergents",
+      "Same-Day Urgent Delivery",
+      "Fabric Guarantee"
+    ],
+    "reviews": [
+      {
+        "author": "Sunil Rao",
+        "rating": 5,
+        "date": "Yesterday",
+        "verifiedBooking": true,
+        "comment": "Removed stubborn ink stains from my white silk shirt. Superb work!"
+      }
+    ],
+    "lat": 12.9352,
+    "lng": 77.6189,
+    "photos": [
+      "https://images.unsplash.com/photo-1545173168-9f1947eebb7f?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "id": "b-daily-102",
+    "name": "SwiftDrop Hyperlocal Courier & Parcel Dispatch Hub",
+    "category": "daily",
+    "subcategory": "Courier Services",
+    "city": "Bengaluru",
+    "locality": "Indiranagar",
+    "rating": 4.8,
+    "reviewsCount": 310,
+    "verified": true,
+    "superSeller": true,
+    "openNow": true,
+    "availableToday": true,
+    "operatingHours": "8:30 AM - 10:00 PM",
+    "startingPrice": 49,
+    "priceRange": "₹",
+    "responseTime": "~5 min",
+    "trustScore": 98,
+    "trustVerification": {
+      "phoneVerified": true,
+      "businessRegistration": true,
+      "addressInspected": true,
+      "policeBackgroundChecked": true,
+      "verifiedCustomerReviews": 310
+    },
+    "phone": "+91 80 4888 3355",
+    "whatsapp": "918048883355",
+    "address": "CMH Road, Indiranagar, Bengaluru 560038",
+    "image": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80",
+    "description": "Instant same-day city courier, domestic air cargo, and international DHL/FedEx partner point with safe bubble packaging.",
+    "services": [
+      {
+        "id": "s-dl-4",
+        "name": "Same-Day Intra-City Express Courier",
+        "price": 99,
+        "duration": "2 Hours"
+      },
+      {
+        "id": "s-dl-5",
+        "name": "All-India Document Speed Courier",
+        "price": 149,
+        "duration": "24 Hours"
+      }
+    ],
+    "features": [
+      "Live GPS Tracking",
+      "Instant Doorstep Pickup",
+      "Secure Bubble Wrap Packaging"
+    ],
+    "reviews": [
+      {
+        "author": "Tanvi Murthy",
+        "rating": 5,
+        "date": "3 days ago",
+        "verifiedBooking": true,
+        "comment": "Delivered urgent legal documents from Indiranagar to Electronic City in 45 mins."
+      }
+    ],
+    "lat": 12.9784,
+    "lng": 77.6408,
+    "photos": [
+      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "id": "b-daily-103",
+    "name": "MasterKey 24x7 Locksmith & Laser Duplicate Studio",
+    "category": "daily",
+    "subcategory": "Repair Shops",
+    "city": "Bengaluru",
+    "locality": "HSR Layout",
+    "rating": 4.9,
+    "reviewsCount": 185,
+    "verified": true,
+    "superSeller": false,
+    "openNow": true,
+    "availableToday": true,
+    "operatingHours": "24 Hours Open",
+    "startingPrice": 199,
+    "priceRange": "₹",
+    "responseTime": "~15 min",
+    "trustScore": 97,
+    "trustVerification": {
+      "phoneVerified": true,
+      "businessRegistration": true,
+      "addressInspected": true,
+      "policeBackgroundChecked": true,
+      "verifiedCustomerReviews": 185
+    },
+    "phone": "+91 98451 98765",
+    "whatsapp": "919845198765",
+    "address": "14th Main, HSR Layout Sector 4, Bengaluru 560102",
+    "image": "https://images.unsplash.com/photo-1582139329536-e7284fece509?auto=format&fit=crop&w=800&q=80",
+    "description": "Emergency home and car lockout service, computerized laser duplicate key cutting, digital biometric door lock installation.",
+    "services": [
+      {
+        "id": "s-dl-6",
+        "name": "Emergency Door Lockout Unlock",
+        "price": 499,
+        "duration": "20 mins"
+      },
+      {
+        "id": "s-dl-7",
+        "name": "Computerized Laser Key Duplicate",
+        "price": 199,
+        "duration": "10 mins"
+      }
+    ],
+    "features": [
+      "24/7 Mobile Van Dispatch",
+      "Laser Key Precision",
+      "Car Sensor Keys Supported"
+    ],
+    "reviews": [
+      {
+        "author": "Rajesh G.",
+        "rating": 5,
+        "date": "1 week ago",
+        "verifiedBooking": true,
+        "comment": "Arrived at 1 AM when I locked myself out of my apartment. Life saver!"
+      }
+    ],
+    "lat": 12.9116,
+    "lng": 77.6389,
+    "photos": [
+      "https://images.unsplash.com/photo-1582139329536-e7284fece509?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "id": "b-shop-101",
+    "name": "Croma & Digital Hub Megastore Flagship",
+    "category": "shopping",
+    "subcategory": "Electronics",
+    "city": "Bengaluru",
+    "locality": "Koramangala",
+    "rating": 4.8,
+    "reviewsCount": 890,
+    "verified": true,
+    "superSeller": true,
+    "openNow": true,
+    "availableToday": true,
+    "operatingHours": "10:00 AM - 10:00 PM",
+    "startingPrice": 499,
+    "priceRange": "₹₹₹",
+    "responseTime": "~5 min",
+    "trustScore": 99,
+    "trustVerification": {
+      "phoneVerified": true,
+      "businessRegistration": true,
+      "addressInspected": true,
+      "policeBackgroundChecked": true,
+      "verifiedCustomerReviews": 890
+    },
+    "phone": "+91 80 4999 1100",
+    "whatsapp": "918049991100",
+    "address": "Near Forum Mall, Hosur Road, Koramangala, Bengaluru 560095",
+    "image": "https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&w=800&q=80",
+    "description": "Official electronics destination for laptops, smartphones, 4K Smart TVs, air conditioners, home theater systems, and genuine accessories with brand warranty.",
+    "services": [
+      {
+        "id": "s-sh-1",
+        "name": "In-Store Product Demo & Consult",
+        "price": 0,
+        "duration": "Walk-in"
+      },
+      {
+        "id": "s-sh-2",
+        "name": "Express 3-Hour Home Delivery & Setup",
+        "price": 199,
+        "duration": "3 Hours"
+      }
+    ],
+    "features": [
+      "Official Brand Warranty",
+      "Zero Cost EMI Available",
+      "3-Hour Home Delivery",
+      "Live Gadget Demo"
+    ],
+    "reviews": [
+      {
+        "author": "Akash Reddy",
+        "rating": 5,
+        "date": "Yesterday",
+        "verifiedBooking": true,
+        "comment": "Purchased an OLED TV with free installation done within 4 hours."
+      }
+    ],
+    "lat": 12.9345,
+    "lng": 77.615,
+    "photos": [
+      "https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "id": "b-shop-102",
+    "name": "FabIndia & Handloom Heritage Lounge",
+    "category": "shopping",
+    "subcategory": "Clothing & Fashion",
+    "city": "Bengaluru",
+    "locality": "Jayanagar 4th Block",
+    "rating": 4.9,
+    "reviewsCount": 520,
+    "verified": true,
+    "superSeller": true,
+    "openNow": true,
+    "availableToday": true,
+    "operatingHours": "10:30 AM - 9:30 PM",
+    "startingPrice": 799,
+    "priceRange": "₹₹₹",
+    "responseTime": "~8 min",
+    "trustScore": 98,
+    "trustVerification": {
+      "phoneVerified": true,
+      "businessRegistration": true,
+      "addressInspected": true,
+      "policeBackgroundChecked": true,
+      "verifiedCustomerReviews": 520
+    },
+    "phone": "+91 80 4666 7788",
+    "whatsapp": "918046667788",
+    "address": "11th Main, Jayanagar 4th Block, Bengaluru 560011",
+    "image": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80",
+    "description": "Pure artisan ethnic apparel, organic cotton kurtas, handcrafted home furnishings, pottery, and natural Ayurvedic beauty care.",
+    "services": [
+      {
+        "id": "s-sh-3",
+        "name": "Personal Styling & Trial Room Assistance",
+        "price": 0,
+        "duration": "Walk-in"
+      }
+    ],
+    "features": [
+      "100% Organic Cotton",
+      "Artisan Handcrafted",
+      "Exchange Guarantee"
+    ],
+    "reviews": [
+      {
+        "author": "Pooja Bhat",
+        "rating": 5,
+        "date": "4 days ago",
+        "verifiedBooking": true,
+        "comment": "Beautiful festive collection and top-notch customer service."
+      }
+    ],
+    "lat": 12.925,
+    "lng": 77.5838,
+    "photos": [
+      "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "id": "b-pro-101",
+    "name": "LexOmnis High Court Advocates & Corporate Legal Counsel",
+    "category": "pro",
+    "subcategory": "Lawyers & Advocates",
+    "city": "Bengaluru",
+    "locality": "MG Road / High Court",
+    "rating": 4.9,
+    "reviewsCount": 340,
+    "verified": true,
+    "superSeller": true,
+    "openNow": true,
+    "availableToday": true,
+    "operatingHours": "9:30 AM - 7:30 PM",
+    "startingPrice": 999,
+    "priceRange": "₹₹₹",
+    "responseTime": "~10 min",
+    "trustScore": 99,
+    "trustVerification": {
+      "phoneVerified": true,
+      "businessRegistration": true,
+      "addressInspected": true,
+      "policeBackgroundChecked": true,
+      "verifiedCustomerReviews": 340
+    },
+    "phone": "+91 80 4111 2233",
+    "whatsapp": "918041112233",
+    "address": "Prestige Meridian, MG Road, Bengaluru 560001",
+    "image": "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80",
+    "description": "Senior High Court advocates offering property legal verification, builder dispute litigation, corporate compliance, startup agreements, and civil law counseling.",
+    "services": [
+      {
+        "id": "s-pro-1",
+        "name": "Property Title Verification & Legal Opinion",
+        "price": 2999,
+        "duration": "24 Hours"
+      },
+      {
+        "id": "s-pro-2",
+        "name": "Startup Employment / Founder Contract Drafting",
+        "price": 1999,
+        "duration": "48 Hours"
+      },
+      {
+        "id": "s-pro-3",
+        "name": "In-Chamber Legal Consultation (30 mins)",
+        "price": 999,
+        "duration": "30 mins"
+      }
+    ],
+    "features": [
+      "High Court Bar Council Verified",
+      "Confidential Consultation",
+      "Digital Verified Legal Opinion"
+    ],
+    "reviews": [
+      {
+        "author": "Sanjay Hegde",
+        "rating": 5,
+        "date": "3 days ago",
+        "verifiedBooking": true,
+        "comment": "Saved me from buying an encumbered land plot. Incredible attention to title deeds!"
+      }
+    ],
+    "lat": 12.9756,
+    "lng": 77.6097,
+    "photos": [
+      "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "id": "b-pro-102",
+    "name": "Venkatesh & Associates Chartered Accountants (CA & GST)",
+    "category": "pro",
+    "subcategory": "Chartered Accountants (CA)",
+    "city": "Bengaluru",
+    "locality": "Jayanagar",
+    "rating": 4.9,
+    "reviewsCount": 280,
+    "verified": true,
+    "superSeller": true,
+    "openNow": true,
+    "availableToday": true,
+    "operatingHours": "9:00 AM - 8:00 PM",
+    "startingPrice": 799,
+    "priceRange": "₹₹",
+    "responseTime": "~15 min",
+    "trustScore": 98,
+    "trustVerification": {
+      "phoneVerified": true,
+      "businessRegistration": true,
+      "addressInspected": true,
+      "policeBackgroundChecked": true,
+      "verifiedCustomerReviews": 280
+    },
+    "phone": "+91 80 4333 8811",
+    "whatsapp": "918043338811",
+    "address": "9th Main, Jayanagar 3rd Block, Bengaluru 560011",
+    "image": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80",
+    "description": "ICAI certified Chartered Accountants. Income tax return filing, GST registration, company incorporation, and financial audit services for SMEs and individuals.",
+    "services": [
+      {
+        "id": "s-pro-4",
+        "name": "Individual Income Tax Return (ITR) Filing",
+        "price": 799,
+        "duration": "Same Day"
+      },
+      {
+        "id": "s-pro-5",
+        "name": "Pvt Ltd Company Incorporation & PAN/TAN",
+        "price": 4999,
+        "duration": "5 Days"
+      }
+    ],
+    "features": [
+      "ICAI Fellow CA",
+      "Maximum Tax Refund Strategies",
+      "100% Paperless Process"
+    ],
+    "reviews": [
+      {
+        "author": "Naveen Kumar",
+        "rating": 5,
+        "date": "1 week ago",
+        "verifiedBooking": true,
+        "comment": "Sorted out complex stock market capital gains tax smoothly."
+      }
+    ],
+    "lat": 12.928,
+    "lng": 77.585,
+    "photos": [
+      "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "id": "b-b2b-101",
+    "name": "Peenya Industrial Fasteners & Hardware Wholesale Mart",
+    "category": "b2b",
+    "subcategory": "Industrial Tools",
+    "city": "Bengaluru",
+    "locality": "Peenya Industrial Area",
+    "rating": 4.8,
+    "reviewsCount": 390,
+    "verified": true,
+    "superSeller": true,
+    "openNow": true,
+    "availableToday": true,
+    "operatingHours": "8:30 AM - 7:30 PM",
+    "startingPrice": 1999,
+    "priceRange": "₹₹₹₹",
+    "responseTime": "~15 min",
+    "trustScore": 99,
+    "trustVerification": {
+      "phoneVerified": true,
+      "businessRegistration": true,
+      "addressInspected": true,
+      "policeBackgroundChecked": true,
+      "verifiedCustomerReviews": 390
+    },
+    "phone": "+91 80 4222 9911",
+    "whatsapp": "918042229911",
+    "address": "Peenya 2nd Stage, Industrial Estate, Bengaluru 560058",
+    "image": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80",
+    "description": "Bulk wholesale supplier of stainless steel fasteners, power tools, CNC lathe spares, pneumatic valves, and safety gear for engineering factories.",
+    "services": [
+      {
+        "id": "s-b2b-1",
+        "name": "Bulk Fasteners & Bolts (Per 50kg Batch)",
+        "price": 2999,
+        "duration": "Same Day Dispatch"
+      },
+      {
+        "id": "s-b2b-2",
+        "name": "Heavy Duty Power Tool Bundle",
+        "price": 7999,
+        "duration": "Express Delivery"
+      }
+    ],
+    "features": [
+      "ISO 9001:2015 Certified",
+      "GST Invoice with Input Credit",
+      "Wholesale Bulk Discount",
+      "All-India Logistics"
+    ],
+    "reviews": [
+      {
+        "author": "Manjunath Engineering",
+        "rating": 5,
+        "date": "3 days ago",
+        "verifiedBooking": true,
+        "comment": "Best industrial rates in Peenya. Top quality SS-304 hardware."
+      }
+    ],
+    "lat": 13.0298,
+    "lng": 77.5256,
+    "photos": [
+      "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "id": "b-b2b-102",
+    "name": "MedEquip Bulk Hospital Supplies & Diagnostics Wholesale",
+    "category": "b2b",
+    "subcategory": "Bulk Medical Supplies",
+    "city": "Bengaluru",
+    "locality": "Basavanagudi",
+    "rating": 4.9,
+    "reviewsCount": 260,
+    "verified": true,
+    "superSeller": true,
+    "openNow": true,
+    "availableToday": true,
+    "operatingHours": "9:00 AM - 8:00 PM",
+    "startingPrice": 1499,
+    "priceRange": "₹₹₹",
+    "responseTime": "~10 min",
+    "trustScore": 98,
+    "trustVerification": {
+      "phoneVerified": true,
+      "businessRegistration": true,
+      "addressInspected": true,
+      "policeBackgroundChecked": true,
+      "verifiedCustomerReviews": 260
+    },
+    "phone": "+91 80 4333 4455",
+    "whatsapp": "918043334455",
+    "address": "Near National College, Basavanagudi, Bengaluru 560004",
+    "image": "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80",
+    "description": "Direct distributor of surgical gloves, oxygen concentrators, hospital beds, autoclaves, disposable PPE, and clinical diagnostic kits.",
+    "services": [
+      {
+        "id": "s-b2b-3",
+        "name": "Nitrile Examination Gloves (Carton 1000 Pcs)",
+        "price": 1499,
+        "duration": "Immediate Dispatch"
+      }
+    ],
+    "features": [
+      "FDA & CE Approved",
+      "Bulk Hospital Supply",
+      "24-Hour Emergency Dispatch"
+    ],
+    "reviews": [
+      {
+        "author": "Dr. Ramesh Babu",
+        "rating": 5,
+        "date": "1 week ago",
+        "verifiedBooking": true,
+        "comment": "Reliable supplier for our nursing home in South Bengaluru."
+      }
+    ],
+    "lat": 12.9422,
+    "lng": 77.575,
+    "photos": [
+      "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "id": "b-pack-101",
+    "name": "SafeMove All-India Intercity Movers & Warehousing",
+    "category": "packers",
+    "subcategory": "Household Shifting",
+    "city": "Bengaluru",
+    "locality": "Koramangala",
+    "rating": 4.9,
+    "reviewsCount": 460,
+    "verified": true,
+    "superSeller": true,
+    "openNow": true,
+    "availableToday": true,
+    "operatingHours": "24 Hours Open",
+    "startingPrice": 3499,
+    "priceRange": "₹₹₹",
+    "responseTime": "~10 min",
+    "trustScore": 99,
+    "trustVerification": {
+      "phoneVerified": true,
+      "businessRegistration": true,
+      "addressInspected": true,
+      "policeBackgroundChecked": true,
+      "verifiedCustomerReviews": 460
+    },
+    "phone": "+91 80 4999 7733",
+    "whatsapp": "918049997733",
+    "address": "80ft Road, Koramangala 4th Block, Bengaluru",
+    "image": "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80",
+    "description": "IBA approved professional packers & movers. 5-layer bubble packing, hydraulic ramp vehicle carriers, goods transit insurance, and safe household relocation.",
+    "services": [
+      {
+        "id": "s-pk-1",
+        "name": "1BHK / 2BHK Local Bengaluru Shifting",
+        "price": 3499,
+        "duration": "4-6 Hours"
+      },
+      {
+        "id": "s-pk-2",
+        "name": "Intercity Shifting (Bengaluru to Mumbai/Delhi/Hyd)",
+        "price": 14999,
+        "duration": "2-3 Days"
+      },
+      {
+        "id": "s-pk-3",
+        "name": "Car / Bike Safe Hydraulic Transport",
+        "price": 4499,
+        "duration": "Scheduled"
+      }
+    ],
+    "features": [
+      "100% Damage Protection Insurance",
+      "5-Layer Bubble Packing",
+      "GPS Tracked Container Trucks",
+      "Trained Uniformed Crew"
+    ],
+    "reviews": [
+      {
+        "author": "Abhishek Roy",
+        "rating": 5,
+        "date": "Yesterday",
+        "verifiedBooking": true,
+        "comment": "Shifted my 3BHK from Koramangala to Whitefield without a single scratch on glassware!"
+      }
+    ],
+    "lat": 12.9345,
+    "lng": 77.6256,
+    "photos": [
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "id": "b-pack-102",
+    "name": "UrbanRelocate Corporate Office & Villa Specialists",
+    "category": "packers",
+    "subcategory": "Office Relocation",
+    "city": "Bengaluru",
+    "locality": "Whitefield",
+    "rating": 4.8,
+    "reviewsCount": 320,
+    "verified": true,
+    "superSeller": true,
+    "openNow": true,
+    "availableToday": true,
+    "operatingHours": "7:00 AM - 10:00 PM",
+    "startingPrice": 4999,
+    "priceRange": "₹₹₹",
+    "responseTime": "~8 min",
+    "trustScore": 98,
+    "trustVerification": {
+      "phoneVerified": true,
+      "businessRegistration": true,
+      "addressInspected": true,
+      "policeBackgroundChecked": true,
+      "verifiedCustomerReviews": 320
+    },
+    "phone": "+91 80 4888 6622",
+    "whatsapp": "918048886622",
+    "address": "Near Hope Farm, Whitefield, Bengaluru 560066",
+    "image": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80",
+    "description": "Expertise in corporate IT server room relocation, luxury villa shifting, climate-controlled warehousing, and piano/antique packing.",
+    "services": [
+      {
+        "id": "s-pk-4",
+        "name": "Corporate Office IT & Workstation Shifting",
+        "price": 9999,
+        "duration": "Weekend Drive"
+      }
+    ],
+    "features": [
+      "Server Rack De-install & Re-install",
+      "Zero Business Downtime",
+      "Transit Insurance"
+    ],
+    "reviews": [
+      {
+        "author": "Cognitive Labs HR",
+        "rating": 5,
+        "date": "2 weeks ago",
+        "verifiedBooking": true,
+        "comment": "Moved our 50-seater office over Saturday and Sunday smoothly."
+      }
+    ],
+    "lat": 12.983,
+    "lng": 77.75,
+    "photos": [
+      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "id": "b-emg-101",
+    "name": "LifeLine 24/7 Advanced Cardiac ICU Ambulance Network",
+    "category": "emergency",
+    "subcategory": "24/7 Ambulance",
+    "city": "Bengaluru",
+    "locality": "Central Bengaluru",
+    "rating": 5,
+    "reviewsCount": 640,
+    "verified": true,
+    "superSeller": true,
+    "openNow": true,
+    "availableToday": true,
+    "operatingHours": "24 Hours Open",
+    "startingPrice": 1499,
+    "priceRange": "₹₹",
+    "responseTime": "~5 min",
+    "trustScore": 100,
+    "trustVerification": {
+      "phoneVerified": true,
+      "businessRegistration": true,
+      "addressInspected": true,
+      "policeBackgroundChecked": true,
+      "verifiedCustomerReviews": 640
+    },
+    "phone": "+91 80 108 0000",
+    "whatsapp": "91801080000",
+    "address": "Victoria Hospital Junction, Fort, Bengaluru 560002",
+    "image": "https://images.unsplash.com/photo-1587745416684-47953f16f02f?auto=format&fit=crop&w=800&q=80",
+    "description": "Emergency ventilator and defibrillator equipped ICU ambulances with emergency doctor on board. 12-minute guaranteed arrival across all Bengaluru zones.",
+    "services": [
+      {
+        "id": "s-em-1",
+        "name": "Advanced Cardiac ICU Ambulance with Doctor",
+        "price": 2499,
+        "duration": "Sub-15m Dispatch"
+      },
+      {
+        "id": "s-em-2",
+        "name": "Basic Life Support (BLS) Oxygen Ambulance",
+        "price": 1499,
+        "duration": "Immediate Dispatch"
+      }
+    ],
+    "features": [
+      "Paramedic & Doctor On-Board",
+      "Live Hospital Tele-Link",
+      "Ventilator & Cardiac Monitor",
+      "Sub-15 Min SLA"
+    ],
+    "reviews": [
+      {
+        "author": "Pradeep Shenoy",
+        "rating": 5,
+        "date": "Yesterday",
+        "verifiedBooking": true,
+        "comment": "Arrived in 9 minutes during my father chest pain emergency. True angels."
+      }
+    ],
+    "lat": 12.962,
+    "lng": 77.575,
+    "photos": [
+      "https://images.unsplash.com/photo-1587745416684-47953f16f02f?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "id": "b-emg-102",
+    "name": "Apollo 24/7 Night Pharmacy & Emergency Blood Bank Match",
+    "category": "emergency",
+    "subcategory": "24/7 Pharmacies",
+    "city": "Bengaluru",
+    "locality": "Bannerghatta Road",
+    "rating": 4.9,
+    "reviewsCount": 510,
+    "verified": true,
+    "superSeller": true,
+    "openNow": true,
+    "availableToday": true,
+    "operatingHours": "24 Hours Open",
+    "startingPrice": 99,
+    "priceRange": "₹",
+    "responseTime": "~5 min",
+    "trustScore": 99,
+    "trustVerification": {
+      "phoneVerified": true,
+      "businessRegistration": true,
+      "addressInspected": true,
+      "policeBackgroundChecked": true,
+      "verifiedCustomerReviews": 510
+    },
+    "phone": "+91 80 2630 4050",
+    "whatsapp": "918026304050",
+    "address": "Opp. IIM Bangalore, Bannerghatta Road, Bengaluru 560076",
+    "image": "https://images.unsplash.com/photo-1576602976047-174e57a47881?auto=format&fit=crop&w=800&q=80",
+    "description": "Round-the-clock emergency pharmacy holding critical care injections, antivenom, cardiac medications, oxygen canisters, and rare blood group matching.",
+    "services": [
+      {
+        "id": "s-em-3",
+        "name": "24/7 Midnight Medicine Express Home Delivery",
+        "price": 99,
+        "duration": "30 mins"
+      }
+    ],
+    "features": [
+      "24 Hours Night Open",
+      "Critical Care Injections Stocked",
+      "Cold Chain Maintained"
+    ],
+    "reviews": [
+      {
+        "author": "Aarthi Swaminathan",
+        "rating": 5,
+        "date": "4 days ago",
+        "verifiedBooking": true,
+        "comment": "Got critical asthma nebulizer medication delivered at 2:30 AM."
+      }
+    ],
+    "lat": 12.898,
+    "lng": 77.599,
+    "photos": [
+      "https://images.unsplash.com/photo-1576602976047-174e57a47881?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "id": "b-1793195224603",
+    "name": "Apex Robotics & Laptop Lab",
+    "category": "tech",
+    "subcategory": "General Services",
+    "city": "Bengaluru",
+    "locality": "Koramangala 5th Block",
+    "rating": 5,
+    "reviewsCount": 1,
+    "verified": true,
+    "superSeller": false,
+    "openNow": true,
+    "availableToday": true,
+    "operatingHours": "9:00 AM - 8:00 PM",
+    "startingPrice": 599,
+    "priceRange": "₹₹",
+    "responseTime": "~15 min",
+    "trustScore": 95,
+    "trustVerification": {
+      "phoneVerified": true,
+      "businessRegistration": true,
+      "addressInspected": false,
+      "policeBackgroundChecked": true,
+      "verifiedCustomerReviews": 1
+    },
+    "phone": "+91 98450 65809",
+    "whatsapp": "919845065809",
+    "address": "Koramangala 5th Block, Bengaluru",
+    "image": "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80",
+    "description": "Verified local service provider on LocalCare Infinity.",
+    "services": [
+      {
+        "id": "s-1",
+        "name": "Motherboard & Screen Diagnostics",
+        "price": 599,
+        "duration": "45 mins"
+      }
+    ],
+    "reviews": [
+      {
+        "author": "Verified Customer",
+        "rating": 5,
+        "date": "Today",
+        "verifiedBooking": true,
+        "comment": "Punctual and highly professional service."
+      }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "id": "b-1793194977595",
+    "name": "Apex Robotics & Laptop Lab",
+    "category": "tech",
+    "subcategory": "General Services",
+    "city": "Bengaluru",
+    "locality": "Koramangala 5th Block",
+    "rating": 5,
+    "reviewsCount": 1,
+    "verified": true,
+    "superSeller": false,
+    "openNow": true,
+    "availableToday": true,
+    "operatingHours": "9:00 AM - 8:00 PM",
+    "startingPrice": 599,
+    "priceRange": "₹₹",
+    "responseTime": "~15 min",
+    "trustScore": 95,
+    "trustVerification": {
+      "phoneVerified": true,
+      "businessRegistration": true,
+      "addressInspected": false,
+      "policeBackgroundChecked": true,
+      "verifiedCustomerReviews": 1
+    },
+    "phone": "+91 98450 82814",
+    "whatsapp": "919845082814",
+    "address": "Koramangala 5th Block, Bengaluru",
+    "image": "https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80",
+    "description": "Verified local service provider on LocalCare Infinity.",
+    "services": [
+      {
+        "id": "s-1",
+        "name": "Motherboard & Screen Diagnostics",
+        "price": 599,
+        "duration": "45 mins"
+      }
+    ],
+    "reviews": [
+      {
+        "author": "Verified Customer",
+        "rating": 5,
+        "date": "Today",
+        "verifiedBooking": true,
+        "comment": "Punctual and highly professional service."
+      }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "id": "b-1793193818361",
+    "name": "Apex Robotics & Laptop Lab",
+    "category": "tech",
+    "subcategory": "General Services",
+    "city": "Bengaluru",
+    "locality": "Koramangala 5th Block",
+    "rating": 5,
+    "reviewsCount": 1,
+    "verified": true,
+    "superSeller": false,
+    "openNow": true,
+    "availableToday": true,
+    "operatingHours": "9:00 AM - 8:00 PM",
+    "startingPrice": 599,
+    "priceRange": "₹₹",
+    "responseTime": "~15 min",
+    "trustScore": 95,
+    "trustVerification": {
+      "phoneVerified": true,
+      "businessRegistration": true,
+      "addressInspected": false,
+      "policeBackgroundChecked": true,
+      "verifiedCustomerReviews": 1
+    },
+    "phone": "+91 98450 68981",
+    "whatsapp": "919845068981",
+    "address": "Koramangala 5th Block, Bengaluru",
+    "image": "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?auto=format&fit=crop&w=800&q=80",
+    "description": "Verified local service provider on LocalCare Infinity.",
+    "services": [
+      {
+        "id": "s-1",
+        "name": "Motherboard & Screen Diagnostics",
+        "price": 599,
+        "duration": "45 mins"
+      }
+    ],
+    "reviews": [
+      {
+        "author": "Verified Customer",
+        "rating": 5,
+        "date": "Today",
+        "verifiedBooking": true,
+        "comment": "Punctual and highly professional service."
+      }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "id": "b-1793191038436",
+    "name": "Apex Robotics & Laptop Lab",
+    "category": "tech",
+    "subcategory": "General Services",
+    "city": "Bengaluru",
+    "locality": "Koramangala 5th Block",
+    "rating": 5,
+    "reviewsCount": 1,
+    "verified": true,
+    "superSeller": false,
+    "openNow": true,
+    "availableToday": true,
+    "operatingHours": "9:00 AM - 8:00 PM",
+    "startingPrice": 599,
+    "priceRange": "₹₹",
+    "responseTime": "~15 min",
+    "trustScore": 95,
+    "trustVerification": {
+      "phoneVerified": true,
+      "businessRegistration": true,
+      "addressInspected": false,
+      "policeBackgroundChecked": true,
+      "verifiedCustomerReviews": 1
+    },
+    "phone": "+91 98450 66937",
+    "whatsapp": "919845066937",
+    "address": "Koramangala 5th Block, Bengaluru",
+    "image": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
+    "description": "Verified local service provider on LocalCare Infinity.",
+    "services": [
+      {
+        "id": "s-1",
+        "name": "Motherboard & Screen Diagnostics",
+        "price": 599,
+        "duration": "45 mins"
+      }
+    ],
+    "reviews": [
+      {
+        "author": "Verified Customer",
+        "rating": 5,
+        "date": "Today",
+        "verifiedBooking": true,
+        "comment": "Punctual and highly professional service."
+      }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
   {
     "id": "b-1792932250460",
     "name": "Apex Robotics & Laptop Lab",
@@ -336,7 +1977,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 98450 24961",
     "whatsapp": "919845024961",
     "address": "Koramangala 5th Block, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80",
     "description": "Verified local service provider on LocalCare Infinity.",
     "services": [
       {
@@ -354,6 +1995,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Punctual and highly professional service."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -384,7 +2031,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 98450 44526",
     "whatsapp": "919845044526",
     "address": "Koramangala 5th Block, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80",
     "description": "Verified local service provider on LocalCare Infinity.",
     "services": [
       {
@@ -402,6 +2049,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Punctual and highly professional service."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -432,7 +2085,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 98450 16954",
     "whatsapp": "919845016954",
     "address": "Koramangala 5th Block, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?auto=format&fit=crop&w=800&q=80",
     "description": "Verified local service provider on LocalCare Infinity.",
     "services": [
       {
@@ -450,6 +2103,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Punctual and highly professional service."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -480,7 +2139,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 98450 86241",
     "whatsapp": "919845086241",
     "address": "Koramangala 5th Block, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
     "description": "Verified local service provider on LocalCare Infinity.",
     "services": [
       {
@@ -498,6 +2157,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Punctual and highly professional service."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -528,7 +2193,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 98450 85642",
     "whatsapp": "919845085642",
     "address": "Koramangala 5th Block, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80",
     "description": "Verified local service provider on LocalCare Infinity.",
     "services": [
       {
@@ -546,6 +2211,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Punctual and highly professional service."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -576,7 +2247,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 98450 49615",
     "whatsapp": "919845049615",
     "address": "Koramangala 5th Block, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80",
     "description": "Verified local service provider on LocalCare Infinity.",
     "services": [
       {
@@ -594,6 +2265,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Punctual and highly professional service."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -624,7 +2301,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 98450 13098",
     "whatsapp": "919845013098",
     "address": "Koramangala 5th Block, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?auto=format&fit=crop&w=800&q=80",
     "description": "Verified local service provider on LocalCare Infinity.",
     "services": [
       {
@@ -642,6 +2319,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Punctual and highly professional service."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -672,7 +2355,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 98450 29733",
     "whatsapp": "919845029733",
     "address": "Koramangala 5th Block, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
     "description": "Verified local service provider on LocalCare Infinity.",
     "services": [
       {
@@ -690,6 +2373,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Punctual and highly professional service."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -720,7 +2409,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 98450 58367",
     "whatsapp": "919845058367",
     "address": "Koramangala 5th Block, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80",
     "description": "Verified local service provider on LocalCare Infinity.",
     "services": [
       {
@@ -738,6 +2427,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Punctual and highly professional service."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -768,7 +2463,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 98450 91952",
     "whatsapp": "919845091952",
     "address": "Koramangala 5th Block, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80",
     "description": "Verified local service provider on LocalCare Infinity.",
     "services": [
       {
@@ -786,6 +2481,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Punctual and highly professional service."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -816,7 +2517,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 98450 92572",
     "whatsapp": "919845092572",
     "address": "Koramangala 5th Block, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?auto=format&fit=crop&w=800&q=80",
     "description": "Verified local service provider on LocalCare Infinity.",
     "services": [
       {
@@ -834,6 +2535,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Punctual and highly professional service."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -864,7 +2571,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 98450 24836",
     "whatsapp": "919845024836",
     "address": "Koramangala 5th Block, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
     "description": "Verified local service provider on LocalCare Infinity.",
     "services": [
       {
@@ -882,6 +2589,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Punctual and highly professional service."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -912,7 +2625,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 98450 73875",
     "whatsapp": "919845073875",
     "address": "Koramangala 5th Block, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80",
     "description": "Verified local service provider on LocalCare Infinity.",
     "services": [
       {
@@ -930,6 +2643,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Punctual and highly professional service."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -960,7 +2679,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 98450 61756",
     "whatsapp": "919845061756",
     "address": "Koramangala 5th Block, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80",
     "description": "Verified local service provider on LocalCare Infinity.",
     "services": [
       {
@@ -978,6 +2697,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Punctual and highly professional service."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -1008,7 +2733,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 98450 63574",
     "whatsapp": "919845063574",
     "address": "Koramangala 5th Block, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?auto=format&fit=crop&w=800&q=80",
     "description": "Verified local service provider on LocalCare Infinity.",
     "services": [
       {
@@ -1026,6 +2751,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Punctual and highly professional service."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -1056,7 +2787,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 98450 28940",
     "whatsapp": "919845028940",
     "address": "Koramangala 5th Block, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
     "description": "Verified local service provider on LocalCare Infinity.",
     "services": [
       {
@@ -1074,6 +2805,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Punctual and highly professional service."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -1104,7 +2841,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 98450 14557",
     "whatsapp": "919845014557",
     "address": "Koramangala 5th Block, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80",
     "description": "Verified local service provider on LocalCare Infinity.",
     "services": [
       {
@@ -1122,6 +2859,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Punctual and highly professional service."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -1152,7 +2895,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 98450 18967",
     "whatsapp": "919845018967",
     "address": "Koramangala 5th Block, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80",
     "description": "Verified local service provider on LocalCare Infinity.",
     "services": [
       {
@@ -1170,6 +2913,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Punctual and highly professional service."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -1200,7 +2949,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 98450 88208",
     "whatsapp": "919845088208",
     "address": "Koramangala 5th Block, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?auto=format&fit=crop&w=800&q=80",
     "description": "Verified local service provider on LocalCare Infinity.",
     "services": [
       {
@@ -1218,6 +2967,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Punctual and highly professional service."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -1248,7 +3003,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 98450 23068",
     "whatsapp": "919845023068",
     "address": "Koramangala 5th Block, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
     "description": "Verified local service provider on LocalCare Infinity.",
     "services": [
       {
@@ -1266,6 +3021,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Punctual and highly professional service."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -1296,7 +3057,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 98450 65798",
     "whatsapp": "919845065798",
     "address": "Koramangala 5th Block, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80",
     "description": "Verified local service provider on LocalCare Infinity.",
     "services": [
       {
@@ -1314,6 +3075,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Punctual and highly professional service."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -1344,7 +3111,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 98450 38152",
     "whatsapp": "919845038152",
     "address": "Koramangala 5th Block, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80",
     "description": "Verified local service provider on LocalCare Infinity.",
     "services": [
       {
@@ -1362,6 +3129,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Punctual and highly professional service."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -1372,7 +3145,7 @@ const INITIAL_BUSINESSES = [
     "city": "Bengaluru",
     "locality": "Koramangala 4th Block",
     "rating": 5,
-    "reviewsCount": 406,
+    "reviewsCount": 410,
     "verified": true,
     "superSeller": true,
     "openNow": true,
@@ -1392,7 +3165,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 98450 11223",
     "whatsapp": "919845011223",
     "address": "Plot 48, 80 Feet Road, 4th Block, Koramangala, Bengaluru, Karnataka 560034",
-    "image": "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=800&q=80",
     "lat": 12.9345,
     "lng": 77.6265,
     "distance": "0.8 km",
@@ -1433,6 +3206,42 @@ const INITIAL_BUSINESSES = [
     "offer": "20% OFF on Dental Scaling & Polishing this week",
     "description": "Premier multi-speciality dental healthcare clinic in Koramangala with 15+ years of verified clinical experience. Fully sanitized operatories with German painless imaging systems.",
     "reviews": [
+      {
+        "id": "rev-1793195224693",
+        "author": "Priya Sharma",
+        "rating": 5,
+        "date": "Today",
+        "verifiedBooking": true,
+        "comment": "Outstanding painless dental cleaning. Very hygienic!",
+        "aspectTags": []
+      },
+      {
+        "id": "rev-1793194977743",
+        "author": "Priya Sharma",
+        "rating": 5,
+        "date": "Today",
+        "verifiedBooking": true,
+        "comment": "Outstanding painless dental cleaning. Very hygienic!",
+        "aspectTags": []
+      },
+      {
+        "id": "rev-1793193818441",
+        "author": "Priya Sharma",
+        "rating": 5,
+        "date": "Today",
+        "verifiedBooking": true,
+        "comment": "Outstanding painless dental cleaning. Very hygienic!",
+        "aspectTags": []
+      },
+      {
+        "id": "rev-1793191038519",
+        "author": "Priya Sharma",
+        "rating": 5,
+        "date": "Today",
+        "verifiedBooking": true,
+        "comment": "Outstanding painless dental cleaning. Very hygienic!",
+        "aspectTags": []
+      },
       {
         "id": "rev-1792932250511",
         "author": "Priya Sharma",
@@ -1645,6 +3454,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Pristine hygiene standards, digital X-rays shown on screen before procedure, and transparent pricing."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1598256989800-fe5f95da9787?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -1675,7 +3490,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 98450 44556",
     "whatsapp": "919845044556",
     "address": "14th Main, 17th Cross, Sector 2, HSR Layout, Bengaluru 560102",
-    "image": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=800&q=80",
     "lat": 12.9116,
     "lng": 77.6389,
     "distance": "1.2 km",
@@ -1730,6 +3545,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Very professional, wore shoe covers and left the area spotless after pressure jet cleaning."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1615906655593-ad0386982a0f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -1760,7 +3581,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 98450 77889",
     "whatsapp": "919845077889",
     "address": "Near Metro Pillar 84, 100 Feet Road, Indiranagar, Bengaluru 560038",
-    "image": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80",
     "lat": 12.9784,
     "lng": 77.6408,
     "distance": "2.1 km",
@@ -1808,6 +3629,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Called at 11 PM for a burst kitchen pipe. Plumber reached in 20 minutes with tools and replacement valves."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1585704032915-c3400ca199e7?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -1838,7 +3665,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 80 4110 5566",
     "whatsapp": "918041105566",
     "address": "124, 1st Cross, 5th Block, KHB Colony, Koramangala, Bengaluru 560095",
-    "image": "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=800&q=80",
     "lat": 12.9352,
     "lng": 77.6189,
     "distance": "1.5 km",
@@ -1886,6 +3713,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "The boneless chicken biryani is unbeatable in Bengaluru. Super quick service even on Sunday rush."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -1916,7 +3749,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 98450 88990",
     "whatsapp": "919845088990",
     "address": "Sigma Soft Tech Park, Varthur Kodi, Whitefield, Bengaluru 560066",
-    "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80",
     "lat": 12.9698,
     "lng": 77.7499,
     "distance": "3.4 km",
@@ -1964,6 +3797,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Loved the ambiance and my stylist Maya gave me the exact layered cut I requested!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -1994,7 +3833,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 98450 33221",
     "whatsapp": "919845033221",
     "address": "33, 11th Main Rd, 4th Block, Jayanagar, Bengaluru 560011",
-    "image": "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1581579186913-45ac3e6efe93?auto=format&fit=crop&w=800&q=80",
     "lat": 12.9299,
     "lng": 77.5833,
     "distance": "2.5 km",
@@ -2042,6 +3881,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Transformed our 3BHK before housewarming. Bathrooms look like a 5-star hotel now!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1581579186913-45ac3e6efe93?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -2072,7 +3917,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 80 2553 0000",
     "whatsapp": "918025530000",
     "address": "Near Wipro Park, 80 Feet Road, 1st Block Koramangala, Bengaluru 560034",
-    "image": "https://images.unsplash.com/photo-1587745416684-47b88f3ce026?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1587745416684-47953f16f02f?auto=format&fit=crop&w=800&q=80",
     "lat": 12.9279,
     "lng": 77.6271,
     "distance": "0.6 km",
@@ -2120,6 +3965,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Ambulance arrived within 9 minutes when my father had breathing distress. Paramedics were calm, skilled, and saved his life."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1587745416684-47953f16f02f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -2150,7 +4001,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 824 227 4500",
     "whatsapp": "918242274500",
     "address": "Near Sahyadri Campus, NH 75, Valachil, Mangaluru, Karnataka 575029",
-    "image": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80",
     "lat": 12.8682,
     "lng": 74.9248,
     "distance": "0.4 km",
@@ -2205,6 +4056,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Clean, modern facility right near Sahyadri college. No long waiting lines with LocalCare booking."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1512290900672-1f55b9e078c1?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -2235,7 +4092,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 94801 22334",
     "whatsapp": "919480122334",
     "address": "Main Road, Valachil Junction, Mangaluru 575029",
-    "image": "https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=800&q=80",
     "lat": 12.8695,
     "lng": 74.9221,
     "distance": "0.6 km",
@@ -2283,6 +4140,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Technician reached our house in Valachil within 30 minutes! AC was blowing warm air and he recharged the refrigerant quickly."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -2313,7 +4176,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 824 244 8899",
     "whatsapp": "918242448899",
     "address": "Near Kadri Temple Road, Kadri, Mangaluru 575002",
-    "image": "https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80",
     "lat": 12.8885,
     "lng": 74.8582,
     "distance": "3.1 km",
@@ -2361,6 +4224,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Best Anjal tawa fry on planet earth. Tender fish, aromatic spices, and lightning fast service!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -2391,7 +4260,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 97412 88991",
     "whatsapp": "919741288991",
     "address": "Near Valachil Bridge, Mangalore-Bangalore Highway, Valachil 575029",
-    "image": "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=800&q=80",
     "lat": 12.8712,
     "lng": 74.9215,
     "distance": "0.3 km",
@@ -2439,6 +4308,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Our hostel bathroom pipe started gushing water at 8 PM. They arrived in 15 minutes and fixed it completely."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -2469,7 +4344,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 824 242 1100",
     "whatsapp": "918242421100",
     "address": "K.S. Rao Road, Hampankatta, Mangaluru 575001",
-    "image": "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?auto=format&fit=crop&w=800&q=80",
     "lat": 12.8698,
     "lng": 74.8431,
     "distance": "4.2 km",
@@ -2517,6 +4392,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Car broke down on NH 75 near Valachil at midnight. Tow truck reached in 22 minutes. Saved my family great stress."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -2547,7 +4428,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 22 2640 1234",
     "whatsapp": "912226401234",
     "address": "Linking Road, Near Khar Telephone Exchange, Bandra West, Mumbai 400052",
-    "image": "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=800&q=80",
     "lat": 19.0596,
     "lng": 72.8295,
     "distance": "1.1 km",
@@ -2595,6 +4476,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "World-class clinic! Dr. Roy made me feel at ease, and the laser teeth whitening was brilliant."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1598256989800-fe5f95da9787?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -2625,7 +4512,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 98200 44332",
     "whatsapp": "919820044332",
     "address": "Saki Naka Metro Station Road, Andheri East, Mumbai 400072",
-    "image": "https://images.unsplash.com/photo-1607860108855-64acf2078ed9?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=800&q=80",
     "lat": 19.1136,
     "lng": 72.8697,
     "distance": "2.3 km",
@@ -2673,6 +4560,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Pickup and drop was right on schedule. Car drives like brand new after the periodic service!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -2703,7 +4596,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 11 2334 5566",
     "whatsapp": "911123345566",
     "address": "Block E, Inner Circle, Connaught Place, New Delhi 110001",
-    "image": "https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1585704032915-c3400ca199e7?auto=format&fit=crop&w=800&q=80",
     "lat": 28.6315,
     "lng": 77.2167,
     "distance": "1.4 km",
@@ -2751,6 +4644,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Unclogged our main bathroom sewer line cleanly in 30 minutes. Transparent pricing with no extra demands."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1585704032915-c3400ca199e7?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -2781,7 +4680,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 124 455 6677",
     "whatsapp": "911244556677",
     "address": "DLF Cyber City, Phase 2, Sector 24, Gurugram, Haryana 122002",
-    "image": "https://images.unsplash.com/photo-1590496793929-36417d3117de?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80",
     "lat": 28.495,
     "lng": 77.0895,
     "distance": "1.9 km",
@@ -2829,6 +4728,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Technician reached our DLF apartment in 20 minutes. Diagnosed the inverter PCB fault quickly and repaired it same day."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1615906655593-ad0386982a0f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -2859,7 +4764,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 40 2311 7788",
     "whatsapp": "914023117788",
     "address": "Near Bio-Diversity Junction, Gachibowli, Hyderabad 500081",
-    "image": "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=800&q=80",
     "lat": 17.4399,
     "lng": 78.3607,
     "distance": "1.0 km",
@@ -2907,6 +4812,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "The mutton melts in your mouth! Authentic Hyderabadi flavor with exact spice balance."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -2937,7 +4848,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 99890 11223",
     "whatsapp": "919989011223",
     "address": "Madhapur Main Road, Near Inorbit Mall, Hitec City, Hyderabad 500081",
-    "image": "https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1581579186913-45ac3e6efe93?auto=format&fit=crop&w=800&q=80",
     "lat": 17.4411,
     "lng": 78.3911,
     "distance": "1.8 km",
@@ -2985,6 +4896,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Super fast, punctual, and cleaned behind heavy wardrobes thoroughly!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1581579186913-45ac3e6efe93?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -3015,7 +4932,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 20 2615 4400",
     "whatsapp": "912026154400",
     "address": "Lane 7, Near South Main Road, Koregaon Park, Pune 411001",
-    "image": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=800&q=80",
     "lat": 18.5362,
     "lng": 73.8958,
     "distance": "1.2 km",
@@ -3063,6 +4980,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Cured my chronic lower back stiffness in 4 sessions. Dr. Ketan is phenomenal!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -3093,7 +5016,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 44 2815 6677",
     "whatsapp": "914428156677",
     "address": "Usman Road, Near Panagal Park, T Nagar, Chennai 600017",
-    "image": "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80",
     "lat": 13.0418,
     "lng": 80.2341,
     "distance": "0.9 km",
@@ -3141,6 +5064,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Serviced my Classic 350 Royal Enfield. Engine is butter smooth now and vibrations eliminated."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -3171,7 +5100,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 821 241 8899",
     "whatsapp": "918212418899",
     "address": "Contour Road, Gokulam 3rd Stage, Mysuru, Karnataka 570002",
-    "image": "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=800&q=80",
     "lat": 12.3312,
     "lng": 76.6341,
     "distance": "1.1 km",
@@ -3212,6 +5141,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Clean, spotless clinic and very gentle treatment. Highly recommended in Gokulam!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1598256989800-fe5f95da9787?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -3242,7 +5177,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 821 251 7733",
     "whatsapp": "918212517733",
     "address": "Kalidasa Road, Jayalakshmipuram, Mysuru 570012",
-    "image": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=800&q=80",
     "lat": 12.3211,
     "lng": 76.6289,
     "distance": "1.4 km",
@@ -3277,6 +5212,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Prompt arrival within 40 minutes. Fixed our cooling issue in no time."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1615906655593-ad0386982a0f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -3307,7 +5248,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 484 231 9900",
     "whatsapp": "914842319900",
     "address": "Main Avenue, Panampilly Nagar, Kochi, Kerala 682036",
-    "image": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80",
     "lat": 9.9612,
     "lng": 76.2954,
     "distance": "0.8 km",
@@ -3348,6 +5289,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Best Karimeen Pollichathu in Kochi! Melt-in-the-mouth flavors and wonderful ambiance."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -3378,7 +5325,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 484 242 1108",
     "whatsapp": "914842421108",
     "address": "Seaport-Airport Road, Near Infopark, Kakkanad, Kochi 682030",
-    "image": "https://images.unsplash.com/photo-1587745416684-47953f16f02f?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80",
     "lat": 10.0123,
     "lng": 76.3541,
     "distance": "0.5 km",
@@ -3413,6 +5360,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Arrived in literally 7 minutes during a medical emergency at Infopark. God bless the team."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1587745416684-47953f16f02f?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -3443,7 +5396,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 79 2685 1122",
     "whatsapp": "917926851122",
     "address": "Sarkhej - Gandhinagar Hwy, Bodakdev, Ahmedabad, Gujarat 380054",
-    "image": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80",
     "lat": 23.0331,
     "lng": 72.5123,
     "distance": "1.2 km",
@@ -3484,6 +5437,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Identified the tripping MCB issue within 10 minutes and repaired it neatly."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1615906655593-ad0386982a0f?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -3514,7 +5473,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 79 2676 4488",
     "whatsapp": "917926764488",
     "address": "Prernatirth Derasar Road, Satellite, Ahmedabad 380015",
-    "image": "https://images.unsplash.com/photo-1610057099431-d73a1c9d2f2f?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80",
     "lat": 23.0212,
     "lng": 72.5289,
     "distance": "0.9 km",
@@ -3549,6 +5508,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "The basundi and puran poli were divine! Exceptional warm hospitality."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -3579,7 +5544,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 80 4120 7788",
     "whatsapp": "918041207788",
     "address": "80 Feet Road, Koramangala 5th Block, Bengaluru 560095",
-    "image": "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80",
     "lat": 12.9352,
     "lng": 77.6245,
     "distance": "1.2 km",
@@ -3621,6 +5586,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Fixed my liquid-damaged MacBook in 4 hours. Super transparent pricing under ₹1000!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -3651,7 +5622,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 824 227 4411",
     "whatsapp": "918242274411",
     "address": "Near Srinivas Campus, Valachil, Mangaluru 574143",
-    "image": "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80",
     "lat": 12.871,
     "lng": 74.922,
     "distance": "0.4 km",
@@ -3692,6 +5663,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Saved my laptop right before exams. Highly affordable service in Valachil."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -3722,7 +5699,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 821 242 1199",
     "whatsapp": "918212421199",
     "address": "Gokulam 3rd Stage, Near Temple Road, Mysuru 570002",
-    "image": "https://images.unsplash.com/photo-1610057099431-d73a1c9d2f2f?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=800&q=80",
     "lat": 12.332,
     "lng": 76.628,
     "distance": "0.8 km",
@@ -3764,6 +5741,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Hands down the best pure vegetarian dosa in Mysuru. Heavenly taste and very hygienic!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -3794,7 +5777,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 821 251 4455",
     "whatsapp": "918212514455",
     "address": "Kalidasa Road, Jayalakshmipuram, Mysuru 570012",
-    "image": "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
     "lat": 12.325,
     "lng": 76.634,
     "distance": "1.4 km",
@@ -3829,6 +5812,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Quick and honest laptop servicing in Mysuru. Repaired my keyboard within 2 hours."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -3859,7 +5848,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 821 241 8899",
     "whatsapp": "918212418899",
     "address": "Near KD Circle, Gokulam 2nd Stage, Mysuru 570002",
-    "image": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=800&q=80",
     "lat": 12.331,
     "lng": 76.626,
     "distance": "0.6 km",
@@ -3900,6 +5889,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Arrived in Gokulam in 15 mins and stopped a major kitchen pipe leakage immediately. Highly professional."
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -3935,11 +5930,12 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 98450 67112",
     "whatsapp": "919845067112",
     "address": "Plot 74, Sector 3, HSR Layout, Bengaluru 560102",
-    "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80",
     "photos": [
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=700&q=80",
-      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=700&q=80",
-      "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=700&q=80"
+      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1580674285054-bed31e145f59?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80"
     ],
     "lat": 12.9125,
     "lng": 77.641,
@@ -4023,11 +6019,12 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 98450 88221",
     "whatsapp": "919845088221",
     "address": "Near Srinivas University, Valachil, Mangaluru 574143",
-    "image": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=800&q=80",
     "photos": [
-      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=700&q=80",
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=700&q=80",
-      "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=700&q=80"
+      "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1580674285054-bed31e145f59?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80"
     ],
     "lat": 12.8715,
     "lng": 74.9255,
@@ -4105,11 +6102,12 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 98450 99334",
     "whatsapp": "919845099334",
     "address": "Phase 1, Peenya Industrial Area, Bengaluru 560058",
-    "image": "https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=800&q=80",
     "photos": [
-      "https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&w=700&q=80",
-      "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=700&q=80",
-      "https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=700&q=80"
+      "https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80"
     ],
     "lat": 13.0285,
     "lng": 77.5255,
@@ -4142,7 +6140,7 @@ const INITIAL_BUSINESSES = [
         "duration": "24 hours"
       }
     ],
-    "offer": "Extra 8% discount on bulk orders above ₹25,000 via JD Mart",
+    "offer": "Extra 8% discount on bulk orders above ₹25,000 via LocalCare Mart",
     "description": "Leading South India distributor for industrial machine tools, pneumatic equipment, safety gear, and hardware supplies with 18 years of wholesale leadership.",
     "reviews": [
       {
@@ -4187,11 +6185,12 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 98450 44119",
     "whatsapp": "919845044119",
     "address": "Light House Hill Road, Hampankatta, Mangaluru 575001",
-    "image": "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80",
     "photos": [
-      "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=700&q=80",
-      "https://images.unsplash.com/photo-1583912267670-6575ad3736df?auto=format&fit=crop&w=700&q=80",
-      "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=700&q=80"
+      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=800&q=80"
     ],
     "lat": 12.87,
     "lng": 74.842,
@@ -4289,7 +6288,14 @@ const INITIAL_BUSINESSES = [
         "comment": "Phlebotomist came within 25 minutes of booking, painless needle prick, report delivered on WhatsApp by 4 PM!"
       }
     ],
-    "id": "b-gen-58"
+    "id": "b-gen-58",
+    "image": "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "name": "Cloudnine Maternity & Pediatric Clinic",
@@ -4344,7 +6350,14 @@ const INITIAL_BUSINESSES = [
         "comment": "Doctor listened patiently and baby did not even cry during the vaccination. Top class facility."
       }
     ],
-    "id": "b-gen-59"
+    "id": "b-gen-59",
+    "image": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "name": "Apollo Sugar & Endocrinology Clinic",
@@ -4393,7 +6406,14 @@ const INITIAL_BUSINESSES = [
         "comment": "Dr. Jayashree brought my HbA1c from 9.2 to 6.8 in three months with customized diet. Remarkable!"
       }
     ],
-    "id": "b-gen-60"
+    "id": "b-gen-60",
+    "image": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "name": "CareFirst Orthopedic & Sports Rehab",
@@ -4442,7 +6462,14 @@ const INITIAL_BUSINESSES = [
         "comment": "Cured my chronic lower back stiffness within 4 sessions of targeted physio. Highly recommended."
       }
     ],
-    "id": "b-gen-61"
+    "id": "b-gen-61",
+    "image": "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=800&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1598256989800-fe5f95da9787?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "name": "Lifeline 24/7 Critical Care & Trauma Hospital",
@@ -4491,7 +6518,14 @@ const INITIAL_BUSINESSES = [
         "comment": "Emergency staff were prompt and polite. Attended to my mother immediately."
       }
     ],
-    "id": "b-gen-62"
+    "id": "b-gen-62",
+    "image": "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "name": "SRL Diagnostics & Digital Pathology",
@@ -4540,7 +6574,14 @@ const INITIAL_BUSINESSES = [
         "comment": "Very clean facility and polite staff. Home collection was right on time."
       }
     ],
-    "id": "b-gen-63"
+    "id": "b-gen-63",
+    "image": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "name": "UrbanPipes Master Plumbing & Leakage Fix",
@@ -4596,7 +6637,14 @@ const INITIAL_BUSINESSES = [
         "comment": "Fixed our concealed flush valve in 20 minutes without breaking any tiles. Super neat!"
       }
     ],
-    "id": "b-gen-64"
+    "id": "b-gen-64",
+    "image": "https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?auto=format&fit=crop&w=800&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1585704032915-c3400ca199e7?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "name": "MetroLeak Water Proofing & Slab Injection",
@@ -4646,7 +6694,14 @@ const INITIAL_BUSINESSES = [
         "comment": "Saved our living room ceiling from monsoon seepage completely without breaking tiles."
       }
     ],
-    "id": "b-gen-65"
+    "id": "b-gen-65",
+    "image": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1585704032915-c3400ca199e7?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "name": "AquaFlow Sanitary & Pressure Pump Services",
@@ -4696,7 +6751,14 @@ const INITIAL_BUSINESSES = [
         "comment": "Technician arrived in uniform with ID card. Very professional and fixed the booster pump in 40 mins."
       }
     ],
-    "id": "b-gen-66"
+    "id": "b-gen-66",
+    "image": "https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&w=800&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1585704032915-c3400ca199e7?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "name": "Royal Carpenters & Modular Furniture Care",
@@ -4746,7 +6808,14 @@ const INITIAL_BUSINESSES = [
         "comment": "Replaced all kitchen drawer runners smoothly. Very polite."
       }
     ],
-    "id": "b-gen-67"
+    "id": "b-gen-67",
+    "image": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "name": "Coastal Plumbers & Borewell Services",
@@ -4802,7 +6871,14 @@ const INITIAL_BUSINESSES = [
         "comment": "Arrived at our house in Valachil within 12 minutes! Replaced broken valve quickly."
       }
     ],
-    "id": "b-gen-68"
+    "id": "b-gen-68",
+    "image": "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=800&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "name": "CoolWave Heavy AC Repair & Gas Charging",
@@ -4858,7 +6934,14 @@ const INITIAL_BUSINESSES = [
         "comment": "The foam jet cleaning removed all foul odors and cooling is like a brand new AC now."
       }
     ],
-    "id": "b-gen-69"
+    "id": "b-gen-69",
+    "image": "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=800&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1615906655593-ad0386982a0f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "name": "Delhi PowerJet AC & Duct Cleaning Engineers",
@@ -4908,7 +6991,14 @@ const INITIAL_BUSINESSES = [
         "comment": "Technician showed the dirty water collected in bucket. Outstanding cleaning."
       }
     ],
-    "id": "b-gen-70"
+    "id": "b-gen-70",
+    "image": "https://images.unsplash.com/photo-1615906655593-ad0386982a0f?auto=format&fit=crop&w=800&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1615906655593-ad0386982a0f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "name": "Telangana Inverter & Solar Solutions",
@@ -4958,7 +7048,14 @@ const INITIAL_BUSINESSES = [
         "comment": "Fixed our home inverter backup issue on a Sunday evening. Lifesaver!"
       }
     ],
-    "id": "b-gen-71"
+    "id": "b-gen-71",
+    "image": "https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=800&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "name": "Chennai Electricians & Smart Home Wiring",
@@ -5008,7 +7105,14 @@ const INITIAL_BUSINESSES = [
         "comment": "Diagnosed a dangerous burning smell in our switchboard within 5 minutes. Highly recommended."
       }
     ],
-    "id": "b-gen-72"
+    "id": "b-gen-72",
+    "image": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1615906655593-ad0386982a0f?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "name": "Vidyarthi Bhavan Heritage Restaurant",
@@ -5063,7 +7167,14 @@ const INITIAL_BUSINESSES = [
         "comment": "The gold standard of Bengaluru breakfast. The dosa texture cannot be beaten anywhere."
       }
     ],
-    "id": "b-gen-73"
+    "id": "b-gen-73",
+    "image": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "name": "Gajalee Coastal Seafood & Mangalorean Curry",
@@ -5118,7 +7229,14 @@ const INITIAL_BUSINESSES = [
         "comment": "Best butter garlic crab in Mumbai, hands down. Neer dosa was melt-in-mouth soft."
       }
     ],
-    "id": "b-gen-74"
+    "id": "b-gen-74",
+    "image": "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=800&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "name": "Karim's Original Mughlai Since 1913",
@@ -5173,7 +7291,14 @@ const INITIAL_BUSINESSES = [
         "comment": "The Mutton Burra is unparalleled. Authentic flavors preserved for over a century."
       }
     ],
-    "id": "b-gen-75"
+    "id": "b-gen-75",
+    "image": "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "name": "Paradise Royal Biryani & Kebabs",
@@ -5228,7 +7353,14 @@ const INITIAL_BUSINESSES = [
         "comment": "Fragrant long grain rice, juicy tender mutton, and perfect spice balance. Super fast service."
       }
     ],
-    "id": "b-gen-76"
+    "id": "b-gen-76",
+    "image": "https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=800&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "name": "HygienicPro 3BHK Deep Cleaning & Sanitization",
@@ -5284,7 +7416,14 @@ const INITIAL_BUSINESSES = [
         "comment": "Our bathrooms look like a 5-star hotel now! All hard water stains vanished."
       }
     ],
-    "id": "b-gen-77"
+    "id": "b-gen-77",
+    "image": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1581579186913-45ac3e6efe93?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "name": "PestShield Termite & Herbal Cockroach Control",
@@ -5334,7 +7473,14 @@ const INITIAL_BUSINESSES = [
         "comment": "Zero smell, no need to empty kitchen cabinets, and cockroaches disappeared within 48 hours."
       }
     ],
-    "id": "b-gen-78"
+    "id": "b-gen-78",
+    "image": "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=800&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1581579186913-45ac3e6efe93?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "name": "iCare Apple Certified Mac & iPhone Lab",
@@ -5389,7 +7535,14 @@ const INITIAL_BUSINESSES = [
         "comment": "Official Apple service quoted ₹42,000 for logic board replacement. iCare fixed the short circuit for ₹3,500!"
       }
     ],
-    "id": "b-gen-79"
+    "id": "b-gen-79",
+    "image": "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?auto=format&fit=crop&w=800&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "name": "LapFix Chip-Level Laptop Specialists",
@@ -5444,7 +7597,14 @@ const INITIAL_BUSINESSES = [
         "comment": "Recovered my thesis data from a dead laptop within 3 hours. Forever grateful!"
       }
     ],
-    "id": "b-gen-80"
+    "id": "b-gen-80",
+    "image": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "name": "3M Car Care & Ceramic Detailing Studio",
@@ -5499,7 +7659,14 @@ const INITIAL_BUSINESSES = [
         "comment": "My 5-year-old Creta looks showroom fresh after the 3M machine wax. Outstanding craftsmanship."
       }
     ],
-    "id": "b-gen-81"
+    "id": "b-gen-81",
+    "image": "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=800&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "name": "Coastal Roadside Hydraulic Towing & Recovery 24/7",
@@ -5548,7 +7715,14 @@ const INITIAL_BUSINESSES = [
         "comment": "My car stalled near Valachil at 2 AM. Towing truck arrived in 18 minutes. Extremely polite driver."
       }
     ],
-    "id": "b-gen-82"
+    "id": "b-gen-82",
+    "image": "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "name": "Agarwal Express Relocations & Household Shifting",
@@ -5603,7 +7777,14 @@ const INITIAL_BUSINESSES = [
         "comment": "Not a single scratch on our delicate glassware or TV. Best packers in Bangalore."
       }
     ],
-    "id": "b-gen-83"
+    "id": "b-gen-83",
+    "image": "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=800&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1580674285054-bed31e145f59?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "name": "Apex Industrial Hardware & Wholesale Electricals",
@@ -5652,7 +7833,14 @@ const INITIAL_BUSINESSES = [
         "comment": "Genuine GST bill, best wholesale trade pricing in Mumbai, and delivery right to our site."
       }
     ],
-    "id": "b-gen-84"
+    "id": "b-gen-84",
+    "image": "https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=800&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "id": "b-150",
@@ -5682,7 +7870,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9820955708",
     "whatsapp": "919887398686",
     "address": "86, Main Boulevard, Koramangala, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80",
     "lat": 12.9797,
     "lng": 77.5744,
     "distance": "1.7 km",
@@ -5718,6 +7906,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -5748,7 +7942,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9841842819",
     "whatsapp": "919845101131",
     "address": "64, Main Boulevard, Indiranagar, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80",
     "lat": 12.9458,
     "lng": 77.6144,
     "distance": "0.9 km",
@@ -5784,6 +7978,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -5814,7 +8014,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9863825936",
     "whatsapp": "919883815937",
     "address": "13, Main Boulevard, HSR Layout, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80",
     "lat": 12.9333,
     "lng": 77.6329,
     "distance": "1.4 km",
@@ -5850,6 +8050,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -5880,7 +8086,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9814521918",
     "whatsapp": "919812956393",
     "address": "39, Main Boulevard, Whitefield, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80",
     "lat": 12.9618,
     "lng": 77.6185,
     "distance": "3.3 km",
@@ -5916,6 +8122,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -5946,7 +8158,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9859822291",
     "whatsapp": "919894251372",
     "address": "54, Main Boulevard, Jayanagar, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80",
     "lat": 13.0057,
     "lng": 77.5737,
     "distance": "2.8 km",
@@ -5982,6 +8194,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -6012,7 +8230,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9846786769",
     "whatsapp": "919815916695",
     "address": "17, Main Boulevard, Marathahalli, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=800&q=80",
     "lat": 12.9901,
     "lng": 77.6082,
     "distance": "4.7 km",
@@ -6048,6 +8266,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -6078,7 +8302,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9850558055",
     "whatsapp": "919831676087",
     "address": "58, Main Boulevard, Malleshwaram, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80",
     "lat": 12.989,
     "lng": 77.5911,
     "distance": "1.7 km",
@@ -6114,6 +8338,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -6144,7 +8374,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9895840894",
     "whatsapp": "919853727156",
     "address": "84, Main Boulevard, Koramangala, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80",
     "lat": 12.9862,
     "lng": 77.5871,
     "distance": "3.0 km",
@@ -6180,6 +8410,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -6210,7 +8446,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9854037088",
     "whatsapp": "919856500781",
     "address": "29, Main Boulevard, Valachil, Mangaluru",
-    "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80",
     "lat": 12.9021,
     "lng": 74.8219,
     "distance": "1.1 km",
@@ -6246,6 +8482,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -6276,7 +8518,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9865331726",
     "whatsapp": "919813489564",
     "address": "61, Main Boulevard, Kadri, Mangaluru",
-    "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80",
     "lat": 12.9153,
     "lng": 74.822,
     "distance": "4.1 km",
@@ -6312,6 +8554,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -6342,7 +8590,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9810509573",
     "whatsapp": "919838713377",
     "address": "13, Main Boulevard, Hampankatta, Mangaluru",
-    "image": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80",
     "lat": 12.8986,
     "lng": 74.8304,
     "distance": "4.3 km",
@@ -6378,6 +8626,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -6408,7 +8662,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9823285771",
     "whatsapp": "919858445964",
     "address": "95, Main Boulevard, Bejai, Mangaluru",
-    "image": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80",
     "lat": 12.9422,
     "lng": 74.8507,
     "distance": "2.5 km",
@@ -6444,6 +8698,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -6474,7 +8734,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9828340355",
     "whatsapp": "919861138146",
     "address": "99, Main Boulevard, Surathkal, Mangaluru",
-    "image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80",
     "lat": 12.9295,
     "lng": 74.856,
     "distance": "3.2 km",
@@ -6510,6 +8770,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -6540,7 +8806,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9891920623",
     "whatsapp": "919848548749",
     "address": "92, Main Boulevard, Falnir, Mangaluru",
-    "image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=800&q=80",
     "lat": 12.912,
     "lng": 74.8679,
     "distance": "2.2 km",
@@ -6576,6 +8842,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -6606,7 +8878,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9841339357",
     "whatsapp": "919839790851",
     "address": "89, Main Boulevard, Valachil, Mangaluru",
-    "image": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80",
     "lat": 12.9269,
     "lng": 74.8632,
     "distance": "2.0 km",
@@ -6642,6 +8914,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -6672,7 +8950,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9888822778",
     "whatsapp": "919860691801",
     "address": "47, Main Boulevard, Kadri, Mangaluru",
-    "image": "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=800&q=80",
     "lat": 12.9056,
     "lng": 74.8383,
     "distance": "2.2 km",
@@ -6708,6 +8986,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -6738,7 +9022,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9890924697",
     "whatsapp": "919821990408",
     "address": "48, Main Boulevard, Gokulam, Mysuru",
-    "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80",
     "lat": 12.2901,
     "lng": 76.6273,
     "distance": "2.0 km",
@@ -6774,6 +9058,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -6804,7 +9094,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9884457644",
     "whatsapp": "919821506781",
     "address": "11, Main Boulevard, Jayalakshmipuram, Mysuru",
-    "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80",
     "lat": 12.2794,
     "lng": 76.6372,
     "distance": "2.6 km",
@@ -6840,6 +9130,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -6870,7 +9166,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9815722432",
     "whatsapp": "919839583803",
     "address": "72, Main Boulevard, Vijayanagar, Mysuru",
-    "image": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80",
     "lat": 12.2597,
     "lng": 76.6672,
     "distance": "1.0 km",
@@ -6906,6 +9202,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -6936,7 +9238,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9821382459",
     "whatsapp": "919822076569",
     "address": "94, Main Boulevard, Kuvempunagar, Mysuru",
-    "image": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80",
     "lat": 12.2578,
     "lng": 76.6181,
     "distance": "3.8 km",
@@ -6972,6 +9274,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -7002,7 +9310,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9818747458",
     "whatsapp": "919839484853",
     "address": "90, Main Boulevard, Gokulam, Mysuru",
-    "image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80",
     "lat": 12.3291,
     "lng": 76.6592,
     "distance": "1.9 km",
@@ -7038,6 +9346,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -7068,7 +9382,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9869523311",
     "whatsapp": "919894471603",
     "address": "52, Main Boulevard, Jayalakshmipuram, Mysuru",
-    "image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=800&q=80",
     "lat": 12.3252,
     "lng": 76.6513,
     "distance": "1.5 km",
@@ -7104,6 +9418,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -7134,7 +9454,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9810976158",
     "whatsapp": "919898804355",
     "address": "44, Main Boulevard, Vijayanagar, Mysuru",
-    "image": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80",
     "lat": 12.3032,
     "lng": 76.6231,
     "distance": "2.9 km",
@@ -7170,6 +9490,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -7200,7 +9526,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9844386120",
     "whatsapp": "919819343979",
     "address": "63, Main Boulevard, Kuvempunagar, Mysuru",
-    "image": "https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=800&q=80",
     "lat": 12.2978,
     "lng": 76.6445,
     "distance": "3.7 km",
@@ -7236,6 +9562,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -7266,7 +9598,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9811536064",
     "whatsapp": "919834821865",
     "address": "91, Main Boulevard, Bandra West, Mumbai",
-    "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80",
     "lat": 19.0768,
     "lng": 72.8448,
     "distance": "2.8 km",
@@ -7302,6 +9634,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -7332,7 +9670,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9829709054",
     "whatsapp": "919818392355",
     "address": "57, Main Boulevard, Andheri East, Mumbai",
-    "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80",
     "lat": 19.0489,
     "lng": 72.891,
     "distance": "1.5 km",
@@ -7368,6 +9706,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -7398,7 +9742,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9810671780",
     "whatsapp": "919833832070",
     "address": "66, Main Boulevard, Powai, Mumbai",
-    "image": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80",
     "lat": 19.1135,
     "lng": 72.8969,
     "distance": "3.2 km",
@@ -7434,6 +9778,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -7464,7 +9814,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9863178440",
     "whatsapp": "919827242469",
     "address": "95, Main Boulevard, Juhu, Mumbai",
-    "image": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80",
     "lat": 19.0895,
     "lng": 72.8958,
     "distance": "2.0 km",
@@ -7500,6 +9850,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -7530,7 +9886,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9849533345",
     "whatsapp": "919814858806",
     "address": "60, Main Boulevard, Colaba, Mumbai",
-    "image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80",
     "lat": 19.0511,
     "lng": 72.8871,
     "distance": "2.7 km",
@@ -7566,6 +9922,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -7596,7 +9958,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9896936133",
     "whatsapp": "919830629069",
     "address": "36, Main Boulevard, Thane West, Mumbai",
-    "image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=800&q=80",
     "lat": 19.0795,
     "lng": 72.884,
     "distance": "3.4 km",
@@ -7632,6 +9994,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -7662,7 +10030,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9816081532",
     "whatsapp": "919834810004",
     "address": "88, Main Boulevard, Bandra West, Mumbai",
-    "image": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80",
     "lat": 19.0635,
     "lng": 72.8658,
     "distance": "4.1 km",
@@ -7698,6 +10066,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -7728,7 +10102,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9884729730",
     "whatsapp": "919887477277",
     "address": "49, Main Boulevard, Andheri East, Mumbai",
-    "image": "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=800&q=80",
     "lat": 19.1043,
     "lng": 72.8383,
     "distance": "2.8 km",
@@ -7764,6 +10138,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -7794,7 +10174,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9822708730",
     "whatsapp": "919826796120",
     "address": "86, Main Boulevard, Connaught Place, Delhi NCR",
-    "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80",
     "lat": 28.6108,
     "lng": 77.1867,
     "distance": "1.9 km",
@@ -7830,6 +10210,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -7860,7 +10246,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9890179584",
     "whatsapp": "919889931494",
     "address": "56, Main Boulevard, Hauz Khas, Delhi NCR",
-    "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80",
     "lat": 28.6371,
     "lng": 77.1806,
     "distance": "4.2 km",
@@ -7896,6 +10282,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -7926,7 +10318,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9874797406",
     "whatsapp": "919843386019",
     "address": "77, Main Boulevard, Saket, Delhi NCR",
-    "image": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80",
     "lat": 28.6237,
     "lng": 77.2479,
     "distance": "1.9 km",
@@ -7962,6 +10354,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -7992,7 +10390,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9820300271",
     "whatsapp": "919811420207",
     "address": "47, Main Boulevard, Cyber Hub Gurgaon, Delhi NCR",
-    "image": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80",
     "lat": 28.6233,
     "lng": 77.2054,
     "distance": "1.8 km",
@@ -8028,6 +10426,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -8058,7 +10462,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9854258129",
     "whatsapp": "919857531971",
     "address": "21, Main Boulevard, Noida Sector 18, Delhi NCR",
-    "image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80",
     "lat": 28.6513,
     "lng": 77.2351,
     "distance": "1.5 km",
@@ -8094,6 +10498,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -8124,7 +10534,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9843133085",
     "whatsapp": "919867405262",
     "address": "50, Main Boulevard, Connaught Place, Delhi NCR",
-    "image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=800&q=80",
     "lat": 28.6446,
     "lng": 77.1756,
     "distance": "1.5 km",
@@ -8160,6 +10570,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -8190,7 +10606,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9828473861",
     "whatsapp": "919834966021",
     "address": "43, Main Boulevard, Hauz Khas, Delhi NCR",
-    "image": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80",
     "lat": 28.599,
     "lng": 77.2281,
     "distance": "1.3 km",
@@ -8226,6 +10642,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -8256,7 +10678,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9895280636",
     "whatsapp": "919819342703",
     "address": "63, Main Boulevard, Saket, Delhi NCR",
-    "image": "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?auto=format&fit=crop&w=800&q=80",
     "lat": 28.653,
     "lng": 77.1719,
     "distance": "2.6 km",
@@ -8292,6 +10714,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -8322,7 +10750,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9840192755",
     "whatsapp": "919857804884",
     "address": "30, Main Boulevard, Gachibowli, Hyderabad",
-    "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80",
     "lat": 17.3963,
     "lng": 78.4649,
     "distance": "5.0 km",
@@ -8358,6 +10786,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -8388,7 +10822,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9891233597",
     "whatsapp": "919898232546",
     "address": "43, Main Boulevard, Hitec City, Hyderabad",
-    "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80",
     "lat": 17.3642,
     "lng": 78.4979,
     "distance": "4.8 km",
@@ -8424,6 +10858,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -8454,7 +10894,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9822964069",
     "whatsapp": "919898680716",
     "address": "27, Main Boulevard, Banjara Hills, Hyderabad",
-    "image": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80",
     "lat": 17.4202,
     "lng": 78.4701,
     "distance": "1.4 km",
@@ -8490,6 +10930,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -8520,7 +10966,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9878154994",
     "whatsapp": "919814739164",
     "address": "50, Main Boulevard, Jubilee Hills, Hyderabad",
-    "image": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80",
     "lat": 17.4024,
     "lng": 78.5206,
     "distance": "2.1 km",
@@ -8556,6 +11002,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -8586,7 +11038,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9892295933",
     "whatsapp": "919835462519",
     "address": "29, Main Boulevard, Madhapur, Hyderabad",
-    "image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80",
     "lat": 17.3656,
     "lng": 78.5143,
     "distance": "1.3 km",
@@ -8622,6 +11074,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -8652,7 +11110,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9815532854",
     "whatsapp": "919888197296",
     "address": "96, Main Boulevard, Gachibowli, Hyderabad",
-    "image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=800&q=80",
     "lat": 17.4014,
     "lng": 78.4752,
     "distance": "4.6 km",
@@ -8688,6 +11146,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -8718,7 +11182,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9882910788",
     "whatsapp": "919884120875",
     "address": "53, Main Boulevard, Hitec City, Hyderabad",
-    "image": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80",
     "lat": 17.3675,
     "lng": 78.4861,
     "distance": "4.4 km",
@@ -8754,6 +11218,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -8784,7 +11254,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9867657960",
     "whatsapp": "919822615868",
     "address": "15, Main Boulevard, Banjara Hills, Hyderabad",
-    "image": "https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80",
     "lat": 17.3691,
     "lng": 78.5032,
     "distance": "2.5 km",
@@ -8820,6 +11290,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -8850,7 +11326,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9877978790",
     "whatsapp": "919839309287",
     "address": "54, Main Boulevard, Koregaon Park, Pune",
-    "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80",
     "lat": 18.4887,
     "lng": 73.8301,
     "distance": "4.9 km",
@@ -8886,6 +11362,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -8916,7 +11398,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9886104569",
     "whatsapp": "919883664595",
     "address": "40, Main Boulevard, Kothrud, Pune",
-    "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80",
     "lat": 18.5474,
     "lng": 73.8856,
     "distance": "2.7 km",
@@ -8952,6 +11434,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -8982,7 +11470,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9870488462",
     "whatsapp": "919895912543",
     "address": "85, Main Boulevard, Viman Nagar, Pune",
-    "image": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80",
     "lat": 18.5158,
     "lng": 73.8535,
     "distance": "3.2 km",
@@ -9018,6 +11506,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -9048,7 +11542,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9836218587",
     "whatsapp": "919862503293",
     "address": "76, Main Boulevard, Adyar, Chennai",
-    "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&q=80",
     "lat": 13.0765,
     "lng": 80.2892,
     "distance": "2.6 km",
@@ -9084,6 +11578,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -9114,7 +11614,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9847165336",
     "whatsapp": "919840898454",
     "address": "75, Main Boulevard, Anna Nagar, Chennai",
-    "image": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80",
     "lat": 13.0559,
     "lng": 80.2565,
     "distance": "3.4 km",
@@ -9150,6 +11650,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -9180,7 +11686,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9859405574",
     "whatsapp": "919859646704",
     "address": "80, Main Boulevard, Velachery, Chennai",
-    "image": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80",
     "lat": 13.1087,
     "lng": 80.2634,
     "distance": "1.7 km",
@@ -9216,6 +11722,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -9246,7 +11758,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9893082561",
     "whatsapp": "919815475005",
     "address": "67, Main Boulevard, Nungambakkam, Chennai",
-    "image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80",
     "lat": 13.1032,
     "lng": 80.2734,
     "distance": "2.8 km",
@@ -9282,6 +11794,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -9312,7 +11830,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9841283915",
     "whatsapp": "919877919113",
     "address": "66, Main Boulevard, T Nagar, Chennai",
-    "image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80",
     "lat": 13.0482,
     "lng": 80.3033,
     "distance": "0.8 km",
@@ -9348,6 +11866,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -9378,7 +11902,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9893685817",
     "whatsapp": "919874593559",
     "address": "14, Main Boulevard, Adyar, Chennai",
-    "image": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=80",
     "lat": 13.0761,
     "lng": 80.2468,
     "distance": "2.1 km",
@@ -9414,6 +11938,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -9444,7 +11974,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9896185144",
     "whatsapp": "919813732230",
     "address": "84, Main Boulevard, Anna Nagar, Chennai",
-    "image": "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80",
     "lat": 13.0505,
     "lng": 80.2434,
     "distance": "1.4 km",
@@ -9480,6 +12010,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -9510,7 +12046,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9895574903",
     "whatsapp": "919824377652",
     "address": "11, Main Boulevard, Panampilly Nagar, Kochi",
-    "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80",
     "lat": 9.9675,
     "lng": 76.2444,
     "distance": "1.4 km",
@@ -9546,6 +12082,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -9576,7 +12118,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9818146223",
     "whatsapp": "919839024454",
     "address": "14, Main Boulevard, Kakkanad, Kochi",
-    "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&q=80",
     "lat": 9.9054,
     "lng": 76.307,
     "distance": "3.6 km",
@@ -9612,6 +12154,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -9642,7 +12190,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9818687007",
     "whatsapp": "919851167006",
     "address": "81, Main Boulevard, Fort Kochi, Kochi",
-    "image": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80",
     "lat": 9.9668,
     "lng": 76.2792,
     "distance": "2.2 km",
@@ -9678,6 +12226,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -9708,7 +12262,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9896274714",
     "whatsapp": "919852351649",
     "address": "81, Main Boulevard, Marine Drive, Kochi",
-    "image": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80",
     "lat": 9.9336,
     "lng": 76.3052,
     "distance": "4.2 km",
@@ -9744,6 +12298,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -9774,7 +12334,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9881995473",
     "whatsapp": "919866811476",
     "address": "40, Main Boulevard, Panampilly Nagar, Kochi",
-    "image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80",
     "lat": 9.9399,
     "lng": 76.2813,
     "distance": "1.7 km",
@@ -9810,6 +12370,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -9840,7 +12406,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9875389787",
     "whatsapp": "919825903990",
     "address": "60, Main Boulevard, Kakkanad, Kochi",
-    "image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80",
     "lat": 9.9377,
     "lng": 76.2504,
     "distance": "4.2 km",
@@ -9876,6 +12442,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -9906,7 +12478,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9864528264",
     "whatsapp": "919815518034",
     "address": "33, Main Boulevard, Fort Kochi, Kochi",
-    "image": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=80",
     "lat": 9.904,
     "lng": 76.2498,
     "distance": "1.8 km",
@@ -9942,6 +12514,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -9972,7 +12550,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9859304955",
     "whatsapp": "919812772314",
     "address": "93, Main Boulevard, Marine Drive, Kochi",
-    "image": "https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=800&q=80",
     "lat": 9.9195,
     "lng": 76.2843,
     "distance": "1.6 km",
@@ -10008,6 +12586,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -10038,7 +12622,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9826741025",
     "whatsapp": "919870066781",
     "address": "72, Main Boulevard, Satellite, Ahmedabad",
-    "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80",
     "lat": 22.9982,
     "lng": 72.5356,
     "distance": "4.0 km",
@@ -10074,6 +12658,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -10104,7 +12694,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9893238732",
     "whatsapp": "919824910707",
     "address": "79, Main Boulevard, Bodakdev, Ahmedabad",
-    "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&q=80",
     "lat": 23.0366,
     "lng": 72.5377,
     "distance": "2.9 km",
@@ -10140,6 +12730,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -10170,7 +12766,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9868804266",
     "whatsapp": "919857321870",
     "address": "79, Main Boulevard, SG Highway, Ahmedabad",
-    "image": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80",
     "lat": 22.9962,
     "lng": 72.5537,
     "distance": "2.9 km",
@@ -10206,6 +12802,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -10236,7 +12838,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9859682398",
     "whatsapp": "919886416163",
     "address": "59, Main Boulevard, Navrangpura, Ahmedabad",
-    "image": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80",
     "lat": 22.9878,
     "lng": 72.5995,
     "distance": "1.3 km",
@@ -10272,6 +12874,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -10302,7 +12910,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9826181959",
     "whatsapp": "919835799547",
     "address": "43, Main Boulevard, Satellite, Ahmedabad",
-    "image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80",
     "lat": 23.0515,
     "lng": 72.5348,
     "distance": "1.4 km",
@@ -10338,6 +12946,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -10368,7 +12982,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9890645982",
     "whatsapp": "919825380141",
     "address": "96, Main Boulevard, Bodakdev, Ahmedabad",
-    "image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80",
     "lat": 23.0586,
     "lng": 72.5547,
     "distance": "4.6 km",
@@ -10404,6 +13018,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -10434,7 +13054,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9841544379",
     "whatsapp": "919832315179",
     "address": "12, Main Boulevard, SG Highway, Ahmedabad",
-    "image": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=80",
     "lat": 23.0572,
     "lng": 72.5906,
     "distance": "3.4 km",
@@ -10470,6 +13090,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -10500,7 +13126,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9893949783",
     "whatsapp": "919826496160",
     "address": "75, Main Boulevard, Navrangpura, Ahmedabad",
-    "image": "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=800&q=80",
     "lat": 23.0129,
     "lng": 72.5978,
     "distance": "1.5 km",
@@ -10536,6 +13162,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -10566,7 +13198,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9849676413",
     "whatsapp": "919840595877",
     "address": "16, Main Boulevard, Park Street, Kolkata",
-    "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80",
     "lat": 22.5885,
     "lng": 88.3282,
     "distance": "3.9 km",
@@ -10602,6 +13234,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -10632,7 +13270,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9845218872",
     "whatsapp": "919866783299",
     "address": "37, Main Boulevard, Salt Lake, Kolkata",
-    "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&q=80",
     "lat": 22.5476,
     "lng": 88.3937,
     "distance": "1.2 km",
@@ -10668,6 +13306,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -10698,7 +13342,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9815537713",
     "whatsapp": "919835356040",
     "address": "73, Main Boulevard, New Town, Kolkata",
-    "image": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80",
     "lat": 22.5618,
     "lng": 88.3891,
     "distance": "4.3 km",
@@ -10734,6 +13378,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -10764,7 +13414,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9839415870",
     "whatsapp": "919876487746",
     "address": "66, Main Boulevard, Ballygunge, Kolkata",
-    "image": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80",
     "lat": 22.5476,
     "lng": 88.3879,
     "distance": "2.7 km",
@@ -10800,6 +13450,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -10830,7 +13486,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9833651638",
     "whatsapp": "919816729729",
     "address": "90, Main Boulevard, Park Street, Kolkata",
-    "image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80",
     "lat": 22.5672,
     "lng": 88.3243,
     "distance": "4.1 km",
@@ -10866,6 +13522,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -10896,7 +13558,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9849010214",
     "whatsapp": "919877108472",
     "address": "34, Main Boulevard, Salt Lake, Kolkata",
-    "image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80",
     "lat": 22.5646,
     "lng": 88.3462,
     "distance": "2.6 km",
@@ -10932,6 +13594,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -10962,7 +13630,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9867515679",
     "whatsapp": "919864915149",
     "address": "32, Main Boulevard, New Town, Kolkata",
-    "image": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=80",
     "lat": 22.61,
     "lng": 88.3627,
     "distance": "3.3 km",
@@ -10998,6 +13666,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -11028,7 +13702,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9836781372",
     "whatsapp": "919815249484",
     "address": "81, Main Boulevard, Ballygunge, Kolkata",
-    "image": "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=800&q=80",
     "lat": 22.5756,
     "lng": 88.39,
     "distance": "3.7 km",
@@ -11064,6 +13738,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -11094,7 +13774,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9866975080",
     "whatsapp": "919851116888",
     "address": "71, Main Boulevard, C-Scheme, Jaipur",
-    "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80",
     "lat": 26.9244,
     "lng": 75.7827,
     "distance": "3.1 km",
@@ -11130,6 +13810,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -11160,7 +13846,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9829623275",
     "whatsapp": "919861717139",
     "address": "94, Main Boulevard, Malviya Nagar, Jaipur",
-    "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&q=80",
     "lat": 26.9117,
     "lng": 75.7598,
     "distance": "3.1 km",
@@ -11196,6 +13882,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -11226,7 +13918,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9836630158",
     "whatsapp": "919890261730",
     "address": "71, Main Boulevard, Vaishali Nagar, Jaipur",
-    "image": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80",
     "lat": 26.9185,
     "lng": 75.7563,
     "distance": "4.6 km",
@@ -11262,6 +13954,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -11292,7 +13990,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9812229556",
     "whatsapp": "919817541287",
     "address": "70, Main Boulevard, Raja Park, Jaipur",
-    "image": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80",
     "lat": 26.8768,
     "lng": 75.7477,
     "distance": "2.3 km",
@@ -11328,6 +14026,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -11358,7 +14062,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9818468076",
     "whatsapp": "919872657266",
     "address": "55, Main Boulevard, C-Scheme, Jaipur",
-    "image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80",
     "lat": 26.9335,
     "lng": 75.8161,
     "distance": "4.2 km",
@@ -11394,6 +14098,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -11424,7 +14134,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9816560045",
     "whatsapp": "919829272398",
     "address": "38, Main Boulevard, Malviya Nagar, Jaipur",
-    "image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80",
     "lat": 26.9417,
     "lng": 75.7735,
     "distance": "3.9 km",
@@ -11460,6 +14170,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -11490,7 +14206,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9819697851",
     "whatsapp": "919879157675",
     "address": "54, Main Boulevard, Vaishali Nagar, Jaipur",
-    "image": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=80",
     "lat": 26.8848,
     "lng": 75.8106,
     "distance": "3.7 km",
@@ -11526,6 +14242,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -11556,7 +14278,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 9811081952",
     "whatsapp": "919867726870",
     "address": "11, Main Boulevard, Raja Park, Jaipur",
-    "image": "https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?auto=format&fit=crop&w=800&q=80",
     "lat": 26.8859,
     "lng": 75.7809,
     "distance": "3.0 km",
@@ -11592,6 +14314,12 @@ const INITIAL_BUSINESSES = [
         "verifiedBooking": true,
         "comment": "Extremely professional, punctual arrival, and clean work. Highly recommended!"
       }
+    ],
+    "photos": [
+      "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
@@ -11622,7 +14350,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 80 4123 4567",
     "whatsapp": "918041234567",
     "address": "80 Feet Road, Koramangala 5th Block, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=800&q=80",
     "description": "Premier electronic retail superstore featuring laptops, home appliances, smartphones, smart TVs, and certified gadget repair with official brand warranties.",
     "services": [
       {
@@ -11660,7 +14388,13 @@ const INITIAL_BUSINESSES = [
       }
     ],
     "lat": 12.9352,
-    "lng": 77.6245
+    "lng": 77.6245,
+    "photos": [
+      "https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1526738549149-8e07eca6c147?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "id": "b-pro-101",
@@ -11690,7 +14424,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 80 2552 9876",
     "whatsapp": "918025529876",
     "address": "Near Sony World Junction, Koramangala 4th Block, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80",
     "description": "Senior High Court advocates and corporate legal consultants specializing in property title verification, agreement drafting, startup advisory, and civil litigation.",
     "services": [
       {
@@ -11728,7 +14462,13 @@ const INITIAL_BUSINESSES = [
       }
     ],
     "lat": 12.934,
-    "lng": 77.629
+    "lng": 77.629,
+    "photos": [
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "id": "b-daily-101",
@@ -11758,7 +14498,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 80 4912 3456",
     "whatsapp": "918049123456",
     "address": "17th Cross, HSR Layout Sector 2, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1545173168-9f1947eebb7f?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1545173168-9f1947eebb7f?auto=format&fit=crop&w=800&q=80",
     "description": "Eco-friendly doorstep laundry, Italian dry cleaning, organic stain removal, and steam pressing with free pickup and drop within 24 hours.",
     "services": [
       {
@@ -11796,7 +14536,13 @@ const INITIAL_BUSINESSES = [
       }
     ],
     "lat": 12.9112,
-    "lng": 77.648
+    "lng": 77.648,
+    "photos": [
+      "https://images.unsplash.com/photo-1545173168-9f1947eebb7f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "id": "b-travel-101",
@@ -11826,7 +14572,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 80 4999 8888",
     "whatsapp": "918049998888",
     "address": "100 Feet Road, Indiranagar, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80",
     "description": "Award-winning boutique hotel featuring luxury suites, high-speed Wi-Fi, rooftop swimming pool, fine-dining restaurants, and airport express transfers.",
     "services": [
       {
@@ -11864,7 +14610,13 @@ const INITIAL_BUSINESSES = [
       }
     ],
     "lat": 12.9784,
-    "lng": 77.6408
+    "lng": 77.6408,
+    "photos": [
+      "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "id": "b-shop-201",
@@ -11894,7 +14646,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 22 2640 1234",
     "whatsapp": "912226401234",
     "address": "Hill Road, Bandra West, Mumbai",
-    "image": "https://images.unsplash.com/photo-1526738549149-8e07eca6c147?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=800&q=80",
     "description": "Consumer electronics, Apple products, gaming consoles, home audio systems, and gadget support with genuine manufacturer warranty.",
     "services": [
       {
@@ -11926,7 +14678,13 @@ const INITIAL_BUSINESSES = [
       }
     ],
     "lat": 19.0596,
-    "lng": 72.8295
+    "lng": 72.8295,
+    "photos": [
+      "https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1526738549149-8e07eca6c147?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "id": "b-pro-201",
@@ -11956,7 +14714,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 22 2285 4567",
     "whatsapp": "912222854567",
     "address": "Fort & Colaba Chambers, Mumbai",
-    "image": "https://images.unsplash.com/photo-1453733197781-704fa5988299?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80",
     "description": "Prominent High Court solicitors specializing in corporate advisory, maritime law, property due diligence, and estate planning.",
     "services": [
       {
@@ -11987,7 +14745,13 @@ const INITIAL_BUSINESSES = [
       }
     ],
     "lat": 18.922,
-    "lng": 72.8347
+    "lng": 72.8347,
+    "photos": [
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "id": "b-daily-201",
@@ -12017,7 +14781,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 22 2836 7890",
     "whatsapp": "912228367890",
     "address": "JB Nagar, Andheri East, Mumbai",
-    "image": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1545173168-9f1947eebb7f?auto=format&fit=crop&w=800&q=80",
     "description": "Same-day intra-city parcel delivery, verified document courier, and cold-chain parcel logistics across Mumbai, Thane and Navi Mumbai.",
     "services": [
       {
@@ -12048,7 +14812,13 @@ const INITIAL_BUSINESSES = [
       }
     ],
     "lat": 19.1136,
-    "lng": 72.8697
+    "lng": 72.8697,
+    "photos": [
+      "https://images.unsplash.com/photo-1545173168-9f1947eebb7f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "id": "b-travel-201",
@@ -12078,7 +14848,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 22 4111 2233",
     "whatsapp": "912241112233",
     "address": "Hiranandani Gardens, Powai, Mumbai",
-    "image": "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=700&q=80",
+    "image": "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80",
     "description": "Self-drive car rentals with zero security deposit, unlimited kilometers, sanitized fleet of SUVs and luxury sedans with roadside assistance.",
     "services": [
       {
@@ -12110,7 +14880,13 @@ const INITIAL_BUSINESSES = [
       }
     ],
     "lat": 19.1197,
-    "lng": 72.9051
+    "lng": 72.9051,
+    "photos": [
+      "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "id": "b-hotel-blr-1",
@@ -12140,7 +14916,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 80 2521 1234",
     "whatsapp": "918025211234",
     "address": "23, HAL Old Airport Road, Kodihalli, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80",
     "description": "Palatial 5-star hotel inspired by the architectural grandeur of the Mysore Palace. Features landscaped gardens, world-class luxury spa, multi-cuisine restaurants (Citrus & Jamavar), outdoor heated pool, and private airport limousine transfer.",
     "services": [
       {
@@ -12180,7 +14956,13 @@ const INITIAL_BUSINESSES = [
       }
     ],
     "lat": 12.9602,
-    "lng": 77.6485
+    "lng": 77.6485,
+    "photos": [
+      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "id": "b-hotel-blr-2",
@@ -12210,7 +14992,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 80 6660 5660",
     "whatsapp": "918066605660",
     "address": "Race Course Road, High Grounds, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80",
     "description": "Sprawled over 20 acres of lush botanical gardens, Taj West End is Bengaluru's iconic sanctuary blending Victorian heritage with contemporary luxury. Home to the legendary Blue Ginger Vietnamese restaurant and Machan dining.",
     "services": [
       {
@@ -12250,7 +15032,13 @@ const INITIAL_BUSINESSES = [
       }
     ],
     "lat": 12.9856,
-    "lng": 77.5847
+    "lng": 77.5847,
+    "photos": [
+      "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "id": "b-hotel-mum-1",
@@ -12280,7 +15068,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 22 6665 3366",
     "whatsapp": "912266653366",
     "address": "Apollo Bunder, Colaba, Mumbai",
-    "image": "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80",
     "description": "India's flagship heritage landmark overlooking the Gateway of India and the Arabian Sea since 1903. Renowned for world-famous dining at Wasabi by Morimoto, Golden Dragon, Shamiana, and Sea Lounge afternoon tea.",
     "services": [
       {
@@ -12320,7 +15108,13 @@ const INITIAL_BUSINESSES = [
       }
     ],
     "lat": 18.9217,
-    "lng": 72.8332
+    "lng": 72.8332,
+    "photos": [
+      "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "id": "b-hotel-mum-2",
@@ -12350,7 +15144,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 22 6693 3000",
     "whatsapp": "912266933000",
     "address": "Juhu Tara Road, Juhu Beach, Mumbai",
-    "image": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80",
     "description": "Premier beachfront luxury resort offering direct private access to Juhu Beach, infinity pools with Arabian Sea sunset views, award-winning Italian restaurant Mezzo Mezzo, Lotus Cafe, and Quan Spa.",
     "services": [
       {
@@ -12390,7 +15184,13 @@ const INITIAL_BUSINESSES = [
       }
     ],
     "lat": 19.0988,
-    "lng": 72.8267
+    "lng": 72.8267,
+    "photos": [
+      "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "id": "b-hotel-del-1",
@@ -12420,7 +15220,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 11 2334 1234",
     "whatsapp": "911123341234",
     "address": "Janpath Lane, Connaught Place, New Delhi",
-    "image": "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80",
     "description": "Legendary 1930s colonial Art Deco luxury hotel nestled on Janpath near Connaught Place. Boasts museum-grade colonial art collections, the renowned Spice Route Asian restaurant, The 1911 Bar, and sprawling royal suites.",
     "services": [
       {
@@ -12460,7 +15260,13 @@ const INITIAL_BUSINESSES = [
       }
     ],
     "lat": 28.6225,
-    "lng": 77.2185
+    "lng": 77.2185,
+    "photos": [
+      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "id": "b-hotel-mng-1",
@@ -12490,7 +15296,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 824 249 1011",
     "whatsapp": "918242491011",
     "address": "Navabharath Circle, Kodialbail, Mangaluru",
-    "image": "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80",
     "description": "Mangaluru's premier business and luxury stay located at Navabharath Circle. Features well-appointed executive rooms, Sagar Ratna Pure Veg, Coral Coastal Seafood fine-dining, banquet facilities, and express Mangalore Airport transfers.",
     "services": [
       {
@@ -12530,7 +15336,13 @@ const INITIAL_BUSINESSES = [
       }
     ],
     "lat": 12.8732,
-    "lng": 74.8428
+    "lng": 74.8428,
+    "photos": [
+      "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "id": "b-hotel-mys-1",
@@ -12560,7 +15372,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 821 247 0470",
     "whatsapp": "918212470470",
     "address": "Lalitha Mahal Nagar, Siddhartha Layout, Mysuru",
-    "image": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80",
     "description": "Built in 1921 by the Maharaja of Mysore on a ridge overlooking Chamundi Hill, Lalitha Mahal is a gleaming white Italianate Renaissance palace with crystal chandeliers, grand ballroom dining, and royal heritage suites.",
     "services": [
       {
@@ -12600,7 +15412,13 @@ const INITIAL_BUSINESSES = [
       }
     ],
     "lat": 12.2985,
-    "lng": 76.6892
+    "lng": 76.6892,
+    "photos": [
+      "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "id": "b-hotel-hyd-1",
@@ -12630,7 +15448,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 40 6629 8585",
     "whatsapp": "914066298585",
     "address": "Engine Bowli, Fatima Nagar, Falaknuma, Hyderabad",
-    "image": "https://images.unsplash.com/photo-1549294413-26f195200c16?auto=format&fit=crop&w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80",
     "description": "The 'Mirror of the Sky' perched 2,000 feet above Hyderabad, former residence of the Nizam. Arrive by horse-drawn carriage, walk on Italian marble, dine at the 101-seat dining table, and enjoy Sufi music at sunset.",
     "services": [
       {
@@ -12670,7 +15488,13 @@ const INITIAL_BUSINESSES = [
       }
     ],
     "lat": 17.3315,
-    "lng": 78.4678
+    "lng": 78.4678,
+    "photos": [
+      "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "id": "b-food-blr-1",
@@ -12700,7 +15524,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 80 2667 7588",
     "whatsapp": "918026677588",
     "address": "32, Gandhi Bazaar Main Road, Basavanagudi, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=800&q=80",
     "description": "Established in 1943, Vidyarthi Bhavan is Bengaluru's quintessential breakfast institution. Famous for thick, golden, crispy Ghee Masala Dosas, Kesari Bath, Poori Saagu, and authentic steaming degree filter coffee.",
     "isVeg": true,
     "services": [
@@ -12740,7 +15564,13 @@ const INITIAL_BUSINESSES = [
       }
     ],
     "lat": 12.9439,
-    "lng": 77.5714
+    "lng": 77.5714,
+    "photos": [
+      "https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "id": "b-food-blr-2",
@@ -12770,7 +15600,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 80 2222 0022",
     "whatsapp": "918022220022",
     "address": "14, Lalbagh Fort Road, Doddamavalli, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?auto=format&fit=crop&w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80",
     "description": "Centenary heritage culinary institution founded in 1924 opposite Lalbagh Botanical Gardens. Inventors of the Rava Idli during WWII. Famous for silver-plated Royal Karnataka Thalis, Bisibelebath, and Chandrahara dessert.",
     "isVeg": true,
     "services": [
@@ -12810,7 +15640,13 @@ const INITIAL_BUSINESSES = [
       }
     ],
     "lat": 12.9554,
-    "lng": 77.5861
+    "lng": 77.5861,
+    "photos": [
+      "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "id": "b-food-blr-3",
@@ -12840,7 +15676,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 90197 13388",
     "whatsapp": "919019713388",
     "address": "298, 100 Feet Road, Indiranagar, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80",
     "description": "Bengaluru's trailblazing microbrewery and craft beer haven. World-famous for craft brews like Tint-In-Wit and Basmati Blonde, woodfired sourdough Neapolitan pizzas, baked nachos, and beef briskets.",
     "services": [
       {
@@ -12880,7 +15716,13 @@ const INITIAL_BUSINESSES = [
       }
     ],
     "lat": 12.9792,
-    "lng": 77.6406
+    "lng": 77.6406,
+    "photos": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "id": "b-food-mum-1",
@@ -12910,7 +15752,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 22 2611 4093",
     "whatsapp": "912226114093",
     "address": "Kadamgiri Complex, Hanuman Road, Vile Parle East, Mumbai",
-    "image": "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=800&q=80",
     "description": "Mumbai's premier coastal seafood pilgrimage. Celebrated for Tandoori Crab, Butter Pepper Garlic Jumbo Prawns, Bombil Fry (Bombay Duck), Neer Dosa, and authentic Mangalorean Ghee Roast.",
     "services": [
       {
@@ -12949,7 +15791,13 @@ const INITIAL_BUSINESSES = [
       }
     ],
     "lat": 19.0998,
-    "lng": 72.8532
+    "lng": 72.8532,
+    "photos": [
+      "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "id": "b-food-mum-2",
@@ -12979,7 +15827,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 22 2401 4419",
     "whatsapp": "912224014419",
     "address": "38 B, Kamakshi Building, Bhaudaji Road, Kings Circle, Matunga, Mumbai",
-    "image": "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80",
     "description": "Beloved 84-year-old culinary institution in Mumbai's South Indian heartland of Matunga. Famous for Butter Idli Podi, Ragi Masala Dosa, Upma Podi, crisp Medu Vada, and piping hot brass tumbler filter coffee.",
     "isVeg": true,
     "services": [
@@ -13019,7 +15867,13 @@ const INITIAL_BUSINESSES = [
       }
     ],
     "lat": 19.0278,
-    "lng": 72.8553
+    "lng": 72.8553,
+    "photos": [
+      "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "id": "b-food-del-1",
@@ -13049,7 +15903,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 11 2326 4984",
     "whatsapp": "911123264984",
     "address": "16, Gali Kababian, Jama Masjid, Old Delhi",
-    "image": "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=800&q=80",
     "description": "Royal culinary legacy founded in 1913 by Haji Karimuddin, royal cook of the Mughal emperors. World-renowned for Mutton Burra Kebabs, Mutton Korma, Chicken Jahangiri, Seekh Kebabs, and tandoori Khamiri Roti.",
     "services": [
       {
@@ -13088,7 +15942,13 @@ const INITIAL_BUSINESSES = [
       }
     ],
     "lat": 28.6507,
-    "lng": 77.2334
+    "lng": 77.2334,
+    "photos": [
+      "https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "id": "b-food-mng-1",
@@ -13118,7 +15978,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 99000 00123",
     "whatsapp": "919900000123",
     "address": "Near Kalikamba Temple, Car Street, Bhavathi, Mangaluru",
-    "image": "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80",
     "description": "Old heritage Mangalorean tiled-roof house serving the town's most legendary seafood. Renowned for Anjal (King Fish) Tava Fry in coconut oil, Squid Sukka, Prawns Ghee Roast, and traditional boiled rice with fish curry.",
     "services": [
       {
@@ -13157,7 +16017,13 @@ const INITIAL_BUSINESSES = [
       }
     ],
     "lat": 12.8685,
-    "lng": 74.8392
+    "lng": 74.8392,
+    "photos": [
+      "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "id": "b-food-mys-1",
@@ -13187,7 +16053,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 94486 08710",
     "whatsapp": "919448608710",
     "address": "79, Nazarbad Main Road, Near Police Station, Mysuru",
-    "image": "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80",
     "description": "Mysuru's world-famous artisanal dosa stop. Iconic for soft, melt-in-your-mouth cloud-like dosas topped with a dollop of white homemade butter, stuffed with unique onion-coriander saagu and coconut chutney.",
     "isVeg": true,
     "services": [
@@ -13227,7 +16093,13 @@ const INITIAL_BUSINESSES = [
       }
     ],
     "lat": 12.3112,
-    "lng": 76.6624
+    "lng": 76.6624,
+    "photos": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "id": "b-work-paint-1",
@@ -13257,7 +16129,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 98450 44556",
     "whatsapp": "919845044556",
     "address": "42, 80 Feet Road, Koramangala 4th Block, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=800&q=80",
     "description": "Certified master painting and seepage waterproofing contractors. Complete interior & exterior painting with mechanized dust-free sanding, Asian Paints Royale Luxury Emulsion, Dr. Fixit wall dampness treatment, and 3-year warranty.",
     "services": [
       {
@@ -13296,7 +16168,13 @@ const INITIAL_BUSINESSES = [
       }
     ],
     "lat": 12.9345,
-    "lng": 77.6254
+    "lng": 77.6254,
+    "photos": [
+      "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "id": "b-work-carp-1",
@@ -13326,7 +16204,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 98455 77889",
     "whatsapp": "919845577889",
     "address": "14th Main, 17th Cross, HSR Layout Sector 2, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80",
     "description": "Skilled carpenters and modular woodwork artisans. Specializing in kitchen hydraulic hinge repairs, sliding wardrobe track replacement, bed assembly, wooden door fixing, customized TV units, and teak wood furniture polish.",
     "services": [
       {
@@ -13365,7 +16243,13 @@ const INITIAL_BUSINESSES = [
       }
     ],
     "lat": 12.9121,
-    "lng": 77.6445
+    "lng": 77.6445,
+    "photos": [
+      "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "id": "b-work-pest-1",
@@ -13395,7 +16279,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 22 4000 7878",
     "whatsapp": "912240007878",
     "address": "Lokhandwala Complex, Andheri West, Mumbai",
-    "image": "https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?auto=format&fit=crop&w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80",
     "description": "Govt-licensed eco-friendly pest control specialists. Odorless herbal gel treatment for cockroaches, anti-termite drilling with 5-year warranty, bedbug thermal extraction, and residential rodent management.",
     "services": [
       {
@@ -13434,7 +16318,13 @@ const INITIAL_BUSINESSES = [
       }
     ],
     "lat": 19.1363,
-    "lng": 72.8277
+    "lng": 72.8277,
+    "photos": [
+      "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1581579186913-45ac3e6efe93?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "id": "b-work-app-1",
@@ -13464,7 +16354,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 22 4999 5566",
     "whatsapp": "912249995566",
     "address": "Central Avenue, Hiranandani Gardens, Powai, Mumbai",
-    "image": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80",
     "description": "Doorstep diagnostic and repair center for washing machines (Front/Top Load), double-door refrigerators, microwave ovens, kitchen chimneys, and water purifiers (RO). Genuine OEM spare parts with 90-day warranty.",
     "services": [
       {
@@ -13503,7 +16393,13 @@ const INITIAL_BUSINESSES = [
       }
     ],
     "lat": 19.1176,
-    "lng": 72.906
+    "lng": 72.906,
+    "photos": [
+      "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1615906655593-ad0386982a0f?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "id": "b-work-tile-1",
@@ -13533,7 +16429,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 11 4111 2233",
     "whatsapp": "911141112233",
     "address": "E-Block, South Extension Part 2, New Delhi",
-    "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1502005229762-ee1b2b8ab98f?auto=format&fit=crop&w=800&q=80",
     "description": "Specialized Italian marble mirror polishing, granite crystallization, bathroom anti-skid epoxy tile regrouting, and minor civil masonry works. Utilizing Klindex Italian diamond abrasives for high-gloss restoration.",
     "services": [
       {
@@ -13572,7 +16468,13 @@ const INITIAL_BUSINESSES = [
       }
     ],
     "lat": 28.5701,
-    "lng": 77.2228
+    "lng": 77.2228,
+    "photos": [
+      "https://images.unsplash.com/photo-1502005229762-ee1b2b8ab98f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "id": "b-work-clean-1",
@@ -13602,7 +16504,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 80 4123 9988",
     "whatsapp": "918041239988",
     "address": "ITPB Main Road, Whitefield, Bengaluru",
-    "image": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1581579186913-45ac3e6efe93?auto=format&fit=crop&w=800&q=80",
     "description": "Professional industrial steam extraction sofa, mattress, and carpet deep cleaning. Utilizes Taski & 3M eco-certified foam chemicals, anti-allergen mite sanitization, and moisture extraction drying within 2 hours.",
     "services": [
       {
@@ -13641,7 +16543,13 @@ const INITIAL_BUSINESSES = [
       }
     ],
     "lat": 12.9698,
-    "lng": 77.7499
+    "lng": 77.7499,
+    "photos": [
+      "https://images.unsplash.com/photo-1581579186913-45ac3e6efe93?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "id": "b-work-solar-1",
@@ -13671,7 +16579,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 824 222 3344",
     "whatsapp": "918242223344",
     "address": "Kadri Temple Road, Kadri Hills, Mangaluru",
-    "image": "https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1615906655593-ad0386982a0f?auto=format&fit=crop&w=800&q=80",
     "description": "MNRE-approved solar EPC contractor and home electric vehicle charger installers. Specializing in on-grid net metering rooftop solar systems (3kW to 10kW), battery hybrid backup, and 7.4kW/11kW Level-2 home EV wallbox chargers.",
     "services": [
       {
@@ -13710,7 +16618,13 @@ const INITIAL_BUSINESSES = [
       }
     ],
     "lat": 12.8872,
-    "lng": 74.8584
+    "lng": 74.8584,
+    "photos": [
+      "https://images.unsplash.com/photo-1615906655593-ad0386982a0f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
     "id": "b-work-plumb-1",
@@ -13740,7 +16654,7 @@ const INITIAL_BUSINESSES = [
     "phone": "+91 821 254 9900",
     "whatsapp": "918212549900",
     "address": "5th Main, Near Swimming Pool, Saraswathipuram, Mysuru",
-    "image": "https://images.unsplash.com/photo-1585704032915-c3400ca199e7?auto=format&fit=crop&w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&w=800&q=80",
     "description": "Emergency master plumbers equipped with acoustic underground pipe leak detectors, motorized drain unblocking snakes, and 6-stage mechanized UV overhead water tank cleaning.",
     "services": [
       {
@@ -13779,11 +16693,17 @@ const INITIAL_BUSINESSES = [
       }
     ],
     "lat": 12.3021,
-    "lng": 76.6341
+    "lng": 76.6341,
+    "photos": [
+      "https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1585704032915-c3400ca199e7?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?auto=format&fit=crop&w=800&q=80"
+    ]
   }
 ];
 
-const PLATFORM_DEALS = [
+var PLATFORM_DEALS = [
   {
     id: 'deal-1',
     title: 'AC Power Jet Service & Gas Check',

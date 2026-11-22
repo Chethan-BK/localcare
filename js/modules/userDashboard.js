@@ -221,14 +221,17 @@ window.UserDashboard = (function () {
 
   function renderQuotesTab(panel) {
     const quotes = getQuotes();
-    document.getElementById('dashQuotesBadge').textContent = quotes.length;
+    const directEnquiries = JSON.parse(localStorage.getItem('localcare_enquiries') || '[]');
+    const totalCount = quotes.length + directEnquiries.length;
+    const badge = document.getElementById('dashQuotesBadge');
+    if (badge) badge.textContent = totalCount;
 
-    if (quotes.length === 0) {
+    if (totalCount === 0) {
       panel.innerHTML = `
         <div class="dash-empty-state">
           <div class="empty-icon">⚡</div>
-          <h4>No Active Quote Requests</h4>
-          <p>Broadcast custom requirements to multiple pros and compare competitive prices.</p>
+          <h4>No Active Quote Requests or Enquiries</h4>
+          <p>Broadcast custom requirements to multiple pros or send direct enquiries to top-rated businesses.</p>
           <button class="action-btn action-btn-primary" onclick="window.QuoteMarketplace.openQuotesModal()">Request Quotes Now</button>
         </div>
       `;
@@ -237,12 +240,26 @@ window.UserDashboard = (function () {
 
     panel.innerHTML = `
       <div class="dash-tab-header">
-        <h4>My Broadcasted Quotes (${quotes.length})</h4>
+        <h4>My Enquiries & Quotes (${totalCount})</h4>
         <button class="action-btn action-btn-primary" style="font-size: 0.82rem; padding: 0.35rem 0.75rem;" onclick="window.QuoteMarketplace.openQuotesModal()">
-          + New Quote
+          + New Quote Request
         </button>
       </div>
       <div class="dash-cards-list">
+        ${directEnquiries.map((enq, idx) => `
+          <div class="dash-booking-card" style="border-left: 4px solid var(--primary); background: rgba(255,104,0,0.03);">
+            <div class="bk-info" style="width: 100%;">
+              <div class="bk-title-row">
+                <h4 class="bk-service-title">${enq.businessName || 'Direct Business Enquiry'}</h4>
+                <span class="bk-status-pill active" style="background: rgba(16,185,129,0.15); color: #059669;">${enq.status || 'Enquiry Received'}</span>
+              </div>
+              <div class="bk-biz-name">📅 Preferred Date: ${enq.preferredDate || 'Earliest'} • ⏱️ Urgency: ${enq.urgency || 'Immediate'}</div>
+              <p style="font-size: 0.88rem; color: var(--text-secondary); margin: 0.4rem 0;">"${enq.requirement}"</p>
+              <div style="font-size: 0.78rem; color: var(--text-muted);">Sent on: ${new Date(enq.timestamp || Date.now()).toLocaleDateString()} • Representative will call ${enq.customerPhone || ''}</div>
+            </div>
+          </div>
+        `).join('')}
+
         ${quotes.map(qt => `
           <div class="dash-booking-card">
             <div class="bk-info" style="width: 100%;">

@@ -163,6 +163,17 @@
         'Hotels & Resorts': ['hotel', 'resort', 'room booking', 'luxury stay', 'suite'],
         'Car Rentals': ['car rental', 'self-drive', 'zoomcar', 'rental car', 'cab booking']
       }
+    },
+    jobs: {
+      id: 'jobs',
+      name: 'Jobs & Careers',
+      keywords: ['job', 'career', 'vacancy', 'hiring', 'internship', 'freelance', 'full-time', 'part-time', 'recruitment', 'work', 'employment'],
+      subcategories: {
+        'Full-Time Jobs': ['full time', 'permanent job', 'developer', 'manager', 'executive'],
+        'Part-Time Jobs': ['part time', 'hourly job', 'weekend job'],
+        'Internships': ['intern', 'internship', 'trainee', 'fresher'],
+        'Freelance': ['freelance', 'contract', 'remote work']
+      }
     }
   };
 
@@ -217,6 +228,61 @@
       name: 'Ahmedabad',
       aliases: ['ahmedabad', 'amdavad'],
       areas: ['satellite', 'bodakdev', 'sg highway', 'navrangpura', 'prahlad nagar', 'vastrapur']
+    },
+    'kolkata': {
+      name: 'Kolkata',
+      aliases: ['kolkata', 'calcutta'],
+      areas: ['park street', 'salt lake', 'new town', 'ballygunge', 'alipore', 'howrah']
+    },
+    'jaipur': {
+      name: 'Jaipur',
+      aliases: ['jaipur', 'pink city'],
+      areas: ['c-scheme', 'malviya nagar', 'vaishali nagar', 'raja park', 'mansarovar']
+    },
+    'chandigarh': {
+      name: 'Chandigarh Tri-City',
+      aliases: ['chandigarh', 'mohali', 'panchkula'],
+      areas: ['sector 17', 'sector 35', 'mohali phase 7', 'panchkula']
+    },
+    'lucknow': {
+      name: 'Lucknow',
+      aliases: ['lucknow'],
+      areas: ['gomti nagar', 'hazratganj', 'aliganj', 'indira nagar']
+    },
+    'goa': {
+      name: 'Goa (North & South)',
+      aliases: ['goa', 'panaji', 'panjim', 'calangute', 'candolim', 'margao', 'baga'],
+      areas: ['calangute', 'candolim', 'panaji', 'anjuna', 'margao', 'baga']
+    },
+    'indore': {
+      name: 'Indore',
+      aliases: ['indore'],
+      areas: ['vijay nagar', 'palasia', 'chappan dukan', 'sarafa']
+    },
+    'patna': {
+      name: 'Patna',
+      aliases: ['patna'],
+      areas: ['boring road', 'kankarbagh', 'bailey road']
+    },
+    'bhubaneswar': {
+      name: 'Bhubaneswar',
+      aliases: ['bhubaneswar', 'bhubaneshwar'],
+      areas: ['patia', 'saheed nagar', 'jaydev vihar']
+    },
+    'guwahati': {
+      name: 'Guwahati',
+      aliases: ['guwahati', 'gauhati'],
+      areas: ['gs road', 'dispur', 'pan bazaar']
+    },
+    'coimbatore': {
+      name: 'Coimbatore',
+      aliases: ['coimbatore', 'kovai'],
+      areas: ['rs puram', 'gandhipuram', 'peelamedu']
+    },
+    'visakhapatnam': {
+      name: 'Visakhapatnam',
+      aliases: ['visakhapatnam', 'vizag'],
+      areas: ['mvp colony', 'beach road', 'gajuwaka']
     }
   };
 

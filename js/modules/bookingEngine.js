@@ -227,6 +227,19 @@ window.BookingEngine = (function () {
       </div>
     `;
 
+    dialog.addEventListener('click', (e) => {
+      const rect = dialog.getBoundingClientRect();
+      const isInDialog = (
+        rect.top <= e.clientY &&
+        e.clientY <= rect.top + rect.height &&
+        rect.left <= e.clientX &&
+        e.clientX <= rect.left + rect.width
+      );
+      if (!isInDialog) {
+        dialog.close();
+      }
+    });
+
     document.body.appendChild(dialog);
     bindModalEvents();
   }
@@ -266,10 +279,22 @@ window.BookingEngine = (function () {
     });
   }
 
-  function openBookingModal(business, preSelectedServiceId = null) {
+  function openBookingModal(business, preSelectedServiceId = null, customBundle = null) {
     currentBusiness = business;
-    bookingState.step = 1;
-    bookingState.price = business.startingPrice || 299;
+    bookingState.step = customBundle ? 2 : 1;
+    bookingState.customBundle = customBundle;
+
+    if (customBundle) {
+      bookingState.price = customBundle.finalPrice;
+      const names = customBundle.items.map(i => `${i.name}${i.qty > 1 ? ` (x${i.qty})` : ''}`).join(' + ');
+      bookingState.selectedService = {
+        name: names.length > 55 ? `${customBundle.items.length} Custom Services Bundle` : names,
+        price: customBundle.finalPrice,
+        duration: `${customBundle.items.length * 35} mins`
+      };
+    } else {
+      bookingState.price = business.startingPrice || 299;
+    }
 
     document.getElementById('bookingBizSub').innerHTML = `
       <span>📍 ${business.name}</span> • <span>⭐ ${business.rating}</span> • <span>${business.locality}</span>
@@ -278,37 +303,54 @@ window.BookingEngine = (function () {
     // Render services list
     const servicesListEl = document.getElementById('bServicesList');
     if (servicesListEl) {
-      servicesListEl.innerHTML = business.services.map((s, idx) => {
-        const isChecked = preSelectedServiceId ? (s.id === preSelectedServiceId) : (idx === 0);
-        if (isChecked) {
-          bookingState.selectedService = s;
-          bookingState.price = s.price;
-        }
-
-        return `
-          <label class="service-option-card ${isChecked ? 'active' : ''}">
-            <input type="radio" name="bSelectedServiceRadio" value="${s.id || idx}" ${isChecked ? 'checked' : ''} />
-            <div class="service-opt-body">
-              <div class="service-opt-title">${s.name}</div>
-              <div class="service-opt-duration">⏱️ ${s.duration || '45 mins'} • 100% Satisfaction Guarantee</div>
+      if (customBundle) {
+        servicesListEl.innerHTML = `
+          <div style="background: var(--bg-subtle); border: 1.5px solid var(--primary); border-radius: var(--radius-md); padding: 1rem; margin-bottom: 1rem;">
+            <div style="font-weight: 800; color: var(--primary); font-size: 1rem; margin-bottom: 0.35rem;">
+              🛒 Custom Multi-Service Package (${customBundle.items.length} items)
             </div>
-            <div class="service-opt-price">₹${s.price}</div>
-          </label>
+            <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 0.5rem;">
+              ${customBundle.items.map(i => `• ${i.name} × ${i.qty} (₹${i.price * i.qty})`).join('<br/>')}
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px dashed var(--border-subtle); padding-top: 0.5rem;">
+              <span style="font-size: 0.82rem; color: var(--text-muted);">Package Total:</span>
+              <strong style="color: var(--primary); font-size: 1.15rem;">₹${customBundle.finalPrice}</strong>
+            </div>
+          </div>
         `;
-      }).join('');
-
-      servicesListEl.querySelectorAll('input[name="bSelectedServiceRadio"]').forEach(radio => {
-        radio.addEventListener('change', (e) => {
-          document.querySelectorAll('.service-option-card').forEach(c => c.classList.remove('active'));
-          e.target.closest('.service-option-card')?.classList.add('active');
-          const found = business.services.find((s, i) => (s.id || i).toString() === e.target.value);
-          if (found) {
-            bookingState.selectedService = found;
-            bookingState.price = found.price;
-            updatePriceDisplays();
+      } else {
+        servicesListEl.innerHTML = business.services.map((s, idx) => {
+          const isChecked = preSelectedServiceId ? (s.id === preSelectedServiceId) : (idx === 0);
+          if (isChecked) {
+            bookingState.selectedService = s;
+            bookingState.price = s.price;
           }
+
+          return `
+            <label class="service-option-card ${isChecked ? 'active' : ''}">
+              <input type="radio" name="bSelectedServiceRadio" value="${s.id || idx}" ${isChecked ? 'checked' : ''} />
+              <div class="service-opt-body">
+                <div class="service-opt-title">${s.name}</div>
+                <div class="service-opt-duration">⏱️ ${s.duration || '45 mins'} • 100% Satisfaction Guarantee</div>
+              </div>
+              <div class="service-opt-price">₹${s.price}</div>
+            </label>
+          `;
+        }).join('');
+
+        servicesListEl.querySelectorAll('input[name="bSelectedServiceRadio"]').forEach(radio => {
+          radio.addEventListener('change', (e) => {
+            document.querySelectorAll('.service-option-card').forEach(c => c.classList.remove('active'));
+            e.target.closest('.service-option-card')?.classList.add('active');
+            const found = business.services.find((s, i) => (s.id || i).toString() === e.target.value);
+            if (found) {
+              bookingState.selectedService = found;
+              bookingState.price = found.price;
+              updatePriceDisplays();
+            }
+          });
         });
-      });
+      }
     }
 
     // Pre-fill user details if logged in
@@ -498,6 +540,15 @@ window.BookingEngine = (function () {
 
     if (window.LocalCare && window.LocalCare.showToast) {
       window.LocalCare.showToast(`🎉 Booking confirmed! Assigned technician Suresh Gowda is on the way.`, 'success', 5000);
+    }
+
+    if (window.LocalCare && window.LocalCare.addNotification) {
+      window.LocalCare.addNotification({
+        title: 'Booking Confirmed: ' + (currentBusiness ? currentBusiness.name : 'Doorstep Pro'),
+        desc: `Ref #${newBooking.id} • ${newBooking.serviceName || 'Service'} on ${newBooking.date} at ${newBooking.timeSlot}. OTP: ${newBooking.otp}`,
+        icon: '📅',
+        actionType: 'dashboard-bookings'
+      });
     }
   }
 

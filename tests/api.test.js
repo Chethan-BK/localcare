@@ -6,7 +6,7 @@
 
 const http = require('http');
 const assert = require('assert');
-const { server } = require('../server.js');
+const { server, db } = require('../server.js');
 
 const TEST_PORT = 3099;
 
@@ -62,6 +62,14 @@ async function runTests() {
   await new Promise(resolve => server.listen(TEST_PORT, '127.0.0.1', resolve));
 
   try {
+    // Clean up previous test bookings for b-101 to ensure idempotent test runs
+    if (db) {
+      const oldBookings = db.find('bookings', b => b.business_id === 'b-101' && (b.scheduled_date === 'Tomorrow' || b.date === 'Tomorrow'));
+      for (const ob of oldBookings) {
+        db.delete('bookings', ob.id);
+      }
+    }
+
     // Test 1: Health check
     await test('GET /api/health returns healthy status and counts', async () => {
       const res = await request('GET', '/api/health');
@@ -437,6 +445,98 @@ async function runTests() {
       }
     });
 
+    // Test 31: CRM Platform Overview & Health Metrics
+    await test('GET /api/crm/overview returns real calculated KPIs and Google Sheets sync status', async () => {
+      const res = await request('GET', '/api/crm/overview');
+      assert.strictEqual(res.status, 200);
+      assert(typeof res.body.totalCustomers === 'number');
+      assert(typeof res.body.totalBusinesses === 'number');
+      assert(typeof res.body.totalGmv === 'number');
+      assert(typeof res.body.totalBookings === 'number');
+      assert(res.body.crmConfig);
+    });
+
+    // Test 32: Customer Directory Retrieval & New Customer Registration
+    await test('GET & POST /api/crm/customers creates profile and queues Google Sheets event', async () => {
+      const testPhone = '+91 99' + Math.floor(10000000 + Math.random() * 90000000);
+      const postRes = await request('POST', '/api/crm/customers', {
+        name: 'Aarav Patel',
+        phone: testPhone,
+        email: 'aarav.patel@test.in',
+        city: 'Bengaluru',
+        locality: 'Whitefield'
+      });
+      assert.strictEqual(postRes.status, 201);
+      assert.strictEqual(postRes.body.customer.name, 'Aarav Patel');
+
+      const getRes = await request('GET', '/api/crm/customers?q=' + encodeURIComponent('Aarav Patel'));
+      assert.strictEqual(getRes.status, 200);
+      assert(getRes.body.customers.some(c => c.phone === testPhone));
+    });
+
+    // Test 33: Payments Ledger & Escrow Accounting
+    await test('GET /api/crm/payments returns financial ledger with GST and escrow status', async () => {
+      const res = await request('GET', '/api/crm/payments');
+      assert.strictEqual(res.status, 200);
+      assert(Array.isArray(res.body.payments));
+      assert(typeof res.body.totalGmv === 'number');
+      if (res.body.payments.length > 0) {
+        const p = res.body.payments[0];
+        assert(p.transactionId);
+        assert(p.amount);
+        assert(p.merchantVpa);
+      }
+    });
+
+    // Test 34: AI Complaint Auto-Triage Engine
+    await test('POST /api/crm/complaints parses natural language and assigns AI triage actions', async () => {
+      const res = await request('POST', '/api/crm/complaints', {
+        customerName: 'Kavita Menon',
+        customerPhone: '+91 98450 55443',
+        category: 'Service Quality',
+        subject: 'Technician caused minor damage to pipe fitting',
+        description: 'While tightening the water valve, technician caused minor pipe damage.'
+      });
+      assert.strictEqual(res.status, 201);
+      assert.strictEqual(res.body.complaint.severity, 'Critical');
+      assert(res.body.complaint.aiTriage.includes('Escrow Freeze'));
+    });
+
+    // Test 35: Partner Subscriptions Management
+    await test('GET /api/crm/subscriptions returns commercial partner tier plans', async () => {
+      const res = await request('GET', '/api/crm/subscriptions');
+      assert.strictEqual(res.status, 200);
+      assert(Array.isArray(res.body.subscriptions));
+      assert(res.body.subscriptions.length > 0);
+      assert(res.body.subscriptions[0].planName);
+    });
+
+    // Test 36: Google Sheets Sync Engine Status & Queue Inspection
+    await test('GET /api/crm/sync-status returns queue length and webhook configuration', async () => {
+      const res = await request('GET', '/api/crm/sync-status');
+      assert.strictEqual(res.status, 200);
+      assert(res.body.config);
+      assert(typeof res.body.pendingCount === 'number');
+      assert(Array.isArray(res.body.recentEvents));
+    });
+
+    // Test 37: RFC 4180 CSV Download for Customers Tab
+    await test('GET /api/crm/export-csv?sheet=Customers streams formatted CSV data', async () => {
+      const res = await request('GET', '/api/crm/export-csv?sheet=Customers');
+      assert.strictEqual(res.status, 200);
+      assert.strictEqual(res.headers['content-type'], 'text/csv; charset=utf-8');
+      assert(typeof res.body === 'string');
+      assert(res.body.includes('Customer ID') && res.body.includes('Mobile Number'));
+    });
+
+    // Test 38: RFC 4180 CSV Download for Payments Tab
+    await test('GET /api/crm/export-csv?sheet=Payments streams financial ledger CSV', async () => {
+      const res = await request('GET', '/api/crm/export-csv?sheet=Payments');
+      assert.strictEqual(res.status, 200);
+      assert(typeof res.body === 'string');
+      assert(res.body.includes('Transaction ID') && res.body.includes('Amount Paid'));
+    });
+
   } finally {
     server.close();
   }
@@ -444,7 +544,7 @@ async function runTests() {
   console.log('----------------------------------------------------');
   console.log(`  TEST RESULTS: ${passed} Passed, ${failed} Failed`);
   console.log('----------------------------------------------------');
-  if (failed > 0) process.exit(1);
+  process.exit(failed > 0 ? 1 : 0);
 }
 
 runTests().catch(err => {

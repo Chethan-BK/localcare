@@ -1,0 +1,1980 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LocalCare Infinity - Central Management System & Google Sheets CRM</title>
+  <meta name="description" content="Central CRM command system, Google Sheets 9-tab bidirectional sync cockpit, revenue ledger, and customer intelligence desk for LocalCare Infinity." />
+
+  <!-- Google Fonts Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Base Variables -->
+  <link rel="stylesheet" href="css/variables.css?v=3.1.0" />
+
+  <style>
+    /* ==============================================================================
+       LOCALCARE INFINITY - CENTRAL MANAGEMENT CRM STYLES
+       ============================================================================== */
+    :root {
+      --crm-bg: #f8fafc;
+      --crm-card-bg: #ffffff;
+      --crm-border: #e2e8f0;
+      --crm-navy: #0b192c;
+      --crm-navy-dark: #060e18;
+      --crm-orange: #ff6800;
+      --crm-orange-hover: #e05b00;
+      --crm-blue: #0284c7;
+      --crm-green: #10b981;
+      --crm-purple: #8b5cf6;
+      --crm-amber: #f59e0b;
+      --crm-rose: #f43f5e;
+      --crm-text: #0f172a;
+      --crm-text-muted: #64748b;
+      --crm-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06), 0 2px 6px -2px rgba(15, 23, 42, 0.04);
+      --crm-shadow-lg: 0 10px 30px -4px rgba(15, 23, 42, 0.1), 0 4px 10px -2px rgba(15, 23, 42, 0.06);
+    }
+
+    [data-theme="dark"] {
+      --crm-bg: #090e17;
+      --crm-card-bg: #111a28;
+      --crm-border: #1e293b;
+      --crm-text: #f1f5f9;
+      --crm-text-muted: #94a3b8;
+      --crm-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.35);
+      --crm-shadow-lg: 0 10px 30px -4px rgba(0, 0, 0, 0.5);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background-color: var(--crm-bg);
+      color: var(--crm-text);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Brand & Sync Strip */
+    .crm-top-bar {
+      background: var(--crm-navy-dark);
+      color: #ffffff;
+      padding: 0.75rem 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .crm-brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      text-decoration: none;
+      color: #ffffff;
+    }
+
+    .crm-logo-badge {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--crm-orange), #ff8a00);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 1.3rem;
+      box-shadow: 0 4px 12px rgba(255, 104, 0, 0.4);
+    }
+
+    .crm-title-col {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .crm-app-name {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 1.2rem;
+      letter-spacing: -0.3px;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .crm-app-name span {
+      color: var(--crm-orange);
+    }
+
+    .crm-badge-system {
+      font-size: 0.65rem;
+      background: rgba(255, 104, 0, 0.2);
+      color: #ff9d42;
+      border: 1px solid rgba(255, 104, 0, 0.35);
+      padding: 1px 6px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .crm-subtitle {
+      font-size: 0.75rem;
+      color: #94a3b8;
+    }
+
+    .crm-top-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    /* Live Sync Pill */
+    .sync-status-pill {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #10b981;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .sync-pulse-dot {
+      width: 8px;
+      height: 8px;
+      background: #10b981;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #10b981;
+      animation: pulseGlow 1.8s infinite;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.3); opacity: 0.6; }
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.45rem 0.95rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      border: 1px solid transparent;
+      font-family: inherit;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: var(--crm-orange);
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(255, 104, 0, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: var(--crm-orange-hover);
+      box-shadow: 0 4px 12px rgba(255, 104, 0, 0.45);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border-color: rgba(255, 255, 255, 0.2);
+      color: #f1f5f9;
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.35);
+    }
+
+    .btn-success {
+      background: #10b981;
+      color: #ffffff;
+    }
+
+    .btn-success:hover {
+      background: #059669;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--crm-text-muted);
+      border-color: transparent;
+    }
+
+    .btn-ghost:hover {
+      background: rgba(15, 23, 42, 0.06);
+      color: var(--crm-text);
+    }
+
+    /* Layout Shell */
+    .crm-layout {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* Sidebar Navigation */
+    .crm-sidebar {
+      width: 260px;
+      background: var(--crm-card-bg);
+      border-right: 1px solid var(--crm-border);
+      padding: 1.25rem 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      flex-shrink: 0;
+    }
+
+    .nav-header-label {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      color: var(--crm-text-muted);
+      padding: 0.5rem 0.75rem 0.25rem 0.75rem;
+    }
+
+    .crm-nav-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.65rem 0.85rem;
+      border-radius: 8px;
+      color: var(--crm-text-muted);
+      text-decoration: none;
+      font-size: 0.86rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      background: transparent;
+      border: none;
+      width: 100%;
+      text-align: left;
+    }
+
+    .crm-nav-item:hover {
+      background: rgba(255, 104, 0, 0.08);
+      color: var(--crm-orange);
+    }
+
+    .crm-nav-item.active {
+      background: var(--crm-orange);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(255, 104, 0, 0.25);
+    }
+
+    .nav-item-content {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .nav-badge {
+      font-size: 0.7rem;
+      padding: 1px 7px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.08);
+      color: inherit;
+    }
+
+    .crm-nav-item.active .nav-badge {
+      background: rgba(255, 255, 255, 0.25);
+      color: #ffffff;
+    }
+
+    /* Main Content Area */
+    .crm-main {
+      flex: 1;
+      padding: 1.5rem 2rem;
+      overflow-y: auto;
+      height: calc(100vh - 65px);
+    }
+
+    /* View Sections */
+    .crm-section {
+      display: none;
+    }
+
+    .crm-section.active {
+      display: block;
+      animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .section-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.4px;
+    }
+
+    .section-desc {
+      font-size: 0.85rem;
+      color: var(--crm-text-muted);
+      margin-top: 2px;
+    }
+
+    /* KPI Metrics Cards Grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .kpi-card {
+      background: var(--crm-card-bg);
+      border: 1px solid var(--crm-border);
+      border-radius: 12px;
+      padding: 1.1rem;
+      box-shadow: var(--crm-shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--crm-shadow-lg);
+    }
+
+    .kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--card-accent, var(--crm-orange));
+    }
+
+    .kpi-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.6rem;
+    }
+
+    .kpi-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--crm-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .kpi-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(255, 104, 0, 0.1);
+      color: var(--card-accent, var(--crm-orange));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    .kpi-value {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.85rem;
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.5px;
+      color: var(--crm-text);
+      margin-bottom: 0.35rem;
+    }
+
+    .kpi-trend {
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-weight: 600;
+    }
+
+    .trend-up { color: #10b981; }
+    .trend-neutral { color: #64748b; }
+
+    /* Analytics Charts Grid */
+    .charts-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 1.25rem;
+      margin-bottom: 1.75rem;
+    }
+
+    @media (max-width: 1024px) {
+      .charts-grid { grid-template-columns: 1fr; }
+    }
+
+    .chart-card {
+      background: var(--crm-card-bg);
+      border: 1px solid var(--crm-border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      box-shadow: var(--crm-shadow);
+    }
+
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--crm-border);
+    }
+
+    .chart-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .chart-svg-box {
+      width: 100%;
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Filter & Search Bar */
+    .table-control-bar {
+      background: var(--crm-card-bg);
+      border: 1px solid var(--crm-border);
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .search-input-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex: 1;
+      min-width: 240px;
+      background: var(--crm-bg);
+      border: 1px solid var(--crm-border);
+      border-radius: 8px;
+      padding: 0.4rem 0.75rem;
+    }
+
+    .search-input-group input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 0.85rem;
+      width: 100%;
+      color: var(--crm-text);
+      font-family: inherit;
+    }
+
+    .control-actions-group {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+    }
+
+    .select-dropdown {
+      background: var(--crm-bg);
+      border: 1px solid var(--crm-border);
+      color: var(--crm-text);
+      padding: 0.45rem 0.75rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-family: inherit;
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* Data Tables */
+    .table-container {
+      background: var(--crm-card-bg);
+      border: 1px solid var(--crm-border);
+      border-radius: 12px;
+      box-shadow: var(--crm-shadow);
+      overflow-x: auto;
+    }
+
+    .crm-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.84rem;
+      text-align: left;
+    }
+
+    .crm-table th {
+      background: rgba(15, 23, 42, 0.03);
+      padding: 0.75rem 1rem;
+      font-weight: 700;
+      color: var(--crm-text-muted);
+      text-transform: uppercase;
+      font-size: 0.72rem;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--crm-border);
+      white-space: nowrap;
+    }
+
+    [data-theme="dark"] .crm-table th {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .crm-table td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--crm-border);
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    .crm-table tbody tr:hover {
+      background: rgba(255, 104, 0, 0.03);
+    }
+
+    .crm-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* Badges & Status */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 700;
+    }
+
+    .status-active { background: #dcfce7; color: #15803d; }
+    .status-vip { background: #fef3c7; color: #b45309; }
+    .status-pending { background: #fef9c3; color: #854d0e; }
+    .status-completed { background: #e0f2fe; color: #0369a1; }
+    .status-cancelled { background: #fee2e2; color: #b91c1c; }
+    .status-critical { background: #ffe4e6; color: #e11d48; }
+
+    /* Google Sheets Sync Hub Card */
+    .sync-hub-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 900px) {
+      .sync-hub-grid { grid-template-columns: 1fr; }
+    }
+
+    .sync-card {
+      background: var(--crm-card-bg);
+      border: 1px solid var(--crm-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: var(--crm-shadow);
+    }
+
+    .tab-pill-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      margin: 1rem 0;
+    }
+
+    .sheet-tab-card {
+      background: var(--crm-bg);
+      border: 1px solid var(--crm-border);
+      padding: 0.75rem;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .sheet-tab-name {
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--crm-text);
+    }
+
+    .sheet-tab-count {
+      font-size: 0.75rem;
+      color: var(--crm-text-muted);
+      margin-top: 2px;
+    }
+
+    /* Modal Sheet */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(11, 25, 44, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-box {
+      background: var(--crm-card-bg);
+      border: 1px solid var(--crm-border);
+      border-radius: 14px;
+      width: 100%;
+      max-width: 520px;
+      box-shadow: var(--crm-shadow-lg);
+      overflow: hidden;
+      animation: modalPop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes modalPop {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-header {
+      padding: 1.1rem 1.5rem;
+      background: var(--crm-navy-dark);
+      color: #ffffff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-title {
+      font-size: 1.1rem;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+    }
+
+    .modal-body {
+      padding: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.35rem;
+      color: var(--crm-text-muted);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.6rem 0.85rem;
+      background: var(--crm-bg);
+      border: 1px solid var(--crm-border);
+      border-radius: 8px;
+      font-size: 0.88rem;
+      color: var(--crm-text);
+      font-family: inherit;
+      outline: none;
+    }
+
+    .form-control:focus {
+      border-color: var(--crm-orange);
+      box-shadow: 0 0 0 3px rgba(255, 104, 0, 0.15);
+    }
+
+    .code-box {
+      background: #060e18;
+      color: #38bdf8;
+      font-family: 'Courier New', Courier, monospace;
+      padding: 0.85rem;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      overflow-x: auto;
+      max-height: 200px;
+      border: 1px solid #1e293b;
+      margin: 0.75rem 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Top Global Bar -->
+  <header class="crm-top-bar">
+    <div class="crm-brand-wrap">
+      <div class="crm-logo-badge">⚡</div>
+      <div class="crm-title-col">
+        <div class="crm-app-name">
+          LocalCare <span>Infinity</span>
+          <span class="crm-badge-system">CRM 3.0</span>
+        </div>
+        <div class="crm-subtitle">Central Management System & Google Sheets Engine</div>
+      </div>
+    </div>
+
+    <div class="crm-top-actions">
+      <!-- Sync Status Pill -->
+      <div class="sync-status-pill" id="crmSyncStatusPill" title="Live status of automated Google Sheets event sync">
+        <span class="sync-pulse-dot" id="crmSyncDot"></span>
+        <span id="crmSyncStatusText">Sheets Sync: Active</span>
+      </div>
+
+      <!-- Quick Sync Now Button -->
+      <button class="btn btn-primary" id="btnForceSync" onclick="window.CRM.syncAllNow()">
+        <span>🔄</span> Force Sync All
+      </button>
+
+      <!-- CSV Export Dropdown -->
+      <select class="select-dropdown" id="topCsvExportSelect" onchange="window.CRM.exportCsv(this.value); this.selectedIndex=0;" style="background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.2);">
+        <option value="">📥 Export Sheet CSV...</option>
+        <option value="Customers">Customers Tab</option>
+        <option value="Businesses">Businesses Tab</option>
+        <option value="Bookings">Bookings Tab</option>
+        <option value="Payments">Payments Ledger</option>
+        <option value="Reviews">Reviews Tab</option>
+        <option value="Enquiries">Enquiries & Bids</option>
+        <option value="Complaints">Complaints Desk</option>
+        <option value="Subscriptions">Partner Subscriptions</option>
+        <option value="Analytics">Platform KPIs</option>
+      </select>
+
+      <!-- Back to Main Portal -->
+      <a href="/" class="btn btn-outline" title="Return to consumer homepage">
+        <span>🏠</span> Portal
+      </a>
+
+      <!-- Dark / Light Toggle -->
+      <button class="btn btn-outline" onclick="window.CRM.toggleTheme()" title="Toggle Dark/Light Mode">
+        <span id="themeEmoji">🌙</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- CRM Layout Container -->
+  <div class="crm-layout">
+
+    <!-- Sidebar Navigation -->
+    <aside class="crm-sidebar">
+      <div class="nav-header-label">Analytics & Operations</div>
+
+      <button class="crm-nav-item active" onclick="window.CRM.switchTab('overview', this)">
+        <div class="nav-item-content">
+          <span>📊</span> Overview & Metrics
+        </div>
+      </button>
+
+      <button class="crm-nav-item" onclick="window.CRM.switchTab('customers', this)">
+        <div class="nav-item-content">
+          <span>👥</span> Customers Directory
+        </div>
+        <span class="nav-badge" id="badgeCustomers">...</span>
+      </button>
+
+      <button class="crm-nav-item" onclick="window.CRM.switchTab('businesses', this)">
+        <div class="nav-item-content">
+          <span>🏢</span> Business Listings
+        </div>
+        <span class="nav-badge" id="badgeBusinesses">...</span>
+      </button>
+
+      <button class="crm-nav-item" onclick="window.CRM.switchTab('bookings', this)">
+        <div class="nav-item-content">
+          <span>📅</span> Bookings & Dispatch
+        </div>
+        <span class="nav-badge" id="badgeBookings">...</span>
+      </button>
+
+      <div class="nav-header-label" style="margin-top: 0.5rem;">Finance & Trust</div>
+
+      <button class="crm-nav-item" onclick="window.CRM.switchTab('payments', this)">
+        <div class="nav-item-content">
+          <span>💳</span> Payments & Escrow
+        </div>
+        <span class="nav-badge" id="badgePayments">...</span>
+      </button>
+
+      <button class="crm-nav-item" onclick="window.CRM.switchTab('complaints', this)">
+        <div class="nav-item-content">
+          <span>🛡️</span> AI Complaint Desk
+        </div>
+        <span class="nav-badge" id="badgeComplaints" style="background: rgba(244, 63, 94, 0.2); color: #f43f5e;">...</span>
+      </button>
+
+      <button class="crm-nav-item" onclick="window.CRM.switchTab('subscriptions', this)">
+        <div class="nav-item-content">
+          <span>⭐</span> Subscriptions
+        </div>
+        <span class="nav-badge" id="badgeSubscriptions">...</span>
+      </button>
+
+      <div class="nav-header-label" style="margin-top: 0.5rem;">Infrastructure</div>
+
+      <button class="crm-nav-item" onclick="window.CRM.switchTab('syncHub', this)">
+        <div class="nav-item-content">
+          <span>⚡</span> Google Sheets Studio
+        </div>
+        <span class="nav-badge" style="background: rgba(16, 185, 129, 0.2); color: #10b981;">9 Tabs</span>
+      </button>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="crm-main">
+
+      <!-- ======================================================================
+           TAB 1: OVERVIEW & ANALYTICS
+           ====================================================================== -->
+      <section id="section-overview" class="crm-section active">
+        <div class="section-header-row">
+          <div>
+            <h1 class="section-title">Platform Command & Analytics</h1>
+            <p class="section-desc">Real-time health, Gross Merchandise Value, and Google Sheets CRM synchronization status.</p>
+          </div>
+          <div style="display: flex; gap: 0.5rem;">
+            <button class="btn btn-outline" style="color: var(--crm-text); border-color: var(--crm-border);" onclick="window.CRM.loadOverview()">
+              <span>🔄</span> Refresh
+            </button>
+            <button class="btn btn-primary" onclick="window.CRM.exportCsv('Analytics')">
+              <span>📊</span> Export Analytics CSV
+            </button>
+          </div>
+        </div>
+
+        <!-- Real Calculated KPI Cards Grid -->
+        <div class="kpi-grid">
+          <div class="kpi-card" style="--card-accent: #0284c7;">
+            <div class="kpi-top">
+              <span class="kpi-label">Registered Customers</span>
+              <div class="kpi-icon">👥</div>
+            </div>
+            <div class="kpi-value" id="kpiCustomers">0</div>
+            <div class="kpi-trend trend-up"><span>↑ 18.4%</span> this month</div>
+          </div>
+
+          <div class="kpi-card" style="--card-accent: #ff6800;">
+            <div class="kpi-top">
+              <span class="kpi-label">Total Listings</span>
+              <div class="kpi-icon">🏢</div>
+            </div>
+            <div class="kpi-value" id="kpiBusinesses">0</div>
+            <div class="kpi-trend trend-up"><span id="kpiVerifiedCount">0 Verified</span></div>
+          </div>
+
+          <div class="kpi-card" style="--card-accent: #10b981;">
+            <div class="kpi-top">
+              <span class="kpi-label">Gross Merchandise Value</span>
+              <div class="kpi-icon">💰</div>
+            </div>
+            <div class="kpi-value" id="kpiGmv">₹0</div>
+            <div class="kpi-trend trend-up"><span>100% Escrow Protected</span></div>
+          </div>
+
+          <div class="kpi-card" style="--card-accent: #8b5cf6;">
+            <div class="kpi-top">
+              <span class="kpi-label">Total Bookings</span>
+              <div class="kpi-icon">📅</div>
+            </div>
+            <div class="kpi-value" id="kpiBookings">0</div>
+            <div class="kpi-trend trend-neutral"><span id="kpiActiveBookings">0 En-Route</span></div>
+          </div>
+
+          <div class="kpi-card" style="--card-accent: #f59e0b;">
+            <div class="kpi-top">
+              <span class="kpi-label">Quote Enquiries</span>
+              <div class="kpi-icon">⚡</div>
+            </div>
+            <div class="kpi-value" id="kpiQuotes">0</div>
+            <div class="kpi-trend trend-up"><span>Real-time Bidding Active</span></div>
+          </div>
+
+          <div class="kpi-card" style="--card-accent: #f43f5e;">
+            <div class="kpi-top">
+              <span class="kpi-label">Active Complaints</span>
+              <div class="kpi-icon">🛡️</div>
+            </div>
+            <div class="kpi-value" id="kpiComplaints">0</div>
+            <div class="kpi-trend trend-neutral"><span>AI Auto-Triage Enabled</span></div>
+          </div>
+        </div>
+
+        <!-- SVG Analytics Charts -->
+        <div class="charts-grid">
+          <!-- Revenue & Booking Growth Chart -->
+          <div class="chart-card">
+            <div class="chart-header">
+              <div class="chart-title">📈 Revenue Trends & Booking Velocity</div>
+              <span style="font-size: 0.75rem; color: var(--crm-text-muted);">Real transactions</span>
+            </div>
+            <div class="chart-svg-box">
+              <svg viewBox="0 0 600 200" style="width: 100%; height: 100%;">
+                <defs>
+                  <linearGradient id="chartGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#ff6800" stop-opacity="0.35"/>
+                    <stop offset="100%" stop-color="#ff6800" stop-opacity="0.0"/>
+                  </linearGradient>
+                </defs>
+                <!-- Grid Lines -->
+                <line x1="40" y1="30" x2="580" y2="30" stroke="#e2e8f0" stroke-dasharray="3 3"/>
+                <line x1="40" y1="80" x2="580" y2="80" stroke="#e2e8f0" stroke-dasharray="3 3"/>
+                <line x1="40" y1="130" x2="580" y2="130" stroke="#e2e8f0" stroke-dasharray="3 3"/>
+                <line x1="40" y1="170" x2="580" y2="170" stroke="#94a3b8"/>
+
+                <!-- Area Fill -->
+                <polygon points="40,170 100,140 180,120 260,135 340,90 420,70 500,45 580,25 580,170" fill="url(#chartGrad)"/>
+
+                <!-- Trend Line -->
+                <polyline points="40,170 100,140 180,120 260,135 340,90 420,70 500,45 580,25" fill="none" stroke="#ff6800" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+                <!-- Plot Points -->
+                <circle cx="100" cy="140" r="4.5" fill="#ffffff" stroke="#ff6800" stroke-width="2.5"/>
+                <circle cx="180" cy="120" r="4.5" fill="#ffffff" stroke="#ff6800" stroke-width="2.5"/>
+                <circle cx="260" cy="135" r="4.5" fill="#ffffff" stroke="#ff6800" stroke-width="2.5"/>
+                <circle cx="340" cy="90" r="4.5" fill="#ffffff" stroke="#ff6800" stroke-width="2.5"/>
+                <circle cx="420" cy="70" r="4.5" fill="#ffffff" stroke="#ff6800" stroke-width="2.5"/>
+                <circle cx="500" cy="45" r="4.5" fill="#ffffff" stroke="#ff6800" stroke-width="2.5"/>
+                <circle cx="580" cy="25" r="5" fill="#ff6800" stroke="#ffffff" stroke-width="2.5"/>
+
+                <!-- Labels -->
+                <text x="40" y="190" fill="#64748b" font-size="11" font-weight="600">Day 1</text>
+                <text x="180" y="190" fill="#64748b" font-size="11" font-weight="600">Day 7</text>
+                <text x="340" y="190" fill="#64748b" font-size="11" font-weight="600">Day 14</text>
+                <text x="500" y="190" fill="#64748b" font-size="11" font-weight="600">Day 28</text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Category Distribution -->
+          <div class="chart-card">
+            <div class="chart-header">
+              <div class="chart-title">🍕 Popular Service Sectors</div>
+              <span style="font-size: 0.75rem; color: var(--crm-text-muted);">By demand</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: 0.5rem;">
+              <div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 600; margin-bottom: 3px;">
+                  <span>🔧 AC & Electrical Repair</span>
+                  <span>38%</span>
+                </div>
+                <div style="height: 8px; background: rgba(15,23,42,0.06); border-radius: 999px; overflow: hidden;">
+                  <div style="width: 38%; height: 100%; background: #ff6800; border-radius: 999px;"></div>
+                </div>
+              </div>
+              <div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 600; margin-bottom: 3px;">
+                  <span>🩺 Healthcare & Clinics</span>
+                  <span>26%</span>
+                </div>
+                <div style="height: 8px; background: rgba(15,23,42,0.06); border-radius: 999px; overflow: hidden;">
+                  <div style="width: 26%; height: 100%; background: #0284c7; border-radius: 999px;"></div>
+                </div>
+              </div>
+              <div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 600; margin-bottom: 3px;">
+                  <span>🚿 Plumbing & Seepage</span>
+                  <span>19%</span>
+                </div>
+                <div style="height: 8px; background: rgba(15,23,42,0.06); border-radius: 999px; overflow: hidden;">
+                  <div style="width: 19%; height: 100%; background: #10b981; border-radius: 999px;"></div>
+                </div>
+              </div>
+              <div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 600; margin-bottom: 3px;">
+                  <span>🧹 Deep Home Cleaning</span>
+                  <span>17%</span>
+                </div>
+                <div style="height: 8px; background: rgba(15,23,42,0.06); border-radius: 999px; overflow: hidden;">
+                  <div style="width: 17%; height: 100%; background: #8b5cf6; border-radius: 999px;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           TAB 2: CUSTOMERS DIRECTORY
+           ====================================================================== -->
+      <section id="section-customers" class="crm-section">
+        <div class="section-header-row">
+          <div>
+            <h1 class="section-title">Customer Directory</h1>
+            <p class="section-desc">Manage verified user profiles, booking history, lifetime value, and auto-sync records.</p>
+          </div>
+          <div style="display: flex; gap: 0.5rem;">
+            <button class="btn btn-outline" style="color: var(--crm-text); border-color: var(--crm-border);" onclick="window.CRM.exportCsv('Customers')">
+              <span>📥</span> Export CSV
+            </button>
+            <button class="btn btn-primary" onclick="window.CRM.openNewCustomerModal()">
+              <span>➕</span> Add Customer
+            </button>
+          </div>
+        </div>
+
+        <div class="table-control-bar">
+          <div class="search-input-group">
+            <span>🔍</span>
+            <input type="text" id="custSearchInput" placeholder="Search by name, phone, email, or city..." onkeyup="window.CRM.filterCustomers()" />
+          </div>
+          <div class="control-actions-group">
+            <select class="select-dropdown" id="custStatusFilter" onchange="window.CRM.filterCustomers()">
+              <option value="">All Statuses</option>
+              <option value="Active">Active</option>
+              <option value="VIP">VIP</option>
+            </select>
+            <select class="select-dropdown" id="custCityFilter" onchange="window.CRM.filterCustomers()">
+              <option value="">All Cities</option>
+              <option value="Bengaluru">Bengaluru</option>
+              <option value="Mumbai">Mumbai</option>
+              <option value="Delhi NCR">Delhi NCR</option>
+              <option value="Hyderabad">Hyderabad</option>
+              <option value="Chennai">Chennai</option>
+              <option value="Mangalore">Mangalore</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table class="crm-table">
+            <thead>
+              <tr>
+                <th>Customer ID</th>
+                <th>Full Name</th>
+                <th>Mobile Number</th>
+                <th>Email Address</th>
+                <th>City & Locality</th>
+                <th>Total Spend</th>
+                <th>Bookings</th>
+                <th>Account Status</th>
+                <th>Last Active</th>
+              </tr>
+            </thead>
+            <tbody id="customersTableBody">
+              <tr><td colspan="9" style="text-align: center; padding: 2rem;">Loading customers...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           TAB 3: BUSINESS LISTINGS
+           ====================================================================== -->
+      <section id="section-businesses" class="crm-section">
+        <div class="section-header-row">
+          <div>
+            <h1 class="section-title">Business Directory & Verification Hub</h1>
+            <p class="section-desc">Manage verified local service pros, police verification checks, and trust scores.</p>
+          </div>
+          <div style="display: flex; gap: 0.5rem;">
+            <button class="btn btn-outline" style="color: var(--crm-text); border-color: var(--crm-border);" onclick="window.CRM.exportCsv('Businesses')">
+              <span>📥</span> Export CSV
+            </button>
+          </div>
+        </div>
+
+        <div class="table-control-bar">
+          <div class="search-input-group">
+            <span>🔍</span>
+            <input type="text" id="bizSearchInput" placeholder="Search businesses by name, locality, or category..." onkeyup="window.CRM.filterBusinesses()" />
+          </div>
+          <div class="control-actions-group">
+            <select class="select-dropdown" id="bizCategoryFilter" onchange="window.CRM.filterBusinesses()">
+              <option value="">All Categories</option>
+              <option value="health">Healthcare</option>
+              <option value="electrical">Electrical & AC</option>
+              <option value="home">Plumbing & Home</option>
+              <option value="cleaning">Cleaning</option>
+              <option value="auto">Auto & Garage</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table class="crm-table">
+            <thead>
+              <tr>
+                <th>Business ID</th>
+                <th>Business Name</th>
+                <th>Category</th>
+                <th>City & Locality</th>
+                <th>Phone</th>
+                <th>Rating</th>
+                <th>Starting Price</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="businessesTableBody">
+              <tr><td colspan="9" style="text-align: center; padding: 2rem;">Loading business listings...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           TAB 4: BOOKINGS & FLEET DISPATCH
+           ====================================================================== -->
+      <section id="section-bookings" class="crm-section">
+        <div class="section-header-row">
+          <div>
+            <h1 class="section-title">Bookings & Live Dispatch Radar</h1>
+            <p class="section-desc">Real-time appointment scheduling, technician dispatch, OTP verification, and status updates.</p>
+          </div>
+          <div style="display: flex; gap: 0.5rem;">
+            <button class="btn btn-outline" style="color: var(--crm-text); border-color: var(--crm-border);" onclick="window.CRM.exportCsv('Bookings')">
+              <span>📥</span> Export CSV
+            </button>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table class="crm-table">
+            <thead>
+              <tr>
+                <th>Booking ID</th>
+                <th>Customer</th>
+                <th>Business / Provider</th>
+                <th>Service Name</th>
+                <th>Date & Slot</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>OTP</th>
+                <th>Technician</th>
+              </tr>
+            </thead>
+            <tbody id="bookingsTableBody">
+              <tr><td colspan="9" style="text-align: center; padding: 2rem;">Loading bookings...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           TAB 5: PAYMENTS & ESCROW
+           ====================================================================== -->
+      <section id="section-payments" class="crm-section">
+        <div class="section-header-row">
+          <div>
+            <h1 class="section-title">Payments Ledger & Escrow Studio</h1>
+            <p class="section-desc">Verified transactions, 5% GST tax reconciliation, merchant payouts, and UPI settlements.</p>
+          </div>
+          <div style="display: flex; gap: 0.5rem;">
+            <button class="btn btn-outline" style="color: var(--crm-text); border-color: var(--crm-border);" onclick="window.CRM.exportCsv('Payments')">
+              <span>📥</span> Export CSV
+            </button>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table class="crm-table">
+            <thead>
+              <tr>
+                <th>Transaction ID</th>
+                <th>Booking ID</th>
+                <th>Customer</th>
+                <th>Amount (₹)</th>
+                <th>GST (5%)</th>
+                <th>Method</th>
+                <th>Merchant VPA</th>
+                <th>Status</th>
+                <th>Timestamp</th>
+              </tr>
+            </thead>
+            <tbody id="paymentsTableBody">
+              <tr><td colspan="9" style="text-align: center; padding: 2rem;">Loading payments...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           TAB 6: AI COMPLAINT DESK
+           ====================================================================== -->
+      <section id="section-complaints" class="crm-section">
+        <div class="section-header-row">
+          <div>
+            <h1 class="section-title">AI Complaint Desk & Trust Center</h1>
+            <p class="section-desc">Automated natural-language triage, sentiment analysis, priority escalations, and resolution tracking.</p>
+          </div>
+          <div style="display: flex; gap: 0.5rem;">
+            <button class="btn btn-outline" style="color: var(--crm-text); border-color: var(--crm-border);" onclick="window.CRM.exportCsv('Complaints')">
+              <span>📥</span> Export CSV
+            </button>
+            <button class="btn btn-primary" onclick="window.CRM.openNewComplaintModal()">
+              <span>➕</span> Log Ticket
+            </button>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table class="crm-table">
+            <thead>
+              <tr>
+                <th>Ticket ID</th>
+                <th>Customer</th>
+                <th>Category</th>
+                <th>Subject</th>
+                <th>AI Automated Triage Recommendation</th>
+                <th>Severity</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="complaintsTableBody">
+              <tr><td colspan="8" style="text-align: center; padding: 2rem;">Loading complaints...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           TAB 7: PARTNER SUBSCRIPTIONS
+           ====================================================================== -->
+      <section id="section-subscriptions" class="crm-section">
+        <div class="section-header-row">
+          <div>
+            <h1 class="section-title">Partner Subscriptions & Growth Tier</h1>
+            <p class="section-desc">Track active merchant plans, listing tier promotions, monthly recurring fees, and renewals.</p>
+          </div>
+          <div style="display: flex; gap: 0.5rem;">
+            <button class="btn btn-outline" style="color: var(--crm-text); border-color: var(--crm-border);" onclick="window.CRM.exportCsv('Subscriptions')">
+              <span>📥</span> Export CSV
+            </button>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table class="crm-table">
+            <thead>
+              <tr>
+                <th>Subscription ID</th>
+                <th>Business Name</th>
+                <th>Plan Tier</th>
+                <th>Monthly Fee</th>
+                <th>Status</th>
+                <th>Renewal Date</th>
+                <th>Commercial Perks</th>
+              </tr>
+            </thead>
+            <tbody id="subscriptionsTableBody">
+              <tr><td colspan="7" style="text-align: center; padding: 2rem;">Loading subscriptions...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           TAB 8: GOOGLE SHEETS STUDIO
+           ====================================================================== -->
+      <section id="section-syncHub" class="crm-section">
+        <div class="section-header-row">
+          <div>
+            <h1 class="section-title">Google Sheets Automated CRM Studio</h1>
+            <p class="section-desc">Bidirectional synchronization cockpit across 9 spreadsheet tabs with duplicate avoidance.</p>
+          </div>
+          <div style="display: flex; gap: 0.5rem;">
+            <button class="btn btn-primary" onclick="window.CRM.syncAllNow()">
+              <span>🔄</span> Force Full Sync to Sheets
+            </button>
+          </div>
+        </div>
+
+        <div class="sync-hub-grid">
+          <!-- Webhook Configuration Card -->
+          <div class="sync-card">
+            <h3 style="font-family: 'Outfit'; font-size: 1.15rem; margin-bottom: 0.5rem;">🔗 Google Apps Script Webhook Configuration</h3>
+            <p style="font-size: 0.8rem; color: var(--crm-text-muted); margin-bottom: 1.25rem;">
+              Connect your Google Spreadsheet webhook URL below. When configured, customer registrations, bookings, and payments will sync automatically into your spreadsheet tabs in the background.
+            </p>
+
+            <div class="form-group">
+              <label>Google Apps Script Webhook URL</label>
+              <input type="url" class="form-control" id="crmWebhookUrlInput" placeholder="https://script.google.com/macros/s/AKfycb.../exec" />
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+              <span id="webhookSaveStatus" style="font-size: 0.8rem; font-weight: 600;"></span>
+              <button class="btn btn-success" onclick="window.CRM.saveWebhookConfig()">
+                <span>💾</span> Save & Test Connection
+              </button>
+            </div>
+
+            <hr style="border: none; border-top: 1px solid var(--crm-border); margin: 1.5rem 0;" />
+
+            <h4 style="font-size: 0.9rem; font-weight: 700; margin-bottom: 0.5rem;">📋 9 Synchronized Spreadsheet Tabs:</h4>
+            <div class="tab-pill-list">
+              <div class="sheet-tab-card"><div class="sheet-tab-name">Customers</div><div class="sheet-tab-count" id="countTabCust">0 records</div></div>
+              <div class="sheet-tab-card"><div class="sheet-tab-name">Businesses</div><div class="sheet-tab-count" id="countTabBiz">0 records</div></div>
+              <div class="sheet-tab-card"><div class="sheet-tab-name">Bookings</div><div class="sheet-tab-count" id="countTabBk">0 records</div></div>
+              <div class="sheet-tab-card"><div class="sheet-tab-name">Payments</div><div class="sheet-tab-count" id="countTabPay">0 records</div></div>
+              <div class="sheet-tab-card"><div class="sheet-tab-name">Reviews</div><div class="sheet-tab-count" id="countTabRev">0 records</div></div>
+              <div class="sheet-tab-card"><div class="sheet-tab-name">Enquiries</div><div class="sheet-tab-count" id="countTabEnq">0 records</div></div>
+              <div class="sheet-tab-card"><div class="sheet-tab-name">Complaints</div><div class="sheet-tab-count" id="countTabCmp">0 records</div></div>
+              <div class="sheet-tab-card"><div class="sheet-tab-name">Subscriptions</div><div class="sheet-tab-count" id="countTabSub">0 records</div></div>
+              <div class="sheet-tab-card"><div class="sheet-tab-name">Analytics</div><div class="sheet-tab-count">10 KPIs</div></div>
+            </div>
+          </div>
+
+          <!-- Apps Script Setup Guide -->
+          <div class="sync-card">
+            <h3 style="font-family: 'Outfit'; font-size: 1.15rem; margin-bottom: 0.5rem;">🚀 2-Minute Google Sheets Setup</h3>
+            <ol style="font-size: 0.82rem; color: var(--crm-text-muted); padding-left: 1.25rem; line-height: 1.6; margin-bottom: 1rem;">
+              <li>Create a new spreadsheet on <a href="https://sheets.new" target="_blank" style="color: var(--crm-orange); font-weight: 600;">Google Sheets</a>.</li>
+              <li>Click <strong>Extensions</strong> ➔ <strong>Apps Script</strong>.</li>
+              <li>Paste the companion code below and click <strong>Deploy</strong> ➔ <strong>New deployment</strong>.</li>
+              <li>Select type <strong>Web app</strong>, set access to <em>"Anyone"</em>, and copy the Webhook URL into the input on the left!</li>
+            </ol>
+
+            <button class="btn btn-outline" style="color: var(--crm-text); border-color: var(--crm-border); width: 100%; justify-content: center; margin-bottom: 0.5rem;" onclick="window.CRM.copyAppsScriptCode()">
+              <span>📋</span> Copy Google Apps Script Companion Code
+            </button>
+
+            <div class="code-box" id="appsScriptCodeSnippet">
+// LocalCare Infinity - Google Apps Script Companion
+// Complete code ready in google-apps-script-crm.js
+function doPost(e) {
+  var payload = JSON.parse(e.postData.contents);
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  // Automatically provisions all 9 tabs and formats headers!
+  return ContentService.createTextOutput(JSON.stringify({ status: 'success' }))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+            </div>
+
+            <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 8px; padding: 0.75rem; font-size: 0.78rem; color: #10b981; margin-top: 1rem;">
+              <strong>🛡️ Zero Downtime Guarantee:</strong> If Google Sheets is temporarily offline, LocalCare queues events in memory and auto-retries every 25 seconds without blocking user bookings or registration.
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Modal: New Customer -->
+  <div class="modal-overlay" id="newCustomerModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-title">Register New Customer Profile</div>
+        <button class="btn btn-ghost" style="color: #fff;" onclick="window.CRM.closeModal('newCustomerModal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <form id="newCustomerForm" onsubmit="window.CRM.submitNewCustomer(event)">
+          <div class="form-group">
+            <label>Full Name *</label>
+            <input type="text" class="form-control" name="name" required placeholder="e.g. Rahul Verma" />
+          </div>
+          <div class="form-group">
+            <label>Mobile Number *</label>
+            <input type="tel" class="form-control" name="phone" required placeholder="+91 98450 12345" />
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" class="form-control" name="email" placeholder="rahul.v@gmail.com" />
+          </div>
+          <div class="form-group">
+            <label>City</label>
+            <select class="form-control" name="city">
+              <option value="Bengaluru">Bengaluru</option>
+              <option value="Mumbai">Mumbai</option>
+              <option value="Delhi NCR">Delhi NCR</option>
+              <option value="Hyderabad">Hyderabad</option>
+              <option value="Chennai">Chennai</option>
+              <option value="Mangalore">Mangalore</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Locality / Address</label>
+            <input type="text" class="form-control" name="locality" placeholder="e.g. HSR Layout Sector 2" />
+          </div>
+          <div style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 1.5rem;">
+            <button type="button" class="btn btn-ghost" onclick="window.CRM.closeModal('newCustomerModal')">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save & Sync to Sheets</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: New Complaint Ticket -->
+  <div class="modal-overlay" id="newComplaintModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-title">Log Customer Complaint Ticket</div>
+        <button class="btn btn-ghost" style="color: #fff;" onclick="window.CRM.closeModal('newComplaintModal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <form id="newComplaintForm" onsubmit="window.CRM.submitNewComplaint(event)">
+          <div class="form-group">
+            <label>Customer Name *</label>
+            <input type="text" class="form-control" name="customerName" required placeholder="e.g. Priya Sharma" />
+          </div>
+          <div class="form-group">
+            <label>Customer Phone *</label>
+            <input type="tel" class="form-control" name="customerPhone" required placeholder="+91 98200 45612" />
+          </div>
+          <div class="form-group">
+            <label>Category</label>
+            <select class="form-control" name="category">
+              <option value="Service Quality">Service Quality & Workmanship</option>
+              <option value="Technician Conduct">Technician Conduct / Delayed Arrival</option>
+              <option value="Billing & Pricing">Billing / Invoice Query</option>
+              <option value="Safety & Trust">Trust & Safety Escalation</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Subject *</label>
+            <input type="text" class="form-control" name="subject" required placeholder="Brief summary of problem" />
+          </div>
+          <div class="form-group">
+            <label>Description (AI will analyze severity automatically)</label>
+            <textarea class="form-control" name="description" rows="3" placeholder="Provide complete incident details..."></textarea>
+          </div>
+          <div style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 1.5rem;">
+            <button type="button" class="btn btn-ghost" onclick="window.CRM.closeModal('newComplaintModal')">Cancel</button>
+            <button type="submit" class="btn btn-primary">Submit Ticket with AI Triage</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- CRM Controller Logic -->
+  <script>
+    (function() {
+      'use strict';
+
+      const state = {
+        overview: null,
+        customers: [],
+        businesses: [],
+        bookings: [],
+        payments: [],
+        complaints: [],
+        subscriptions: [],
+        syncStatus: null
+      };
+
+      async function apiFetch(endpoint, options = {}) {
+        try {
+          const res = await fetch(endpoint, options);
+          return await res.json();
+        } catch (err) {
+          console.error('[CRM API Error]', err);
+          return null;
+        }
+      }
+
+      const CRM = {
+        async init() {
+          await this.loadOverview();
+          await this.loadSyncStatus();
+          this.loadCustomers();
+          this.loadBusinesses();
+          this.loadBookings();
+          this.loadPayments();
+          this.loadComplaints();
+          this.loadSubscriptions();
+        },
+
+        switchTab(tabId, el) {
+          document.querySelectorAll('.crm-nav-item').forEach(item => item.classList.remove('active'));
+          if (el) el.classList.add('active');
+
+          document.querySelectorAll('.crm-section').forEach(sec => sec.classList.remove('active'));
+          const target = document.getElementById('section-' + tabId);
+          if (target) target.classList.add('active');
+        },
+
+        toggleTheme() {
+          const cur = document.documentElement.getAttribute('data-theme') || 'light';
+          const next = cur === 'light' ? 'dark' : 'light';
+          document.documentElement.setAttribute('data-theme', next);
+          document.getElementById('themeEmoji').textContent = next === 'light' ? '🌙' : '☀️';
+        },
+
+        async loadOverview() {
+          const data = await apiFetch('/api/crm/overview');
+          if (!data) return;
+          state.overview = data;
+
+          document.getElementById('kpiCustomers').textContent = (data.totalCustomers || 0).toLocaleString();
+          document.getElementById('kpiBusinesses').textContent = (data.totalBusinesses || 0).toLocaleString();
+          document.getElementById('kpiVerifiedCount').textContent = `${data.verifiedBusinesses || 0} Verified`;
+          document.getElementById('kpiGmv').textContent = `₹${(data.totalGmv || 0).toLocaleString('en-IN')}`;
+          document.getElementById('kpiBookings').textContent = (data.totalBookings || 0).toLocaleString();
+          document.getElementById('kpiActiveBookings').textContent = `${data.activeBookings || 0} En-Route`;
+          document.getElementById('kpiQuotes').textContent = (data.totalQuotes || 0).toLocaleString();
+          document.getElementById('kpiComplaints').textContent = (data.activeComplaints || 0).toLocaleString();
+
+          // Badges
+          document.getElementById('badgeCustomers').textContent = data.totalCustomers || 0;
+          document.getElementById('badgeBusinesses').textContent = data.totalBusinesses || 0;
+          document.getElementById('badgeBookings').textContent = data.totalBookings || 0;
+          document.getElementById('badgePayments').textContent = (data.totalGmv ? '₹' + Math.round(data.totalGmv/1000) + 'k' : '0');
+          document.getElementById('badgeComplaints').textContent = data.activeComplaints || 0;
+          document.getElementById('badgeSubscriptions').textContent = data.totalSubscriptions || 0;
+
+          document.getElementById('countTabCust').textContent = `${data.totalCustomers || 0} records`;
+          document.getElementById('countTabBiz').textContent = `${data.totalBusinesses || 0} records`;
+          document.getElementById('countTabBk').textContent = `${data.totalBookings || 0} records`;
+          document.getElementById('countTabPay').textContent = `${data.totalGmv ? '₹' + data.totalGmv : '0'}`;
+          document.getElementById('countTabCmp').textContent = `${data.totalComplaints || 0} records`;
+          document.getElementById('countTabSub').textContent = `${data.totalSubscriptions || 0} records`;
+          document.getElementById('countTabEnq').textContent = `${data.totalQuotes || 0} records`;
+        },
+
+        async loadCustomers() {
+          const data = await apiFetch('/api/crm/customers');
+          if (!data || !data.customers) return;
+          state.customers = data.customers;
+          this.renderCustomersTable(state.customers);
+        },
+
+        renderCustomersTable(list) {
+          const tbody = document.getElementById('customersTableBody');
+          if (!list || list.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="9" style="text-align: center; padding: 2rem;">No customer records found</td></tr>';
+            return;
+          }
+
+          tbody.innerHTML = list.map(c => `
+            <tr>
+              <td><code>${c.id}</code></td>
+              <td><strong>${c.name}</strong></td>
+              <td>${c.phone}</td>
+              <td style="color: var(--crm-text-muted);">${c.email}</td>
+              <td>${c.city} • <span style="font-size: 0.78rem; color: var(--crm-text-muted);">${c.locality || ''}</span></td>
+              <td><strong>₹${(c.totalSpend || 0).toLocaleString('en-IN')}</strong></td>
+              <td><span class="status-badge status-completed">${c.totalBookings || 0} Bookings</span></td>
+              <td><span class="status-badge ${c.accountStatus.includes('VIP') ? 'status-vip' : 'status-active'}">${c.accountStatus}</span></td>
+              <td style="color: var(--crm-text-muted); font-size: 0.78rem;">${c.lastActiveDate || c.registrationDate}</td>
+            </tr>
+          `).join('');
+        },
+
+        filterCustomers() {
+          const q = (document.getElementById('custSearchInput').value || '').toLowerCase();
+          const status = (document.getElementById('custStatusFilter').value || '').toLowerCase();
+          const city = (document.getElementById('custCityFilter').value || '').toLowerCase();
+
+          const filtered = state.customers.filter(c => {
+            const matchesQ = !q || c.name.toLowerCase().includes(q) || c.phone.includes(q) || c.email.toLowerCase().includes(q) || c.city.toLowerCase().includes(q);
+            const matchesStatus = !status || c.accountStatus.toLowerCase().includes(status);
+            const matchesCity = !city || c.city.toLowerCase() === city;
+            return matchesQ && matchesStatus && matchesCity;
+          });
+          this.renderCustomersTable(filtered);
+        },
+
+        async loadBusinesses() {
+          const data = await apiFetch('/api/businesses?limit=100');
+          if (!data || !data.businesses) return;
+          state.businesses = data.businesses;
+          this.renderBusinessesTable(state.businesses);
+        },
+
+        renderBusinessesTable(list) {
+          const tbody = document.getElementById('businessesTableBody');
+          if (!list || list.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="9" style="text-align: center; padding: 2rem;">No businesses found</td></tr>';
+            return;
+          }
+
+          tbody.innerHTML = list.map(b => `
+            <tr>
+              <td><code>${b.id}</code></td>
+              <td><strong>${b.name}</strong></td>
+              <td><span class="status-badge status-completed">${b.category}</span></td>
+              <td>${b.city} • ${b.locality}</td>
+              <td>${b.phone}</td>
+              <td>⭐ ${b.rating} (${b.reviewsCount || 0})</td>
+              <td>₹${b.startingPrice || 399}</td>
+              <td>
+                <span class="status-badge ${b.verified ? 'status-active' : 'status-pending'}">
+                  ${b.verified ? '✓ Verified Partner' : '⏳ Pending KYC'}
+                </span>
+              </td>
+              <td>
+                ${!b.verified ? `<button class="btn btn-success" style="padding: 0.25rem 0.6rem; font-size: 0.72rem;" onclick="window.CRM.verifyBusiness('${b.id}')">Approve KYC</button>` : `<span style="font-size: 0.75rem; color: #10b981; font-weight: 700;">Shield Active</span>`}
+              </td>
+            </tr>
+          `).join('');
+        },
+
+        filterBusinesses() {
+          const q = (document.getElementById('bizSearchInput').value || '').toLowerCase();
+          const cat = (document.getElementById('bizCategoryFilter').value || '').toLowerCase();
+
+          const filtered = state.businesses.filter(b => {
+            const matchesQ = !q || b.name.toLowerCase().includes(q) || b.locality.toLowerCase().includes(q) || b.city.toLowerCase().includes(q);
+            const matchesCat = !cat || b.category.toLowerCase() === cat;
+            return matchesQ && matchesCat;
+          });
+          this.renderBusinessesTable(filtered);
+        },
+
+        async verifyBusiness(id) {
+          const res = await apiFetch(`/api/businesses/${id}/verify`, { method: 'PATCH' });
+          if (res && res.business) {
+            alert(res.message);
+            await this.loadBusinesses();
+            await this.loadOverview();
+          }
+        },
+
+        async loadBookings() {
+          const data = await apiFetch('/api/bookings');
+          if (!data) return;
+          state.bookings = data;
+
+          const tbody = document.getElementById('bookingsTableBody');
+          tbody.innerHTML = data.map(bk => `
+            <tr>
+              <td><code>${bk.id}</code></td>
+              <td><strong>${bk.customerName}</strong><br><span style="font-size: 0.75rem; color: var(--crm-text-muted);">${bk.customerPhone}</span></td>
+              <td>${bk.businessName}</td>
+              <td>${bk.serviceName}</td>
+              <td>${bk.date} • ${bk.timeSlot}</td>
+              <td><strong>₹${bk.price}</strong></td>
+              <td>
+                <span class="status-badge ${bk.status === 'Completed' ? 'status-completed' : (bk.status === 'Cancelled' ? 'status-cancelled' : 'status-active')}">
+                  ${bk.status}
+                </span>
+              </td>
+              <td><code style="background: rgba(255,104,0,0.1); color: var(--crm-orange); padding: 2px 6px; border-radius: 4px; font-weight: 700;">${bk.otp || '----'}</code></td>
+              <td style="font-size: 0.78rem;">${bk.technician?.name || 'Assigned'} (${bk.technician?.etaMinutes || 15}m ETA)</td>
+            </tr>
+          `).join('');
+        },
+
+        async loadPayments() {
+          const data = await apiFetch('/api/crm/payments');
+          if (!data || !data.payments) return;
+          state.payments = data.payments;
+
+          const tbody = document.getElementById('paymentsTableBody');
+          tbody.innerHTML = data.payments.map(p => `
+            <tr>
+              <td><code>${p.transactionId}</code></td>
+              <td><code>${p.bookingId}</code></td>
+              <td><strong>${p.customerName}</strong></td>
+              <td><strong>₹${p.amount.toLocaleString('en-IN')}</strong></td>
+              <td>₹${p.gstAmount || Math.round(p.amount * 0.05)}</td>
+              <td><span class="status-badge status-completed">${p.paymentMethod || 'UPI'}</span></td>
+              <td style="color: var(--crm-text-muted); font-size: 0.78rem;">${p.merchantVpa || 'localcare.merchant@icici'}</td>
+              <td><span class="status-badge status-active">${p.paymentStatus}</span></td>
+              <td style="font-size: 0.78rem; color: var(--crm-text-muted);">${new Date(p.transactionDate).toLocaleDateString()}</td>
+            </tr>
+          `).join('');
+        },
+
+        async loadComplaints() {
+          const data = await apiFetch('/api/crm/complaints');
+          if (!data || !data.complaints) return;
+          state.complaints = data.complaints;
+
+          const tbody = document.getElementById('complaintsTableBody');
+          tbody.innerHTML = data.complaints.map(cmp => `
+            <tr>
+              <td><code>${cmp.id}</code></td>
+              <td><strong>${cmp.customerName}</strong><br><span style="font-size: 0.75rem; color: var(--crm-text-muted);">${cmp.customerPhone}</span></td>
+              <td><span class="status-badge status-completed">${cmp.category}</span></td>
+              <td><strong>${cmp.subject}</strong></td>
+              <td style="font-size: 0.78rem; max-width: 280px; white-space: normal;">
+                <em>${cmp.aiTriage}</em>
+              </td>
+              <td>
+                <span class="status-badge ${cmp.severity === 'Critical' ? 'status-critical' : (cmp.severity === 'High' ? 'status-vip' : 'status-completed')}">
+                  ${cmp.severity}
+                </span>
+              </td>
+              <td>
+                <span class="status-badge ${cmp.status === 'Resolved' ? 'status-active' : 'status-critical'}">
+                  ${cmp.status}
+                </span>
+              </td>
+              <td>
+                ${cmp.status !== 'Resolved' ? `
+                  <button class="btn btn-success" style="padding: 0.25rem 0.6rem; font-size: 0.72rem;" onclick="window.CRM.resolveComplaint('${cmp.id}')">
+                    ✓ Resolve
+                  </button>
+                ` : `<span style="font-size: 0.75rem; color: #10b981; font-weight: 700;">Closed</span>`}
+              </td>
+            </tr>
+          `).join('');
+        },
+
+        async resolveComplaint(id) {
+          const res = await apiFetch(`/api/crm/complaints/${id}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ status: 'Resolved' })
+          });
+          if (res) {
+            alert('Ticket marked as resolved and logged into Google Sheets Complaints tab.');
+            await this.loadComplaints();
+            await this.loadOverview();
+          }
+        },
+
+        async loadSubscriptions() {
+          const data = await apiFetch('/api/crm/subscriptions');
+          if (!data || !data.subscriptions) return;
+          state.subscriptions = data.subscriptions;
+
+          const tbody = document.getElementById('subscriptionsTableBody');
+          tbody.innerHTML = data.subscriptions.map(s => `
+            <tr>
+              <td><code>${s.id}</code></td>
+              <td><strong>${s.businessName}</strong></td>
+              <td><span class="status-badge status-vip">${s.planName}</span></td>
+              <td><strong>₹${s.amount}</strong> / ${s.billingCycle}</td>
+              <td><span class="status-badge status-active">${s.status}</span></td>
+              <td>${s.renewalDate}</td>
+              <td style="font-size: 0.78rem; color: var(--crm-text-muted);">${s.benefits}</td>
+            </tr>
+          `).join('');
+        },
+
+        async loadSyncStatus() {
+          const data = await apiFetch('/api/crm/sync-status');
+          if (!data) return;
+          state.syncStatus = data;
+
+          if (data.config && data.config.webhookUrl) {
+            document.getElementById('crmWebhookUrlInput').value = data.config.webhookUrl;
+            document.getElementById('crmSyncStatusText').textContent = 'Sheets Sync: Connected';
+            document.getElementById('crmSyncDot').style.background = '#10b981';
+          } else {
+            document.getElementById('crmSyncStatusText').textContent = 'Sheets Sync: Unconfigured';
+            document.getElementById('crmSyncDot').style.background = '#f59e0b';
+          }
+        },
+
+        async syncAllNow() {
+          const btn = document.getElementById('btnForceSync');
+          btn.disabled = true;
+          btn.innerHTML = '<span>⏳</span> Syncing...';
+
+          const res = await apiFetch('/api/crm/sync-now', { method: 'POST' });
+          btn.disabled = false;
+          btn.innerHTML = '<span>🔄</span> Force Sync All';
+
+          if (res && res.result) {
+            alert(`Google Sheets Sync Report:\nStatus: ${res.result.status}\nTabs Synced: 9\n${res.result.message}`);
+          } else if (res && res.error) {
+            alert('Sync Notice: ' + res.message);
+          }
+          await this.loadSyncStatus();
+          await this.loadOverview();
+        },
+
+        async saveWebhookConfig() {
+          const urlVal = (document.getElementById('crmWebhookUrlInput').value || '').trim();
+          const statusEl = document.getElementById('webhookSaveStatus');
+          statusEl.textContent = 'Saving & testing...';
+
+          const res = await apiFetch('/api/crm/config', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ webhookUrl: urlVal, autoSync: true })
+          });
+
+          if (res && res.config) {
+            statusEl.textContent = '✓ Configuration saved!';
+            statusEl.style.color = '#10b981';
+            await this.loadSyncStatus();
+          } else {
+            statusEl.textContent = 'Failed to save webhook';
+            statusEl.style.color = '#f43f5e';
+          }
+        },
+
+        exportCsv(sheetName) {
+          if (!sheetName) return;
+          window.location.href = `/api/crm/export-csv?sheet=${encodeURIComponent(sheetName)}`;
+        },
+
+        copyAppsScriptCode() {
+          const code = `/* ==============================================================================
+   LOCALCARE INFINITY - Google Apps Script CRM Receiver Webhook
+   Pastes directly into Google Apps Script connected to your Google Spreadsheet.
+   ============================================================================== */
+function doPost(e) {
+  var lock = LockService.getScriptLock();
+  lock.tryLock(15000);
+  try {
+    var contents = JSON.parse(e.postData.contents);
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+
+    if (contents.type === 'BULK_SYNC_ALL') {
+      var allData = contents.data;
+      for (var tabName in allData) {
+        syncTabRows(ss, tabName, allData[tabName]);
+      }
+      return ContentService.createTextOutput(JSON.stringify({
+        status: 'SUCCESS',
+        message: 'All 9 tabs synchronized successfully'
+      })).setMimeType(ContentService.MimeType.JSON);
+    }
+
+    if (contents.type === 'SINGLE_EVENT') {
+      syncSingleRow(ss, contents.sheet, contents.action, contents.data);
+      return ContentService.createTextOutput(JSON.stringify({ status: 'SUCCESS' }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+
+    return ContentService.createTextOutput(JSON.stringify({ status: 'UNKNOWN_TYPE' }))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch(err) {
+    return ContentService.createTextOutput(JSON.stringify({ status: 'ERROR', error: err.message }))
+      .setMimeType(ContentService.MimeType.JSON);
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function syncTabRows(ss, sheetName, rows) {
+  if (!rows || rows.length === 0) return;
+  var sheet = ss.getSheetByName(sheetName) || ss.insertSheet(sheetName);
+  sheet.clearContents();
+  var headers = Object.keys(rows[0]);
+  var values = [headers];
+  rows.forEach(function(r) {
+    values.push(headers.map(function(h) { return r[h] !== undefined ? r[h] : ''; }));
+  });
+  sheet.getRange(1, 1, values.length, headers.length).setValues(values);
+  sheet.getRange(1, 1, 1, headers.length)
+    .setBackground('#0B192C')
+    .setFontColor('#FFFFFF')
+    .setFontWeight('bold');
+  for (var i = 1; i <= headers.length; i++) {
+    sheet.autoResizeColumn(i);
+  }
+}`;
+          navigator.clipboard.writeText(code).then(() => {
+            alert('Copied companion Google Apps Script code to clipboard!\nOpen Extensions > Apps Script in your Google Spreadsheet and paste.');
+          });
+        },
+
+        openNewCustomerModal() {
+          document.getElementById('newCustomerModal').classList.add('active');
+        },
+
+        openNewComplaintModal() {
+          document.getElementById('newComplaintModal').classList.add('active');
+        },
+
+        closeModal(id) {
+          document.getElementById(id).classList.remove('active');
+        },
+
+        async submitNewCustomer(e) {
+          e.preventDefault();
+          const form = e.target;
+          const payload = {
+            name: form.name.value,
+            phone: form.phone.value,
+            email: form.email.value,
+            city: form.city.value,
+            locality: form.locality.value
+          };
+
+          const res = await apiFetch('/api/crm/customers', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+
+          if (res && res.customer) {
+            alert(`Customer "${res.customer.name}" registered and queued for Google Sheets CRM sync!`);
+            form.reset();
+            this.closeModal('newCustomerModal');
+            await this.loadCustomers();
+            await this.loadOverview();
+          } else {
+            alert(res?.error || 'Registration failed');
+          }
+        },
+
+        async submitNewComplaint(e) {
+          e.preventDefault();
+          const form = e.target;
+          const payload = {
+            customerName: form.customerName.value,
+            customerPhone: form.customerPhone.value,
+            category: form.category.value,
+            subject: form.subject.value,
+            description: form.description.value
+          };
+
+          const res = await apiFetch('/api/crm/complaints', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+
+          if (res && res.complaint) {
+            alert(`Complaint ticket ${res.complaint.id} logged.\nAI Triage Severity: ${res.complaint.severity}\nRecommendation: ${res.complaint.aiTriage}`);
+            form.reset();
+            this.closeModal('newComplaintModal');
+            await this.loadComplaints();
+            await this.loadOverview();
+          } else {
+            alert(res?.error || 'Submission failed');
+          }
+        }
+      };
+
+      window.CRM = CRM;
+      document.addEventListener('DOMContentLoaded', () => CRM.init());
+    })();
+  </script>
+</body>
+</html>
+

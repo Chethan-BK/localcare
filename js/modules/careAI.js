@@ -130,7 +130,7 @@ window.CareAI = (function () {
 
   function initVisualizerCanvas() {
     const canvas = document.getElementById('careAiVoiceCanvas');
-    if (!canvas) return;
+    if (!canvas || typeof canvas.getContext !== 'function') return;
     const ctx = canvas.getContext('2d');
     let phase = 0;
 
@@ -167,7 +167,9 @@ window.CareAI = (function () {
         phase += 0.04;
       }
 
-      visualizerAnimFrame = requestAnimationFrame(draw);
+      if (typeof requestAnimationFrame === 'function') {
+        visualizerAnimFrame = requestAnimationFrame(draw);
+      }
     }
 
     draw();

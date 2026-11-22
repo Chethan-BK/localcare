@@ -55,6 +55,10 @@ window.BusinessDashboard = (function () {
             <button class="biz-nav-item" data-biztab="reviews">
               <span>⭐</span> Customer Reviews
             </button>
+            <button class="biz-nav-item" data-biztab="plans">
+              <span>💎</span> Growth Plans & Ads
+              <span class="dash-tab-badge" style="background:#fef3c7; color:#92400e; font-weight:800;">Upgrade</span>
+            </button>
 
             <!-- AI Co-Pilot Partner Suite Divider -->
             <div style="font-size: 0.7rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.6px; padding: 0.6rem 0.6rem 0.2rem; margin-top: 0.4rem; display: flex; align-items: center; gap: 0.4rem;">
@@ -131,6 +135,8 @@ window.BusinessDashboard = (function () {
       renderOffersTab(space);
     } else if (currentBizTab === 'reviews') {
       renderReviewsTab(space);
+    } else if (currentBizTab === 'plans') {
+      renderPlansTab(space);
     } else if (currentBizTab === 'ai-quotes') {
       renderAiQuotesTab(space);
     } else if (currentBizTab === 'ai-reputation') {
@@ -217,11 +223,31 @@ window.BusinessDashboard = (function () {
   }
 
   function renderLeadsTab(space) {
+    const liveEnquiries = JSON.parse(localStorage.getItem('localcare_enquiries') || '[]');
+    const totalCount = 3 + liveEnquiries.length;
+
     space.innerHTML = `
       <div class="biz-tab-title-line">
-        <h4>High-Intent Customer Enquiries (${3})</h4>
+        <h4>High-Intent Customer Enquiries (${totalCount})</h4>
       </div>
       <div class="dash-cards-list">
+        ${liveEnquiries.map(enq => `
+          <div class="dash-booking-card" style="padding: 1.25rem; border-left: 4px solid var(--primary); background: rgba(255,104,0,0.03);">
+            <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;">
+              <div>
+                <span class="bid-badge" style="background: var(--primary); color: white;">⚡ Direct Customer Enquiry</span>
+                <h5 style="margin: 0.4rem 0 0.2rem 0; font-size: 1rem;">${enq.customerName} (${enq.customerPhone})</h5>
+                <p style="font-size: 0.88rem; color: var(--text-secondary); margin: 0.35rem 0;">"${enq.requirement}"</p>
+                <small style="color: var(--text-muted);">Preferred Date: ${enq.preferredDate || 'Earliest'} • Urgency: ${enq.urgency || 'Immediate'} • ${new Date(enq.timestamp || Date.now()).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</small>
+              </div>
+              <div style="text-align: right; display: flex; flex-direction: column; gap: 0.4rem;">
+                <a href="tel:${(enq.customerPhone || '').replace(/\s+/g, '')}" class="action-btn action-btn-primary" style="padding: 0.35rem 0.75rem; font-size: 0.82rem; text-decoration: none; text-align: center;">📞 Call Customer</a>
+                <button class="action-btn action-btn-outline" style="font-size: 0.8rem; padding: 0.3rem 0.6rem;" onclick="window.LocalCare.showToast('Enquiry marked as Contacted', 'success')">Mark Responded</button>
+              </div>
+            </div>
+          </div>
+        `).join('')}
+
         <div class="dash-booking-card" style="padding: 1.25rem;">
           <div style="display: flex; justify-content: space-between;">
             <div>
@@ -824,6 +850,133 @@ window.BusinessDashboard = (function () {
     }
   }
 
+  let activeBusinessPlan = (() => {
+    try {
+      return localStorage.getItem('localcare_biz_plan') || 'Free Starter';
+    } catch (e) {
+      return 'Free Starter';
+    }
+  })();
+
+  function renderPlansTab(space) {
+    space.innerHTML = `
+      <div class="biz-tab-title-line">
+        <h4>Commercial Growth, Subscriptions & Sponsored Ads</h4>
+        <span class="text-success" style="font-weight: 700; font-size: 0.85rem;">Active Tier: <strong>${activeBusinessPlan}</strong></span>
+      </div>
+
+      <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 1.25rem;">
+        Skyrocket your customer enquiries across your city with transparent commercial subscription tiers, verified trust badges, and sponsored search placements.
+      </p>
+
+      <div class="sub-plans-grid">
+        <!-- Free Starter -->
+        <div class="sub-plan-card ${activeBusinessPlan === 'Free Starter' ? 'featured' : ''}">
+          <div class="sub-plan-header">
+            <div class="sub-plan-name">Free Starter</div>
+            <div class="sub-plan-price">₹0 <span>/ month</span></div>
+            <small style="color: var(--text-muted);">Standard organic local directory presence</small>
+          </div>
+          <ul class="sub-features-list">
+            <li><span class="check">✓</span> 1 Business Listing & Contact Info</li>
+            <li><span class="check">✓</span> Customer Direct Phone Enquiries</li>
+            <li><span class="check">✓</span> Basic Review Collection</li>
+            <li><span class="check">✓</span> Standard Search Ranking</li>
+          </ul>
+          <button class="action-btn action-btn-outline" disabled style="width: 100%;">
+            ${activeBusinessPlan === 'Free Starter' ? 'Current Active Plan' : 'Free Tier'}
+          </button>
+        </div>
+
+        <!-- Silver Growth -->
+        <div class="sub-plan-card ${activeBusinessPlan === 'Silver Growth' ? 'featured' : ''}">
+          <div class="sub-plan-header">
+            <div class="sub-plan-name">Silver Growth</div>
+            <div class="sub-plan-price">₹999 <span>/ month</span></div>
+            <small style="color: var(--text-muted);">For expanding local workshops & clinics</small>
+          </div>
+          <ul class="sub-features-list">
+            <li><span class="check">✓</span> Everything in Starter</li>
+            <li><span class="check">✓</span> <strong>Verified Partner Checkmark</strong> (+45% trust)</li>
+            <li><span class="check">✓</span> Priority Search Ranking in Locality</li>
+            <li><span class="check">✓</span> Direct WhatsApp Instant Leads</li>
+            <li><span class="check">✓</span> Up to 25 Rate Card Services & Gallery</li>
+            <li><span class="check">✓</span> 5% Booking Commission Rate</li>
+          </ul>
+          <button class="action-btn ${activeBusinessPlan === 'Silver Growth' ? 'action-btn-outline' : 'action-btn-primary'}" 
+            onclick="window.BusinessDashboard.upgradePlan('Silver Growth', 999)" style="width: 100%;">
+            ${activeBusinessPlan === 'Silver Growth' ? '✓ Currently Subscribed' : 'Upgrade to Silver (₹999)'}
+          </button>
+        </div>
+
+        <!-- Gold Pro Business -->
+        <div class="sub-plan-card ${activeBusinessPlan === 'Gold Pro' ? 'featured' : ''}" style="border: 2px solid var(--primary); box-shadow: 0 8px 24px -4px var(--primary-glow);">
+          <div style="position: absolute; top: -12px; right: 18px; background: var(--primary); color: #fff; font-size: 0.7rem; font-weight: 800; padding: 2px 10px; border-radius: var(--radius-full); text-transform: uppercase; letter-spacing: 0.5px;">
+            MOST POPULAR
+          </div>
+          <div class="sub-plan-header">
+            <div class="sub-plan-name">Gold Pro Business</div>
+            <div class="sub-plan-price">₹2,499 <span>/ month</span></div>
+            <small style="color: var(--text-muted);">Dominant local category placement</small>
+          </div>
+          <ul class="sub-features-list">
+            <li><span class="check">✓</span> Everything in Silver</li>
+            <li><span class="check">✓</span> <strong>Top 3 Guaranteed Placement</strong> in Category</li>
+            <li><span class="check">✓</span> <strong>Unlimited AI Smart Quotes</strong> Auto-drafting</li>
+            <li><span class="check">✓</span> <strong>0% Commission</strong> on Direct Platform Bookings</li>
+            <li><span class="check">✓</span> Real-Time SMS & Push Leads to Phone</li>
+            <li><span class="check">✓</span> Shield Property Damage Guarantee Eligible</li>
+          </ul>
+          <button class="action-btn ${activeBusinessPlan === 'Gold Pro' ? 'action-btn-outline' : 'action-btn-primary'}" 
+            onclick="window.BusinessDashboard.upgradePlan('Gold Pro', 2499)" style="width: 100%;">
+            ${activeBusinessPlan === 'Gold Pro' ? '✓ Currently Subscribed' : 'Upgrade to Gold Pro (₹2,499)'}
+          </button>
+        </div>
+
+        <!-- Platinum Enterprise -->
+        <div class="sub-plan-card ${activeBusinessPlan === 'Platinum Enterprise' ? 'featured' : ''}">
+          <div class="sub-plan-header">
+            <div class="sub-plan-name">Platinum Enterprise</div>
+            <div class="sub-plan-price">₹4,999 <span>/ month</span></div>
+            <small style="color: var(--text-muted);">Multi-branch businesses & chains</small>
+          </div>
+          <ul class="sub-features-list">
+            <li><span class="check">✓</span> Everything in Gold</li>
+            <li><span class="check">✓</span> <strong>#1 Sponsored Top Spotlight</strong> (All Localities)</li>
+            <li><span class="check">✓</span> <strong>Multi-Location Support</strong> (Up to 5 Branches)</li>
+            <li><span class="check">✓</span> CareAI Voice Concierge Priority Referral</li>
+            <li><span class="check">✓</span> Dedicated Account Manager & Weekly ROI</li>
+            <li><span class="check">✓</span> Custom B2B Wholesale Mart Storefront</li>
+          </ul>
+          <button class="action-btn ${activeBusinessPlan === 'Platinum Enterprise' ? 'action-btn-outline' : 'action-btn-primary'}" 
+            onclick="window.BusinessDashboard.upgradePlan('Platinum Enterprise', 4999)" style="width: 100%;">
+            ${activeBusinessPlan === 'Platinum Enterprise' ? '✓ Currently Subscribed' : 'Upgrade to Platinum (₹4,999)'}
+          </button>
+        </div>
+      </div>
+    `;
+  }
+
+  function upgradePlan(planName, price) {
+    activeBusinessPlan = planName;
+    try {
+      localStorage.setItem('localcare_biz_plan', planName);
+    } catch (e) {}
+    renderActiveBizTab();
+    if (window.LocalCare && window.LocalCare.showToast) {
+      window.LocalCare.showToast(`🎉 Upgraded to ${planName} (₹${price}/mo)! Your premium benefits are active immediately.`, 'success', 6000);
+    }
+    if (window.LocalCare && window.LocalCare.addNotification) {
+      window.LocalCare.addNotification({
+        title: `Plan Upgrade: ${planName}`,
+        desc: `Your subscription to ${planName} (₹${price}/mo) is now active. Enjoy priority ranking & instant leads!`,
+        icon: '💎',
+        actionType: 'none'
+      });
+    }
+    if (window.SoundFX) window.SoundFX.playSuccess();
+  }
+
   function switchTab(tabName) {
     currentBizTab = tabName;
     document.querySelectorAll('.biz-nav-item').forEach(b => {
@@ -843,6 +996,7 @@ window.BusinessDashboard = (function () {
     applyAiReviewReply,
     postAiReviewReply,
     toggleSurgePricing,
-    broadcastPartnerAvailability
+    broadcastPartnerAvailability,
+    upgradePlan
   };
 })();

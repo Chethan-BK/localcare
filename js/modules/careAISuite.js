@@ -1155,6 +1155,24 @@ window.CareAISuite = (function () {
   }
 
   function initModals() {
+    // Backdrop click dismiss for all CareAI dialogs
+    ['aiScannerDialog', 'aiMatchmakerDialog', 'aiPrescriptionDialog', 'aiVoiceTriageDialog'].forEach(id => {
+      const dlg = document.getElementById(id);
+      if (dlg) {
+        dlg.addEventListener('click', (e) => {
+          const rect = dlg.getBoundingClientRect();
+          if (
+            e.clientX < rect.left ||
+            e.clientX > rect.right ||
+            e.clientY < rect.top ||
+            e.clientY > rect.bottom
+          ) {
+            dlg.close();
+          }
+        });
+      }
+    });
+
     // Esc key closes modals
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {

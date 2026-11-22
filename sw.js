@@ -1,43 +1,55 @@
 /* ==========================================================================
    LocalCare Infinity - Service Worker (sw.js)
-   Provides offline shell caching, fast asset loading, and graceful offline fallback.
+   Production Network-First strategy with offline shell fallback.
+   Ensures instantaneous delivery of new features without stale cache trapping.
    ========================================================================== */
 
-const CACHE_NAME = 'localcare-infinity-v1';
+const CACHE_NAME = 'localcare-infinity-v4.1.0';
 const STATIC_SHELL = [
   '/',
   '/index.html',
+  '/admin-crm.html',
   '/manifest.json',
   '/css/variables.css',
   '/css/style.css',
+  '/css/ultra.css',
   '/js/data.js',
+  '/js/indiaLocations.js',
+  '/js/modules/icons.js',
+  '/js/ultra.js',
   '/js/app.js',
-  '/icons/icon.svg'
+  '/icons/icon.svg',
+  '/icons/icon-192.svg',
+  '/icons/icon-512.svg'
 ];
 
 // Install: Cache critical application shell
 self.addEventListener('install', (event) => {
+  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll(STATIC_SHELL).catch((err) => {
         console.warn('Non-fatal SW cache.addAll warning:', err);
       });
-    }).then(() => self.skipWaiting())
+    })
   );
 });
 
-// Activate: Purge stale caches
+// Activate: Aggressively purge all old stale caches
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) => {
       return Promise.all(
-        keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))
+        keys.filter((key) => key !== CACHE_NAME).map((key) => {
+          console.log('[SW] Purging stale cache:', key);
+          return caches.delete(key);
+        })
       );
     }).then(() => self.clients.claim())
   );
 });
 
-// Fetch: Strategy depending on request type
+// Fetch: Network-First strategy for instant updates & offline fallback
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
 
@@ -46,12 +58,11 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // 2. API calls: Network-first, fallback to cache for public discovery, no private caching
+  // 2. API calls: Network-first
   if (url.pathname.startsWith('/api/')) {
     event.respondWith(
       fetch(event.request)
         .then((response) => {
-          // Cache successful public read endpoints
           if (response.ok && (url.pathname === '/api/categories' || url.pathname === '/api/businesses')) {
             const clone = response.clone();
             caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
@@ -59,7 +70,6 @@ self.addEventListener('fetch', (event) => {
           return response;
         })
         .catch(() => {
-          // If offline, attempt cache return for categories/businesses
           return caches.match(event.request).then((cached) => {
             if (cached) return cached;
             return new Response(JSON.stringify({ offline: true, error: 'Offline mode: reconnect to fetch fresh updates' }), {
@@ -71,28 +81,26 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // 3. Static assets & HTML navigation: Stale-While-Revalidate
+  // 3. Static assets & HTML navigation: NETWORK-FIRST (Always fetch fresh, fallback to cache if offline)
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      const fetchPromise = fetch(event.request)
-        .then((networkResponse) => {
-          if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
-            const responseToCache = networkResponse.clone();
-            caches.open(CACHE_NAME).then((cache) => {
-              cache.put(event.request, responseToCache);
-            });
-          }
-          return networkResponse;
-        })
-        .catch(() => {
-          // Offline fallback for navigation to HTML pages
+    fetch(event.request)
+      .then((networkResponse) => {
+        if (networkResponse && networkResponse.status === 200) {
+          const responseToCache = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, responseToCache);
+          });
+        }
+        return networkResponse;
+      })
+      .catch(() => {
+        return caches.match(event.request).then((cachedResponse) => {
+          if (cachedResponse) return cachedResponse;
           if (event.request.mode === 'navigate') {
             return caches.match('/index.html');
           }
           return null;
         });
-
-      return cachedResponse || fetchPromise;
-    })
+      })
   );
 });

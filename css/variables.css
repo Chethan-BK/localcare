@@ -1,189 +1,376 @@
 /* ==========================================================================
-   Local Care - Modern Indian Startup Design Tokens & System Variables
-   Combines sleek glassmorphism, curated HSL color tokens, and full dark-mode support
+   Local Care Infinity — Premium Design System v3.3.0
+   Next-generation Indian startup design tokens: 
+   Ultra-crisp, glassmorphic, cinematic — inspired by Linear, Vercel, Swiggy
    ========================================================================== */
 
 :root {
-  /* Brand Color Palette - Energetic Tangerine / Saffron (Indian Unicorn standard) */
-  --primary-hue: 24;
-  --primary-sat: 100%;
-  --primary-light: 50%;
-  --primary: #ff6800;
-  --primary-hover: #ea580c;
-  --primary-active: #c2410c;
-  --primary-lightest: #fff7ed;
-  --primary-glow: rgba(255, 104, 0, 0.22);
-  --primary-gradient: linear-gradient(135deg, #ff6800 0%, #ff8533 50%, #f97316 100%);
-  --primary-gradient-subtle: linear-gradient(135deg, rgba(255, 104, 0, 0.08) 0%, rgba(249, 115, 22, 0.02) 100%);
-  
-  /* Midnight Navy Palette */
-  --navy-950: #060911;
-  --navy-900: #0a0f1d;
-  --navy-850: #0f172a;
-  --navy-800: #141e33;
-  --navy-700: #1e2c47;
-  --navy-600: #2b3e63;
+  /* ─── Brand Color Palette: Energetic Saffron-Orange ─── */
+  --primary:               #ff6800;
+  --primary-hover:         #ea580c;
+  --primary-active:        #c2410c;
+  --primary-lightest:      #fff7ed;
+  --primary-glow:          rgba(255, 104, 0, 0.25);
+  --primary-gradient:      linear-gradient(135deg, #ff6800 0%, #f97316 50%, #ea580c 100%);
+  --primary-gradient-subtle: linear-gradient(135deg, rgba(255,104,0,0.08) 0%, rgba(249,115,22,0.02) 100%);
+  --primary-glow-lg:       0 8px 32px rgba(255, 104, 0, 0.4);
 
-  /* Secondary Accent - Deep Royal Indigo */
-  --secondary: #4f46e5;
-  --secondary-hover: #4338ca;
-  --secondary-light: #eef2ff;
+  /* ─── Deep Navy Palette ─── */
+  --navy-950: #020408;
+  --navy-900: #060911;
+  --navy-850: #0a0f1d;
+  --navy-800: #0d1117;
+  --navy-700: #161b22;
+  --navy-600: #1c2433;
 
-  /* AI Accent - Intelligence Purple */
-  --ai-purple: #6366f1;
-  --ai-purple-hover: #4f46e5;
-  --ai-purple-light: #eef2ff;
-  --ai-purple-glow: rgba(99, 102, 241, 0.25);
-  --ai-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+  /* ─── Secondary: Royal Indigo ─── */
+  --secondary:             #4f46e5;
+  --secondary-hover:       #4338ca;
+  --secondary-light:       #eef2ff;
 
-  /* Status Colors */
-  --success: #10b981;
-  --success-hover: #059669;
-  --success-light: #ecfdf5;
-  --success-border: #a7f3d0;
-  --warning: #f59e0b;
-  --warning-light: #fffbeb;
-  --danger: #ef4444;
-  --danger-light: #fef2f2;
-  --info: #0284c7;
-  --info-light: #f0f9ff;
+  /* ─── AI Accent: Intelligence Purple ─── */
+  --ai-purple:             #7c3aed;
+  --ai-purple-hover:       #6d28d9;
+  --ai-purple-light:       #f5f3ff;
+  --ai-purple-glow:        rgba(124, 58, 237, 0.28);
+  --ai-gradient:           linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+  --ai-gradient-glow:      0 6px 24px rgba(124, 58, 237, 0.35);
 
-  /* Verification & Trust */
-  --verified-gold: #f59e0b;
-  --verified-blue: #2563eb;
-  --verified-emerald: #059669;
+  /* ─── Status Colors ─── */
+  --success:               #10b981;
+  --success-hover:         #059669;
+  --success-light:         #ecfdf5;
+  --success-border:        #a7f3d0;
+  --warning:               #f59e0b;
+  --warning-hover:         #d97706;
+  --warning-light:         #fffbeb;
+  --danger:                #ef4444;
+  --danger-hover:          #dc2626;
+  --danger-light:          #fef2f2;
+  --info:                  #0284c7;
+  --info-light:            #f0f9ff;
 
-  /* Typography */
-  --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  /* ─── Trust / Verification ─── */
+  --verified-gold:         #f59e0b;
+  --verified-blue:         #2563eb;
+  --verified-emerald:      #059669;
+
+  /* ─── Typography ─── */
+  --font-main:    'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-heading: 'Outfit', var(--font-main);
+  --font-mono:    'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
 
-  /* Light Theme (Default) */
-  --bg-body: #f8fafc;
-  --bg-surface: #ffffff;
-  --bg-surface-elevated: #ffffff;
-  --bg-surface-hover: #f1f5f9;
-  --bg-input: #f8fafc;
-  --bg-subtle: #f1f5f9;
-  --border-subtle: #e2e8f0;
-  --border-focus: var(--primary);
-  
-  --text-primary: #0f172a;
-  --text-secondary: #475569;
-  --text-muted: #94a3b8;
-  --text-inverse: #ffffff;
+  /* ─── Light Theme (Default) ─── */
+  --bg-body:              #f0f4fa;
+  --bg-surface:           #ffffff;
+  --bg-surface-elevated:  #ffffff;
+  --bg-surface-hover:     #f1f5f9;
+  --bg-input:             #f8fafc;
+  --bg-subtle:            #f1f5f9;
+  --border-subtle:        #e2e8f0;
+  --border-focus:         var(--primary);
+  --border-strong:        #cbd5e1;
 
-  /* Map Vector Theme */
-  --map-bg: #e2e8f0;
-  --map-grid: rgba(148, 163, 184, 0.4);
-  --map-water: #bae6fd;
-  --map-road: #ffffff;
-  --map-highway: #fde047;
-  --map-park: #dcfce7;
-  --map-park-label: #15803d;
+  --text-primary:         #0f172a;
+  --text-secondary:       #475569;
+  --text-muted:           #94a3b8;
+  --text-inverse:         #ffffff;
+  --text-link:            #ff6800;
 
-  /* Glassmorphism */
-  --glass-bg: rgba(255, 255, 255, 0.88);
-  --glass-border: rgba(226, 232, 240, 0.85);
-  --glass-blur: blur(20px) saturate(180%);
+  /* ─── Map / Geospatial ─── */
+  --map-bg:               #e8edf4;
+  --map-grid:             rgba(148, 163, 184, 0.35);
+  --map-water:            #bfdbfe;
+  --map-road:             #ffffff;
+  --map-highway:          #fde047;
+  --map-park:             #d1fae5;
+  --map-park-label:       #15803d;
 
-  /* Shadows & Elevation */
-  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-sm: 0 1px 3px 0 rgba(15, 23, 42, 0.08), 0 1px 2px -1px rgba(15, 23, 42, 0.08);
-  --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.08), 0 2px 4px -2px rgba(15, 23, 42, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.04);
-  --shadow-xl: 0 20px 25px -5px rgba(15, 23, 42, 0.1), 0 8px 10px -6px rgba(15, 23, 42, 0.05);
-  --shadow-card: 0 4px 20px -2px rgba(15, 23, 42, 0.06), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
-  --shadow-card-hover: 0 20px 32px -8px rgba(15, 23, 42, 0.14), 0 8px 14px -3px rgba(15, 23, 42, 0.06);
-  --shadow-floating: 0 24px 48px -12px rgba(15, 23, 42, 0.18), 0 12px 24px -6px rgba(15, 23, 42, 0.08);
-  --shadow-glow: 0 0 28px rgba(255, 104, 0, 0.28);
-  --shadow-orange-glow: 0 8px 24px -4px rgba(255, 104, 0, 0.38);
+  /* ─── Glassmorphism ─── */
+  --glass-bg:             rgba(255, 255, 255, 0.88);
+  --glass-border:         rgba(226, 232, 240, 0.80);
+  --glass-blur:           blur(24px) saturate(200%);
+  --glass-bg-dark:        rgba(13, 17, 23, 0.88);
 
-  /* Radii */
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 18px;
-  --radius-xl: 26px;
-  --radius-full: 9999px;
+  /* ─── Shadows — Dramatic & Beautiful ─── */
+  --shadow-xs:    0 1px 2px rgba(0,0,0,0.04);
+  --shadow-sm:    0 1px 4px rgba(15,23,42,0.06), 0 1px 2px rgba(15,23,42,0.04);
+  --shadow-md:    0 4px 12px rgba(15,23,42,0.08), 0 2px 4px rgba(15,23,42,0.04);
+  --shadow-lg:    0 10px 24px rgba(15,23,42,0.1), 0 4px 8px rgba(15,23,42,0.04);
+  --shadow-xl:    0 20px 40px rgba(15,23,42,0.12), 0 8px 16px rgba(15,23,42,0.06);
+  --shadow-2xl:   0 32px 64px rgba(15,23,42,0.16), 0 16px 32px rgba(15,23,42,0.08);
+  --shadow-card:      0 2px 8px rgba(15,23,42,0.06), 0 1px 3px rgba(15,23,42,0.04);
+  --shadow-card-hover: 0 20px 40px rgba(15,23,42,0.14), 0 8px 16px rgba(15,23,42,0.06);
+  --shadow-floating:  0 24px 48px rgba(15,23,42,0.18), 0 12px 24px rgba(15,23,42,0.08);
+  --shadow-glow:       0 0 32px rgba(255,104,0,0.30);
+  --shadow-orange-glow: 0 8px 28px rgba(255,104,0,0.40);
+  --shadow-purple-glow: 0 8px 24px rgba(124,58,237,0.35);
+  --shadow-green-glow:  0 8px 24px rgba(16,185,129,0.3);
 
-  /* Transitions */
-  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  /* ─── Category Glow Colors ─── */
+  --glow-health:    rgba(16, 185, 129, 0.3);
+  --glow-electrical: rgba(245, 158, 11, 0.3);
+  --glow-home:      rgba(59, 130, 246, 0.3);
+  --glow-food:      rgba(239, 68, 68, 0.3);
+  --glow-salon:     rgba(236, 72, 153, 0.3);
+  --glow-cleaning:  rgba(139, 92, 246, 0.3);
+  --glow-auto:      rgba(99, 102, 241, 0.3);
+  --glow-emergency: rgba(220, 38, 38, 0.35);
+  --glow-stays:     rgba(6, 182, 212, 0.3);
+  --glow-tutor:     rgba(20, 184, 166, 0.3);
+  --glow-tech:      rgba(100, 116, 139, 0.3);
+  --glow-events:    rgba(249, 115, 22, 0.3);
+
+  /* ─── Border Radii ─── */
+  --radius-sm:    10px;
+  --radius-md:    14px;
+  --radius-lg:    20px;
+  --radius-xl:    28px;
+  --radius-2xl:   36px;
+  --radius-full:  9999px;
+
+  /* ─── Transitions ─── */
+  --transition-fast:   0.15s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow:   0.4s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-bounce: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition-spring: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
-  /* WhatsApp & Chat Theme */
-  --wa-green: #25d366;
-  --wa-teal: #075e54;
+  /* ─── WhatsApp Chat Theme ─── */
+  --wa-green:     #25d366;
+  --wa-teal:      #075e54;
   --wa-teal-dark: #128c7e;
-  --wa-chat-bg: #efeae2;
+  --wa-chat-bg:   #efeae2;
   --wa-bubble-in: #ffffff;
   --wa-bubble-out: #dcf8c6;
   --wa-tick-blue: #34b7f1;
 
-  /* Radar & Live Arena Palette */
-  --radar-green: #10b981;
-  --radar-glow: rgba(16, 185, 129, 0.35);
-  --radar-ring: rgba(16, 185, 129, 0.2);
-  --radar-amber: #f59e0b;
-  --radar-blue: #3b82f6;
+  /* ─── Radar & Live Arena ─── */
+  --radar-green:  #10b981;
+  --radar-glow:   rgba(16, 185, 129, 0.35);
+  --radar-ring:   rgba(16, 185, 129, 0.2);
+  --radar-amber:  #f59e0b;
+  --radar-blue:   #3b82f6;
 
-  /* Dimensions & Spacing Scale */
-  --header-height: 72px;
-  --announcement-height: 38px;
-  --bottom-nav-height: 68px;
-  --max-content-width: 1400px;
+  /* ─── Hero Gradients ─── */
+  --gradient-hero:      radial-gradient(ellipse 80% 60% at 50% -20%, rgba(255,104,0,0.14) 0%, transparent 60%),
+                        radial-gradient(ellipse 60% 40% at 80% 20%, rgba(99,102,241,0.07) 0%, transparent 50%),
+                        var(--bg-body);
+  --gradient-hero-dark: radial-gradient(ellipse 80% 60% at 50% -20%, rgba(255,104,0,0.20) 0%, transparent 60%),
+                        radial-gradient(ellipse 60% 40% at 80% 20%, rgba(124,58,237,0.12) 0%, transparent 50%),
+                        var(--bg-body);
+  --gradient-card:      linear-gradient(135deg, var(--bg-surface) 0%, var(--bg-subtle) 100%);
+  --gradient-dark-card: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%);
 
-  /* Z-Index Hierarchy */
-  --z-base: 1;
-  --z-dropdown: 100;
-  --z-sticky: 1000;
-  --z-header: 1100;
-  --z-announcement: 1150;
-  --z-floating-dock: 1200;
-  --z-drawer: 1300;
+  /* ─── Dimensions ─── */
+  --header-height:        70px;
+  --announcement-height:  36px;
+  --bottom-nav-height:    68px;
+  --max-content-width:    1440px;
+
+  /* ─── Z-Index Hierarchy ─── */
+  --z-base:           1;
+  --z-dropdown:       1200;
+  --z-sticky:         1000;
+  --z-header:         1100;
+  --z-announcement:   1150;
+  --z-floating-dock:  1200;
+  --z-drawer:         1300;
   --z-modal-backdrop: 1400;
-  --z-modal: 1500;
-  --z-toast: 2000;
-  --z-island: 999;
+  --z-modal:          1500;
+  --z-toast:          2000;
+  --z-island:         999;
 }
 
-/* Dark Theme Overrides - High Contrast Space Navy */
+/* ═══════════════════════════════════════════════════════════════════════════
+   DARK THEME — Deep Space Navy, High Contrast
+   ═══════════════════════════════════════════════════════════════════════════ */
 [data-theme="dark"] {
-  --bg-body: #060911;
-  --bg-surface: #0c1322;
-  --bg-surface-elevated: #121b30;
-  --bg-surface-hover: #19253f;
-  --bg-input: #0a101d;
-  --bg-subtle: #10192b;
-  --border-subtle: #1c2a44;
-  
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
-  --text-inverse: #060911;
+  /* ─── Backgrounds ─── */
+  --bg-body:              #030712;
+  --bg-surface:           #0d1117;
+  --bg-surface-elevated:  #161b22;
+  --bg-surface-hover:     #1c2433;
+  --bg-input:             #0a0f1d;
+  --bg-subtle:            #111827;
+  --border-subtle:        #21262d;
+  --border-strong:        #30363d;
 
-  /* Map Vector Theme Dark */
-  --map-bg: #0b111e;
-  --map-grid: rgba(51, 65, 85, 0.5);
-  --map-water: #0369a1;
-  --map-road: #19243a;
-  --map-highway: #854d0e;
-  --map-park: #064e3b;
-  --map-park-label: #34d399;
+  /* ─── Text ─── */
+  --text-primary:         #f0f6fc;
+  --text-secondary:       #8b949e;
+  --text-muted:           #484f58;
+  --text-inverse:         #030712;
 
-  --glass-bg: rgba(12, 19, 34, 0.88);
-  --glass-border: rgba(28, 42, 68, 0.85);
-  --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
-  --shadow-card-hover: 0 20px 32px -8px rgba(0, 0, 0, 0.65);
-  --shadow-glow: 0 0 32px rgba(255, 104, 0, 0.35);
+  /* ─── Map Dark ─── */
+  --map-bg:               #0a0f1a;
+  --map-grid:             rgba(33, 38, 45, 0.8);
+  --map-water:            #0c2a4a;
+  --map-road:             #161b22;
+  --map-highway:          #7c5c1a;
+  --map-park:             #0a2a1e;
+  --map-park-label:       #34d399;
 
-  --success-light: #064e3b;
-  --success-border: #047857;
-  --danger-light: #450a0a;
-  --warning-light: #451a03;
-  --info-light: #082f49;
+  /* ─── Glass Dark ─── */
+  --glass-bg:             rgba(13, 17, 23, 0.92);
+  --glass-border:         rgba(255, 255, 255, 0.07);
 
-  --wa-chat-bg: #0b141a;
-  --wa-bubble-in: #1f2c34;
-  --wa-bubble-out: #005c4b;
+  /* ─── Shadows Dark — Deeper & Moodier ─── */
+  --shadow-xs:        0 1px 2px rgba(0,0,0,0.3);
+  --shadow-sm:        0 1px 4px rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.3);
+  --shadow-md:        0 4px 12px rgba(0,0,0,0.5), 0 2px 4px rgba(0,0,0,0.3);
+  --shadow-lg:        0 10px 24px rgba(0,0,0,0.6), 0 4px 8px rgba(0,0,0,0.3);
+  --shadow-xl:        0 20px 40px rgba(0,0,0,0.7), 0 8px 16px rgba(0,0,0,0.4);
+  --shadow-2xl:       0 32px 64px rgba(0,0,0,0.8), 0 16px 32px rgba(0,0,0,0.5);
+  --shadow-card:      0 2px 8px rgba(0,0,0,0.4), 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-card-hover: 0 20px 40px rgba(0,0,0,0.6), 0 8px 16px rgba(0,0,0,0.4);
+  --shadow-glow:       0 0 32px rgba(255,104,0,0.40);
+  --shadow-orange-glow: 0 8px 28px rgba(255,104,0,0.50);
+
+  /* ─── Status Light Variants Dark ─── */
+  --success-light:    rgba(16, 185, 129, 0.12);
+  --success-border:   rgba(16, 185, 129, 0.3);
+  --warning-light:    rgba(245, 158, 11, 0.12);
+  --danger-light:     rgba(239, 68, 68, 0.12);
+  --info-light:       rgba(2, 132, 199, 0.12);
+  --secondary-light:  rgba(79, 70, 229, 0.15);
+
+  /* ─── Dark Hero Gradient ─── */
+  --gradient-hero: var(--gradient-hero-dark);
+
+  /* ─── WhatsApp Dark ─── */
+  --wa-chat-bg:     #0b141a;
+  --wa-bubble-in:   #1f2c34;
+  --wa-bubble-out:  #005c4b;
+}
+
+/* ==========================================================================
+   ULTRA v4.0.0 — Next-Generation Design Token Expansion
+   Cinematic gradients, neon glows, advanced animations, premium aesthetics
+   ========================================================================== */
+
+:root {
+  /* ─── Neon Glow Tokens ─── */
+  --neon-orange:        0 0 20px rgba(255,104,0,0.6), 0 0 40px rgba(255,104,0,0.3), 0 0 80px rgba(255,104,0,0.15);
+  --neon-purple:        0 0 20px rgba(124,58,237,0.6), 0 0 40px rgba(124,58,237,0.3), 0 0 80px rgba(124,58,237,0.15);
+  --neon-green:         0 0 20px rgba(16,185,129,0.6), 0 0 40px rgba(16,185,129,0.3), 0 0 80px rgba(16,185,129,0.15);
+  --neon-red:           0 0 20px rgba(239,68,68,0.6),  0 0 40px rgba(239,68,68,0.3),  0 0 80px rgba(239,68,68,0.15);
+
+  /* ─── Extended Spring & Bounce Curves ─── */
+  --spring-subtle:      cubic-bezier(0.34, 1.2, 0.64, 1);
+  --spring-bouncy:      cubic-bezier(0.175, 0.885, 0.32, 1.5);
+  --spring-snap:        cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-expo:       cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-out-expo:      cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* ─── Cinematic Gradient Expansions ─── */
+  --gradient-aurora:    linear-gradient(
+    135deg,
+    #ff6800 0%,
+    #f97316 15%,
+    #a855f7 40%,
+    #3b82f6 65%,
+    #10b981 85%,
+    #ff6800 100%
+  );
+  --gradient-sunset:    linear-gradient(135deg, #ff6800 0%, #dc2626 50%, #7c3aed 100%);
+  --gradient-ocean:     linear-gradient(135deg, #0284c7 0%, #10b981 50%, #059669 100%);
+  --gradient-fire:      linear-gradient(135deg, #fbbf24 0%, #f97316 40%, #ef4444 100%);
+  --gradient-royal:     linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #a855f7 100%);
+  --gradient-midnight:  linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+
+  /* ─── Mesh Gradient Backgrounds ─── */
+  --mesh-hero-light:
+    radial-gradient(at 20% 50%, rgba(255,104,0,0.12) 0%, transparent 50%),
+    radial-gradient(at 80% 20%, rgba(124,58,237,0.1) 0%, transparent 50%),
+    radial-gradient(at 50% 80%, rgba(16,185,129,0.08) 0%, transparent 50%),
+    var(--bg-body);
+  --mesh-hero-dark:
+    radial-gradient(at 20% 50%, rgba(255,104,0,0.2) 0%, transparent 50%),
+    radial-gradient(at 80% 20%, rgba(124,58,237,0.18) 0%, transparent 50%),
+    radial-gradient(at 50% 80%, rgba(16,185,129,0.12) 0%, transparent 50%),
+    var(--bg-body);
+
+  /* ─── Glass Effects Enhanced ─── */
+  --glass-ultra:        rgba(255, 255, 255, 0.92);
+  --glass-blur-ultra:   blur(40px) saturate(250%);
+  --glass-border-glow:  rgba(255, 104, 0, 0.25);
+
+  /* ─── Typography Extended ─── */
+  --font-display:       'Outfit', var(--font-heading);
+  --text-xs:            0.72rem;
+  --text-sm:            0.85rem;
+  --text-base:          1rem;
+  --text-lg:            1.125rem;
+  --text-xl:            1.25rem;
+  --text-2xl:           1.5rem;
+  --text-3xl:           1.875rem;
+  --text-4xl:           2.25rem;
+  --text-5xl:           3rem;
+
+  /* ─── Spacing Scale ─── */
+  --space-1:   0.25rem;
+  --space-2:   0.5rem;
+  --space-3:   0.75rem;
+  --space-4:   1rem;
+  --space-5:   1.25rem;
+  --space-6:   1.5rem;
+  --space-8:   2rem;
+  --space-10:  2.5rem;
+  --space-12:  3rem;
+  --space-16:  4rem;
+  --space-20:  5rem;
+
+  /* ─── Advanced Border Radius ─── */
+  --radius-xs:   6px;
+  --radius-3xl:  48px;
+  --radius-card: 20px;
+  --radius-modal: 24px;
+
+  /* ─── Card Specific Shadows ─── */
+  --shadow-card-premium: 
+    0 0 0 1px rgba(0,0,0,0.04),
+    0 4px 16px rgba(0,0,0,0.08),
+    0 8px 32px rgba(0,0,0,0.04);
+  --shadow-card-premium-hover:
+    0 0 0 1px rgba(255,104,0,0.12),
+    0 16px 48px rgba(0,0,0,0.16),
+    0 8px 24px rgba(0,0,0,0.08);
+  --shadow-glass:
+    0 8px 32px rgba(31, 38, 135, 0.08),
+    0 2px 8px rgba(31, 38, 135, 0.04),
+    inset 0 1px 0 rgba(255,255,255,0.6);
+  --shadow-focus-orange: 0 0 0 3px rgba(255,104,0,0.15), 0 0 0 1px rgba(255,104,0,0.4);
+  --shadow-focus-purple: 0 0 0 3px rgba(124,58,237,0.15), 0 0 0 1px rgba(124,58,237,0.4);
+
+  /* ─── Z-index Expansions ─── */
+  --z-particles:        0;
+  --z-scroll-progress:  9999;
+  --z-floating-ai:      2100;
+  --z-command-palette:  2200;
+
+  /* ─── New Component Tokens ─── */
+  --particle-size:         8px;
+  --scroll-progress-h:     3px;
+  --floating-orb-size:     52px;
+  --stat-card-padding:     2rem 1.5rem;
+  --trust-marquee-h:       48px;
+}
+
+/* ─── Dark Mode Enhanced Tokens ─── */
+[data-theme="dark"] {
+  --glass-ultra:        rgba(13, 17, 23, 0.92);
+  --glass-border-glow:  rgba(255, 104, 0, 0.35);
+  --mesh-hero-dark-bg:
+    radial-gradient(at 20% 50%, rgba(255,104,0,0.25) 0%, transparent 50%),
+    radial-gradient(at 80% 20%, rgba(124,58,237,0.22) 0%, transparent 50%),
+    var(--bg-body);
+  --shadow-card-premium:
+    0 0 0 1px rgba(255,255,255,0.04),
+    0 4px 16px rgba(0,0,0,0.4),
+    0 8px 32px rgba(0,0,0,0.2);
+  --shadow-card-premium-hover:
+    0 0 0 1px rgba(255,104,0,0.2),
+    0 16px 48px rgba(0,0,0,0.6),
+    0 8px 24px rgba(0,0,0,0.4);
 }

@@ -41,12 +41,18 @@ window.AdminPanel = (function () {
           <button class="jdpay-tab-btn admin-tab-btn" data-tab="categories" onclick="window.AdminPanel.switchTab('categories')">
             <span>🏷️</span> Category Manager
           </button>
+          <button class="jdpay-tab-btn admin-tab-btn" data-tab="moderation" onclick="window.AdminPanel.switchTab('moderation')">
+            <span>⚖️</span> Review Moderation
+          </button>
           <button class="jdpay-tab-btn admin-tab-btn" data-tab="audit" onclick="window.AdminPanel.switchTab('audit')">
             <span>📜</span> System Audit Logs
           </button>
           <button class="jdpay-tab-btn admin-tab-btn" data-tab="shield" onclick="window.AdminPanel.switchTab('shield')">
             <span>🔒</span> Trust & Fraud Shield
           </button>
+          <a href="/admin-crm.html" class="jdpay-tab-btn admin-tab-btn" style="text-decoration: none; color: #ff6800; font-weight: 700; margin-left: auto;" title="Launch Central Management System & 9-Tab Google Sheets CRM">
+            <span>⚡</span> Open Central CRM & Sheets ➔
+          </a>
         </div>
 
         <div class="dialog-body admin-modal-body" style="padding: 1.5rem; max-height: 70vh; overflow-y: auto;">
@@ -126,6 +132,8 @@ window.AdminPanel = (function () {
       renderKycTab(space);
     } else if (tab === 'categories') {
       renderCategoriesTab(space);
+    } else if (tab === 'moderation') {
+      renderModerationTab(space);
     } else if (tab === 'audit') {
       renderAuditTab(space);
     } else if (tab === 'shield') {
@@ -330,11 +338,96 @@ window.AdminPanel = (function () {
     `;
   }
 
+  function renderModerationTab(space) {
+    const queue = [
+      {
+        id: 'rev-mod-1',
+        businessName: 'Dr. Suresh Rao Dental Clinic',
+        author: 'Ramesh K.',
+        rating: 1,
+        date: 'Today, 2:15 PM',
+        comment: 'Technician reached 40 minutes late without safety mask. Completely unacceptable service.',
+        flagReason: 'Disputed by business owner (Claims customer was not present at premises)',
+        trustScore: 82
+      },
+      {
+        id: 'rev-mod-2',
+        businessName: 'QuickFix AC & Refrigerator Pro',
+        author: 'Anonymous User',
+        rating: 5,
+        date: 'Yesterday, 8:40 PM',
+        comment: 'Call 9845012345 for cheap electrical wires best rates wholesale discount direct buy.',
+        flagReason: 'AI NLP Spam Classifier: Commercial link/spam telephone pattern detected',
+        trustScore: 24
+      }
+    ];
+
+    space.innerHTML = `
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <div>
+          <h4 style="font-size: 1.05rem; font-weight: 700;">Content Moderation & Dispute Queue (${queue.length})</h4>
+          <small style="color: var(--text-muted);">Independent ombudsman review for disputed feedback & spam reports</small>
+        </div>
+        <span class="badge-count" style="background: var(--warning); color: #000; font-size: 0.75rem; padding: 2px 8px;">2 Action Required</span>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 0.85rem;">
+        ${queue.map(item => `
+          <div class="admin-mod-card" id="${item.id}" style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem;">
+              <div>
+                <strong style="font-size: 1rem; color: var(--text-primary);">${item.businessName}</strong>
+                <div style="font-size: 0.82rem; color: var(--text-secondary); margin-top: 0.15rem;">
+                  Review by <strong>${item.author}</strong> • ${'★'.repeat(item.rating)}${'☆'.repeat(5 - item.rating)} (${item.rating}/5) • ${item.date}
+                </div>
+              </div>
+              <span style="font-size: 0.75rem; padding: 2px 8px; border-radius: 4px; background: #fee2e2; color: #991b1b; font-weight: 700;">
+                Flagged
+              </span>
+            </div>
+
+            <div style="background: var(--bg-subtle); padding: 0.75rem; border-radius: var(--radius-sm); font-size: 0.85rem; color: var(--text-primary); margin-bottom: 0.65rem; border-left: 3px solid var(--primary);">
+              "${item.comment}"
+            </div>
+
+            <div style="font-size: 0.8rem; color: #b45309; background: #fef3c7; padding: 0.4rem 0.65rem; border-radius: 4px; margin-bottom: 0.85rem;">
+              ⚠️ <strong>Reason:</strong> ${item.flagReason}
+            </div>
+
+            <div style="display: flex; gap: 0.5rem; justify-content: flex-end; flex-wrap: wrap;">
+              <button class="action-btn action-btn-outline" style="font-size: 0.8rem; padding: 0.35rem 0.85rem;" onclick="window.AdminPanel.moderateReview('dismiss', '${item.id}')">
+                ✓ Dismiss Flag (Keep Review)
+              </button>
+              <button class="action-btn action-btn-danger" style="font-size: 0.8rem; padding: 0.35rem 0.85rem; background: var(--danger); color: #fff;" onclick="window.AdminPanel.moderateReview('remove', '${item.id}')">
+                🗑️ Remove Review
+              </button>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  function moderateReview(action, id) {
+    const card = document.getElementById(id);
+    if (card) {
+      card.style.opacity = '0.5';
+      card.style.pointerEvents = 'none';
+      setTimeout(() => card.remove(), 400);
+    }
+    const msg = action === 'remove' ? 'Spam review permanently removed from listing.' : 'Flag dismissed. Review approved and marked authentic.';
+    if (window.LocalCare && window.LocalCare.showToast) {
+      window.LocalCare.showToast(msg, 'success');
+    }
+    if (window.SoundFX) window.SoundFX.playSuccess();
+  }
+
   return {
     init,
     openAdmin,
     switchTab,
     approveListing,
-    promptNewCategory
+    promptNewCategory,
+    moderateReview
   };
 })();

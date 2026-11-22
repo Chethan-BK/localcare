@@ -88,7 +88,7 @@
     },
     {
       id: 'b2b',
-      name: 'JD Mart Wholesale',
+      name: 'LocalCare Mart B2B',
       icon: '🏭',
       badge: 'B2B Bulk',
       badgeClass: 'jd-badge-gold',
@@ -96,7 +96,7 @@
     },
     {
       id: 'jdpay',
-      name: 'Bills & Recharge',
+      name: 'LocalCare Pay',
       icon: '💳',
       badge: 'Cashback',
       badgeClass: 'jd-badge-green',
@@ -733,7 +733,7 @@
             Txn ID: <strong>${txId}</strong> • Operator Ref: 2026-${Date.now().toString().slice(-6)}
           </div>
           <div style="font-weight: 800; color: #b45309; font-size: 0.88rem;">
-            🎁 ₹${cashback} Instant JD Pay Cashback Credited to Wallet!
+            🎁 ₹${cashback} Instant LocalCare Pay Cashback Credited to Wallet!
           </div>
         </div>
       `;
@@ -780,7 +780,7 @@
               <div style="font-size: 1.5rem; font-weight: 800; color: var(--primary);">₹${amount}</div>
             </div>
             <button class="action-btn action-btn-primary" onclick="window.JDFeatures.payElectricityBill()">
-              Pay ₹${amount} via JD Pay ➔
+              Pay ₹${amount} via LocalCare Pay ➔
             </button>
           </div>
         </div>
@@ -807,14 +807,14 @@
             Paid ₹${paidAmount} to <strong>${boardName}</strong> (Consumer: ${cid})
           </p>
           <div style="font-weight: 800; color: #b45309; font-size: 0.88rem;">
-            🎉 Flat 5% JD Pay Discount Applied (Saved ₹${discount})
+            🎉 Flat 5% LocalCare Pay Discount Applied (Saved ₹${discount})
           </div>
         </div>
       `;
     }
 
     if (window.SoundFX) window.SoundFX.playSuccess();
-    showToast(`Bill paid! Saved ₹${discount} via JD Pay`, 'success');
+    showToast(`Bill paid! Saved ₹${discount} via LocalCare Pay`, 'success');
   }
 
   /* ==========================================================================
@@ -1022,7 +1022,7 @@
     }
 
     if (jdState.b2bModeActive) {
-      showToast('Switched to JD Mart B2B Wholesale Mode (MOQ & Bulk Rates)', 'success');
+      showToast('Switched to LocalCare Mart B2B Wholesale Mode (MOQ & Bulk Rates)', 'success');
     } else {
       showToast('Exited B2B Wholesale Mode', 'info');
     }
@@ -1217,7 +1217,7 @@
       answer = `⚡ <strong>Yes, absolutely!</strong> We have 2 technicians on duty near <strong>${escapeHtml(biz.locality)}</strong> today. Earliest arrival window is within <strong>35 minutes</strong>.`;
     } else if (replyKey === 'discount') {
       question = 'Do you have any ongoing discounts or coupons?';
-      answer = `🎁 <strong>Exclusive LocalCare Offer:</strong> Use coupon <strong>LOCAL50</strong> to get flat ₹50 OFF + 5% cashback when paying via JD Pay!`;
+      answer = `🎁 <strong>Exclusive LocalCare Offer:</strong> Use coupon <strong>LOCAL50</strong> to get flat ₹50 OFF + 5% cashback when paying via LocalCare Pay!`;
     } else if (replyKey === 'address') {
       question = 'Where is your clinic/workshop located?';
       answer = `📍 <strong>Our Location:</strong> 14th Main Road, ${escapeHtml(biz.locality)}, ${escapeHtml(biz.city)}.<br/><em>Landmark: 200m from Main Metro Station.</em>`;
@@ -1242,7 +1242,7 @@
     const biz = jdState.currentWhatsAppBusiness;
     if (!biz) return;
     const cleanNumber = biz.phone.startsWith('91') ? biz.phone : `91${biz.phone}`;
-    const text = encodeURIComponent(`Hi ${biz.name}! I am contacting you from LocalCare Justdial.`);
+    const text = encodeURIComponent(`Hi ${biz.name}! I am contacting you via LocalCare Infinity.`);
     window.open(`https://wa.me/${cleanNumber}?text=${text}`, '_blank');
   }
 

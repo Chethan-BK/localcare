@@ -319,6 +319,15 @@ window.QuoteMarketplace = (function () {
       window.LocalCare.showToast(`🎉 Accepted bid from ${proName} (₹${price})! Booking ${bookingId} confirmed.`, 'success', 6000);
     }
 
+    if (window.LocalCare && window.LocalCare.addNotification) {
+      window.LocalCare.addNotification({
+        title: `Quote Accepted: ${proName}`,
+        desc: `Bid of ₹${price} accepted! Booking #${bookingId} confirmed with 30m doorstep arrival.`,
+        icon: '⚡',
+        actionType: 'dashboard-bookings'
+      });
+    }
+
     // Launch live tracking modal
     setTimeout(() => {
       if (window.TrackingEngine && window.TrackingEngine.openTrackingModal) {

@@ -1,0 +1,2966 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LocalCare Infinity X — India's #1 AI-Powered Local Services Platform</title>
+  <meta name="description"
+    content="LocalCare Infinity connects you with verified doctors, AC technicians, plumbers, restaurants, salons, and 24/7 emergency services across 10 Indian hubs. Search with natural language AI, compare instant quotes, and track doorstep technicians in real-time." />
+  <meta name="keywords"
+    content="LocalCare Infinity, local services, AC repair, plumbers near me, doctors near me, dentist under 500, Valachil Mangalore, bangalore services, emergency ambulance 108" />
+
+  <!-- Open Graph / SEO -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="LocalCare Infinity X - Your City. Your Needs. One Smart Search." />
+  <meta property="og:description"
+    content="India's next-generation AI-powered local discovery, appointment booking, and doorstep services platform. Discover, compare prices, book verified services, and track doorstep pros in real-time." />
+  <meta property="og:site_name" content="LocalCare Infinity" />
+
+  <!-- Google Fonts Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+
+  <!-- Leaflet Whole India & Rural Village Geospatial Mapping Engine -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <!-- Stylesheets (v4.0.0 - Ultra Premium Engine) -->
+  <link rel="stylesheet" href="css/variables.css?v=4.0.0" />
+  <link rel="stylesheet" href="css/style.css?v=4.0.0" />
+  <link rel="stylesheet" href="css/ultra.css?v=4.0.0" />
+
+  <!-- Instant Cache Refresh & Service Worker Sync -->
+  <script>
+    (function () {
+      if ('caches' in window) {
+        caches.keys().then(function (names) {
+          names.forEach(function (name) {
+            if (name !== 'localcare-infinity-v3.3.0') {
+              caches.delete(name);
+            }
+          });
+        });
+      }
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function (registrations) {
+          for (var reg of registrations) {
+            reg.update();
+          }
+        });
+      }
+    })();
+  </script>
+
+  <!-- Progressive Web App (PWA) Manifest & Meta -->
+  <meta name="theme-color" content="#ff6800" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/svg+xml" href="icons/icon.svg" />
+  <link rel="apple-touch-icon" href="icons/icon.svg" />
+
+  <!-- LocalBusiness Schema JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "LocalCare Infinity",
+    "alternateName": "LocalCare",
+    "url": "https://localcare.in",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://localcare.in/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+</head>
+
+<body>
+
+  <!-- Scroll Progress Indicator -->
+  <div class="scroll-progress-bar" id="scrollProgressBar" role="progressbar" aria-label="Page scroll progress"
+    aria-valuemin="0" aria-valuemax="100"></div>
+
+  <!-- ==========================================================================
+       Apple-Style Dynamic Island Live Activity HUD (Interactive Expandable)
+       ========================================================================== -->
+  <aside class="dynamic-island-container" id="dynamicIslandContainer" aria-label="Live Activity Status">
+    <div class="dynamic-island" id="dynamicIsland" onclick="window.LocalCare.toggleDynamicIsland(event)">
+      <!-- Compact Idle Pill -->
+      <div class="island-compact" id="islandCompact">
+        <div class="island-left">
+          <span class="island-icon-pulse">⚡</span>
+          <span class="island-text-marquee">160+ Verified Pros Online across 12 Cities</span>
+        </div>
+        <div class="island-right">
+          <span class="island-mini-badge">🔥 LIVE ARENA</span>
+        </div>
+      </div>
+
+      <!-- Expanded Detailed Card -->
+      <div class="island-expanded" id="islandExpanded" style="display: none;">
+        <div class="island-exp-header">
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <span class="island-exp-dot"></span>
+            <strong>Active Doorstep Dispatch Radar</strong>
+          </div>
+          <button class="island-close-sm"
+            onclick="event.stopPropagation(); window.LocalCare.collapseDynamicIsland();">✕</button>
+        </div>
+
+        <div class="island-exp-body">
+          <div class="island-status-row">
+            <div class="island-tech-avatar-box">
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80"
+                alt="Tech" class="island-tech-img" />
+              <span class="island-avatar-badge">✓</span>
+            </div>
+            <div>
+              <div class="island-tech-name">Suresh Gowda • Master HVAC</div>
+              <div class="island-tech-sub">En-route in Koramangala • KA-01-EA-4921</div>
+              <div class="island-otp-tag">OTP: <strong>5192</strong> (Share at Doorstep)</div>
+            </div>
+            <div class="island-eta-badge">
+              <span class="eta-num">12</span>
+              <span class="eta-unit">MINS</span>
+            </div>
+          </div>
+
+          <div class="island-exp-actions">
+            <button class="action-btn action-btn-primary island-action-btn"
+              onclick="event.stopPropagation(); window.QuoteArena.openArena();">
+              🔥 Open Live Arena
+            </button>
+            <button class="action-btn action-btn-outline island-action-btn"
+              onclick="event.stopPropagation(); window.TrackingEngine.openTrackingModal();">
+              🗺️ Track on GPS Map
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ==========================================================================
+       Unified Top Announcement & Live Pulse Activity Bar
+       ========================================================================== -->
+  <aside class="platform-announcement-bar" id="livePulseTickerBar" aria-label="Platform Updates and Emergency">
+    <div class="container announcement-bar-inner">
+      <div class="announcement-left">
+        <span class="announcement-badge">
+          <span class="live-dot-pulse"></span> LIVE
+        </span>
+        <div class="announcement-ticker-marquee">
+          <div class="pulse-ticker-content" id="pulseTickerTrack">
+            <span>⚡ <strong>Priya K.</strong> booked Apollo Dental in Koramangala (2m ago)</span>
+            <span class="ticker-divider">•</span>
+            <span>🔧 <strong>Ramesh N.</strong> received 3 verified bids for Plumbing in Valachil (4m ago)</span>
+            <span class="ticker-divider">•</span>
+            <span>🛡️ <strong>15,480+</strong> Businesses 100% Police & GST Verified</span>
+            <span class="ticker-divider">•</span>
+            <span>🔥 <strong>Suresh G.</strong> completed AC Power Jet Service (5.0★)</span>
+            <span class="ticker-divider">•</span>
+            <span>❄️ <strong>Vikram M.</strong> availed ₹400 OFF on 2BHK Deep Cleaning</span>
+          </div>
+        </div>
+      </div>
+      <div class="announcement-right">
+        <div class="pulse-city-weather" id="cityWeatherWidget" title="Local conditions in selected city">
+          <span id="weatherIcon">🌤️</span>
+          <span id="weatherText">Bengaluru 24°C • Clean AQI</span>
+        </div>
+        <div class="announcement-divider">|</div>
+        <button class="announcement-sos-btn" onclick="window.EmergencyMode.openEmergencyModal()"
+          title="24/7 SOS Emergency Services">
+          <span>🚨</span> <strong>24/7 SOS (108)</strong>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ==========================================================================
+       Site Header & Global Navigation (Crisp, Sticky, 100% Opaque)
+       ========================================================================== -->
+  <header class="site-header" role="banner">
+    <div class="container header-container">
+
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <!-- Mobile Drawer Hamburger Toggle -->
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open mobile navigation drawer"
+          data-react-icon="menu" data-icon-size="20">
+        </button>
+
+        <!-- Upgraded Brand Logo (Zero Text-Wrapping / Overlap) -->
+        <a href="#" class="brand-logo" aria-label="LocalCare Infinity Home">
+          <div class="logo-badge" data-react-icon="mapPin" data-icon-size="20"></div>
+          <div class="brand-info-col">
+            <div class="brand-title-row">
+              <span class="brand-text">Local<span>Care</span></span>
+              <span class="infinity-badge"><span data-react-icon="zap" data-icon-size="11"></span> AI Infinity</span>
+            </div>
+            <span class="brand-tagline-mini">Verified Local Services & AI Concierge</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Location Selector Dropdown -->
+      <div class="location-selector">
+        <button class="location-btn" id="locationBtn" aria-haspopup="true" aria-expanded="false"
+          title="Change your location">
+          <span class="location-icon" data-react-icon="mapPin" data-icon-size="15"></span>
+          <span class="location-name" id="currentCityLabel">Bengaluru</span>
+          <span class="location-arrow" data-react-icon="chevronDown" data-icon-size="12"></span>
+        </button>
+
+        <div class="location-dropdown" id="locationDropdown" role="menu">
+          <div style="display: flex; gap: 0.4rem; margin-bottom: 0.5rem;">
+            <input type="text" id="citySearchInput" class="dropdown-search" style="margin-bottom: 0;"
+              placeholder="Search 100+ Indian cities, states, PIN code..." autocomplete="off" />
+            <button class="action-btn action-btn-outline"
+              style="padding: 0.4rem 0.6rem; font-size: 0.75rem; display: inline-flex; align-items: center; gap: 0.25rem;"
+              onclick="window.LocalCare.autoDetectLocation()" title="Use GPS Location">
+              <span data-react-icon="crosshair" data-icon-size="12"></span> GPS
+            </button>
+          </div>
+          <!-- Quick State Filter Pills -->
+          <div class="location-state-tabs" id="locationStateTabs">
+            <button class="location-tab-btn active" onclick="window.LocalCare.filterLocationByState('ALL')">All India</button>
+            <button class="location-tab-btn" onclick="window.LocalCare.filterLocationByState('KA')">Karnataka</button>
+            <button class="location-tab-btn" onclick="window.LocalCare.filterLocationByState('MH')">Maharashtra</button>
+            <button class="location-tab-btn" onclick="window.LocalCare.filterLocationByState('DL')">Delhi NCR</button>
+            <button class="location-tab-btn" onclick="window.LocalCare.filterLocationByState('TN')">Tamil Nadu</button>
+            <button class="location-tab-btn" onclick="window.LocalCare.filterLocationByState('TS')">Telangana</button>
+            <button class="location-tab-btn" onclick="window.LocalCare.filterLocationByState('KL')">Kerala</button>
+            <button class="location-tab-btn" onclick="window.LocalCare.filterLocationByState('GJ')">Gujarat</button>
+            <button class="location-tab-btn" onclick="window.LocalCare.filterLocationByState('WB')">West Bengal</button>
+            <button class="location-tab-btn" onclick="window.LocalCare.filterLocationByState('RJ')">Rajasthan</button>
+          </div>
+          <ul class="city-list" id="cityList" role="listbox">
+            <!-- Populated dynamically from IndiaLocations -->
+          </ul>
+        </div>
+      </div>
+
+      <!-- Desktop Mega Menu Dropdown -->
+      <div class="mega-menu-wrapper" id="megaMenuWrapper">
+        <button class="mega-menu-trigger-btn" id="megaMenuTriggerBtn" aria-haspopup="true" aria-expanded="false"
+          title="Browse all categories and services" style="display: inline-flex; align-items: center; gap: 0.4rem;">
+          <span data-react-icon="grid" data-icon-size="14"></span> <span>Categories & Hubs</span>
+          <span data-react-icon="chevronDown" data-icon-size="11"></span>
+        </button>
+
+        <div class="desktop-mega-menu" id="desktopMegaMenu">
+          <div class="mega-menu-grid">
+            <div>
+              <div class="mega-col-title"><span>🩺</span> Healthcare & Medical</div>
+              <ul class="mega-links-list">
+                <li class="mega-link-item"><a href="javascript:void(0)"
+                    onclick="window.LocalCare.filterCategory('health'); document.getElementById('desktopMegaMenu').classList.remove('active');">Dentists
+                    & Dental Care</a></li>
+                <li class="mega-link-item"><a href="javascript:void(0)"
+                    onclick="window.LocalCare.filterCategory('health'); document.getElementById('desktopMegaMenu').classList.remove('active');">Dermatologists
+                    & Skin</a></li>
+                <li class="mega-link-item"><a href="javascript:void(0)"
+                    onclick="window.LocalCare.filterCategory('health'); document.getElementById('desktopMegaMenu').classList.remove('active');">General
+                    Physicians</a></li>
+                <li class="mega-link-item"><a href="javascript:void(0)"
+                    onclick="window.LocalCare.filterCategory('health'); document.getElementById('desktopMegaMenu').classList.remove('active');">Diagnostic
+                    Labs & Scans</a></li>
+                <li class="mega-link-item"><a href="javascript:void(0)"
+                    onclick="window.EmergencyMode.triggerEmergency('ambulance'); document.getElementById('desktopMegaMenu').classList.remove('active');">24/7
+                    Ambulance (108)</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <div class="mega-col-title"><span>🔧</span> Home & Maintenance</div>
+              <ul class="mega-links-list">
+                <li class="mega-link-item"><a href="javascript:void(0)"
+                    onclick="window.LocalCare.filterCategory('electrical'); document.getElementById('desktopMegaMenu').classList.remove('active');">AC
+                    Service & Gas Refill</a></li>
+                <li class="mega-link-item"><a href="javascript:void(0)"
+                    onclick="window.LocalCare.filterCategory('home'); document.getElementById('desktopMegaMenu').classList.remove('active');">Plumbers
+                    & Seepage Fix</a></li>
+                <li class="mega-link-item"><a href="javascript:void(0)"
+                    onclick="window.LocalCare.filterCategory('electrical'); document.getElementById('desktopMegaMenu').classList.remove('active');">Electricians
+                    & Wiring</a></li>
+                <li class="mega-link-item"><a href="javascript:void(0)"
+                    onclick="window.LocalCare.filterCategory('cleaning'); document.getElementById('desktopMegaMenu').classList.remove('active');">Deep
+                    Cleaning & Pest Control</a></li>
+                <li class="mega-link-item"><a href="javascript:void(0)"
+                    onclick="window.LocalCare.filterCategory('home'); document.getElementById('desktopMegaMenu').classList.remove('active');">Carpenters
+                    & Furniture</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <div class="mega-col-title"><span>🚗</span> Auto & Real Estate</div>
+              <ul class="mega-links-list">
+                <li class="mega-link-item"><a href="javascript:void(0)"
+                    onclick="window.LocalCare.filterCategory('auto'); document.getElementById('desktopMegaMenu').classList.remove('active');">Car
+                    Detailing & Wash</a></li>
+                <li class="mega-link-item"><a href="javascript:void(0)"
+                    onclick="window.EmergencyMode.triggerEmergency('towing'); document.getElementById('desktopMegaMenu').classList.remove('active');">24/7
+                    Roadside Towing</a></li>
+                <li class="mega-link-item"><a href="javascript:void(0)"
+                    onclick="window.LocalCare.filterCategory('auto'); document.getElementById('desktopMegaMenu').classList.remove('active');">Multi-Brand
+                    Garages</a></li>
+                <li class="mega-link-item"><a href="javascript:void(0)"
+                    onclick="window.LocalCare.filterCategory('stays'); document.getElementById('desktopMegaMenu').classList.remove('active');">PG
+                    Accommodations</a></li>
+                <li class="mega-link-item"><a href="javascript:void(0)"
+                    onclick="window.LocalCare.filterCategory('stays'); document.getElementById('desktopMegaMenu').classList.remove('active');">Apartment
+                    & Flat Rentals</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <div class="mega-col-title"><span>🍽️</span> Food, Tech & Events</div>
+              <ul class="mega-links-list">
+                <li class="mega-link-item"><a href="javascript:void(0)"
+                    onclick="window.LocalCare.filterCategory('food'); document.getElementById('desktopMegaMenu').classList.remove('active');">Pure
+                    Veg Restaurants</a></li>
+                <li class="mega-link-item"><a href="javascript:void(0)"
+                    onclick="window.LocalCare.filterCategory('food'); document.getElementById('desktopMegaMenu').classList.remove('active');">Cafes
+                    & Family Dining</a></li>
+                <li class="mega-link-item"><a href="javascript:void(0)"
+                    onclick="window.LocalCare.filterCategory('tech'); document.getElementById('desktopMegaMenu').classList.remove('active');">Laptop
+                    & Mobile Repair</a></li>
+                <li class="mega-link-item"><a href="javascript:void(0)"
+                    onclick="window.LocalCare.filterCategory('events'); document.getElementById('desktopMegaMenu').classList.remove('active');">Wedding
+                    Photographers</a></li>
+                <li class="mega-link-item"><a href="javascript:void(0)"
+                    onclick="window.LocalCare.filterCategory('tutor'); document.getElementById('desktopMegaMenu').classList.remove('active');">Home
+                    Tutors & Classes</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="mega-menu-footer-strip">
+            <span>⚡ Need custom quotes? Broadcast your requirement to 20+ verified pros in 30 seconds.</span>
+            <button class="action-btn action-btn-primary" style="padding: 0.35rem 0.85rem; font-size: 0.8rem;"
+              onclick="window.QuoteMarketplace.openQuotesModal(); document.getElementById('desktopMegaMenu').classList.remove('active');">
+              Broadcast Free Quote ➔
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons & Portals -->
+      <div class="header-actions">
+        <!-- High-Priority Primary CTAs -->
+        <div class="header-primary-group">
+          <button class="action-btn action-btn-primary header-cta-arena" id="headerQuoteArenaBtn"
+            onclick="window.QuoteArena.openArena()" title="Launch Real-Time Pro Reverse-Bidding War">
+            <span data-react-icon="flame" data-icon-size="14"></span> Live Arena
+          </button>
+          <button class="action-btn action-btn-outline header-cta-quote" id="openInstantQuoteBtn"
+            onclick="window.QuoteMarketplace.openQuotesModal()" title="Broadcast requirement for instant quotes">
+            <span data-react-icon="zap" data-icon-size="14"></span> Quotes
+          </button>
+          <button class="action-btn action-btn-outline header-cta-ai" id="headerCareAiBtn"
+            onclick="window.CareAI.openAssistantWithQuery()" title="Open CareAI 3.0 Concierge">
+            <span data-react-icon="sparkles" data-icon-size="14" style="color: var(--ai-purple);"></span> Ask CareAI
+          </button>
+        </div>
+
+        <!-- Desktop Secondary Quick Links -->
+        <div class="header-tools-group">
+          <button class="action-btn action-btn-ghost header-tool-pill jd-header-pill" id="headerJdPayBtn"
+            onclick="window.JDFeatures.openJdPayModal()" title="LocalCare Pay: Recharges, Utility Bills & Fast Pay">
+            <span data-react-icon="creditCard" data-icon-size="14"></span> LocalCare Pay
+          </button>
+          <button class="action-btn action-btn-ghost header-tool-pill jd-header-pill" id="headerMoversBtn"
+            onclick="window.JDFeatures.openPackersMoversModal()" title="Instant Packers & Movers Fare Estimator">
+            <span data-react-icon="package" data-icon-size="14"></span> Movers
+          </button>
+          <button class="action-btn action-btn-ghost header-tool-pill" id="headerEstimatorBtn"
+            onclick="window.CostEstimator.openEstimator()" title="Instant Price Estimator">
+            <span data-react-icon="rupee" data-icon-size="14"></span> Rates
+          </button>
+          <button class="action-btn action-btn-ghost header-tool-pill" id="headerShieldBtn"
+            onclick="window.ShieldGuarantee.openShieldModal()" title="LocalCare ₹10,000 Quality Shield">
+            <span data-react-icon="shield" data-icon-size="14"></span> Shield
+          </button>
+          <button class="action-btn action-btn-ghost header-tool-pill" id="openBizPortalBtn"
+            onclick="window.BusinessDashboard.openPortal('overview')" title="Business Owner Dashboard & Partner Center">
+            <span data-react-icon="briefcase" data-icon-size="14"></span> Partners <span class="biz-ai-badge"
+              style="font-size: 0.62rem; padding: 1px 5px; margin-left: 2px;">AI</span>
+          </button>
+          <button class="action-btn action-btn-outline header-tool-pill jd-free-listing-btn" id="openListBusinessBtn"
+            title="Register your business free on LocalCare Infinity">
+            <span data-react-icon="plus" data-icon-size="14"></span> Free Listing
+          </button>
+          <button class="action-btn action-btn-ghost header-tool-pill" id="openAdminBtn"
+            onclick="window.AdminPanel.openAdmin()" title="Admin Command Center">
+            <span data-react-icon="shieldCheck" data-icon-size="14"></span> Admin
+          </button>
+          <a href="/admin-crm.html" class="action-btn action-btn-ghost header-tool-pill" id="openCrmBtn"
+            title="Central Management System & Google Sheets CRM"
+            style="text-decoration: none; color: inherit; display: inline-flex; align-items: center; gap: 0.35rem;">
+            <span data-react-icon="barChart" data-icon-size="14"></span> CRM Hub <span
+              style="font-size: 0.62rem; padding: 1px 5px; background: rgba(2, 132, 199, 0.15); color: #0284c7; border-radius: 999px; font-weight: 700;">SYNC</span>
+          </a>
+        </div>
+
+        <!-- Quick Icon Utilities & Profile -->
+        <div class="header-utils-group">
+          <!-- Notification Bell -->
+          <button class="saved-btn notification-btn" id="headerNotificationBtn"
+            onclick="window.LocalCare.openNotificationCenter()" title="Notifications & Activity Alerts"
+            aria-label="Notifications Center">
+            <span data-react-icon="bell" data-icon-size="18"></span>
+            <span class="badge-count" id="notificationCountBadge">3</span>
+          </button>
+          <button class="saved-btn" id="openSavedBtn" title="View Saved Listings" aria-label="Saved Listings">
+            <span data-react-icon="heart" data-icon-size="18"></span>
+            <span class="badge-count" id="savedCountBadge">0</span>
+          </button>
+          <button class="sound-toggle-btn" id="soundToggleBtn" onclick="window.SoundFX.toggleMute()"
+            title="Toggle Sound Cues" aria-label="Toggle Sound Effects" data-react-icon="volume2" data-icon-size="18">
+          </button>
+          <button class="shortcuts-btn" id="shortcutsBtn" onclick="window.LocalCare.openShortcutsModal()"
+            title="Keyboard Shortcuts (Press ?)" aria-label="Keyboard Shortcuts" data-react-icon="keyboard"
+            data-icon-size="18">
+          </button>
+          <button class="user-avatar-btn" id="userProfileBtn" onclick="window.UserDashboard.openDashboard()"
+            title="My Account & Bookings">
+            <span class="user-avatar-initials">CK</span>
+            <span class="user-name-text">Chethan</span>
+          </button>
+          <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Theme" aria-label="Toggle Dark Mode"
+            data-react-icon="moon" data-icon-size="18">
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Slide-Out Drawer -->
+  <div class="mobile-nav-backdrop" id="mobileNavBackdrop"></div>
+  <aside class="mobile-nav-drawer" id="mobileNavDrawer" aria-label="Mobile Navigation Menu">
+    <div class="drawer-header">
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <span style="font-size: 1.3rem;">📍</span>
+        <span style="font-weight: 800; font-size: 1.1rem;">LocalCare <span class="infinity-badge">Infinity</span></span>
+      </div>
+      <button class="dialog-close-btn" id="closeMobileDrawerBtn" aria-label="Close menu">✕</button>
+    </div>
+    <div class="drawer-body">
+      <div>
+        <div class="drawer-section-title">Portals & Actions</div>
+        <div class="drawer-links-column">
+          <button class="drawer-nav-link"
+            onclick="window.CareAI.openAssistantWithQuery(); window.LocalCare.closeMobileDrawer();">
+            <span data-react-icon="sparkles" data-icon-size="16"></span> Ask CareAI Concierge
+          </button>
+          <button class="drawer-nav-link"
+            onclick="window.QuoteMarketplace.openQuotesModal(); window.LocalCare.closeMobileDrawer();">
+            <span data-react-icon="zap" data-icon-size="16"></span> Get 3 Free Quotes
+          </button>
+          <button class="drawer-nav-link"
+            onclick="window.CostEstimator.openEstimator(); window.LocalCare.closeMobileDrawer();">
+            <span data-react-icon="rupee" data-icon-size="16"></span> Smart Cost Estimator
+          </button>
+          <button class="drawer-nav-link"
+            onclick="window.ProComparison.openModal(); window.LocalCare.closeMobileDrawer();">
+            <span data-react-icon="scale" data-icon-size="16"></span> Compare Pros Side-by-Side
+          </button>
+          <button class="drawer-nav-link"
+            onclick="window.ShieldGuarantee.openShieldModal(); window.LocalCare.closeMobileDrawer();">
+            <span data-react-icon="shield" data-icon-size="16"></span> ₹10,000 Quality Shield
+          </button>
+          <button class="drawer-nav-link"
+            onclick="window.EmergencyMode.openEmergencyModal(); window.LocalCare.closeMobileDrawer();"
+            style="color: #dc2626;">
+            <span data-react-icon="alertTriangle" data-icon-size="16" class="react-icon-danger"></span> 24/7 SOS
+            Emergency Hub
+          </button>
+        </div>
+      </div>
+
+      <div>
+        <div class="drawer-section-title">My Account & Activity</div>
+        <div class="drawer-links-column">
+          <button class="drawer-nav-link"
+            onclick="window.UserDashboard.openDashboard('bookings'); window.LocalCare.closeMobileDrawer();">
+            <span data-react-icon="calendar" data-icon-size="16"></span> My Bookings
+          </button>
+          <button class="drawer-nav-link"
+            onclick="window.UserDashboard.openDashboard('quotes'); window.LocalCare.closeMobileDrawer();">
+            <span data-react-icon="zap" data-icon-size="16"></span> My Quotes
+          </button>
+          <button class="drawer-nav-link"
+            onclick="document.getElementById('openSavedBtn').click(); window.LocalCare.closeMobileDrawer();">
+            <span data-react-icon="heart" data-icon-size="16"></span> Saved Favorites (<span
+              id="mobileSavedCount">0</span>)
+          </button>
+          <button class="drawer-nav-link"
+            onclick="window.AuthService.openAuthModal(); window.LocalCare.closeMobileDrawer();">
+            <span data-react-icon="lock" data-icon-size="16"></span> Account Login / OTP
+          </button>
+        </div>
+      </div>
+
+      <div>
+        <div class="drawer-section-title">For Business Owners</div>
+        <div class="drawer-links-column">
+          <button class="drawer-nav-link"
+            onclick="document.getElementById('openListBusinessBtn').click(); window.LocalCare.closeMobileDrawer();">
+            <span data-react-icon="plus" data-icon-size="16"></span> List Your Business Free
+          </button>
+          <button class="drawer-nav-link"
+            onclick="window.BusinessDashboard.openPortal(); window.LocalCare.closeMobileDrawer();">
+            <span data-react-icon="briefcase" data-icon-size="16"></span> Business Partner Center
+          </button>
+          <button class="drawer-nav-link"
+            onclick="window.AdminPanel.openAdmin(); window.LocalCare.closeMobileDrawer();">
+            <span data-react-icon="shieldCheck" data-icon-size="16"></span> Super Admin Command Hub
+          </button>
+          <a class="drawer-nav-link" href="/admin-crm.html" style="text-decoration: none; color: inherit;">
+            <span data-react-icon="barChart" data-icon-size="16"></span> Central CRM & Google Sheets
+          </a>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <main role="main">
+    <!-- ==========================================================================
+         Hero Section & AI Omnibox Search
+         ========================================================================== -->
+    <section class="hero-section">
+      <div class="container">
+        <!-- Animated Background Mesh Orbs -->
+        <div class="hero-bg-mesh" aria-hidden="true">
+          <div class="hero-mesh-orb hero-orb-1"></div>
+          <div class="hero-mesh-orb hero-orb-2"></div>
+          <div class="hero-mesh-orb hero-orb-3"></div>
+        </div>
+        <!-- Floating Emoji Particle System -->
+        <div class="hero-particles" aria-hidden="true" id="heroParticles"></div>
+
+        <!-- Personalized Welcome Pill -->
+        <div class="hero-pill-badge">
+          <span class="pulse-dot"></span>
+          <span id="heroUserGreeting">Good evening, <span class="gradient-text">Chethan</span></span>
+          <span style="color: var(--text-muted);">•</span>
+          <span>India's AI-Powered Hyper-Local Platform</span>
+        </div>
+
+        <h1 class="hero-title">
+          Find <span class="gradient-text-animated">Trusted Pros</span>.<br>
+          <span class="gradient-text hero-title-accent">Anywhere in India.</span>
+        </h1>
+
+        <p class="hero-subtitle" style="transition-delay:0.1s">
+          India's smartest local services platform. 15,000+ police-verified professionals, instant AI quotes, real-time
+          GPS tracking — across every city and village.
+        </p>
+        <div class="hero-live-stats-strip">
+          <div class="hero-stat-chip">
+            <span class="hero-stat-num">210+</span>
+            <span class="hero-stat-label">Verified Businesses</span>
+          </div>
+          <div class="hero-stat-divider"></div>
+          <div class="hero-stat-chip">
+            <span class="hero-stat-num">12</span>
+            <span class="hero-stat-label">Cities &amp; Villages</span>
+          </div>
+          <div class="hero-stat-divider"></div>
+          <div class="hero-stat-chip">
+            <span class="hero-stat-num">4.8★</span>
+            <span class="hero-stat-label">Average Rating</span>
+          </div>
+          <div class="hero-stat-divider"></div>
+          <div class="hero-stat-chip">
+            <span class="hero-stat-num live-pulse-num" id="liveProCount">160+</span>
+            <span class="hero-stat-label"><span class="live-indicator-dot"></span> Live Pros</span>
+          </div>
+        </div>
+
+        <!-- Hero Feature Shortcut Pills -->
+        <div class="hero-feature-pills-row">
+          <button class="hero-feature-pill arena-pill" onclick="window.QuoteArena.openArena()">
+            <span data-react-icon="flame" data-icon-size="14"></span> Live Bidding Arena
+          </button>
+          <button class="hero-feature-pill" onclick="window.CostEstimator.openEstimator()">
+            <span data-react-icon="rupee" data-icon-size="14"></span> Smart Cost Estimator
+          </button>
+          <button class="hero-feature-pill" onclick="window.ProComparison.openModal()">
+            <span data-react-icon="scale" data-icon-size="14"></span> Compare Pros Side-by-Side
+          </button>
+          <button class="hero-feature-pill" onclick="window.ShieldGuarantee.openShieldModal()">
+            <span data-react-icon="shield" data-icon-size="14"></span> ₹10,000 Quality Shield
+          </button>
+          <button class="hero-feature-pill" onclick="window.CareAI.launchDiagnosticWizard('health')">
+            <span data-react-icon="stethoscope" data-icon-size="14"></span> Symptom Wizard
+          </button>
+        </div>
+
+        <!-- Powerful AI Omnibox Search -->
+        <div class="search-omnibox-wrapper">
+          <div class="omnibox-card">
+            <div class="omnibox-city-prefix" id="omniboxCityPrefix"
+              onclick="document.getElementById('locationBtn').click()" title="Click to change city" role="button"
+              tabindex="0">
+              <span data-react-icon="mapPin" data-icon-size="14"></span> In <span>Bengaluru</span> <span
+                class="city-prefix-arrow" data-react-icon="chevronDown" data-icon-size="11"></span>
+            </div>
+
+            <div class="omnibox-input-group">
+              <span class="omnibox-search-icon" data-react-icon="search" data-icon-size="18"></span>
+              <input type="text" id="omniboxInput" class="omniboxInput omnibox-input"
+                placeholder="Ask anything: 'AC repair today', 'Dentist under ₹500', 'Plumber in Valachil'..."
+                autocomplete="off" aria-label="Search local services using natural language AI" />
+              <button class="omnibox-clear-btn" id="omniboxClearBtn" title="Clear search" data-react-icon="x"
+                data-icon-size="14"></button>
+              <button class="omnibox-mic-btn" id="omniboxMicBtn" onclick="window.VoiceSearch.startListening()"
+                title="Search with Voice (Microphone)" data-react-icon="mic" data-icon-size="16">
+              </button>
+            </div>
+
+            <button class="omnibox-submit-btn" id="omniboxSubmitBtn">
+              <span>Smart Search</span>
+              <span>➔</span>
+            </button>
+          </div>
+
+          <!-- Real-Time Autocomplete Suggestions -->
+          <div class="search-suggestions-dropdown" id="searchSuggestions">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+
+        <!-- Quick Search Tags & Natural Language Suggestions -->
+        <div class="quick-tags-container" id="quickTagsContainer">
+          <!-- Populated dynamically -->
+        </div>
+
+        <!-- Recent Searches Row -->
+        <div class="recent-searches-row" id="recentSearchesRow" style="display: none;">
+          <span class="recent-searches-label">Recent Searches:</span>
+          <div id="recentSearchesList" style="display: flex; gap: 0.4rem; flex-wrap: wrap;"></div>
+        </div>
+
+        <!-- AI Conversational Explanation Banner (Hidden until query executed) -->
+        <div class="ai-summary-banner" id="aiSummaryBanner" style="display: none;">
+          <div id="aiSummaryText"></div>
+          <button class="action-btn action-btn-ghost"
+            onclick="document.getElementById('aiSummaryBanner').style.display = 'none'">✕</button>
+        </div>
+
+        <!-- ==========================================================================
+             AI Power Hub: 4 Next-Gen AI Feature Launchers
+             ========================================================================== -->
+        <div class="ai-feature-hub-strip" aria-label="AI Features & Quick Action Tools">
+          <button class="ai-feature-card" onclick="window.CareAISuite.openProblemMatchmaker()"
+            title="Describe any issue and let AI diagnose it">
+            <div class="ai-card-icon" style="background: rgba(99, 102, 241, 0.1); color: var(--ai-purple);">✨</div>
+            <div class="ai-card-content">
+              <strong>AI Problem Matchmaker</strong>
+              <span>Describe issue ➔ Instant pro match</span>
+            </div>
+            <span class="ai-card-badge">Instant AI</span>
+          </button>
+
+          <button class="ai-feature-card" onclick="window.CareAISuite.openDiagnosticScanner()"
+            title="Upload or test photo analysis of broken items">
+            <div class="ai-card-icon" style="background: rgba(2, 132, 199, 0.1); color: #0284c7;">📸</div>
+            <div class="ai-card-content">
+              <strong>CareVision AI Repair</strong>
+              <span>Scan leaking pipe, AC frost, dent</span>
+            </div>
+            <span class="ai-card-badge">Vision AI</span>
+          </button>
+
+          <button class="ai-feature-card" onclick="window.CareAISuite.openVoiceHealthTriage()"
+            title="Voice symptom triage in English, Hindi, Kannada, Tamil">
+            <div class="ai-card-icon" style="background: rgba(239, 68, 68, 0.1); color: #ef4444;">🩺</div>
+            <div class="ai-card-content">
+              <strong>Voice Health Triage</strong>
+              <span>Multilingual symptom guidance</span>
+            </div>
+            <span class="ai-card-badge"
+              style="background: linear-gradient(135deg, #ef4444, #dc2626); color: #fff;">Voice AI</span>
+          </button>
+
+          <button class="ai-feature-card" onclick="window.CareAISuite.openPrescriptionOcrModal('prescription')"
+            title="Scan doctor prescription, parts invoice & generic savings">
+            <div class="ai-card-icon" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">📑</div>
+            <div class="ai-card-content">
+              <strong>Prescription & Bill OCR</strong>
+              <span>Generic medicines & price audit</span>
+            </div>
+            <span class="ai-card-badge" style="background: #ecfdf5; color: #059669;">70% Off</span>
+          </button>
+
+          <button class="ai-feature-card" onclick="window.BusinessDashboard.openPortal('ai-quotes')"
+            title="Partner AI Quotation Generator & Demand Heatmap">
+            <div class="ai-card-icon" style="background: rgba(124, 58, 237, 0.1); color: #7c3aed;">🤖</div>
+            <div class="ai-card-content">
+              <strong>Partner AI Co-Pilot</strong>
+              <span>QuoteCraft & Demand Radar</span>
+            </div>
+            <span class="ai-card-badge" style="background: linear-gradient(135deg, #7c3aed, #4f46e5); color: #fff;">Pro
+              Studio</span>
+          </button>
+
+          <button class="ai-feature-card" onclick="window.JDFeatures.openBestDealModal()"
+            title="Broadcast requirement to 5 pros">
+            <div class="ai-card-icon" style="background: rgba(255, 104, 0, 0.1); color: var(--primary);">⚡</div>
+            <div class="ai-card-content">
+              <strong>Broadcast Radar Quotes</strong>
+              <span>5 competitive bids in 60s</span>
+            </div>
+            <span class="ai-card-badge" style="background: #fff7ed; color: var(--primary);">Live Radar</span>
+          </button>
+
+          <button class="ai-feature-card" onclick="window.JDFeatures.openJdPayModal('recharge')"
+            title="Mobile recharge & electricity payment">
+            <div class="ai-card-icon" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">💳</div>
+            <div class="ai-card-content">
+              <strong>JD Pay & Utility Hub</strong>
+              <span>Mobile recharges & electricity bills</span>
+            </div>
+            <span class="ai-card-badge" style="background: #ecfdf5; color: #059669;">5% Cash</span>
+          </button>
+
+          <button class="ai-feature-card" onclick="window.CostEstimator.openEstimator()"
+            title="Instant Price Estimator">
+            <div class="ai-card-icon" style="background: rgba(245, 158, 11, 0.1); color: #d97706;">💰</div>
+            <div class="ai-card-content">
+              <strong>Smart Cost Estimator</strong>
+              <span>Transparent local price benchmarks</span>
+            </div>
+            <span class="ai-card-badge" style="background: #fffbeb; color: #b45309;">Fair Rates</span>
+          </button>
+
+          <button class="ai-feature-card" onclick="window.ProComparison.openModal()"
+            title="Compare verified professionals side-by-side">
+            <div class="ai-card-icon" style="background: rgba(79, 70, 229, 0.1); color: #4f46e5;">⚖️</div>
+            <div class="ai-card-content">
+              <strong>Compare Pros Side-by-Side</strong>
+              <span>Ratings, speed & verified rates</span>
+            </div>
+            <span class="ai-card-badge" style="background: #eef2ff; color: #4338ca;">Verified 1:1</span>
+          </button>
+
+          <button class="ai-feature-card" onclick="window.ShieldGuarantee.openShieldModal()"
+            title="LocalCare ₹10,000 Quality Shield Guarantee">
+            <div class="ai-card-icon" style="background: rgba(16, 185, 129, 0.1); color: #059669;">🛡️</div>
+            <div class="ai-card-content">
+              <strong>₹10,000 Quality Shield</strong>
+              <span>Police verified & job protection</span>
+            </div>
+            <span class="ai-card-badge" style="background: #ecfdf5; color: #047857;">Guaranteed</span>
+          </button>
+
+          <button class="ai-feature-card" onclick="window.CareAI.launchDiagnosticWizard('health')"
+            title="Step-by-step diagnostic fault wizard">
+            <div class="ai-card-icon" style="background: rgba(14, 165, 233, 0.1); color: #0284c7;">🩺</div>
+            <div class="ai-card-content">
+              <strong>Symptom Wizard</strong>
+              <span>Interactive health & home triage</span>
+            </div>
+            <span class="ai-card-badge" style="background: #f0f9ff; color: #0369a1;">Triage 3.0</span>
+          </button>
+
+          <button class="ai-feature-card" onclick="window.QuoteArena.openArena()"
+            title="Launch Real-Time Pro Reverse-Bidding War">
+            <div class="ai-card-icon" style="background: rgba(255, 104, 0, 0.12); color: #ea580c;">🔥</div>
+            <div class="ai-card-content">
+              <strong>Live Bidding Arena</strong>
+              <span>Watch pros compete with reverse bids</span>
+            </div>
+            <span class="ai-card-badge" style="background: #ffedd5; color: #c2410c;">Live War</span>
+          </button>
+        </div>
+
+        <!-- ==========================================================================
+             LocalCare Quick Services Round Icon Grid & Category Launcher
+             ========================================================================== -->
+        <div class="jd-quick-services-wrapper" aria-label="LocalCare Quick Services Grid">
+          <div class="jd-quick-services-header">
+            <span class="jd-services-title">⭐ Popular Quick Services in <span id="jdServicesCityName">Your
+                City</span></span>
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+              <button class="action-btn action-btn-ghost jd-pill-sm" onclick="window.JDFeatures.openBestDealModal()">
+                <span>⚡</span> Get Best Deal
+              </button>
+              <button class="action-btn action-btn-ghost jd-pill-sm"
+                onclick="window.JDFeatures.openJdPayModal('recharge')">
+                <span>💳</span> Bills & Recharges
+              </button>
+              <button class="action-btn action-btn-ghost jd-pill-sm"
+                onclick="window.JDFeatures.openPackersMoversModal()">
+                <span>📦</span> Movers
+              </button>
+            </div>
+          </div>
+          <div class="jd-quick-services-grid" id="jdQuickServicesGrid">
+            <!-- Populated dynamically by JDFeatures with 16 circular tiles -->
+          </div>
+        </div>
+
+        <!-- ==========================================================================
+             LocalCare Neighborhood & Locality Filter Pills
+             ========================================================================== -->
+        <div class="jd-locality-wrapper" aria-label="Quick Locality Filter">
+          <div class="jd-locality-label">📍 Browse Popular Localities:</div>
+          <div class="jd-locality-pills-row" id="jdLocalityPills">
+            <!-- Populated dynamically by JDFeatures based on selected city -->
+          </div>
+        </div>
+
+        <!-- ==========================================================================
+             LocalCare B2B Mart: Wholesale Active Banner
+             ========================================================================== -->
+        <div class="jd-mart-active-banner" id="jdMartBanner" style="display: none;">
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <span style="font-size: 1.8rem;">🏭</span>
+            <div>
+              <h4 style="font-size: 1.05rem; font-weight: 800; color: #78350f; margin-bottom: 0.15rem;">
+                LocalCare B2B Mart — Wholesale & Commercial Hub
+              </h4>
+              <p style="font-size: 0.82rem; color: #92400e;">
+                Showing verified manufacturers, wholesale rates, Minimum Order Quantities (MOQ), and GST invoices.
+              </p>
+            </div>
+          </div>
+          <button class="action-btn action-btn-outline"
+            style="border-color: #b45309; color: #b45309; font-size: 0.8rem;"
+            onclick="window.JDFeatures.toggleB2BMode()">
+            ✕ Exit Wholesale Mode
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         Exclusive Deals & Offers Carousel
+         ========================================================================== -->
+    <section class="deals-section">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">🔥 Exclusive Deals Near You</h2>
+            <p class="section-desc">Limited-time savings on certified home repairs, healthcare, and dining</p>
+          </div>
+          <button class="action-btn action-btn-outline" onclick="window.LocalCare.filterOffersOnly()">
+            View All Deals ➔
+          </button>
+        </div>
+
+        <div class="deals-carousel" id="dealsCarouselContainer">
+          <!-- Rendered dynamically from PLATFORM_DEALS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         Category Services Hub (12 Major Categories)
+         ========================================================================== -->
+    <section class="categories-section" id="categoriesSection">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Explore Essential Categories</h2>
+            <p class="section-desc">Verified background-checked providers for personal, home & emergency needs</p>
+          </div>
+          <button class="action-btn action-btn-ghost" id="clearCategoryFilterBtn"
+            onclick="window.LocalCare.filterCategory('all')">
+            Reset Category
+          </button>
+        </div>
+
+        <div class="category-grid" id="categoryGrid">
+          <!-- Rendered dynamically from CATEGORIES in data.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         Airbnb/Urban Company Sticky Sub-Nav Category & Quick Filter Bar
+         ========================================================================== -->
+    <div class="sticky-subnav-bar" id="stickySubnavBar">
+      <div class="sticky-subnav-container">
+        <!-- Horizontal Scrollable Category Chips with Live Counts -->
+        <div class="sticky-chips-scroll" id="stickyChipsScroll" aria-label="Quick Category Filter">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <!-- Quick Budget Range & Filter Pills -->
+        <div class="sticky-filter-actions">
+          <button class="sticky-chip-btn" id="stickyBudgetBtn" onclick="window.LocalCare.toggleBudgetPopup(event)">
+            <span data-react-icon="rupee" data-icon-size="14"></span> <span id="stickyBudgetLabel">Any Budget</span>
+            <span data-react-icon="chevronDown" data-icon-size="11"></span>
+          </button>
+          <button class="sticky-chip-btn" id="stickyRatingBtn" onclick="window.LocalCare.toggleRatingFilter()">
+            <span data-react-icon="starFilled" data-icon-size="14" class="react-icon-gold"></span> 4.5+ Rating
+          </button>
+          <button class="sticky-chip-btn" id="stickyMapToggleBtn" onclick="window.LocalCare.toggleSplitMap()">
+            <span data-react-icon="map" data-icon-size="14"></span> <span id="stickyMapLabel">Show Map</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Budget Popup Sheet Dropdown -->
+    <div class="budget-popup-card" id="budgetPopupCard"
+      style="display: none; position: fixed; top: 125px; right: 2rem; z-index: 1100; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 1.25rem; box-shadow: var(--shadow-xl); width: 300px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+        <h4 style="font-size: 0.95rem; font-weight: 800; margin: 0;">Budget Filter</h4>
+        <button class="dialog-close-btn" onclick="window.LocalCare.closeBudgetPopup()"
+          style="font-size: 0.9rem;">✕</button>
+      </div>
+      <div style="display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1rem;">
+        <button class="action-btn action-btn-outline" style="font-size: 0.75rem; padding: 0.25rem 0.6rem;"
+          onclick="window.LocalCare.applyQuickBudget(null)">All</button>
+        <button class="action-btn action-btn-outline" style="font-size: 0.75rem; padding: 0.25rem 0.6rem;"
+          onclick="window.LocalCare.applyQuickBudget(500)">Under ₹500</button>
+        <button class="action-btn action-btn-outline" style="font-size: 0.75rem; padding: 0.25rem 0.6rem;"
+          onclick="window.LocalCare.applyQuickBudget(1000)">Under ₹1,000</button>
+        <button class="action-btn action-btn-outline" style="font-size: 0.75rem; padding: 0.25rem 0.6rem;"
+          onclick="window.LocalCare.applyQuickBudget(2500)">Under ₹2,500</button>
+      </div>
+      <div style="margin-bottom: 0.5rem; font-size: 0.82rem; display: flex; justify-content: space-between;">
+        <span>Max Budget:</span>
+        <strong style="color: var(--primary);" id="budgetSliderDisplay">₹1,500</strong>
+      </div>
+      <input type="range" min="300" max="5000" step="100" value="1500" id="budgetRangeInput"
+        style="width: 100%; accent-color: var(--primary);"
+        oninput="window.LocalCare.onBudgetSliderChange(this.value)" />
+    </div>
+
+    <!-- ==========================================================================
+         Listings & Interactive Map Split Layout
+         ========================================================================== -->
+    <section class="listings-section" id="listingsSection">
+      <div class="container">
+
+        <!-- Filter & Sorting Control Bar -->
+        <div class="filter-toolbar">
+          <div class="toolbar-left">
+            <span class="results-count-badge" id="resultsCount">Loading verified listings...</span>
+            <div class="active-filter-tags" id="activeFilterTags"></div>
+          </div>
+
+          <div class="toolbar-right">
+            <!-- View Mode Switcher -->
+            <div class="view-modes-group" role="group" aria-label="Listings View Mode">
+              <button class="view-mode-btn active" id="viewGridBtn" title="Grid View">
+                <span data-react-icon="grid" data-icon-size="14"></span> Grid
+              </button>
+              <button class="view-mode-btn" id="viewListBtn" title="List View">
+                <span data-react-icon="list" data-icon-size="14"></span> List
+              </button>
+              <button class="view-mode-btn" id="viewMapBtn" title="Map Focus">
+                <span data-react-icon="map" data-icon-size="14"></span> Map
+              </button>
+            </div>
+
+            <button class="quick-filter-toggle" id="filterVerifiedBtn">
+              <span data-react-icon="checkCircle" data-icon-size="14"></span> Verified Only
+            </button>
+            <button class="quick-filter-toggle" id="filterOpenNowBtn">
+              <span data-react-icon="clock" data-icon-size="14"></span> Open Now
+            </button>
+            <button class="quick-filter-toggle" id="filterAvailableTodayBtn">
+              <span data-react-icon="zap" data-icon-size="14"></span> Available Today
+            </button>
+            <button class="quick-filter-toggle" id="filterRatingBtn">
+              <span data-react-icon="starFilled" data-icon-size="14" class="react-icon-gold"></span> 4.8+ Rating
+            </button>
+            <button class="quick-filter-toggle" id="filterHomeServiceBtn">
+              <span data-react-icon="home" data-icon-size="14"></span> Home Service
+            </button>
+            <button class="quick-filter-toggle" id="filterOffersBtn">
+              <span data-react-icon="tag" data-icon-size="14"></span> Deals Only
+            </button>
+            <button class="quick-filter-toggle jd-filter-b2b-btn" id="b2bModeToggleBtn"
+              onclick="window.JDFeatures.toggleB2BMode()" title="Toggle B2B Wholesale Mode & MOQ">
+              <span data-react-icon="building" data-icon-size="14"></span> LocalCare B2B
+            </button>
+            <button class="action-btn action-btn-primary jd-filter-quote-btn"
+              style="padding: 0.35rem 0.8rem; font-size: 0.82rem;" onclick="window.JDFeatures.openBestDealModal()"
+              title="Get Best Deal from Top 5 Pros">
+              <span data-react-icon="zap" data-icon-size="14"></span> Best Deal
+            </button>
+
+            <select class="sort-select" id="sortSelect" aria-label="Sort listings">
+              <option value="rating">Highest Rated</option>
+              <option value="reviews">Most Reviewed</option>
+              <option value="distance">Nearest Distance</option>
+              <option value="price_low">Price: Low to High</option>
+              <option value="price_high">Price: High to Low</option>
+              <option value="response">Fastest Response</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Split View: Listings (Left) + Interactive Map (Right) -->
+        <div class="results-split-container">
+          <!-- Left Column: Business Listings Column -->
+          <div class="listings-column">
+            <div class="listings-grid" id="listingsGrid">
+              <!-- Rendered dynamically -->
+            </div>
+            <!-- Pagination Controls -->
+            <div class="listings-pagination" id="listingsPagination" style="display: none;">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+
+          <!-- Right Column: Interactive Vector Map Panel -->
+          <aside class="map-column-sticky" id="interactiveMapContainer" aria-label="Interactive Local Map">
+            <div id="interactiveMapCanvas" style="width: 100%; height: 100%;">
+              <!-- Rendered dynamically by MapEngine -->
+            </div>
+          </aside>
+        </div>
+
+        <!-- Broadcast Quotes Lead Capture Banner -->
+        <div class="lead-banner-section"
+          style="margin-top: 3rem; background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%); color: #ffffff; border-radius: var(--radius-xl); padding: 2.5rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap;">
+          <div style="max-width: 650px;">
+            <div
+              style="display: inline-block; padding: 0.25rem 0.75rem; background: rgba(255,255,255,0.15); border-radius: var(--radius-full); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.5px; margin-bottom: 0.75rem;">
+              ⚡ QUOTE MARKETPLACE
+            </div>
+            <h2 style="font-size: 1.8rem; color: #ffffff; margin-bottom: 0.5rem;">Can't find the exact service?
+              Broadcast to 20+ Local Experts</h2>
+            <p style="color: rgba(255,255,255,0.85); font-size: 0.95rem;">Submit your requirement in 30 seconds.
+              Verified local professionals compete with transparent bids within 15 minutes.</p>
+          </div>
+          <button class="action-btn action-btn-primary" style="padding: 0.9rem 1.8rem; font-size: 1.05rem;"
+            onclick="window.QuoteMarketplace.openQuotesModal()">
+            <span>⚡</span> Broadcast Free Quote Request
+          </button>
+        </div>
+
+        <!-- Platform Trust & Safety Stats -->
+        <div
+          style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; margin: 3rem 0;">
+          <div
+            style="background: var(--bg-surface); padding: 1.5rem; border-radius: var(--radius-lg); border: 1px solid var(--border-subtle); text-align: center;">
+            <div style="font-size: 2rem; margin-bottom: 0.5rem;">🛡️</div>
+            <h4 style="font-size: 1.3rem; font-weight: 800; color: var(--primary); margin-bottom: 0.25rem;">15,480+</h4>
+            <p style="font-size: 0.88rem; color: var(--text-secondary);">Police & GST Verified Businesses</p>
+          </div>
+          <div
+            style="background: var(--bg-surface); padding: 1.5rem; border-radius: var(--radius-lg); border: 1px solid var(--border-subtle); text-align: center;">
+            <div style="font-size: 2rem; margin-bottom: 0.5rem;">⭐</div>
+            <h4 style="font-size: 1.3rem; font-weight: 800; color: var(--success); margin-bottom: 0.25rem;">4.9 / 5.0
+            </h4>
+            <p style="font-size: 0.88rem; color: var(--text-secondary);">Genuine Verified Booking Reviews</p>
+          </div>
+          <div
+            style="background: var(--bg-surface); padding: 1.5rem; border-radius: var(--radius-lg); border: 1px solid var(--border-subtle); text-align: center;">
+            <div style="font-size: 2rem; margin-bottom: 0.5rem;">⚡</div>
+            <h4 style="font-size: 1.3rem; font-weight: 800; color: #f59e0b; margin-bottom: 0.25rem;">Sub-10 Mins</h4>
+            <p style="font-size: 0.88rem; color: var(--text-secondary);">Emergency Response Time</p>
+          </div>
+          <div
+            style="background: var(--bg-surface); padding: 1.5rem; border-radius: var(--radius-lg); border: 1px solid var(--border-subtle); text-align: center;">
+            <div style="font-size: 2rem; margin-bottom: 0.5rem;">💯</div>
+            <h4 style="font-size: 1.3rem; font-weight: 800; color: #4f46e5; margin-bottom: 0.25rem;">100% Free</h4>
+            <p style="font-size: 0.88rem; color: var(--text-secondary);">Search, Price Quotes & Booking</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         Section Q: Popular Services in Selected City Hub
+         ========================================================================== -->
+    <section class="city-highlights-section" id="cityHighlightsSection">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">📍 Top Services in <span id="cityHighlightsName"
+                class="gradient-text">Bengaluru</span></h2>
+            <p class="section-desc">Hyper-local demands trending across neighborhoods today</p>
+          </div>
+          <div class="city-pill-tabs" id="cityPillTabs">
+            <!-- Dynamic city tabs -->
+          </div>
+        </div>
+
+        <div id="cityServicesList"
+          style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem;">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         Section C: Curated Category Showcases & Spotlight Discovery
+         ========================================================================== -->
+    <section class="curated-discovery-section" id="curatedDiscoverySection">
+      <div class="container">
+        <div class="section-header" style="margin-bottom: 1.5rem;">
+          <div>
+            <div
+              style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.25rem 0.75rem; background: var(--primary-lightest); color: var(--primary); border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 800; margin-bottom: 0.5rem;">
+              <span>🏆</span> CURATED LOCAL SPOTLIGHT
+            </div>
+            <h2 class="section-title">Spotlight on Verified Services in <span id="curatedCityTitle"
+                class="gradient-text">Bengaluru</span></h2>
+            <p class="section-desc">Handpicked, background-checked businesses with highest customer trust</p>
+          </div>
+          <div class="curated-tabs-nav" id="curatedTabsNav">
+            <button class="curated-tab-btn active" data-curated-tab="top-rated"
+              onclick="window.LocalCare.switchCuratedTab('top-rated')">
+              <span>⭐</span> Top Rated
+            </button>
+            <button class="curated-tab-btn" data-curated-tab="nearby"
+              onclick="window.LocalCare.switchCuratedTab('nearby')">
+              <span>📍</span> Nearby
+            </button>
+            <button class="curated-tab-btn" data-curated-tab="health"
+              onclick="window.LocalCare.switchCuratedTab('health')">
+              <span>🩺</span> Healthcare
+            </button>
+            <button class="curated-tab-btn" data-curated-tab="home" onclick="window.LocalCare.switchCuratedTab('home')">
+              <span>🔧</span> Home Repairs
+            </button>
+            <button class="curated-tab-btn" data-curated-tab="food" onclick="window.LocalCare.switchCuratedTab('food')">
+              <span>🍽️</span> Food & Dining
+            </button>
+            <button class="curated-tab-btn" data-curated-tab="shopping"
+              onclick="window.LocalCare.switchCuratedTab('shopping')">
+              <span>🛍️</span> Stores & Retail
+            </button>
+            <button class="curated-tab-btn" data-curated-tab="auto" onclick="window.LocalCare.switchCuratedTab('auto')">
+              <span>🚗</span> Auto & Towing
+            </button>
+            <button class="curated-tab-btn" data-curated-tab="education"
+              onclick="window.LocalCare.switchCuratedTab('education')">
+              <span>📚</span> Education & Tutors
+            </button>
+            <button class="curated-tab-btn" data-curated-tab="beauty"
+              onclick="window.LocalCare.switchCuratedTab('beauty')">
+              <span>✂️</span> Beauty & Fitness
+            </button>
+            <button class="curated-tab-btn" data-curated-tab="pro" onclick="window.LocalCare.switchCuratedTab('pro')">
+              <span>💼</span> Professional
+            </button>
+            <button class="curated-tab-btn" data-curated-tab="daily"
+              onclick="window.LocalCare.switchCuratedTab('daily')">
+              <span>🧺</span> Daily Needs
+            </button>
+            <button class="curated-tab-btn" data-curated-tab="newly-listed"
+              onclick="window.LocalCare.switchCuratedTab('newly-listed')">
+              <span>✨</span> Newly Listed
+            </button>
+          </div>
+        </div>
+
+        <!-- Curated Listings Grid -->
+        <div class="curated-grid" id="curatedGrid">
+          <!-- Populated dynamically by window.LocalCare.renderCuratedShowcase() -->
+        </div>
+
+        <div
+          style="margin-top: 1.75rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; padding: 1rem 1.25rem; background: var(--bg-subtle); border-radius: var(--radius-lg); border: 1px solid var(--border-subtle);">
+          <div style="font-size: 0.9rem; color: var(--text-secondary);">
+            <strong id="curatedCategorySummary">Showing 4 verified providers</strong> with guaranteed background checks
+            and instant quote support.
+          </div>
+          <button class="action-btn action-btn-primary" id="curatedExploreAllBtn"
+            onclick="window.LocalCare.filterCategory('all')" style="padding: 0.45rem 1rem; font-size: 0.85rem;">
+            Explore All Listings ➔
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         Section R: Recently Viewed Businesses Strip
+         ========================================================================== -->
+    <section class="recently-viewed-section" id="recentlyViewedSection" style="display: none;">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <h3 class="section-title" style="font-size: 1.3rem;">🕒 Recently Viewed by You</h3>
+            <p class="section-desc">Pick up where you left off</p>
+          </div>
+          <button class="action-btn action-btn-ghost" onclick="window.LocalCare.clearRecentlyViewed()"
+            style="font-size: 0.8rem;">
+            Clear History
+          </button>
+        </div>
+        <div class="recent-viewed-grid" id="recentlyViewedGrid">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         Section U: How LocalCare Works (3-Step Process)
+         ========================================================================== -->
+    <!-- ====== Ultra Platform Numbers Section ====== -->
+    <section class="ultra-numbers-section" id="ultraNumbersSection">
+      <div class="container">
+        <div class="ultra-numbers-grid">
+          <div class="ultra-stat-card reveal-on-scroll">
+            <div class="ultra-stat-icon">🛡️</div>
+            <div class="ultra-stat-value" data-count="15480" data-suffix="+">15,480+</div>
+            <div class="ultra-stat-label">Verified Businesses</div>
+            <div class="ultra-stat-sub">Police &amp; GST Checked</div>
+          </div>
+          <div class="ultra-stat-card reveal-on-scroll" style="transition-delay:0.06s">
+            <div class="ultra-stat-icon">⭐</div>
+            <div class="ultra-stat-value" data-count="4.9" data-suffix="/5" data-decimal="1">4.9/5</div>
+            <div class="ultra-stat-label">Average Rating</div>
+            <div class="ultra-stat-sub">From 89,000+ Reviews</div>
+          </div>
+          <div class="ultra-stat-card reveal-on-scroll" style="transition-delay:0.12s">
+            <div class="ultra-stat-icon">⚡</div>
+            <div class="ultra-stat-value" data-count="8" data-suffix=" Mins">8 Mins</div>
+            <div class="ultra-stat-label">Avg Response Time</div>
+            <div class="ultra-stat-sub">For Emergency Services</div>
+          </div>
+          <div class="ultra-stat-card reveal-on-scroll" style="transition-delay:0.18s">
+            <div class="ultra-stat-icon">🌆</div>
+            <div class="ultra-stat-value" data-count="12" data-suffix=" Cities">12 Cities</div>
+            <div class="ultra-stat-label">Cities &amp; Villages</div>
+            <div class="ultra-stat-sub">Across India</div>
+          </div>
+          <div class="ultra-stat-card reveal-on-scroll" style="transition-delay:0.24s">
+            <div class="ultra-stat-icon">📅</div>
+            <div class="ultra-stat-value" data-count="247000" data-suffix="+">2,47,000+</div>
+            <div class="ultra-stat-label">Bookings Completed</div>
+            <div class="ultra-stat-sub">This Year Alone</div>
+          </div>
+          <div class="ultra-stat-card reveal-on-scroll" style="transition-delay:0.30s">
+            <div class="ultra-stat-icon">💯</div>
+            <div class="ultra-stat-value" data-count="100" data-suffix="% Free">100% Free</div>
+            <div class="ultra-stat-label">Zero Commission</div>
+            <div class="ultra-stat-sub">For Customers Always</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="how-it-works-section" id="howItWorksSection">
+      <div class="container">
+        <div class="section-header reveal-on-scroll"
+          style="text-align: center; max-width: 680px; margin: 0 auto 2rem auto;">
+          <h2 class="section-title">How LocalCare Infinity Works</h2>
+          <p class="section-desc">From intelligent search to live technician tracking in 3 transparent steps</p>
+        </div>
+
+        <div class="how-steps-grid">
+          <div class="how-step-card reveal-on-scroll">
+            <div class="how-step-badge">1</div>
+            <div class="how-step-icon">🤖</div>
+            <h3 class="how-step-title">Ask AI or Voice Search</h3>
+            <p class="how-step-desc">
+              Search naturally (e.g. <em>"Dentist under ₹500 near me"</em> or <em>"AC repair today"</em>) using speech
+              recognition or our CareAI intelligent assistant.
+            </p>
+          </div>
+
+          <div class="how-step-card reveal-on-scroll" style="transition-delay:0.1s">
+            <div class="how-step-badge">2</div>
+            <div class="how-step-icon">⚖️</div>
+            <h3 class="how-step-title">Compare Quotes & Pros</h3>
+            <p class="how-step-desc">
+              Evaluate verified rates, ratings, response speeds, and police KYC audit scores side-by-side or broadcast
+              for 3 instant quotes in 15 minutes.
+            </p>
+          </div>
+
+          <div class="how-step-card reveal-on-scroll" style="transition-delay:0.2s">
+            <div class="how-step-badge">3</div>
+            <div class="how-step-icon">🏍️</div>
+            <h3 class="how-step-title">Book & Live GPS Tracking</h3>
+            <p class="how-step-desc">
+              Confirm your doorstep slot, verify your assigned technician with digital OTP, and enjoy ₹10,000 LocalCare
+              Quality Shield guarantee.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         Section T: Verified Customer Testimonials
+         ========================================================================== -->
+    <section class="testimonials-section" id="testimonialsSection">
+      <div class="container">
+        <div class="section-header reveal-on-scroll" style="text-align: center; max-width: 700px; margin: 0 auto;">
+          <h2 class="section-title">Loved by Thousands Across India 🇮🇳</h2>
+          <p class="section-desc">Real stories from verified customers getting reliable doorstep care</p>
+        </div>
+
+        <div class="testimonials-grid">
+          <div class="testimonial-card reveal-on-scroll">
+            <div>
+              <div class="test-stars">★★★★★</div>
+              <p class="test-quote">
+                "Had a burst pipe in our Koramangala apartment at 11 PM. LocalCare's emergency hub dispatched a master
+                plumber within 18 minutes. Transparent bill, zero hassle."
+              </p>
+            </div>
+            <div class="test-author-row">
+              <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80"
+                alt="Ananya" class="test-avatar" />
+              <div>
+                <div class="test-name">Ananya Hegde</div>
+                <div class="test-location">Koramangala, Bengaluru • Emergency Plumbing</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card reveal-on-scroll" style="transition-delay:0.08s">
+            <div>
+              <div class="test-stars">★★★★★</div>
+              <p class="test-quote">
+                "CareAI helped me find an NABH-accredited dental clinic with laser scaling under ₹500 near Valachil.
+                Booked directly in 30 seconds with instant WhatsApp confirmation."
+              </p>
+            </div>
+            <div class="test-author-row">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80"
+                alt="Rohit" class="test-avatar" />
+              <div>
+                <div class="test-name">Rohit Shenoy</div>
+                <div class="test-location">Valachil, Mangaluru • Apollo Dental</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card reveal-on-scroll" style="transition-delay:0.16s">
+            <div>
+              <div class="test-stars">★★★★★</div>
+              <p class="test-quote">
+                "As an AC repair business owner in HSR Layout, LocalCare Partner Portal gave us 40+ direct booking
+                orders this month without charging cutthroat middleman commissions."
+              </p>
+            </div>
+            <div class="test-author-row">
+              <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80"
+                alt="Karthik" class="test-avatar" />
+              <div>
+                <div class="test-name">Karthik R.</div>
+                <div class="test-location">Partner: QuickFix Pro • Verified Business</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         Section W: 24/7 Priority Emergency Services Hub
+         ========================================================================== -->
+    <section class="emergency-hub-section"
+      style="padding: 4rem 0; background: linear-gradient(180deg, rgba(239, 68, 68, 0.04) 0%, rgba(239, 68, 68, 0.1) 100%); border-top: 1px solid rgba(239, 68, 68, 0.2);">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <div
+              style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.25rem 0.75rem; background: #fee2e2; color: #b91c1c; border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 800; margin-bottom: 0.5rem;">
+              <span>🚨</span> 24/7 PRIORITY SOS DISPATCH
+            </div>
+            <h2 class="section-title">Emergency Response Hub</h2>
+            <p class="section-desc">On-call verified critical teams with sub-10 minute average arrival</p>
+          </div>
+          <button class="action-btn action-btn-outline" style="border-color: #dc2626; color: #dc2626;"
+            onclick="window.EmergencyMode.openEmergencyModal()">
+            View All Helplines ➔
+          </button>
+        </div>
+
+        <div
+          style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; margin-top: 2rem;">
+          <div
+            style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 1.5rem; display: flex; align-items: center; justify-content: space-between;">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+              <span style="font-size: 2.2rem;">🚑</span>
+              <div>
+                <h4 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 0.2rem;">24/7 Ambulance & ICU</h4>
+                <p style="font-size: 0.82rem; color: var(--text-secondary);">Direct dispatch • Toll-free 108</p>
+              </div>
+            </div>
+            <button class="action-btn action-btn-primary" style="background: #dc2626; border-color: #dc2626;"
+              onclick="window.EmergencyMode.triggerEmergency('ambulance')">
+              CALL 108
+            </button>
+          </div>
+
+          <div
+            style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 1.5rem; display: flex; align-items: center; justify-content: space-between;">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+              <span style="font-size: 2.2rem;">🚗</span>
+              <div>
+                <h4 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 0.2rem;">Roadside Breakdown</h4>
+                <p style="font-size: 0.82rem; color: var(--text-secondary);">Hydraulic flatbed towing</p>
+              </div>
+            </div>
+            <button class="action-btn action-btn-outline" onclick="window.EmergencyMode.triggerEmergency('towing')">
+              DISPATCH
+            </button>
+          </div>
+
+          <div
+            style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 1.5rem; display: flex; align-items: center; justify-content: space-between;">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+              <span style="font-size: 2.2rem;">🔧</span>
+              <div>
+                <h4 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 0.2rem;">Burst Pipe Flooding</h4>
+                <p style="font-size: 0.82rem; color: var(--text-secondary);">Master plumber in 20m</p>
+              </div>
+            </div>
+            <button class="action-btn action-btn-outline" onclick="window.EmergencyMode.triggerEmergency('plumber')">
+              CONNECT
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         Section Y: Newsletter & Deal Alerts Subscription
+         ========================================================================== -->
+    <section class="newsletter-section" id="newsletterSection">
+      <div class="container newsletter-inner">
+        <div>
+          <span
+            style="display: inline-block; padding: 0.25rem 0.75rem; background: rgba(255,255,255,0.15); border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 800; margin-bottom: 0.5rem;">
+            💌 VIP INSIDER
+          </span>
+          <h2 style="font-size: 1.6rem; font-weight: 800; margin-bottom: 0.35rem; color: #ffffff;">Get Weekly Local
+            Service Discounts & Alerts</h2>
+          <p style="color: rgba(255,255,255,0.8); font-size: 0.9rem; max-width: 500px;">Save up to 40% on verified AC
+            maintenance, deep cleaning, dental checkups and emergency coverage.</p>
+        </div>
+
+        <form id="newsletterForm" onsubmit="window.LocalCare.handleNewsletter(event)" class="newsletter-input-group">
+          <input type="email" id="newsletterEmailInput" class="newsletter-input"
+            placeholder="Enter your email (e.g. chethan@gmail.com)" required />
+          <button type="submit" class="action-btn action-btn-primary" style="white-space: nowrap;">
+            Subscribe Free ➔
+          </button>
+        </form>
+      </div>
+    </section>
+    <!-- ==========================================================================
+         Section: India-Wide Popular Destinations & Tourism Hubs
+         ========================================================================== -->
+    <section class="destinations-section" style="padding: 4rem 0; background: var(--bg-surface); border-top: 1px solid var(--border-subtle);">
+      <div class="container">
+        <div class="section-header" style="text-align: center; max-width: 720px; margin: 0 auto 2.5rem auto;">
+          <div style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.3rem 0.85rem; background: rgba(255,104,0,0.1); color: var(--primary); border-radius: var(--radius-full); font-size: 0.78rem; font-weight: 800; margin-bottom: 0.6rem;">
+            <span>🇮🇳</span> NATIONWIDE EXPANSION
+          </div>
+          <h2 class="section-title">Explore Popular Destinations Across India</h2>
+          <p class="section-desc">Instant booking and verified local professionals across 28 States &amp; 8 Union Territories</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem;">
+          <div class="destination-card" style="border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); overflow: hidden; background: var(--bg-body); cursor: pointer; transition: all var(--transition-fast);" onclick="window.LocalCare.setCity('Bengaluru'); window.LocalCare.filterCategory('all');" onmouseover="this.style.transform='translateY(-4px)'; this.style.borderColor='var(--primary)';" onmouseout="this.style.transform='none'; this.style.borderColor='var(--border-subtle)';">
+            <div style="height: 140px; position: relative; overflow: hidden;">
+              <img src="https://images.unsplash.com/photo-1596176530529-78163a4f7af2?auto=format&fit=crop&w=600&q=80" alt="Bengaluru" style="width: 100%; height: 100%; object-fit: cover;" />
+              <span style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.65); color: #fff; font-size: 0.72rem; padding: 2px 8px; border-radius: 999px; font-weight: 700;">Karnataka</span>
+            </div>
+            <div style="padding: 1rem;">
+              <h3 style="font-size: 1.1rem; margin-bottom: 0.25rem;">Bengaluru</h3>
+              <p style="font-size: 0.82rem; color: var(--text-muted); margin: 0;">Silicon Valley of India • 12 Localities • 3,200+ Pros</p>
+            </div>
+          </div>
+
+          <div class="destination-card" style="border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); overflow: hidden; background: var(--bg-body); cursor: pointer; transition: all var(--transition-fast);" onclick="window.LocalCare.setCity('Mumbai'); window.LocalCare.filterCategory('all');" onmouseover="this.style.transform='translateY(-4px)'; this.style.borderColor='var(--primary)';" onmouseout="this.style.transform='none'; this.style.borderColor='var(--border-subtle)';">
+            <div style="height: 140px; position: relative; overflow: hidden;">
+              <img src="https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=600&q=80" alt="Mumbai" style="width: 100%; height: 100%; object-fit: cover;" />
+              <span style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.65); color: #fff; font-size: 0.72rem; padding: 2px 8px; border-radius: 999px; font-weight: 700;">Maharashtra</span>
+            </div>
+            <div style="padding: 1rem;">
+              <h3 style="font-size: 1.1rem; margin-bottom: 0.25rem;">Mumbai</h3>
+              <p style="font-size: 0.82rem; color: var(--text-muted); margin: 0;">Financial Capital • Bandra, Powai, Andheri • 4,100+ Pros</p>
+            </div>
+          </div>
+
+          <div class="destination-card" style="border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); overflow: hidden; background: var(--bg-body); cursor: pointer; transition: all var(--transition-fast);" onclick="window.LocalCare.setCity('Delhi NCR'); window.LocalCare.filterCategory('all');" onmouseover="this.style.transform='translateY(-4px)'; this.style.borderColor='var(--primary)';" onmouseout="this.style.transform='none'; this.style.borderColor='var(--border-subtle)';">
+            <div style="height: 140px; position: relative; overflow: hidden;">
+              <img src="https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=600&q=80" alt="Delhi NCR" style="width: 100%; height: 100%; object-fit: cover;" />
+              <span style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.65); color: #fff; font-size: 0.72rem; padding: 2px 8px; border-radius: 999px; font-weight: 700;">Delhi NCR</span>
+            </div>
+            <div style="padding: 1rem;">
+              <h3 style="font-size: 1.1rem; margin-bottom: 0.25rem;">Delhi NCR</h3>
+              <p style="font-size: 0.82rem; color: var(--text-muted); margin: 0;">Capital Region • CP, Gurgaon, Noida • 3,800+ Pros</p>
+            </div>
+          </div>
+
+          <div class="destination-card" style="border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); overflow: hidden; background: var(--bg-body); cursor: pointer; transition: all var(--transition-fast);" onclick="window.LocalCare.setCity('Goa (North & South)'); window.LocalCare.filterCategory('travel');" onmouseover="this.style.transform='translateY(-4px)'; this.style.borderColor='var(--primary)';" onmouseout="this.style.transform='none'; this.style.borderColor='var(--border-subtle)';">
+            <div style="height: 140px; position: relative; overflow: hidden;">
+              <img src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=600&q=80" alt="Goa" style="width: 100%; height: 100%; object-fit: cover;" />
+              <span style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.65); color: #fff; font-size: 0.72rem; padding: 2px 8px; border-radius: 999px; font-weight: 700;">Goa</span>
+            </div>
+            <div style="padding: 1rem;">
+              <h3 style="font-size: 1.1rem; margin-bottom: 0.25rem;">Goa</h3>
+              <p style="font-size: 0.82rem; color: var(--text-muted); margin: 0;">Beaches &amp; Tourism • Resorts, Car Rentals, Dining</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================================================
+       Site Footer
+       ========================================================================== -->
+  <!-- ====== Trust & Partners Marquee Strip ====== -->
+  <section class="trust-marquee-section" aria-label="Trusted by India's Best Businesses">
+    <div class="trust-marquee-inner">
+      <div class="trust-marquee-label">🏆 Trusted by India's Best</div>
+      <div class="trust-marquee-track" aria-hidden="true">
+        <div class="trust-marquee-items">
+          <span class="trust-item">🏥 Apollo Hospitals</span><span class="trust-divider">·</span>
+          <span class="trust-item">⚡ QuickFix Pro</span><span class="trust-divider">·</span>
+          <span class="trust-item">🦷 Dental World</span><span class="trust-divider">·</span>
+          <span class="trust-item">🔧 RapidFlow Plumbing</span><span class="trust-divider">·</span>
+          <span class="trust-item">🚗 AutoCare Express</span><span class="trust-divider">·</span>
+          <span class="trust-item">🍽️ Paradise Dining</span><span class="trust-divider">·</span>
+          <span class="trust-item">✂️ Style Studio</span><span class="trust-divider">·</span>
+          <span class="trust-item">📚 BrightMind Tutors</span><span class="trust-divider">·</span>
+          <span class="trust-item">🛡️ SafeGuard Security</span><span class="trust-divider">·</span>
+          <span class="trust-item">💊 MedPlus Pharmacy</span><span class="trust-divider">·</span>
+          <span class="trust-item">🌿 Ayur Wellness</span><span class="trust-divider">·</span>
+          <span class="trust-item">📸 SnapPro Studios</span><span class="trust-divider">·</span>
+          <!-- duplicate for seamless infinite scroll -->
+          <span class="trust-item">🏥 Apollo Hospitals</span><span class="trust-divider">·</span>
+          <span class="trust-item">⚡ QuickFix Pro</span><span class="trust-divider">·</span>
+          <span class="trust-item">🦷 Dental World</span><span class="trust-divider">·</span>
+          <span class="trust-item">🔧 RapidFlow Plumbing</span><span class="trust-divider">·</span>
+          <span class="trust-item">🚗 AutoCare Express</span><span class="trust-divider">·</span>
+          <span class="trust-item">🍽️ Paradise Dining</span><span class="trust-divider">·</span>
+          <span class="trust-item">✂️ Style Studio</span><span class="trust-divider">·</span>
+          <span class="trust-item">📚 BrightMind Tutors</span><span class="trust-divider">·</span>
+          <span class="trust-item">🛡️ SafeGuard Security</span><span class="trust-divider">·</span>
+          <span class="trust-item">💊 MedPlus Pharmacy</span><span class="trust-divider">·</span>
+          <span class="trust-item">🌿 Ayur Wellness</span><span class="trust-divider">·</span>
+          <span class="trust-item">📸 SnapPro Studios</span><span class="trust-divider">·</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer" role="contentinfo"
+    style="background: var(--bg-surface); border-top: 1px solid var(--border-subtle); padding: 4rem 0 2rem 0; margin-top: auto;">
+    <div class="container">
+      <div
+        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+        <div>
+          <a href="#" class="brand-logo" style="margin-bottom: 0.75rem;">
+            <div class="logo-badge">📍</div>
+            <span class="brand-text">Local<span>Care</span> <span class="infinity-badge">Infinity</span></span>
+          </a>
+          <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem;">
+            LocalCare Infinity is India's next-generation AI-powered local discovery, appointment booking, and doorstep
+            services platform. Connecting consumers with background-checked professionals across 10 major hubs.
+          </p>
+          <div style="display: flex; gap: 0.75rem; font-size: 1.25rem;">
+            <a href="#" title="Twitter">🐦</a>
+            <a href="#" title="LinkedIn">💼</a>
+            <a href="#" title="Instagram">📸</a>
+            <a href="#" title="YouTube">📺</a>
+          </div>
+        </div>
+
+        <div>
+          <h4 style="font-size: 1rem; margin-bottom: 1rem;">Popular Categories</h4>
+          <ul
+            style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.88rem; color: var(--text-secondary);">
+            <li><a href="javascript:void(0)" onclick="window.LocalCare.filterCategory('health')">Doctors & Dentists</a>
+            </li>
+            <li><a href="javascript:void(0)" onclick="window.LocalCare.filterCategory('electrical')">AC Repair &
+                Electricians</a></li>
+            <li><a href="javascript:void(0)" onclick="window.LocalCare.filterCategory('home')">Plumbers & Water
+                Leakage</a></li>
+            <li><a href="javascript:void(0)" onclick="window.LocalCare.filterCategory('food')">Restaurants & Dining</a>
+            </li>
+            <li><a href="javascript:void(0)" onclick="window.LocalCare.filterCategory('auto')">Car Detailing & Roadside
+                Towing</a></li>
+            <li><a href="javascript:void(0)" onclick="window.LocalCare.filterCategory('emergency')">24/7 Emergency
+                Services</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="font-size: 1rem; margin-bottom: 1rem;">Major City Hubs</h4>
+          <ul
+            style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.88rem; color: var(--text-secondary);">
+            <li><a href="javascript:void(0)" onclick="window.LocalCare.setCity('Bengaluru')">Bengaluru (Koramangala,
+                HSR, Indiranagar)</a></li>
+            <li><a href="javascript:void(0)" onclick="window.LocalCare.setCity('Mangaluru')">Mangaluru (Valachil, Kadri,
+                Hampankatta)</a></li>
+            <li><a href="javascript:void(0)" onclick="window.LocalCare.setCity('Mumbai')">Mumbai (Bandra, Andheri,
+                Powai)</a></li>
+            <li><a href="javascript:void(0)" onclick="window.LocalCare.setCity('Delhi NCR')">Delhi NCR (CP, Cyber City,
+                Saket)</a></li>
+            <li><a href="javascript:void(0)" onclick="window.LocalCare.setCity('Hyderabad')">Hyderabad (Gachibowli,
+                Hitec City)</a></li>
+            <li><a href="javascript:void(0)" onclick="window.LocalCare.setCity('Pune')">Pune (Koregaon Park, Baner)</a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="font-size: 1rem; margin-bottom: 1rem;">For Business Partners</h4>
+          <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.5;">
+            List your clinic, workshop, or home service. Get genuine local customer bookings and direct settlements.
+          </p>
+          <div style="display: flex; flex-direction: column; gap: 0.6rem;">
+            <button class="action-btn action-btn-primary" style="justify-content: center;"
+              onclick="document.getElementById('openListBusinessBtn').click()">
+              ➕ List Your Business Free
+            </button>
+            <button class="action-btn action-btn-outline" style="justify-content: center;"
+              onclick="window.BusinessDashboard.openPortal()">
+              💼 Partner Dashboard
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div
+        style="border-top: 1px solid var(--border-subtle); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.85rem; color: var(--text-muted);">
+        <div>© 2026 LocalCare Infinity Technologies Pvt. Ltd. All rights reserved. Made for India 🇮🇳</div>
+        <div style="display: flex; gap: 1.5rem;">
+          <a href="#" onclick="window.VerificationEngine.openReportModal()">Report Listing</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#" onclick="window.LocalCare.showToast('Connecting to 24/7 Support Desk...', 'info')">Support</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+
+  <!-- Mobile Floating Map / List Toggle Button -->
+  <button class="mobile-map-toggle-btn" id="mobileMapToggleBtn" onclick="window.LocalCare.toggleMobileMap()">
+    <span>🗺️</span> View Map
+  </button>
+
+  <!-- ==========================================================================
+       Modals & Dialogs Container
+       ========================================================================== -->
+
+  <!-- 1. Business Detail Profile Modal -->
+  <dialog id="detailDialog" class="app-dialog" style="width: 740px;" aria-labelledby="detailModalTitle">
+    <div class="dialog-content-wrapper">
+      <div class="dialog-header">
+        <h3 class="dialog-title" id="detailModalTitle">Business Profile</h3>
+        <button class="dialog-close-btn" data-close-dialog aria-label="Close dialog">✕</button>
+      </div>
+      <div class="dialog-body" id="detailContent" style="padding: 0;">
+        <!-- Populated dynamically in app.js -->
+      </div>
+      <div class="dialog-footer">
+        <button class="action-btn action-btn-ghost" data-close-dialog>Close</button>
+        <button class="action-btn action-btn-outline" id="detailTrustScoreBtn">
+          🛡️ View Trust Audit
+        </button>
+        <button class="action-btn action-btn-primary" id="detailBookNowBtn">
+          Book Appointment
+        </button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- 2. "Call Now" Direct Contact Modal -->
+  <dialog id="callDialog" class="app-dialog" style="width: 440px;" aria-labelledby="callDialogTitle">
+    <div class="dialog-content-wrapper">
+      <div class="dialog-header">
+        <h3 class="dialog-title" id="callDialogTitle">Verified Direct Contact</h3>
+        <button class="dialog-close-btn" data-close-dialog aria-label="Close dialog">✕</button>
+      </div>
+      <div class="dialog-body" id="callModalContent">
+        <!-- Populated dynamically -->
+      </div>
+    </div>
+  </dialog>
+
+  <!-- 3. "List Your Business" Vendor Multi-Step Onboarding Modal -->
+  <dialog id="vendorDialog" class="app-dialog" style="width: 620px;" aria-labelledby="vendorDialogTitle">
+    <div class="dialog-content-wrapper">
+      <div class="dialog-header">
+        <div>
+          <h3 class="dialog-title" id="vendorDialogTitle">List Your Business on LocalCare</h3>
+          <small style="color: var(--text-secondary);">Join 15,000+ verified businesses getting customer leads
+            daily</small>
+        </div>
+        <button class="dialog-close-btn" data-close-dialog aria-label="Close dialog">✕</button>
+      </div>
+
+      <!-- Step Indicator -->
+      <div style="padding: 1.25rem 1.5rem 0 1.5rem;">
+        <div class="booking-stepper-bar" style="background: transparent; padding: 0;">
+          <div class="booking-step active" id="vendorStep1">
+            <span class="step-num">1</span>
+            <span class="step-text">Identity</span>
+          </div>
+          <div class="booking-step-line"></div>
+          <div class="booking-step" id="vendorStep2">
+            <span class="step-num">2</span>
+            <span class="step-text">Contact</span>
+          </div>
+          <div class="booking-step-line"></div>
+          <div class="booking-step" id="vendorStep3">
+            <span class="step-num">3</span>
+            <span class="step-text">Services</span>
+          </div>
+        </div>
+      </div>
+
+      <form id="vendorForm">
+        <div class="dialog-body">
+          <!-- Step 1: Basic Information -->
+          <div id="vStep1Content">
+            <h4 style="font-size: 1.05rem; margin-bottom: 1rem;">Step 1: Business Identity</h4>
+
+            <div class="form-group">
+              <label class="form-label">Business / Clinic / Agency Name *</label>
+              <input type="text" id="vendorBusinessName" class="form-input" placeholder="e.g. Metro Dental Studio"
+                required />
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Category *</label>
+                <select id="vendorCategorySelect" class="form-select" required></select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">City *</label>
+                <select id="vendorCitySelect" class="form-select" required></select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Locality / Neighborhood *</label>
+              <input type="text" id="vendorLocality" class="form-input" placeholder="e.g. Indiranagar / Valachil"
+                required />
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; margin-top: 1rem;">
+              <button type="button" class="action-btn action-btn-primary" id="vendorNextStep1">Next: Contact Info
+                ➔</button>
+            </div>
+          </div>
+
+          <!-- Step 2: Contact Information -->
+          <div id="vStep2Content" style="display: none;">
+            <h4 style="font-size: 1.05rem; margin-bottom: 1rem;">Step 2: Contact & Location</h4>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Primary Calling Phone *</label>
+                <input type="tel" id="vendorPhone" class="form-input" placeholder="+91 98450 00112" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">WhatsApp Number</label>
+                <input type="tel" id="vendorWhatsApp" class="form-input" placeholder="919845000112" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Full Street Address</label>
+              <textarea id="vendorAddress" class="form-textarea" rows="2"
+                placeholder="Building name, street, landmarks, pincode..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Operating Hours</label>
+              <input type="text" id="vendorHours" class="form-input" placeholder="e.g. 9:00 AM - 9:00 PM (Mon-Sat)" />
+            </div>
+
+            <div style="display: flex; justify-content: space-between; margin-top: 1rem;">
+              <button type="button" class="action-btn action-btn-outline" id="vendorPrevStep2">⬅ Back</button>
+              <button type="button" class="action-btn action-btn-primary" id="vendorNextStep2">Next: Services & Submit
+                ➔</button>
+            </div>
+          </div>
+
+          <!-- Step 3: Services & Details -->
+          <div id="vStep3Content" style="display: none;">
+            <h4 style="font-size: 1.05rem; margin-bottom: 1rem;">Step 3: Services & Starting Rate</h4>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Primary Service Offered</label>
+                <input type="text" id="vendorService1" class="form-input" placeholder="e.g. Consultation / Repair" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Starting Price / Consultation</label>
+                <input type="text" id="vendorPrice1" class="form-input" placeholder="e.g. ₹399" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Business Description</label>
+              <textarea id="vendorDescription" class="form-textarea" rows="3"
+                placeholder="Describe your experience, certifications, and specializations..."></textarea>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; margin-top: 1rem;">
+              <button type="button" class="action-btn action-btn-outline" id="vendorPrevStep3">⬅ Back</button>
+              <button type="submit" class="action-btn action-btn-primary">🎉 Publish Listing Now</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- 4. Saved Favorites Side Drawer -->
+  <div class="drawer-backdrop" id="savedDrawerBackdrop"
+    style="position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1050; display: none;"></div>
+  <aside class="side-drawer" id="savedDrawer"
+    style="position: fixed; top: 0; right: -420px; width: 400px; max-width: 90vw; height: 100vh; background: var(--bg-surface); z-index: 1051; display: flex; flex-direction: column; transition: right 0.3s ease; box-shadow: var(--shadow-xl);"
+    aria-label="Saved Listings">
+    <div
+      style="display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border-subtle);">
+      <h3 style="font-size: 1.15rem; font-weight: 700;">❤️ Saved Favorites</h3>
+      <button class="dialog-close-btn" id="closeSavedBtn" aria-label="Close saved drawer">✕</button>
+    </div>
+    <div style="flex: 1; overflow-y: auto; padding: 1rem;" id="savedListingsContainer">
+      <!-- Populated dynamically -->
+    </div>
+  </aside>
+
+  <!-- Keyboard Shortcuts Helper Dialog -->
+  <dialog id="shortcutsDialog" class="app-dialog shortcuts-dialog" aria-labelledby="shortcutsTitle">
+    <div class="dialog-content-wrapper shortcuts-modal-wrapper" style="width: 540px; max-width: 95vw;">
+      <div class="dialog-header">
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <span style="font-size: 1.4rem;">⌨️</span>
+          <div>
+            <h3 class="dialog-title" id="shortcutsTitle">Keyboard Power Shortcuts</h3>
+            <small style="color: var(--text-secondary);">Supercharge your navigation on LocalCare</small>
+          </div>
+        </div>
+        <button class="dialog-close-btn" onclick="document.getElementById('shortcutsDialog').close()">✕</button>
+      </div>
+      <div class="dialog-body shortcuts-list-grid"
+        style="display: grid; grid-template-columns: 1fr; gap: 0.65rem; padding: 1.25rem;">
+        <div class="shortcut-item"><kbd>/</kbd> or <kbd>Ctrl+K</kbd> <span>Focus AI Search Omnibox</span></div>
+        <div class="shortcut-item"><kbd>M</kbd> <span>Toggle Interactive Vector Map (Mobile / Desktop)</span></div>
+        <div class="shortcut-item"><kbd>A</kbd> <span>Open CareAI 2.0 Concierge</span></div>
+        <div class="shortcut-item"><kbd>C</kbd> <span>Open Pro Comparison Matrix</span></div>
+        <div class="shortcut-item"><kbd>P</kbd> <span>Open Instant Price Estimator</span></div>
+        <div class="shortcut-item"><kbd>E</kbd> <span>Trigger 24/7 SOS Emergency Hub</span></div>
+        <div class="shortcut-item"><kbd>O</kbd> <span>Open AI Prescription & Service Bill OCR Studio</span></div>
+        <div class="shortcut-item"><kbd>W</kbd> <span>Open In-App WhatsApp Web Concierge</span></div>
+        <div class="shortcut-item"><kbd>V</kbd> <span>Open CareVision AI Photo Diagnostics</span></div>
+        <div class="shortcut-item"><kbd>H</kbd> <span>Open Multilingual Voice Health & Symptom Triage</span></div>
+        <div class="shortcut-item"><kbd>B</kbd> <span>Open Partner AI Co-Pilot & QuoteCraft Studio</span></div>
+        <div class="shortcut-item"><kbd>T</kbd> <span>Toggle Dark / Light Theme</span></div>
+        <div class="shortcut-item"><kbd>S</kbd> <span>Toggle Audio Sound Cues</span></div>
+        <div class="shortcut-item"><kbd>?</kbd> <span>Show this Shortcuts Guide</span></div>
+        <div class="shortcut-item"><kbd>Esc</kbd> <span>Close Any Open Dialog / Modal</span></div>
+      </div>
+      <div class="dialog-footer">
+        <button class="action-btn action-btn-primary" onclick="document.getElementById('shortcutsDialog').close()">
+          Got It!
+        </button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Notification Center Flyout Drawer -->
+  <div class="notification-drawer-backdrop" id="notificationBackdrop"
+    onclick="window.LocalCare.closeNotificationCenter()"
+    style="position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 1050; display: none;"></div>
+  <aside class="notification-drawer" id="notificationDrawer"
+    style="position: fixed; top: 0; right: -420px; width: 400px; max-width: 92vw; height: 100vh; background: var(--bg-surface); z-index: 1051; display: flex; flex-direction: column; transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: var(--shadow-xl); border-left: 1px solid var(--border-subtle);"
+    aria-label="Notifications Center">
+    <div
+      style="display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border-subtle);">
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <span style="font-size: 1.3rem;">🔔</span>
+        <h3 style="font-size: 1.15rem; font-weight: 800; margin: 0;">Notifications & Activity</h3>
+      </div>
+      <button class="dialog-close-btn" onclick="window.LocalCare.closeNotificationCenter()"
+        aria-label="Close notifications">✕</button>
+    </div>
+    <div
+      style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1.5rem; background: var(--bg-subtle); border-bottom: 1px solid var(--border-subtle); font-size: 0.8rem;">
+      <span style="color: var(--text-muted);" id="notificationStatusText">3 unread notifications</span>
+      <button class="action-btn action-btn-ghost" style="padding: 0.2rem 0.5rem; font-size: 0.78rem;"
+        onclick="window.LocalCare.markAllNotificationsRead()">Mark all as read</button>
+    </div>
+    <div style="flex: 1; overflow-y: auto; padding: 1rem;" id="notificationListContainer">
+      <!-- Populated dynamically -->
+    </div>
+  </aside>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer" role="status" aria-live="polite"></div>
+
+  <!-- ==========================================================================
+       Justdial-Style Modals Suite
+       ========================================================================== -->
+
+  <!-- 1. "Get Best Deal" Instant Multi-Vendor Lead Modal -->
+  <dialog id="jdBestDealDialog" class="app-dialog" style="width: 580px; max-width: 95vw;"
+    aria-labelledby="jdBestDealTitle">
+    <div class="dialog-content-wrapper">
+      <div class="dialog-header">
+        <div>
+          <h3 class="dialog-title" id="jdBestDealTitle">⚡ Get Best Deal in 15 Minutes</h3>
+          <small style="color: var(--text-secondary);" id="jdBestDealSubtitle">Get competitive price quotes from top 5
+            verified pros near you</small>
+        </div>
+        <button class="dialog-close-btn" data-close-dialog aria-label="Close dialog">✕</button>
+      </div>
+
+      <div class="dialog-body">
+        <form id="jdBestDealForm">
+          <div class="form-group">
+            <label class="form-label">What service or repair do you need? *</label>
+            <input type="text" id="jdDealServiceInput" class="form-input"
+              placeholder="e.g. Split AC servicing, Root canal, 2BHK Deep cleaning..." required />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">When do you need it? *</label>
+              <select id="jdDealUrgencySelect" class="form-select">
+                <option value="Urgent (Within 2 Hours)">🚨 Urgent (Within 2 Hours)</option>
+                <option value="Today" selected>⚡ Today</option>
+                <option value="Tomorrow">📅 Tomorrow</option>
+                <option value="This Weekend">🗓️ This Weekend</option>
+                <option value="Flexible">🕒 Flexible</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Budget Preference</label>
+              <select id="jdDealBudgetSelect" class="form-select">
+                <option value="Economy">💵 Economy / Best Value</option>
+                <option value="Standard" selected>⚖️ Standard / Quality First</option>
+                <option value="Premium">💎 Premium / Master Pro</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Your Name *</label>
+              <input type="text" id="jdDealNameInput" class="form-input" value="Chethan B K"
+                placeholder="Enter full name" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Mobile Number (For Quotes & Callback) *</label>
+              <input type="tel" id="jdDealPhoneInput" class="form-input" value="+91 98450 11223"
+                placeholder="+91 98450 00000" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Specific Details / Brand / Notes</label>
+            <textarea id="jdDealNotesInput" class="form-textarea" rows="2"
+              placeholder="e.g. Daikin 1.5 ton split AC, water leakage in indoor unit..."></textarea>
+          </div>
+
+          <div
+            style="background: var(--bg-subtle); border-radius: var(--radius-md); padding: 0.75rem 1rem; margin-bottom: 1.25rem; font-size: 0.82rem; color: var(--text-secondary); display: flex; align-items: center; gap: 0.5rem;">
+            <span>🛡️</span>
+            <span><strong>100% Free & No Spam:</strong> Your request is sent only to 3-5 background-verified
+              partners.</span>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
+            <button type="button" class="action-btn action-btn-ghost" data-close-dialog>Cancel</button>
+            <button type="submit" class="action-btn action-btn-primary"
+              style="padding: 0.75rem 1.5rem; font-size: 0.95rem;">
+              <span>⚡</span> Broadcast & Get Quotes
+            </button>
+          </div>
+        </form>
+
+        <div id="jdBestDealSuccess" style="display: none;"></div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- 2. "JD Pay" Mobile Recharge & Utility Bills Hub Modal -->
+  <dialog id="jdPayDialog" class="app-dialog" style="width: 620px; max-width: 95vw;" aria-labelledby="jdPayTitle">
+    <div class="dialog-content-wrapper">
+      <div class="dialog-header">
+        <div style="display: flex; align-items: center; gap: 0.6rem;">
+          <span style="font-size: 1.6rem;">💳</span>
+          <div>
+            <h3 class="dialog-title" id="jdPayTitle">JD Pay — Bills & Instant Recharges</h3>
+            <small style="color: var(--text-secondary);">Fast, secure payments with flat 5% cashback on all
+              utilities</small>
+          </div>
+        </div>
+        <button class="dialog-close-btn" data-close-dialog aria-label="Close dialog">✕</button>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <div class="jdpay-tabs-bar">
+        <button class="jdpay-tab-btn active" data-tab="recharge" onclick="window.JDFeatures.switchJdPayTab('recharge')">
+          <span>📱</span> Mobile Recharge
+        </button>
+        <button class="jdpay-tab-btn" data-tab="electricity" onclick="window.JDFeatures.switchJdPayTab('electricity')">
+          <span>⚡</span> Electricity Bill
+        </button>
+        <button class="jdpay-tab-btn" data-tab="directpay" onclick="window.JDFeatures.switchJdPayTab('directpay')">
+          <span>🛍️</span> Pay Any Business
+        </button>
+      </div>
+
+      <div class="dialog-body">
+        <!-- Tab 1: Mobile Recharge -->
+        <div class="jdpay-tab-content active" id="jdpay-recharge">
+          <form id="jdpayRechargeForm">
+            <!-- Operator Pill Selector -->
+            <div style="margin-bottom: 1rem;">
+              <label class="form-label">Select Operator</label>
+              <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                <button type="button" class="jdpay-op-btn active" data-op="jio">Jio 5G</button>
+                <button type="button" class="jdpay-op-btn" data-op="airtel">Airtel 5G</button>
+                <button type="button" class="jdpay-op-btn" data-op="vi">Vodafone Idea</button>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Mobile Number *</label>
+                <input type="tel" id="jdpayMobileInput" class="form-input" value="9845011223" maxlength="10"
+                  placeholder="10-digit number" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Recharge Amount (₹) *</label>
+                <input type="number" id="jdpayAmountInput" class="form-input" value="299" required />
+              </div>
+            </div>
+
+            <div style="margin-bottom: 0.75rem; font-weight: 700; font-size: 0.88rem; color: var(--text-primary);">
+              ⚡ Popular Recommended Plans:
+            </div>
+            <div class="jdpay-plans-grid" id="jdpayPlansGrid">
+              <!-- Populated dynamically -->
+            </div>
+
+            <div id="jdpayRechargeResult" style="margin: 1rem 0; display: none;"></div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1.25rem;">
+              <span style="font-size: 0.82rem; color: #059669; font-weight: 700;">🎁 5% Cashback up to ₹25 with JD
+                Pay</span>
+              <button type="submit" class="action-btn action-btn-primary" style="padding: 0.75rem 1.5rem;">
+                Proceed to Recharge ➔
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Tab 2: Electricity Bill -->
+        <div class="jdpay-tab-content" id="jdpay-electricity">
+          <div class="form-group">
+            <label class="form-label">Select Electricity Provider *</label>
+            <select id="jdpayBoardSelect" class="form-select">
+              <option value="bescom">BESCOM - Bangalore Electricity Supply (Karnataka)</option>
+              <option value="mescom">MESCOM - Mangalore Electricity Supply (Karnataka)</option>
+              <option value="msedcl">MSEDCL - Mahavitaran (Maharashtra)</option>
+              <option value="bses">BSES Yamuna Power Limited (Delhi NCR)</option>
+              <option value="tsspdcl">TSSPDCL (Hyderabad / Telangana)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Consumer Account ID / Meter Number *</label>
+            <div style="display: flex; gap: 0.5rem;">
+              <input type="text" id="jdpayConsumerIdInput" class="form-input" value="54810294"
+                placeholder="Enter Consumer Account ID" />
+              <button type="button" class="action-btn action-btn-primary"
+                onclick="window.JDFeatures.handleFetchElectricityBill()">
+                Fetch Bill ➔
+              </button>
+            </div>
+          </div>
+
+          <div id="jdpayElectricityBillBox" style="display: none; margin-top: 1rem;"></div>
+        </div>
+
+        <!-- Tab 3: Pay Any Business Direct -->
+        <div class="jdpay-tab-content" id="jdpay-directpay">
+          <div class="form-group">
+            <label class="form-label">Select Local Merchant / Clinic / Service</label>
+            <select id="jdpayMerchantSelect" class="form-select">
+              <option value="b-101">Apollo Dental & Laser Clinic (Koramangala)</option>
+              <option value="b-102">QuickFix Pro AC & Electricals (HSR Layout)</option>
+              <option value="b-103">RapidFlow 24/7 Plumbers (Indiranagar)</option>
+              <option value="b-113">SafeMove India Packers & Movers (HSR Layout)</option>
+              <option value="b-201">Mangalore Care PolyClinic (Valachil)</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Bill Amount (₹)</label>
+              <input type="number" id="jdpayDirectAmount" class="form-input" value="1000" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Promo Coupon</label>
+              <input type="text" id="jdpayCouponCode" class="form-input" value="JDPAY50" readonly />
+            </div>
+          </div>
+
+          <div
+            style="background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: var(--radius-md); padding: 0.75rem 1rem; margin-bottom: 1.25rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <strong style="color: #065f46; font-size: 0.95rem;">Coupon JDPAY50 Applied!</strong>
+                <div style="font-size: 0.78rem; color: #047857;">Instant ₹50 Discount + 5% JD Pay Wallet Rewards</div>
+              </div>
+              <span style="font-weight: 800; font-size: 1.2rem; color: #065f46;">₹950 Payable</span>
+            </div>
+          </div>
+
+          <button class="action-btn action-btn-primary" style="width: 100%; justify-content: center; padding: 0.85rem;"
+            onclick="window.LocalCare.showToast('Payment successful! Receipt & OTP sent to merchant.', 'success'); document.getElementById('jdPayDialog').close();">
+            💳 Pay ₹950 via UPI / Card & Confirm
+          </button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- 3. Packers & Movers Fare & Route Estimator Modal -->
+  <dialog id="jdPackersMoversDialog" class="app-dialog" style="width: 600px; max-width: 95vw;"
+    aria-labelledby="pmModalTitle">
+    <div class="dialog-content-wrapper">
+      <div class="dialog-header">
+        <div style="display: flex; align-items: center; gap: 0.6rem;">
+          <span style="font-size: 1.6rem;">📦</span>
+          <div>
+            <h3 class="dialog-title" id="pmModalTitle">Packers & Movers Fare Calculator</h3>
+            <small style="color: var(--text-secondary);">Instant transparent estimate • Zero hidden charges • IBA
+              approved movers</small>
+          </div>
+        </div>
+        <button class="dialog-close-btn" data-close-dialog aria-label="Close dialog">✕</button>
+      </div>
+
+      <div class="dialog-body">
+        <form id="pmLeadForm">
+          <!-- Route & Distance -->
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Pickup Area *</label>
+              <input type="text" id="pmFromAreaInput" class="form-input" value="HSR Layout, Bengaluru"
+                placeholder="Pickup Area" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Drop Area *</label>
+              <input type="text" id="pmToAreaInput" class="form-input" value="Whitefield, Bengaluru"
+                placeholder="Drop Area" required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Movement Type *</label>
+              <select id="pmMoveTypeSelect" class="form-select">
+                <option value="local" selected>Within City (Local Move)</option>
+                <option value="intercity">Intercity (Between 2 Cities)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Packaging Quality</label>
+              <select id="pmPackingTierSelect" class="form-select">
+                <option value="standard" selected>Standard (Cardboard & Shrink Wrap)</option>
+                <option value="premium">Premium (5-Layer Bubble Foam & Wooden Crates)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Dynamic Room-by-Room Inventory Section -->
+          <div
+            style="margin: 0.75rem 0 0.5rem 0; font-weight: 800; font-size: 0.9rem; color: var(--text-primary); display: flex; justify-content: space-between; align-items: center;">
+            <span>📦 Room-by-Room Inventory Picker:</span>
+            <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: normal;">Click + / - to adjust
+              household items</span>
+          </div>
+          <div id="pmRoomInventoryContainer"></div>
+
+          <!-- Live Volume Cockpit Meter & Vehicle Match -->
+          <div class="pm-volume-cockpit" style="margin: 1rem 0;">
+            <div class="pm-gauge-col">
+              <div class="pm-gauge-header">
+                <strong>Volume: <span id="pmTotalCftDisplay" style="color: var(--primary);">260 CFT</span></strong>
+                <span style="font-size: 0.75rem; color: var(--text-muted);">Cubic Feet</span>
+              </div>
+              <div class="pm-gauge-bar-outer">
+                <div class="pm-gauge-bar-inner" id="pmGaugeBar" style="width: 74%;"></div>
+              </div>
+            </div>
+            <div class="pm-vehicle-col">
+              <span class="pm-vehicle-icon" id="pmVehicleIcon">🚚</span>
+              <div>
+                <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">
+                  Recommended Vehicle:</div>
+                <strong style="font-size: 0.88rem; color: var(--text-primary);" id="pmVehicleName">14ft Eicher
+                  (Standard)</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Your Mobile Number (For Verified Mover Callbacks) *</label>
+            <input type="tel" id="pmPhoneInput" class="form-input" value="+91 98450 11223" required />
+          </div>
+
+          <!-- Dynamic Estimate Display Card -->
+          <div class="pm-estimate-box">
+            <div style="font-size: 0.85rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">
+              Estimated Shifting Cost Range</div>
+            <div style="display: flex; align-items: baseline; gap: 0.5rem; margin: 0.25rem 0;">
+              <span class="pm-estimate-digits" id="pmEstimateLow">₹5,500</span>
+              <span style="color: var(--text-muted); font-size: 1.2rem;">–</span>
+              <span class="pm-estimate-digits" id="pmEstimateHigh">₹8,000</span>
+            </div>
+            <div style="font-size: 0.8rem; color: var(--text-secondary);">
+              Includes truck transport, professional loading/unloading, basic dismantle & assembly. Zero hidden costs.
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.25rem;">
+            <button type="button" class="action-btn action-btn-ghost" data-close-dialog>Close</button>
+            <button type="submit" class="action-btn action-btn-primary" style="padding: 0.75rem 1.5rem;">
+              <span>🚚</span> Get 3 IBA-Approved Quotes Now
+            </button>
+          </div>
+        </form>
+
+        <div id="pmResultBox" style="display: none;"></div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Interactive WhatsApp Web Concierge Simulator Modal -->
+  <dialog id="waChatDialog" class="app-dialog" style="width: 520px; max-width: 95vw;" aria-labelledby="waContactName">
+    <div class="dialog-content-wrapper wa-chat-wrapper">
+      <div class="wa-chat-header">
+        <div class="wa-header-profile">
+          <div class="wa-avatar-box">
+            <img id="waAvatarImg"
+              src="https://images.unsplash.com/photo-1540569014015-19a7be504e3a?auto=format&fit=crop&w=120&q=80"
+              alt="Profile" class="wa-avatar-img" />
+            <span class="wa-online-dot"></span>
+          </div>
+          <div>
+            <div class="wa-title-row">
+              <span class="wa-contact-name" id="waContactName">Apex Pro Care</span>
+              <span class="wa-verified-tick" title="Verified Business">✓</span>
+            </div>
+            <div class="wa-status-text" id="waStatusText">online • verified local partner</div>
+          </div>
+        </div>
+        <div class="wa-header-tools">
+          <button class="wa-tool-btn" onclick="window.JDFeatures.launchOfficialWhatsApp()"
+            title="Open official WhatsApp app">🔗</button>
+          <button class="dialog-close-btn" data-close-dialog aria-label="Close chat" style="color:#ffffff;">✕</button>
+        </div>
+      </div>
+
+      <div class="wa-chat-body" id="waChatBody">
+        <!-- Dynamically populated -->
+      </div>
+
+      <!-- Suggestion Chips -->
+      <div class="wa-chips-strip" id="waChipsStrip">
+        <button class="wa-suggest-chip" onclick="window.JDFeatures.sendWhatsAppQuickReply('ratecard')">📋 Rate
+          Card</button>
+        <button class="wa-suggest-chip" onclick="window.JDFeatures.sendWhatsAppQuickReply('today')">⚡ Visit
+          Today?</button>
+        <button class="wa-suggest-chip" onclick="window.JDFeatures.sendWhatsAppQuickReply('discount')">🎁 Coupon
+          Code</button>
+        <button class="wa-suggest-chip" onclick="window.JDFeatures.sendWhatsAppQuickReply('address')">📍 Shop
+          Address</button>
+      </div>
+
+      <form class="wa-input-footer" onsubmit="window.JDFeatures.handleWhatsAppSubmit(event)">
+        <input type="text" id="waTextInput" class="wa-chat-input" placeholder="Type a message..." autocomplete="off" />
+        <button type="submit" class="wa-send-btn" title="Send Message">➤</button>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- AI Modal: Visual CareAI Prescription & Service Estimate OCR Diagnostics -->
+  <dialog class="modal-dialog jd-modal modal-xl" id="aiPrescriptionDialog" aria-labelledby="aiOcrTitle">
+    <div class="modal-content-wrapper" style="width: 860px; max-width: 95vw;">
+      <div class="modal-header-clean">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <div
+            style="width: 44px; height: 44px; border-radius: var(--radius-md); background: linear-gradient(135deg, #059669 0%, #10b981 100%); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; color: #ffffff;">
+            📑
+          </div>
+          <div>
+            <h3 class="modal-clean-title" id="aiOcrTitle">AI Prescription & Invoice OCR Diagnostics</h3>
+            <span style="font-size: 0.8rem; color: var(--text-secondary);">Extract medications, detect overpriced repair
+              parts & compare generic alternatives</span>
+          </div>
+        </div>
+        <button class="modal-close-icon" onclick="document.getElementById('aiPrescriptionDialog').close()"
+          aria-label="Close modal">✕</button>
+      </div>
+      <div class="modal-clean-body" id="ocrStudioContent" style="padding: 1.5rem;">
+        <!-- Dynamically populated by CareAISuite -->
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ==========================================================================
+       AI Modal 1: Visual CareAI Photo Diagnostic Scanner
+       ========================================================================== -->
+  <dialog class="modal-dialog jd-modal modal-xl" id="aiScannerDialog" aria-labelledby="aiScannerTitle">
+    <div class="modal-content-wrapper">
+      <div class="modal-header-clean">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <div
+            style="width: 44px; height: 44px; border-radius: var(--radius-md); background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; color: #ffffff;">
+            📸
+          </div>
+          <div>
+            <h3 class="modal-clean-title" id="aiScannerTitle">Visual CareAI: Photo Diagnostic Scanner</h3>
+            <span style="font-size: 0.8rem; color: var(--text-secondary);">Computer vision defect analysis, parts
+              identification & instant verified pro dispatch</span>
+          </div>
+        </div>
+        <button class="modal-close-icon" onclick="document.getElementById('aiScannerDialog').close()"
+          aria-label="Close modal">✕</button>
+      </div>
+
+      <div class="modal-clean-body" id="scannerModalContent">
+        <!-- Rendered dynamically by CareAISuite -->
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ==========================================================================
+       AI Modal 2: AI Problem Matchmaker & Root-Cause Estimator
+       ========================================================================== -->
+  <dialog class="modal-dialog jd-modal modal-lg" id="aiMatchmakerDialog" aria-labelledby="aiMatchmakerTitle">
+    <div class="modal-content-wrapper">
+      <div class="modal-header-clean">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <div
+            style="width: 44px; height: 44px; border-radius: var(--radius-md); background: linear-gradient(135deg, #ff6800 0%, #f97316 100%); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; color: #ffffff;">
+            ✨
+          </div>
+          <div>
+            <h3 class="modal-clean-title" id="aiMatchmakerTitle">AI Problem Matchmaker & Diagnostic Studio</h3>
+            <span style="font-size: 0.8rem; color: var(--text-secondary);">Describe any symptom in your own words — AI
+              diagnoses the root cause & matches the best pros</span>
+          </div>
+        </div>
+        <button class="modal-close-icon" onclick="document.getElementById('aiMatchmakerDialog').close()"
+          aria-label="Close modal">✕</button>
+      </div>
+
+      <div class="modal-clean-body">
+        <form onsubmit="window.CareAISuite.handleMatchmakerSubmit(event)" style="margin-bottom: 1rem;">
+          <label style="display: block; font-weight: 700; font-size: 0.92rem; margin-bottom: 0.5rem;">
+            Describe your problem or symptom (in any language):
+          </label>
+          <div style="display: flex; gap: 0.5rem;">
+            <input type="text" id="matchmakerInput" class="omnibox-input"
+              style="flex: 1; padding: 0.8rem 1.1rem; border-radius: var(--radius-md); border: 2px solid var(--border-subtle); font-size: 0.95rem; background: var(--bg-surface);"
+              placeholder="e.g., 'Kitchen sink pipe leaking water and smells bad' or 'AC not cooling properly'..."
+              required />
+            <button type="submit" class="action-btn action-btn-primary"
+              style="padding: 0.8rem 1.5rem; font-size: 0.95rem;">
+              <span>✨ Diagnose & Match</span>
+            </button>
+          </div>
+        </form>
+
+        <div style="display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1rem;">
+          <span style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted); padding: 0.2rem 0;">Try
+            examples:</span>
+          <button class="action-btn action-btn-ghost jd-pill-sm"
+            onclick="document.getElementById('matchmakerInput').value = 'Kitchen sink drainage pipe leaking under slab'; window.CareAISuite.handleMatchmakerSubmit(event);">
+            🚰 Sink Pipe Leak
+          </button>
+          <button class="action-btn action-btn-ghost jd-pill-sm"
+            onclick="document.getElementById('matchmakerInput').value = '1.5 ton split AC outdoor unit making loud noise and not cooling'; window.CareAISuite.handleMatchmakerSubmit(event);">
+            ❄️ AC Loud Noise
+          </button>
+          <button class="action-btn action-btn-ghost jd-pill-sm"
+            onclick="document.getElementById('matchmakerInput').value = 'Severe toothache on lower molar with cold water sensitivity'; window.CareAISuite.handleMatchmakerSubmit(event);">
+            🩺 Toothache Sensitivity
+          </button>
+          <button class="action-btn action-btn-ghost jd-pill-sm"
+            onclick="document.getElementById('matchmakerInput').value = 'Main tripping switch MCB falling repeatedly when geyser turned on'; window.CareAISuite.handleMatchmakerSubmit(event);">
+            ⚡ MCB Trip
+          </button>
+        </div>
+
+        <div id="matchmakerResultsArea"></div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ==========================================================================
+       Unified Floating AI & Speed-Dial Command Dock (Zero Map Overlap)
+       ========================================================================== -->
+  <div class="floating-command-dock" id="floatingCommandDock">
+    <!-- Collapsible Quick Actions Popup Menu -->
+    <div class="command-dock-menu" id="commandDockMenu">
+      <button class="command-dock-item" onclick="window.CareAISuite.openDiagnosticScanner()">
+        <span class="dock-item-icon">📸</span>
+        <div class="dock-item-text">
+          <strong>Visual Photo Diagnosis</strong>
+          <span>Scan broken pipe, AC frost, dent</span>
+        </div>
+      </button>
+      <button class="command-dock-item" onclick="window.CareAISuite.openPrescriptionOcrModal('prescription')">
+        <span class="dock-item-icon">📑</span>
+        <div class="dock-item-text">
+          <strong>AI Prescription & Bill OCR</strong>
+          <span>Generic savings & part pricing</span>
+        </div>
+      </button>
+      <button class="command-dock-item" onclick="window.CareAISuite.openProblemMatchmaker()">
+        <span class="dock-item-icon">✨</span>
+        <div class="dock-item-text">
+          <strong>AI Problem Matchmaker</strong>
+          <span>Decompose symptom -> best pros</span>
+        </div>
+      </button>
+      <button class="command-dock-item" onclick="window.JDFeatures.openBestDealModal()">
+        <span class="dock-item-icon">⚡</span>
+        <div class="dock-item-text">
+          <strong>Get Best Deal in 60s</strong>
+          <span>Broadcast requirement to 5 pros</span>
+        </div>
+      </button>
+      <button class="command-dock-item" onclick="window.CostEstimator ? window.CostEstimator.openModal() : null">
+        <span class="dock-item-icon">🏷️</span>
+        <div class="dock-item-text">
+          <strong>Fair Cost Estimator</strong>
+          <span>Transparent rate breakdown</span>
+        </div>
+      </button>
+    </div>
+
+    <!-- Main Floating Trigger Bar -->
+    <div class="command-dock-bar">
+      <button class="dock-trigger-btn dock-btn-deal" onclick="window.JDFeatures.openBestDealModal()"
+        title="Broadcast requirement & get best quotes in 60s">
+        <span class="dock-pulse-dot"></span>
+        <span>⚡ Best Deal</span>
+      </button>
+      <button class="dock-trigger-btn dock-btn-ai" id="dockAiTriggerBtn" onclick="window.CareAISuite.toggleCareAI()"
+        title="Open CareAI 2.0 Concierge">
+        <span class="dock-sparkle">✨</span>
+        <span>CareAI</span>
+      </button>
+      <button class="dock-menu-toggle-btn" id="dockMenuToggleBtn" onclick="window.CareAISuite.toggleDockMenu()"
+        title="More AI Tools" aria-label="More AI Tools">
+        <span>▲</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Modular Scripts Architecture (v3.3.0) -->
+  <!-- Core Data & Nationwide Location System -->
+  <script src="js/indiaLocations.js?v=4.1.0"></script>
+  <script src="js/data.js?v=3.3.0"></script>
+  <script src="js/modules/icons.js?v=3.3.0"></script>
+  <script src="js/modules/soundFX.js?v=3.3.0"></script>
+  <script src="js/modules/jdFeatures.js?v=3.3.0"></script>
+  <script src="js/modules/careAISuite.js?v=3.3.0"></script>
+  <script src="js/modules/proComparison.js?v=3.3.0"></script>
+  <script src="js/modules/costEstimator.js?v=3.3.0"></script>
+  <script src="js/modules/teleConsult.js?v=3.3.0"></script>
+  <script src="js/modules/reviewEngine.js?v=3.3.0"></script>
+  <script src="js/modules/shieldGuarantee.js?v=3.3.0"></script>
+  <script src="js/modules/aiSearch.js?v=3.3.0"></script>
+  <script src="js/modules/mapEngine.js?v=3.3.0"></script>
+  <script src="js/modules/careAI.js?v=3.3.0"></script>
+  <script src="js/modules/bookingEngine.js?v=3.3.0"></script>
+  <script src="js/modules/trackingEngine.js?v=3.3.0"></script>
+  <script src="js/modules/quoteMarketplace.js?v=3.3.0"></script>
+  <script src="js/modules/quoteArena.js?v=3.3.0"></script>
+  <script src="js/modules/voiceSearch.js?v=3.3.0"></script>
+  <script src="js/modules/verification.js?v=3.3.0"></script>
+  <script src="js/modules/emergency.js?v=3.3.0"></script>
+  <script src="js/modules/userDashboard.js?v=3.3.0"></script>
+  <script src="js/modules/businessDashboard.js?v=3.3.0"></script>
+  <script src="js/modules/adminPanel.js?v=3.3.0"></script>
+  <script src="js/modules/auth.js?v=3.3.0"></script>
+  <script src="js/app.js?v=3.3.0"></script>
+
+  <!-- Full-Screen High-Res Photo Lightbox Modal (Airbnb / Zomato Grade) -->
+  <div class="lightbox-overlay" id="photoLightbox" style="display: none;" role="dialog" aria-modal="true"
+    aria-label="Photo Lightbox">
+    <div class="lightbox-header">
+      <div class="lightbox-title-box">
+        <h3 id="lightboxBizName">Business Gallery</h3>
+        <span id="lightboxCounter">Photo 1 of 4</span>
+      </div>
+      <button class="lightbox-close-btn" onclick="window.LocalCare.closeLightbox()"
+        aria-label="Close Lightbox">✕</button>
+    </div>
+    <div class="lightbox-stage">
+      <button class="lightbox-nav-btn lightbox-prev-btn" onclick="window.LocalCare.prevLightboxPhoto()"
+        aria-label="Previous photo">❮</button>
+      <img id="lightboxMainImg" src="" alt="High-Resolution Service Photo" class="lightbox-main-img" />
+      <button class="lightbox-nav-btn lightbox-next-btn" onclick="window.LocalCare.nextLightboxPhoto()"
+        aria-label="Next photo">❯</button>
+    </div>
+    <div class="lightbox-thumbs-reel" id="lightboxThumbsReel">
+      <!-- Rendered dynamically -->
+    </div>
+  </div>
+
+  <!-- LocalCare 7-Point Trust & Verification Audit Dialog -->
+  <dialog class="app-dialog trust-audit-dialog" id="trustAuditDialog" aria-labelledby="trustAuditTitle">
+    <div class="dialog-content-wrapper" style="width: 680px; max-width: 95vw;">
+      <div class="dialog-header" style="background: linear-gradient(135deg, #064e3b 0%, #065f46 100%); color: #ffffff;">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <div
+            style="width: 42px; height: 42px; border-radius: var(--radius-full); background: #10b981; display: flex; align-items: center; justify-content: center; font-size: 1.4rem;">
+            ✓</div>
+          <div>
+            <h3 class="dialog-title" id="trustAuditTitle" style="color: #ffffff; margin-bottom: 0.15rem;">LocalCare
+              7-Point Trust & Compliance Audit</h3>
+            <small style="color: rgba(255,255,255,0.8);" id="trustAuditBizSub">Verified Business Credentials & Field
+              Report</small>
+          </div>
+        </div>
+        <button class="dialog-close-btn" onclick="document.getElementById('trustAuditDialog').close()"
+          style="color: #ffffff;">✕</button>
+      </div>
+      <div class="dialog-body" style="padding: 1.5rem; max-height: 75vh; overflow-y: auto;">
+        <div
+          style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.25rem; background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: var(--radius-md); margin-bottom: 1.25rem;">
+          <div>
+            <strong style="color: #065f46; font-size: 1.1rem; display: block;">LocalCare Trust Index: 98/100</strong>
+            <small style="color: #047857;">Audit verified by Karnataka Field Verification Officer</small>
+          </div>
+          <span
+            style="background: #059669; color: #ffffff; padding: 0.25rem 0.75rem; border-radius: var(--radius-full); font-weight: 800; font-size: 0.78rem;">PASSED
+            ALL CHECKS</span>
+        </div>
+
+        <div class="trust-audit-grid">
+          <div class="trust-audit-card">
+            <div class="audit-check-icon">✓</div>
+            <div class="audit-info">
+              <h5>GSTIN & Trade License</h5>
+              <p>Government of India GST & commercial registration verified active.</p>
+            </div>
+          </div>
+          <div class="trust-audit-card">
+            <div class="audit-check-icon">✓</div>
+            <div class="audit-info">
+              <h5>Police Background Check</h5>
+              <p>On-site technicians vetted with zero criminal records on file.</p>
+            </div>
+          </div>
+          <div class="trust-audit-card">
+            <div class="audit-check-icon">✓</div>
+            <div class="audit-info">
+              <h5>Physical Workshop Inspection</h5>
+              <p>Workplace & operating address inspected in-person by LocalCare agent.</p>
+            </div>
+          </div>
+          <div class="trust-audit-card">
+            <div class="audit-check-icon">✓</div>
+            <div class="audit-info">
+              <h5>₹10,000 Shield Guarantee</h5>
+              <p>Backed by property damage insurance protection and escrow resolution.</p>
+            </div>
+          </div>
+          <div class="trust-audit-card">
+            <div class="audit-check-icon">✓</div>
+            <div class="audit-info">
+              <h5>Review Spam Filter Vetted</h5>
+              <p>All posted customer ratings tied to unique OTP-verified booking tokens.</p>
+            </div>
+          </div>
+          <div class="trust-audit-card">
+            <div class="audit-check-icon">✓</div>
+            <div class="audit-info">
+              <h5>Transparent Price Card</h5>
+              <p>Strict anti-surge policy. Zero hidden fees or unsolicited technician add-ons.</p>
+            </div>
+          </div>
+        </div>
+        <button class="action-btn action-btn-primary" style="width: 100%; padding: 0.75rem;"
+          onclick="document.getElementById('trustAuditDialog').close()">Close Audit Sheet</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ==========================================================================
+       Urban Company Style Multi-Service Cart & Checkout Drawer
+       ========================================================================== -->
+  <dialog id="serviceCartDialog" class="app-dialog cart-drawer-dialog" aria-labelledby="cartDrawerTitle">
+    <div class="dialog-content-wrapper cart-drawer-wrapper">
+      <div class="dialog-header">
+        <div style="display: flex; align-items: center; gap: 0.6rem;">
+          <span style="font-size: 1.5rem;">🛒</span>
+          <div>
+            <h3 class="dialog-title" id="cartDrawerTitle">Service Cart & Rate Card</h3>
+            <small id="cartBizSubtitle" style="color: var(--text-secondary); font-weight: 600;">Custom Multi-Service
+              Package</small>
+          </div>
+        </div>
+        <button class="dialog-close-btn" onclick="document.getElementById('serviceCartDialog').close()"
+          aria-label="Close cart">✕</button>
+      </div>
+
+      <div class="dialog-body cart-drawer-body">
+        <!-- Selected Services List -->
+        <div class="cart-services-list" id="cartServicesItems">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <!-- Trust Shield Guarantee Pill -->
+        <div class="cart-shield-pill">
+          <span style="font-size: 1.35rem;">🛡️</span>
+          <div style="flex: 1;">
+            <div style="font-weight: 700; color: #1e1b4b; font-size: 0.9rem;">LocalCare Shield™ Protection Applied</div>
+            <div style="font-size: 0.78rem; color: var(--text-secondary);">₹10,000 Property Damage Cover + 30-Day
+              Revisit Warranty</div>
+          </div>
+          <span class="cart-shield-free">FREE (₹0)</span>
+        </div>
+
+        <!-- Coupon Code Promo Box -->
+        <div class="cart-coupon-box">
+          <label class="form-label" style="margin-bottom: 0.35rem; font-size: 0.85rem;">Have a Promo Code?</label>
+          <div class="coupon-input-group">
+            <input type="text" id="cartCouponInput" placeholder="Enter coupon (e.g. LOCALCARE50)"
+              style="text-transform: uppercase;" />
+            <button type="button" class="action-btn action-btn-primary"
+              onclick="window.LocalCare.applyCartCoupon()">Apply</button>
+          </div>
+          <div id="cartCouponMsg" class="coupon-status-msg"></div>
+          <div class="coupon-suggestions">
+            <span class="coupon-chip"
+              onclick="document.getElementById('cartCouponInput').value='LOCALCARE50'; window.LocalCare.applyCartCoupon();">
+              🏷️ LOCALCARE50 (Flat ₹50 OFF)
+            </span>
+            <span class="coupon-chip"
+              onclick="document.getElementById('cartCouponInput').value='FIRSTCARE'; window.LocalCare.applyCartCoupon();">
+              🏷️ FIRSTCARE (15% OFF)
+            </span>
+          </div>
+        </div>
+
+        <!-- Bill Summary Breakdown -->
+        <div class="cart-bill-summary">
+          <div class="bill-row">
+            <span>Items Total</span>
+            <span id="cartBillItemsTotal">₹0</span>
+          </div>
+          <div class="bill-row text-success" id="cartBillDiscountRow" style="display: none;">
+            <span>Coupon Discount</span>
+            <span id="cartBillDiscount">-₹0</span>
+          </div>
+          <div class="bill-row">
+            <span>₹10,000 Shield Guarantee</span>
+            <span style="color: #059669; font-weight: 700;">FREE</span>
+          </div>
+          <div class="bill-row">
+            <span>Taxes & Compliance Fee (5% GST)</span>
+            <span id="cartBillTaxes">₹0</span>
+          </div>
+          <div class="bill-row bill-final-row">
+            <strong>Total Amount to Pay</strong>
+            <strong class="bill-total-price" id="cartBillFinalTotal">₹0</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="dialog-footer cart-drawer-footer">
+        <button type="button" class="action-btn action-btn-ghost" onclick="window.LocalCare.clearCart()">
+          Clear Cart
+        </button>
+        <button type="button" class="action-btn action-btn-primary cart-proceed-btn"
+          onclick="window.LocalCare.proceedCartToBooking()">
+          Schedule Slot (<span id="cartFooterTotal">₹0</span>) ➔
+        </button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ==========================================================================
+       Technician Direct Call Simulator Dialog
+       ========================================================================== -->
+  <dialog id="techCallDialog" class="app-dialog tech-call-dialog">
+    <div class="tech-call-card">
+      <div class="tech-call-avatar-wrap">
+        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80"
+          id="techCallAvatar" class="tech-call-avatar" alt="Technician" />
+        <div class="call-pulse-ring"></div>
+      </div>
+      <h4 id="techCallName" class="tech-call-name">Suresh Gowda</h4>
+      <div id="techCallStatus" class="tech-call-status">Connecting securely via LocalCare Bridge...</div>
+      <div id="techCallTimer" class="tech-call-timer">00:00</div>
+      <div class="tech-call-actions">
+        <button type="button" class="call-action-btn" id="callMuteBtn"
+          onclick="window.TrackingEngine.toggleCallMute()">🎤 Mute</button>
+        <button type="button" class="call-action-btn" id="callSpeakerBtn"
+          onclick="window.TrackingEngine.toggleCallSpeaker()">🔊 Speaker</button>
+        <button type="button" class="call-action-btn call-end-btn" onclick="window.TrackingEngine.endTechCall()">📞 End
+          Call</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ==========================================================================
+       Technician In-App Instant Chat Simulator Dialog
+       ========================================================================== -->
+  <dialog id="techChatDialog" class="app-dialog tech-chat-dialog" aria-labelledby="techChatTitle">
+    <div class="dialog-content-wrapper tech-chat-wrapper">
+      <div class="dialog-header">
+        <div style="display: flex; align-items: center; gap: 0.6rem;">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80"
+            id="techChatAvatar" style="width: 38px; height: 38px; border-radius: 50%; object-fit: cover;"
+            alt="Technician" />
+          <div>
+            <h4 class="dialog-title" id="techChatTitle" style="font-size: 1rem; margin: 0;">Suresh Gowda</h4>
+            <small style="color: #10b981; font-weight: 700;">🟢 Online • On The Way to Your Address</small>
+          </div>
+        </div>
+        <button class="dialog-close-btn" onclick="document.getElementById('techChatDialog').close()">✕</button>
+      </div>
+      <div class="dialog-body tech-chat-body" id="techChatMessagesList">
+        <!-- Rendered dynamically -->
+      </div>
+      <div class="tech-chat-quick-replies">
+        <button class="quick-chip"
+          onclick="window.TrackingEngine.sendQuickChat('I am waiting downstairs near the main entrance')">Waiting
+          downstairs</button>
+        <button class="quick-chip"
+          onclick="window.TrackingEngine.sendQuickChat('Please ring doorbell 302 on 3rd floor')">Doorbell 302</button>
+        <button class="quick-chip" onclick="window.TrackingEngine.sendQuickChat('How many minutes away are you?')">How
+          far are you?</button>
+      </div>
+      <div class="tech-chat-input-row">
+        <input type="text" id="techChatInput" placeholder="Message your technician..."
+          onkeydown="if(event.key==='Enter') window.TrackingEngine.sendCustomChat()" />
+        <button type="button" class="action-btn action-btn-primary"
+          onclick="window.TrackingEngine.sendCustomChat()">Send</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ==========================================================================
+       LocalCare Pay UPI Digital Studio & Instant Tax Invoice Modal
+       ========================================================================== -->
+  <dialog id="localCarePayDialog" class="app-dialog pay-studio-dialog" aria-labelledby="payStudioTitle">
+    <div class="dialog-content-wrapper pay-studio-wrapper" style="max-width: 500px;">
+      <div class="dialog-header">
+        <div style="display: flex; align-items: center; gap: 0.6rem;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="react-icon">
+            <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+            <line x1="1" y1="10" x2="23" y2="10" />
+          </svg>
+          <div>
+            <h3 class="dialog-title" id="payStudioTitle">LocalCare Pay UPI</h3>
+            <small id="payMerchantSubtitle" style="color: var(--text-secondary); font-weight: 600;">Encrypted Direct
+              Merchant Gateway</small>
+          </div>
+        </div>
+        <button class="dialog-close-btn" onclick="document.getElementById('localCarePayDialog').close()"
+          aria-label="Close pay modal">✕</button>
+      </div>
+
+      <div class="dialog-body pay-studio-body" id="payStudioBody">
+        <div class="upi-qr-card">
+          <div class="upi-scan-beam"></div>
+          <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.35rem; font-weight: 700;">SCAN
+            & PAY VIA ANY UPI APP</div>
+          <div style="font-size: 1.85rem; font-weight: 900; color: var(--primary); margin-bottom: 0.75rem;"
+            id="payAmountDisplay">₹499</div>
+
+          <!-- Vector QR Code with LocalCare Seal -->
+          <div
+            style="display: inline-block; padding: 0.75rem; background: #ffffff; border: 2px solid #0b192c; border-radius: var(--radius-md); box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
+            <svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 24 24" fill="none"
+              stroke="#0b192c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7"></rect>
+              <rect x="14" y="3" width="7" height="7"></rect>
+              <rect x="3" y="14" width="7" height="7"></rect>
+              <rect x="14" y="14" width="3" height="3"></rect>
+              <rect x="18" y="18" width="3" height="3"></rect>
+              <rect x="18" y="14" width="3" height="3"></rect>
+              <rect x="14" y="18" width="3" height="3"></rect>
+              <path d="M7 7h.01M17 7h.01M7 17h.01" stroke-width="3"></path>
+            </svg>
+          </div>
+
+          <div style="display: flex; justify-content: center; align-items: center; gap: 0.5rem; margin-top: 0.65rem;">
+            <span
+              style="font-size: 0.75rem; color: #065f46; font-weight: 700; background: #ecfdf5; padding: 0.2rem 0.6rem; border-radius: var(--radius-full); display: inline-flex; align-items: center; gap: 0.3rem;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                class="react-icon">
+                <polyline points="20 6 9 17 4 12" />
+              </svg> Verified VPA: <span id="payVpaDisplay">localcare.merchant@icici</span>
+            </span>
+          </div>
+          <div
+            style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.4rem; display: flex; align-items: center; justify-content: center; gap: 0.35rem;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="react-icon">
+              <circle cx="12" cy="12" r="10" />
+              <polyline points="12 6 12 12 16 14" />
+            </svg> Expires in: <strong id="payTimerClock" style="color: #ef4444;">04:59</strong>
+          </div>
+        </div>
+
+        <!-- Fast UPI App Launchers -->
+        <div style="font-size: 0.82rem; font-weight: 700; color: var(--text-secondary); margin-bottom: 0.35rem;">Select
+          UPI app to pay directly:</div>
+        <div class="upi-apps-grid">
+          <div class="upi-app-chip" onclick="window.LocalCare.simulateUpiApp('Google Pay')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+              stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="react-icon">
+              <polygon
+                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+            </svg>
+            <span>Google Pay</span>
+          </div>
+          <div class="upi-app-chip" onclick="window.LocalCare.simulateUpiApp('PhonePe')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+              stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="react-icon">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+            </svg>
+            <span>PhonePe</span>
+          </div>
+          <div class="upi-app-chip" onclick="window.LocalCare.simulateUpiApp('Paytm')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+              stroke="#0284c7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="react-icon">
+              <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+              <line x1="1" y1="10" x2="23" y2="10" />
+            </svg>
+            <span>Paytm UPI</span>
+          </div>
+          <div class="upi-app-chip" onclick="window.LocalCare.simulateUpiApp('BHIM UPI')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+              stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="react-icon">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+            <span>BHIM</span>
+          </div>
+          <div class="upi-app-chip" onclick="window.LocalCare.simulateUpiApp('CRED UPI')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+              stroke="#0b192c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="react-icon">
+              <circle cx="12" cy="8" r="7" />
+              <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" />
+            </svg>
+            <span>CRED</span>
+          </div>
+          <div class="upi-app-chip" onclick="window.LocalCare.simulateUpiApp('Amazon Pay')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+              stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="react-icon">
+              <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <path d="M16 10a4 4 0 0 1-8 0" />
+            </svg>
+            <span>Amazon Pay</span>
+          </div>
+        </div>
+
+        <button type="button" class="action-btn action-btn-primary"
+          style="width: 100%; padding: 0.75rem; font-weight: 800; font-size: 0.95rem;"
+          onclick="window.LocalCare.completePaymentSimulation()">
+          Simulate Instant Payment Success ➔
+        </button>
+
+        <!-- Dynamic Printable GST Invoice Container (hidden until paid) -->
+        <div id="payInvoiceContainer" style="display: none;"></div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ==========================================================================
+       Mobile App Experience: Native Bottom Navigation Bar (Powered by React Icons)
+       ========================================================================== -->
+  <nav class="mobile-bottom-nav" id="mobileBottomNav" aria-label="Mobile Navigation">
+    <button class="mobile-nav-btn active" id="mNavHome" onclick="window.LocalCare.navToSection('hero')">
+      <span class="m-nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="react-icon">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+          <polyline points="9 22 9 12 15 12 15 22" />
+        </svg></span>
+      <span class="m-nav-label">Explore</span>
+    </button>
+    <button class="mobile-nav-btn" id="mNavSearch" onclick="window.LocalCare.focusSearch()">
+      <span class="m-nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="react-icon">
+          <circle cx="11" cy="11" r="8" />
+          <line x1="21" y1="21" x2="16.65" y2="16.65" />
+        </svg></span>
+      <span class="m-nav-label">Search</span>
+    </button>
+    <button class="mobile-nav-btn" id="mNavMap" onclick="window.LocalCare.toggleMap()">
+      <span class="m-nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="react-icon">
+          <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6" />
+          <line x1="8" y1="2" x2="8" y2="18" />
+          <line x1="16" y1="6" x2="16" y2="22" />
+        </svg></span>
+      <span class="m-nav-label">Map</span>
+    </button>
+    <button class="mobile-nav-btn" id="mNavBookings" onclick="window.LocalCare.openDashboard('bookings')">
+      <span class="m-nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="react-icon">
+          <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+          <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
+        </svg></span>
+      <span class="m-nav-label">Bookings</span>
+      <span class="m-nav-badge" id="mNavBookingsBadge" style="display: none;">1</span>
+    </button>
+    <button class="mobile-nav-btn" id="mNavCareAI"
+      onclick="window.CareAI ? window.CareAI.openAssistant() : window.CareAISuite.openProblemMatchmaker()">
+      <span class="m-nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="react-icon">
+          <path
+            d="M12 3l1.912 5.813a2 2 0 001.275 1.275L21 12l-5.813 1.912a2 2 0 00-1.275 1.275L12 21l-1.912-5.813a2 2 0 00-1.275-1.275L3 12l5.813-1.912a2 2 0 001.275-1.275L12 3z" />
+        </svg></span>
+      <span class="m-nav-label">CareAI</span>
+    </button>
+  </nav>
+  <!-- Floating AI CareAI Orb -->
+  <button class="ai-floating-orb" id="aiFloatingOrb"
+    onclick="window.CareAI && window.CareAI.openAssistant ? window.CareAI.openAssistant() : (window.CareAISuite && window.CareAISuite.openProblemMatchmaker ? window.CareAISuite.openProblemMatchmaker() : null)"
+    title="Ask CareAI — Your AI Concierge (Ctrl+K)" aria-label="Open CareAI AI Assistant">
+    <span class="ai-orb-icon">✨</span>
+    <span class="ai-orb-label">Ask CareAI</span>
+    <span class="ai-orb-pulse-ring"></span>
+  </button>
+
+  <script src="js/ultra.js?v=4.0.0"></script>
+
+</body>
+
+</html>

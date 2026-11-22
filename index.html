@@ -25,8 +25,10 @@
     rel="stylesheet" />
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/variables.css?v=2.3.0" />
-  <link rel="stylesheet" href="css/style.css?v=2.3.0" />
+  <link rel="stylesheet" href="css/variables.css?v=3.0.0" />
+  <link rel="stylesheet" href="css/style.css?v=3.3.0" />
+  <!-- Leaflet Geospatial Interactive Map Engine -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
   <!-- Progressive Web App (PWA) Manifest & Meta -->
   <meta name="theme-color" content="#ff6800" />
@@ -788,6 +790,33 @@
     <section class="listings-section" id="listingsSection">
       <div class="container">
 
+        <!-- Dedicated Category Hero Banner (Active when specific category is selected) -->
+        <div id="categoryHeroBanner" class="category-hero-banner" style="display: none;">
+          <div class="category-hero-content">
+            <nav class="category-breadcrumbs" aria-label="Breadcrumb">
+              <a href="#" onclick="event.preventDefault(); window.LocalCare.filterCategory('all');">Home</a>
+              <span class="breadcrumb-sep">/</span>
+              <span id="breadcrumbCity">Bengaluru</span>
+              <span class="breadcrumb-sep">/</span>
+              <span id="breadcrumbCategory" class="breadcrumb-current">Doctors & Clinics</span>
+            </nav>
+            <div class="category-hero-header">
+              <div class="category-hero-title-group">
+                <span class="category-hero-icon" id="catHeroIcon">🩺</span>
+                <div>
+                  <h1 class="category-hero-title" id="catHeroTitle">Doctors & Clinics in Bengaluru</h1>
+                  <p class="category-hero-subtitle" id="catHeroSubtitle">Explore background-checked, top-rated local practitioners with upfront pricing & online booking</p>
+                </div>
+              </div>
+              <button class="back-all-cats-btn" onclick="window.LocalCare.filterCategory('all')">
+                <span>← All Categories</span>
+              </button>
+            </div>
+            <!-- Subcategory quick filter pills -->
+            <div class="category-subcat-pills" id="catHeroSubcategories"></div>
+          </div>
+        </div>
+
         <!-- Filter & Sorting Control Bar -->
         <div class="filter-toolbar">
           <div class="toolbar-left">
@@ -1348,6 +1377,58 @@
           Book Appointment
         </button>
       </div>
+    </div>
+  </dialog>
+
+  <!-- 1B. Dedicated Direct Business Enquiry Dialog -->
+  <dialog id="enquiryDialog" class="app-dialog" style="width: 500px; max-width: 95vw;" aria-labelledby="enquiryDialogTitle">
+    <div class="dialog-content-wrapper">
+      <div class="dialog-header">
+        <div style="display: flex; align-items: center; gap: 0.65rem;">
+          <div style="width: 36px; height: 36px; border-radius: 10px; background: rgba(255,104,0,0.12); display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">✉️</div>
+          <div>
+            <h3 class="dialog-title" id="enquiryDialogTitle" style="margin: 0; font-size: 1.15rem;">Send Direct Enquiry</h3>
+            <p style="margin: 0; font-size: 0.8rem; color: var(--text-secondary);" id="enquiryBusinessName">Enquiring with business</p>
+          </div>
+        </div>
+        <button class="dialog-close-btn" onclick="document.getElementById('enquiryDialog').close()" aria-label="Close dialog">✕</button>
+      </div>
+      <form id="directEnquiryForm" onsubmit="window.LocalCare.submitDirectEnquiry(event)" style="padding: 1.25rem; display: flex; flex-direction: column; gap: 0.85rem;">
+        <input type="hidden" id="enquiryBizId" name="bizId" />
+        <div>
+          <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-primary); display: block; margin-bottom: 0.3rem;">Your Full Name *</label>
+          <input type="text" id="enquiryCustomerName" required placeholder="e.g. Ramesh Kumar" style="width: 100%; padding: 0.65rem 0.85rem; border: 1px solid var(--border-subtle); border-radius: 8px; font-size: 0.88rem;" />
+        </div>
+        <div>
+          <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-primary); display: block; margin-bottom: 0.3rem;">Mobile Phone *</label>
+          <input type="tel" id="enquiryCustomerPhone" required placeholder="+91 98450 12345" style="width: 100%; padding: 0.65rem 0.85rem; border: 1px solid var(--border-subtle); border-radius: 8px; font-size: 0.88rem;" />
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+          <div>
+            <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-primary); display: block; margin-bottom: 0.3rem;">Preferred Date</label>
+            <input type="date" id="enquiryPreferredDate" style="width: 100%; padding: 0.65rem 0.85rem; border: 1px solid var(--border-subtle); border-radius: 8px; font-size: 0.88rem;" />
+          </div>
+          <div>
+            <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-primary); display: block; margin-bottom: 0.3rem;">Urgency</label>
+            <select id="enquiryUrgency" style="width: 100%; padding: 0.65rem 0.85rem; border: 1px solid var(--border-subtle); border-radius: 8px; font-size: 0.88rem;">
+              <option value="Today">Immediate (Today)</option>
+              <option value="Tomorrow">Tomorrow</option>
+              <option value="This Week">Within 2-3 Days</option>
+              <option value="Flexible">Flexible</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-primary); display: block; margin-bottom: 0.3rem;">Your Requirement / Message *</label>
+          <textarea id="enquiryNotes" required rows="3" placeholder="Please describe what you need (e.g. consultation timings, service requirement, pricing)..." style="width: 100%; padding: 0.65rem 0.85rem; border: 1px solid var(--border-subtle); border-radius: 8px; font-size: 0.88rem; resize: vertical;"></textarea>
+        </div>
+        <div style="display: flex; gap: 0.75rem; margin-top: 0.5rem;">
+          <button type="button" class="action-btn action-btn-ghost" style="flex: 1;" onclick="document.getElementById('enquiryDialog').close()">Cancel</button>
+          <button type="submit" class="action-btn action-btn-primary" style="flex: 2; justify-content: center; background: var(--primary);">
+            <span>Send Enquiry Now ⚡</span>
+          </button>
+        </div>
+      </form>
     </div>
   </dialog>
 
@@ -2123,30 +2204,32 @@
   </div>
 
   <!-- Modular Scripts Architecture -->
-  <script src="js/data.js?v=2.3.0"></script>
-  <script src="js/modules/soundFX.js?v=2.3.0"></script>
-  <script src="js/modules/jdFeatures.js?v=2.3.0"></script>
-  <script src="js/modules/careAISuite.js?v=2.3.0"></script>
-  <script src="js/modules/proComparison.js?v=2.3.0"></script>
-  <script src="js/modules/costEstimator.js?v=2.3.0"></script>
-  <script src="js/modules/teleConsult.js?v=2.3.0"></script>
-  <script src="js/modules/reviewEngine.js?v=2.3.0"></script>
-  <script src="js/modules/shieldGuarantee.js?v=2.3.0"></script>
-  <script src="js/modules/aiSearch.js?v=2.3.0"></script>
-  <script src="js/modules/mapEngine.js?v=2.3.0"></script>
-  <script src="js/modules/careAI.js?v=2.3.0"></script>
-  <script src="js/modules/bookingEngine.js?v=2.3.0"></script>
-  <script src="js/modules/trackingEngine.js?v=2.3.0"></script>
-  <script src="js/modules/quoteMarketplace.js?v=2.3.0"></script>
-  <script src="js/modules/quoteArena.js?v=2.3.0"></script>
-  <script src="js/modules/voiceSearch.js?v=2.3.0"></script>
-  <script src="js/modules/verification.js?v=2.3.0"></script>
-  <script src="js/modules/emergency.js?v=2.3.0"></script>
-  <script src="js/modules/userDashboard.js?v=2.3.0"></script>
-  <script src="js/modules/businessDashboard.js?v=2.3.0"></script>
-  <script src="js/modules/adminPanel.js?v=2.3.0"></script>
-  <script src="js/modules/auth.js?v=2.3.0"></script>
-  <script src="js/app.js?v=2.3.0"></script>
+  <script src="js/data.js?v=3.3.0"></script>
+  <script src="js/modules/soundFX.js?v=3.3.0"></script>
+  <script src="js/modules/jdFeatures.js?v=3.3.0"></script>
+  <script src="js/modules/careAISuite.js?v=3.3.0"></script>
+  <script src="js/modules/proComparison.js?v=3.3.0"></script>
+  <script src="js/modules/costEstimator.js?v=3.3.0"></script>
+  <script src="js/modules/teleConsult.js?v=3.3.0"></script>
+  <script src="js/modules/reviewEngine.js?v=3.3.0"></script>
+  <script src="js/modules/shieldGuarantee.js?v=3.3.0"></script>
+  <script src="js/modules/aiSearch.js?v=3.3.0"></script>
+  <!-- Leaflet Map Runtime Library -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="js/modules/mapEngine.js?v=3.3.0"></script>
+  <script src="js/modules/careAI.js?v=3.3.0"></script>
+  <script src="js/modules/bookingEngine.js?v=3.3.0"></script>
+  <script src="js/modules/trackingEngine.js?v=3.3.0"></script>
+  <script src="js/modules/quoteMarketplace.js?v=3.3.0"></script>
+  <script src="js/modules/quoteArena.js?v=3.3.0"></script>
+  <script src="js/modules/voiceSearch.js?v=3.3.0"></script>
+  <script src="js/modules/verification.js?v=3.3.0"></script>
+  <script src="js/modules/emergency.js?v=3.3.0"></script>
+  <script src="js/modules/userDashboard.js?v=3.3.0"></script>
+  <script src="js/modules/businessDashboard.js?v=3.3.0"></script>
+  <script src="js/modules/adminPanel.js?v=3.3.0"></script>
+  <script src="js/modules/auth.js?v=3.3.0"></script>
+  <script src="js/app.js?v=3.3.0"></script>
 
   <!-- Fixed Mobile Bottom App Bar -->
   <nav class="mobile-bottom-nav" aria-label="Mobile Navigation App Bar">

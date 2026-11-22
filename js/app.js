@@ -6,7 +6,14 @@
 (function () {
   'use strict';
 
-  // Application State
+  // Global Datasets Safe Scoping
+  const CITIES = window.CITIES || [];
+  const CATEGORIES = window.CATEGORIES || [];
+  const PLATFORM_DEALS = window.PLATFORM_DEALS || [];
+  const INITIAL_BUSINESSES = window.INITIAL_BUSINESSES || [];
+  const INITIAL_BOOKINGS = window.INITIAL_BOOKINGS || [];
+  const INITIAL_QUOTES = window.INITIAL_QUOTES || [];
+
   // Application State
   const state = {
     selectedCity: localStorage.getItem('localcare_city') || 'Bengaluru',
@@ -35,9 +42,15 @@
     recentSearches: JSON.parse(localStorage.getItem('localcare_recent_searches') || '["AC repair today", "Dentist under ₹500", "Plumber in Valachil"]'),
     recentlyViewed: JSON.parse(localStorage.getItem('localcare_recently_viewed') || '[]'),
     activeDetailBusiness: null,
+    serviceCart: [],
+    activeCartBusiness: null,
+    cartCoupon: null,
+    cartDiscount: 0,
     theme: localStorage.getItem('localcare_theme') || 'light',
     mobileMapVisible: false,
-    onboardingStep: 1
+    onboardingStep: 1,
+    apiBusinesses: null,
+    isBackendConnected: false
   };
 
   // DOM Elements Cache
@@ -125,10 +138,46 @@
   };
 
   /* ==========================================================================
-     Database Helpers
+     Database Helpers & Live REST Backend Sync
      ========================================================================== */
   function getAllBusinesses() {
-    return [...state.customBusinesses, ...window.INITIAL_BUSINESSES];
+    if (state.apiBusinesses && state.apiBusinesses.length > 0) {
+      return [...state.customBusinesses, ...state.apiBusinesses];
+    }
+    return [...state.customBusinesses, ...(window.INITIAL_BUSINESSES || [])];
+  }
+
+  async function loadBackendData() {
+    try {
+      const res = await fetch('/api/businesses?limit=300');
+      if (res.ok) {
+        const data = await res.json();
+        if (data && Array.isArray(data.businesses) && data.businesses.length > 0) {
+          state.apiBusinesses = data.businesses;
+          state.isBackendConnected = true;
+          console.log(`[Justdial LocalCare] Live Backend REST API Connected! Loaded ${data.businesses.length} verified listings from DB.`);
+          updateBackendConnectionBadge(true, data.total || data.businesses.length);
+          renderListings(true);
+          try { renderCuratedShowcase(); } catch (e) {}
+          try { renderCityHighlights(); } catch (e) {}
+          return;
+        }
+      }
+    } catch (err) {
+      console.log('[Justdial LocalCare] Running in standalone offline mode with seed data.');
+      updateBackendConnectionBadge(false);
+    }
+  }
+
+  function updateBackendConnectionBadge(connected, count = 226) {
+    const pulseText = document.getElementById('pulseTickerTrack');
+    if (pulseText && connected) {
+      const badge = document.createElement('span');
+      badge.className = 'backend-connected-indicator';
+      badge.style.cssText = 'background: #059669; color: #fff; padding: 2px 8px; border-radius: 9999px; font-size: 0.72rem; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; margin-right: 8px;';
+      badge.innerHTML = `🟢 REST API LIVE: ${count} Pros`;
+      pulseText.prepend(badge);
+    }
   }
 
   /* ==========================================================================
@@ -148,7 +197,9 @@
   }
 
   function updateThemeIcon() {
-    DOM.themeToggleBtn.innerHTML = state.theme === 'light' ? '🌙' : '☀️';
+    DOM.themeToggleBtn.innerHTML = window.ReactIcons
+      ? window.ReactIcons.render(state.theme === 'light' ? 'moon' : 'sun', { size: 18 })
+      : (state.theme === 'light' ? '🌙' : '☀️');
     DOM.themeToggleBtn.setAttribute('title', `Switch to ${state.theme === 'light' ? 'dark' : 'light'} mode`);
   }
 
@@ -228,14 +279,68 @@
     });
   }
 
+  let currentLocationStateFilter = 'ALL';
+
+  function filterLocationByState(stateCode) {
+    currentLocationStateFilter = stateCode;
+    const tabs = document.querySelectorAll('#locationStateTabs .location-tab-btn');
+    tabs.forEach(t => {
+      const match = (stateCode === 'ALL' && t.textContent.includes('All India')) ||
+                    t.getAttribute('onclick')?.includes(`'${stateCode}'`);
+      t.classList.toggle('active', !!match);
+    });
+    const searchVal = DOM.citySearchInput ? DOM.citySearchInput.value.toLowerCase().trim() : '';
+    renderCityList(searchVal);
+  }
+
   function renderCityList(filter = '') {
-    const matched = CITIES.filter(c => c.name.toLowerCase().includes(filter));
-    DOM.cityList.innerHTML = matched.map(city => `
-      <li class="city-item ${city.name === state.selectedCity ? 'active' : ''}" data-city="${city.name}">
-        <span>📍 ${city.name}</span>
-        <small style="color: var(--text-muted); font-size: 0.75rem;">${city.areas.length} Areas (${city.areas.slice(0, 2).join(', ')}...)</small>
-      </li>
-    `).join('');
+    let sourceCities = (window.IndiaLocations && typeof window.IndiaLocations.getAllCities === 'function')
+      ? window.IndiaLocations.getAllCities()
+      : (typeof CITIES !== 'undefined' ? CITIES : []);
+
+    if (currentLocationStateFilter && currentLocationStateFilter !== 'ALL') {
+      sourceCities = sourceCities.filter(c => c.stateCode === currentLocationStateFilter || c.state === currentLocationStateFilter);
+    }
+
+    let matched = sourceCities;
+    if (filter) {
+      if (window.IndiaLocations && typeof window.IndiaLocations.searchLocations === 'function') {
+        matched = window.IndiaLocations.searchLocations(filter);
+        if (currentLocationStateFilter !== 'ALL') {
+          matched = matched.filter(c => c.stateCode === currentLocationStateFilter || c.state === currentLocationStateFilter);
+        }
+      } else {
+        matched = sourceCities.filter(c => c.name.toLowerCase().includes(filter));
+      }
+    }
+
+    if (!matched.length) {
+      DOM.cityList.innerHTML = `
+        <li style="padding: 1.25rem 0.75rem; text-align: center; color: var(--text-muted); font-size: 0.85rem;">
+          <div>No locations found for "<strong>${filter}</strong>"</div>
+          <button class="action-btn action-btn-outline" style="font-size: 0.75rem; margin-top: 0.5rem; padding: 0.3rem 0.6rem;" onclick="window.LocalCare.filterLocationByState('ALL')">
+            Reset to All India
+          </button>
+        </li>
+      `;
+      return;
+    }
+
+    DOM.cityList.innerHTML = matched.map(city => {
+      const areasCount = city.areas ? city.areas.length : 0;
+      const areasPreview = city.areas && city.areas.length ? city.areas.slice(0, 2).join(', ') : (city.state || 'India');
+      const stateBadge = city.state ? `<span style="font-size: 0.7rem; color: var(--text-muted); background: var(--bg-subtle); padding: 1px 5px; border-radius: 4px; margin-left: 0.35rem;">${city.state}</span>` : '';
+      return `
+        <li class="city-item ${city.name.toLowerCase() === state.selectedCity.toLowerCase() ? 'active' : ''}" data-city="${city.name}">
+          <div style="display: flex; flex-direction: column; gap: 2px;">
+            <span style="display: inline-flex; align-items: center; gap: 0.35rem; font-weight: 700;">
+              ${window.ReactIcons ? window.ReactIcons.render('mapPin', { size: 14 }) : '📍'} ${city.name} ${stateBadge}
+            </span>
+            <small style="color: var(--text-muted); font-size: 0.74rem;">${areasCount} Localities (${areasPreview}...)</small>
+          </div>
+        </li>
+      `;
+    }).join('');
 
     DOM.cityList.querySelectorAll('.city-item').forEach(item => {
       item.addEventListener('click', () => {
@@ -255,7 +360,11 @@
     renderDeals();
     renderCityHighlights();
     renderCuratedShowcase();
+    renderStickyChips();
     renderListings();
+    if (window.MapEngine && typeof window.MapEngine.jumpToCurrentCity === 'function') {
+      window.MapEngine.jumpToCurrentCity();
+    }
     document.dispatchEvent(new CustomEvent('cityChanged', { detail: cityName }));
     const jdCityEl = document.getElementById('jdServicesCityName');
     if (jdCityEl) jdCityEl.textContent = cityName;
@@ -267,7 +376,8 @@
 
   function updateCityLabels() {
     DOM.currentCityLabel.textContent = state.selectedCity;
-    DOM.omniboxCityPrefix.innerHTML = `📍 In <span>${state.selectedCity}</span>`;
+    DOM.omniboxCityPrefix.innerHTML = `<span data-react-icon="mapPin" data-icon-size="14"></span> In <span>${state.selectedCity}</span> <span class="city-prefix-arrow" data-react-icon="chevronDown" data-icon-size="11"></span>`;
+    if (window.ReactIcons) window.ReactIcons.replaceAll(DOM.omniboxCityPrefix);
 
     const weatherMap = {
       'Bengaluru': { icon: '🌤️', text: 'Bengaluru 24°C • AQI 42 (Clean)' },
@@ -472,17 +582,35 @@
 
     if (currentCuratedTab === 'top-rated') {
       list = [...cityBusinesses].sort((a, b) => (b.rating || 0) - (a.rating || 0) || (b.reviewsCount || 0) - (a.reviewsCount || 0)).slice(0, 4);
+      if (list.length < 4) {
+        const remaining = all.filter(b => !list.some(item => item.id === b.id)).sort((a, b) => (b.rating || 0) - (a.rating || 0)).slice(0, 4 - list.length);
+        list = [...list, ...remaining];
+      }
       label = 'Top-Rated Verified';
+      targetCat = 'all';
+    } else if (currentCuratedTab === 'nearby') {
+      list = [...cityBusinesses].sort((a, b) => parseFloat(a.distance || 999) - parseFloat(b.distance || 999)).slice(0, 4);
+      if (list.length === 0) list = cityBusinesses.slice(0, 4);
+      label = 'Nearby Verified';
       targetCat = 'all';
     } else if (currentCuratedTab === 'newly-listed') {
       list = [...cityBusinesses].reverse().slice(0, 4);
+      if (list.length < 4) {
+        const remaining = all.filter(b => !list.some(item => item.id === b.id)).reverse().slice(0, 4 - list.length);
+        list = [...list, ...remaining];
+      }
       label = 'Newly Listed & Verified';
       targetCat = 'all';
     } else {
-      targetCat = currentCuratedTab;
+      let mappedCat = currentCuratedTab;
+      if (currentCuratedTab === 'education') mappedCat = 'tutor';
+      if (currentCuratedTab === 'beauty') mappedCat = 'salon';
+
+      targetCat = mappedCat;
       list = cityBusinesses.filter(b => b.category === targetCat).slice(0, 4);
-      if (list.length === 0) {
-        list = all.filter(b => b.category === targetCat).slice(0, 4);
+      if (list.length < 4) {
+        const backfill = all.filter(b => b.category === targetCat && !list.some(item => item.id === b.id)).slice(0, 4 - list.length);
+        list = [...list, ...backfill];
       }
       const catObj = CATEGORIES.find(c => c.id === targetCat);
       label = catObj ? catObj.title : targetCat;
@@ -524,7 +652,7 @@
     DOM.categoryGrid.innerHTML = CATEGORIES.map(cat => `
       <div class="category-card ${state.selectedCategory === cat.id ? 'active' : ''}" data-category="${cat.id}">
         <div class="category-icon-wrapper ${cat.badgeClass}">
-          <span>${cat.icon}</span>
+          <span class="cat-icon-wrap">${window.ReactIcons ? window.ReactIcons.getCategoryIcon(cat.id, { size: 28 }) : cat.icon}</span>
         </div>
         <h4 class="category-name">${cat.title}</h4>
         <span class="category-count">${cat.count}</span>
@@ -558,7 +686,7 @@
       <span class="quick-tag-label">Popular Searches:</span>
       ${sampleTags.map(t => `
         <button class="quick-tag-chip" data-cat="${t.cat}" data-query="${t.query}">
-          <span>⚡</span> ${t.label}
+          <span class="icon-wrap">${window.ReactIcons ? window.ReactIcons.render('zap', { size: 14 }) : '⚡'}</span> ${t.label}
         </button>
       `).join('')}
     `;
@@ -582,9 +710,75 @@
     });
   }
 
+  function updateCategoryBanner() {
+    const banner = document.getElementById('categoryHeroBanner');
+    if (!banner) return;
+
+    if (state.selectedCategory === 'all') {
+      banner.style.display = 'none';
+      if (window.history && window.history.replaceState) {
+        const url = new URL(window.location);
+        url.searchParams.delete('category');
+        window.history.replaceState(null, '', url.pathname + (url.search ? url.search : ''));
+      }
+      return;
+    }
+
+    const cat = CATEGORIES.find(c => c.id === state.selectedCategory);
+    if (!cat) {
+      banner.style.display = 'none';
+      return;
+    }
+
+    banner.style.display = 'block';
+
+    const bcCity = document.getElementById('breadcrumbCity');
+    const bcCat = document.getElementById('breadcrumbCategory');
+    const heroIcon = document.getElementById('catHeroIcon');
+    const heroTitle = document.getElementById('catHeroTitle');
+    const heroSubtitle = document.getElementById('catHeroSubtitle');
+    const subcatsContainer = document.getElementById('catHeroSubcategories');
+
+    if (bcCity) bcCity.textContent = state.selectedCity || 'All India';
+    if (bcCat) bcCat.textContent = cat.title;
+    if (heroIcon) heroIcon.textContent = cat.icon || '📌';
+    if (heroTitle) heroTitle.textContent = `${cat.title} in ${state.selectedCity || 'India'}`;
+    if (heroSubtitle) heroSubtitle.textContent = `Explore verified, background-checked ${cat.title.toLowerCase()} across ${state.selectedCity || 'your city'} with upfront rates & instant appointment booking.`;
+
+    if (subcatsContainer && cat.subcategories && cat.subcategories.length > 0) {
+      subcatsContainer.innerHTML = `
+        <span style="font-size: 0.78rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-right: 0.35rem;">Popular in ${cat.title}:</span>
+        ${cat.subcategories.map(sub => `
+          <button class="subcat-pill ${state.searchQuery.toLowerCase() === sub.toLowerCase() ? 'active' : ''}" onclick="window.LocalCare.filterBySubcategory('${sub.replace(/'/g, "\\'")}')">
+            ${sub}
+          </button>
+        `).join('')}
+      `;
+    } else if (subcatsContainer) {
+      subcatsContainer.innerHTML = '';
+    }
+
+    if (window.history && window.history.replaceState) {
+      const url = new URL(window.location);
+      url.searchParams.set('category', state.selectedCategory);
+      window.history.replaceState(null, '', url.toString());
+    }
+  }
+
+  function filterBySubcategory(subcat) {
+    DOM.omniboxInput.value = subcat;
+    state.searchQuery = subcat;
+    DOM.omniboxClearBtn.classList.add('active');
+    updateCategoryBanner();
+    renderListings(true);
+    showToast(`Filtering for: ${subcat}`, 'info');
+  }
+
   function filterCategory(catId) {
     state.selectedCategory = catId;
     updateCategoryActiveStates();
+    updateCategoryBanner();
+    renderStickyChips();
     renderListings();
     document.getElementById('listingsSection').scrollIntoView({ behavior: 'smooth' });
   }
@@ -811,6 +1005,14 @@
     showToast('Recent searches cleared', 'info');
   }
 
+  function highlightMatch(text, query) {
+    if (!text || !query) return escapeHtml(text || '');
+    const cleanQ = query.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    if (!cleanQ) return escapeHtml(text);
+    const parts = String(text).split(new RegExp(`(${cleanQ})`, 'gi'));
+    return parts.map(part => part.toLowerCase() === cleanQ.toLowerCase() ? `<mark class="omni-highlight">${escapeHtml(part)}</mark>` : escapeHtml(part)).join('');
+  }
+
   function showSuggestions(query) {
     const qLower = query.toLowerCase();
     const all = getAllBusinesses();
@@ -859,8 +1061,8 @@
             <div class="suggestion-main">
               <span class="suggestion-icon">${cat.icon}</span>
               <div>
-                <strong>${cat.title}</strong>
-                <div style="font-size: 0.75rem; color: var(--text-muted);">${cat.subcategories.slice(0, 3).join(', ')}</div>
+                <strong>${highlightMatch(cat.title, query)}</strong>
+                <div style="font-size: 0.75rem; color: var(--text-muted);">${cat.subcategories.slice(0, 3).map(s => highlightMatch(s, query)).join(', ')}</div>
               </div>
             </div>
             <span style="font-size: 0.8rem; color: var(--primary);">View Category ➔</span>
@@ -877,8 +1079,8 @@
             <div class="suggestion-main">
               <span class="suggestion-icon">📍</span>
               <div>
-                <strong>${b.name}</strong>
-                <div style="font-size: 0.75rem; color: var(--text-secondary);">${b.locality} • ★ ${b.rating}</div>
+                <strong>${highlightMatch(b.name, query)}</strong>
+                <div style="font-size: 0.75rem; color: var(--text-secondary);">${highlightMatch(b.locality, query)} • ★ ${b.rating}</div>
               </div>
             </div>
             <span style="font-size: 0.75rem; color: var(--text-muted);">${b.distance}</span>
@@ -1030,13 +1232,33 @@
           });
         }
       } else {
-        // City filter
-        results = results.filter(b => b.city.toLowerCase() === state.selectedCity.toLowerCase());
-
-        // Category filter
+        // Smart Category & City Matching with Resilient Statewide / Pan-India Fallback
+        let isCategoryFallback = false;
         if (state.selectedCategory !== 'all') {
-          results = results.filter(b => b.category === state.selectedCategory);
+          const exactCityMatches = results.filter(b => 
+            (b.city || '').toLowerCase() === state.selectedCity.toLowerCase() &&
+            (b.category === state.selectedCategory || b.category_id === state.selectedCategory)
+          );
+
+          if (exactCityMatches.length > 0) {
+            results = exactCityMatches;
+          } else {
+            // Resilient Fallback: If no provider in this exact city, show top verified providers in this category from all hubs
+            const categoryMatches = all.filter(b => 
+              b.category === state.selectedCategory || b.category_id === state.selectedCategory
+            );
+            if (categoryMatches.length > 0) {
+              results = categoryMatches;
+              isCategoryFallback = true;
+            } else {
+              results = [];
+            }
+          }
+        } else {
+          // City filter for all categories
+          results = results.filter(b => (b.city || '').toLowerCase() === state.selectedCity.toLowerCase());
         }
+        state.isCategoryFallback = isCategoryFallback;
 
         // Literal search query fallback
         if (state.searchQuery.trim()) {
@@ -1130,7 +1352,9 @@
 
       // Update Result Counter
       if (DOM.resultsCount) {
-        if (results.length > 0) {
+        if (state.isCategoryFallback && results.length > 0) {
+          DOM.resultsCount.innerHTML = `Showing <strong>${results.length} Verified Providers</strong> Serving ${escapeHtml(state.selectedCity)} (Statewide & Express Doorstep Dispatch)`;
+        } else if (results.length > 0) {
           DOM.resultsCount.textContent = `Showing ${startIdx + 1}–${endIdx} of ${results.length} Verified Providers in ${state.selectedCity}`;
         } else {
           DOM.resultsCount.textContent = `0 Verified Providers in ${state.selectedCity}`;
@@ -1311,6 +1535,195 @@
     showToast('Filters cleared', 'info');
   }
 
+    /* ==========================================================================
+     Authentic Category & Trade Photo Engine
+     Guarantees every business showcases strictly trade-matching photography
+     (e.g., plumbers display ONLY plumbing pipes & tools; dentists show dental clinics)
+     ========================================================================== */
+  const TRADE_GALLERIES = {
+    plumber: [
+      'https://images.unsplash.com/photo-1585704032915-c3400ca199e7?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&w=800&q=80'
+    ],
+    carpenter: [
+      'https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80'
+    ],
+    painter: [
+      'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80'
+    ],
+    tile: [
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1502005229762-ee1b2b8ab98f?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80'
+    ],
+    electrical: [
+      'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1615906655593-ad0386982a0f?auto=format&fit=crop&w=800&q=80'
+    ],
+    dentist: [
+      'https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1598256989800-fe5f95da9787?auto=format&fit=crop&w=800&q=80'
+    ],
+    doctor: [
+      'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80'
+    ],
+    dermatology: [
+      'https://images.unsplash.com/photo-1512290900672-1f55b9e078c1?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80'
+    ],
+    restaurant: [
+      'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=800&q=80'
+    ],
+    salon: [
+      'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&q=80'
+    ],
+    auto: [
+      'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=800&q=80'
+    ],
+    cleaning: [
+      'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1581579186913-45ac3e6efe93?auto=format&fit=crop&w=800&q=80'
+    ],
+    tutor: [
+      'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80'
+    ],
+    tech: [
+      'https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?auto=format&fit=crop&w=800&q=80'
+    ],
+    pro: [
+      'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80'
+    ],
+    packers: [
+      'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=800&q=80'
+    ],
+    stays: [
+      'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80'
+    ],
+    shopping: [
+      'https://images.unsplash.com/photo-1526738549149-8e07eca6c147?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=800&q=80'
+    ],
+    daily: [
+      'https://images.unsplash.com/photo-1545173168-9f1947eebb7f?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?auto=format&fit=crop&w=800&q=80'
+    ],
+    travel: [
+      'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80'
+    ],
+    events: [
+      'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80'
+    ],
+    emergency: [
+      'https://images.unsplash.com/photo-1587745416684-47953f16f02f?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80'
+    ],
+    b2b: [
+      'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80'
+    ],
+    jobs: [
+      'https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80'
+    ]
+  };
+
+  function getTradePhotos(b) {
+    if (!b) return TRADE_GALLERIES.plumber;
+    const cat = (b.category || '').toLowerCase();
+    const sub = (b.subcategory || '').toLowerCase();
+    const name = (b.name || '').toLowerCase();
+
+    let gallery = TRADE_GALLERIES.electrical;
+    if (cat === 'jobs') gallery = TRADE_GALLERIES.jobs;
+    else if (cat === 'travel') gallery = TRADE_GALLERIES.travel;
+    else if (cat === 'stays') gallery = TRADE_GALLERIES.stays;
+    else if (cat === 'home') {
+      if (sub.includes('carp') || name.includes('carp') || name.includes('wood') || name.includes('furniture')) {
+        gallery = TRADE_GALLERIES.carpenter;
+      } else if (sub.includes('paint') || name.includes('paint') || name.includes('color')) {
+        gallery = TRADE_GALLERIES.painter;
+      } else if (sub.includes('tile') || sub.includes('marble') || sub.includes('floor') || name.includes('marble') || name.includes('tile')) {
+        gallery = TRADE_GALLERIES.tile;
+      } else {
+        gallery = TRADE_GALLERIES.plumber;
+      }
+    } else if (cat === 'health') {
+      if (sub.includes('dent') || name.includes('dent') || name.includes('teeth') || name.includes('smile') || name.includes('ortho')) {
+        gallery = TRADE_GALLERIES.dentist;
+      } else if (sub.includes('derm') || sub.includes('skin') || name.includes('skin') || name.includes('derma')) {
+        gallery = TRADE_GALLERIES.dermatology;
+      } else {
+        gallery = TRADE_GALLERIES.doctor;
+      }
+    } else if (cat === 'electrical') gallery = TRADE_GALLERIES.electrical;
+    else if (cat === 'food') gallery = TRADE_GALLERIES.restaurant;
+    else if (cat === 'salon') gallery = TRADE_GALLERIES.salon;
+    else if (cat === 'auto') gallery = TRADE_GALLERIES.auto;
+    else if (cat === 'cleaning') gallery = TRADE_GALLERIES.cleaning;
+    else if (cat === 'tutor') gallery = TRADE_GALLERIES.tutor;
+    else if (cat === 'tech') gallery = TRADE_GALLERIES.tech;
+    else if (cat === 'pro') gallery = TRADE_GALLERIES.pro;
+    else if (cat === 'packers') gallery = TRADE_GALLERIES.packers;
+    else if (cat === 'stays') gallery = TRADE_GALLERIES.stays;
+    else if (cat === 'shopping') gallery = TRADE_GALLERIES.shopping;
+    else if (cat === 'daily') gallery = TRADE_GALLERIES.daily;
+    else if (cat === 'travel') gallery = TRADE_GALLERIES.travel;
+    else if (cat === 'events') gallery = TRADE_GALLERIES.events;
+    else if (cat === 'emergency') gallery = TRADE_GALLERIES.emergency;
+    else if (cat === 'b2b') gallery = TRADE_GALLERIES.b2b;
+
+    return gallery;
+  }
+
   function createBusinessCardHTML(b) {
     const isSaved = state.savedIds.has(b.id);
     const isComparing = window.ProComparison && window.ProComparison.isComparing(b.id);
@@ -1318,47 +1731,53 @@
     const yearsInBusiness = b.yearsInBusiness || 10;
     const enquiriesCount = b.enquiriesCount || Math.floor(130 + ((b.trustScore || 90) * 1.5));
     const landmark = b.landmark || (b.address ? b.address.split(',')[0] : b.locality);
-    const photos = (b.photos && b.photos.length) ? b.photos : [
-      b.image,
-      'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=400&q=80',
-      'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=400&q=80'
-    ];
-    const photoThumbs = photos.slice(0, 3).map(p => `
-      <img src="${p}" alt="${b.name}" class="jd-thumb-img" loading="lazy" />
+    const tradeGallery = getTradePhotos(b);
+    const mainImg = b.image || tradeGallery[0];
+    const photos = (b.photos && b.photos.length >= 3) ? b.photos : tradeGallery;
+    const photoThumbs = photos.slice(0, 3).map((p, idx) => `
+      <img src="${p}" alt="${b.name}" class="jd-thumb-img" loading="lazy" onclick="event.stopPropagation(); window.LocalCare.openLightbox('${b.id}', ${idx})" />
     `).join('');
+
+    const isSponsored = b.sponsored || b.promoted;
+    const iconR = (name, opts) => window.ReactIcons ? window.ReactIcons.render(name, opts) : '';
 
     return `
       <div class="business-card jd-pro-card" data-id="${b.id}">
-        <!-- Top JD Verified & Social Proof Trust Bar -->
+        <!-- Top LocalCare Verified & Social Proof Trust Bar -->
         <div class="jd-card-top-strip">
           <div class="jd-badge-group">
-            <span class="jd-stamp-trust" title="JD Verified Business">
-              <span class="jd-check-icon">✓</span> JD Verified
+            ${isSponsored ? `
+              <span class="badge-sponsored" title="Sponsored Commercial Placement">
+                ${iconR('starFilled', { size: 12, className: 'react-icon-gold' })} Promoted
+              </span>
+            ` : ''}
+            <span class="jd-stamp-trust" title="LocalCare Verified Business">
+              ${iconR('checkCircle', { size: 13, className: 'react-icon-success' })} LocalCare Verified
             </span>
             <span class="jd-stamp-years" title="Years of Trusted Service">
-              🏆 ${yearsInBusiness} Yrs in Business
+              ${iconR('award', { size: 13, className: 'react-icon-gold' })} ${yearsInBusiness} Yrs in Business
             </span>
             <span class="jd-stamp-enquiries" title="High Customer Demand">
-              🔥 ${enquiriesCount}+ Enquiries
+              ${iconR('flame', { size: 13, className: 'react-icon-danger' })} ${enquiriesCount}+ Enquiries
             </span>
           </div>
 
           <div class="card-top-right-actions">
             <button class="card-compare-chip ${isComparing ? 'comparing' : ''}" data-action="compare" data-compare-id="${b.id}" data-id="${b.id}" title="Compare Side-by-Side">
-              <span>⚖️</span> Compare
+              ${iconR('scale', { size: 13 })} Compare
             </button>
             <button class="card-bookmark-btn ${isSaved ? 'saved' : ''}" data-action="bookmark" data-id="${b.id}" title="${isSaved ? 'Remove from Saved' : 'Save Listing'}">
-              ${isSaved ? '❤️' : '🤍'}
+              ${isSaved ? iconR('heartFilled', { size: 15, className: 'react-icon-danger' }) : iconR('heart', { size: 15 })}
             </button>
           </div>
         </div>
 
         <div class="card-media-wrapper">
-          <img src="${b.image}" alt="${b.name}" class="card-img" loading="lazy" />
+          <img src="${mainImg}" alt="${b.name}" class="card-img" loading="lazy" />
           <div class="card-overlay-badges">
-            ${b.superSeller ? '<span class="badge-super">★ Top Rated</span>' : ''}
-            <span class="badge-shield-mini" title="LocalCare ₹10,000 Quality Shield">🛡️ ₹10k Shield</span>
-            <span class="badge-open">${b.openNow ? '🟢 Open Now' : '🔴 Closed'}</span>
+            ${b.superSeller ? `<span class="badge-super">${iconR('starFilled', { size: 11, className: 'react-icon-gold' })} Top Rated</span>` : ''}
+            <span class="badge-shield-mini" title="LocalCare ₹10,000 Quality Shield">${iconR('shield', { size: 12 })} ₹10k Shield</span>
+            <span class="badge-open">${b.openNow ? '<span class="status-indicator open"></span> Open Now' : '<span class="status-indicator closed"></span> Closed'}</span>
           </div>
 
           <!-- Quick Preview Thumbnails Reel -->
@@ -1370,7 +1789,7 @@
         <div class="card-content">
           <div class="card-header-line">
             <h3 class="business-name" data-action="view-detail" data-id="${b.id}" style="cursor: pointer;">
-              ${b.name} <span class="jd-name-tick" title="Justdial Verified Pro">✓</span>
+              ${b.name} <span class="jd-name-tick" title="LocalCare Verified Pro">${iconR('checkCircle', { size: 13, className: 'react-icon-success' })}</span>
             </h3>
             <span class="jd-starting-price">
               Starts ₹${b.startingPrice || 299}
@@ -1378,33 +1797,33 @@
           </div>
 
           <div class="card-rating-row">
-            <span class="rating-badge">★ ${b.rating}</span>
+            <span class="rating-badge">${iconR('starFilled', { size: 12, className: 'react-icon-gold' })} ${b.rating}</span>
             <span class="rating-reviews-count">(${b.reviewsCount} Ratings)</span>
             <span class="jd-trust-score" title="100-Point Verification Audit Score">
-              🛡️ Trust: ${b.trustScore || 95}/100
+              ${iconR('shieldCheck', { size: 13, className: 'react-icon-success' })} Trust: ${b.trustScore || 95}/100
             </span>
             <span class="jd-response-time">${b.responseTime || '~5 min'} response</span>
           </div>
 
           <div class="card-meta-line">
-            <span class="card-meta-icon">📍</span>
+            <span class="card-meta-icon">${iconR('mapPin', { size: 13 })}</span>
             <span class="jd-locality-text"><strong>${b.locality}</strong> • ${landmark}</span>
             ${b.distance ? `<span class="jd-distance-text">${b.distance} away</span>` : ''}
           </div>
 
           <div class="card-meta-line">
-            <span class="card-meta-icon">⏰</span>
+            <span class="card-meta-icon">${iconR('clock', { size: 13 })}</span>
             <span>${b.operatingHours}</span>
-            ${b.availableToday ? '<span class="jd-avail-today">⚡ Available Today</span>' : ''}
+            ${b.availableToday ? `<span class="jd-avail-today">${iconR('zap', { size: 11 })} Available Today</span>` : ''}
           </div>
 
           ${b.offer ? `
             <div class="jd-card-offer-pill">
-              🏷️ ${b.offer} • 💳 5% Cashback with JD Pay
+              ${iconR('tag', { size: 13 })} ${b.offer} • ${iconR('creditCard', { size: 13 })} 5% Cashback with LocalCare Pay
             </div>
           ` : `
             <div class="jd-card-offer-subtle">
-              💳 Flat ₹50 Cashback with JD Pay • Instant digital receipt
+              ${iconR('creditCard', { size: 13 })} Flat ₹50 Cashback with LocalCare Pay • Instant digital receipt
             </div>
           `}
 
@@ -1414,26 +1833,26 @@
 
           <!-- CareAI Review Insights & Sentiment Strip -->
           <div class="jd-ai-insights-strip" onclick="window.CareAISuite.openProblemMatchmaker()" title="Click to launch AI Diagnostic Studio">
-            <span class="ai-sparkle-pill">✨ AI Insight</span>
+            <span class="ai-sparkle-pill">${iconR('sparkles', { size: 12 })} AI Insight</span>
             <span class="ai-insight-text">${b.rating >= 4.8 ? '98% Positive • Praised for 30m arrival & fair rates' : '94% Positive • Reliable local service with zero hidden fees'}</span>
           </div>
 
-          <!-- Justdial Signature 5-Action Buttons Grid -->
+          <!-- LocalCare Signature 5-Action Buttons Grid (Powered by React Icons) -->
           <div class="jd-card-actions-grid">
-            <button class="jd-action-btn jd-btn-call" data-action="call" data-id="${b.id}" title="Direct Phone Contact">
-              <span>📞</span> Call Now
+            <button class="jd-action-btn jd-btn-call" data-action="call" data-id="${b.id}" title="Call ${escapeHtml(b.name)}">
+              <span>${iconR('phone', { size: 14 })}</span> Call Now
             </button>
-            <button class="jd-action-btn jd-btn-whatsapp" data-action="whatsapp" data-id="${b.id}" title="Instant WhatsApp Chat">
-              <span>💬</span> WhatsApp
+            <button class="jd-action-btn jd-btn-whatsapp" data-action="whatsapp" data-id="${b.id}" title="WhatsApp Chat with ${escapeHtml(b.name)}">
+              <span>${iconR('messageSquare', { size: 14 })}</span> WhatsApp
+            </button>
+            <button class="jd-action-btn jd-btn-directions" data-action="directions" data-id="${b.id}" title="Get Directions & Visit Location">
+              <span>${iconR('compass', { size: 14 })}</span> Directions
+            </button>
+            <button class="jd-action-btn jd-btn-book" data-action="book" data-id="${b.id}" title="Book Appointment with ${escapeHtml(b.name)}">
+              <span>${iconR('calendar', { size: 14 })}</span> Book Slot
             </button>
             <button class="jd-action-btn jd-btn-deal" data-action="best-deal" data-id="${b.id}" title="Get Best Quotes from 5 Pros">
-              <span>⚡</span> Best Deal
-            </button>
-            <button class="jd-action-btn jd-btn-book" data-action="book" data-id="${b.id}" title="Book Doorstep Appointment">
-              <span>📅</span> Book Slot
-            </button>
-            <button class="jd-action-btn jd-btn-pay" data-action="jdpay" data-id="${b.id}" title="Pay via JD Pay UPI">
-              <span>💳</span> Pay
+              <span>${iconR('zap', { size: 14 })}</span> Best Deal
             </button>
           </div>
         </div>
@@ -1446,6 +1865,18 @@
 
     DOM.listingsGrid.querySelectorAll('.business-card').forEach(card => {
       const id = card.getAttribute('data-id');
+
+      // Click card body to open full Business Profile Modal
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('[data-action]') || e.target.closest('button') || e.target.closest('a') || e.target.closest('input')) {
+          return;
+        }
+        const business = all.find(b => b.id === id);
+        if (business) {
+          if (window.SoundFX) window.SoundFX.playClick();
+          openBusinessDetailModal(business);
+        }
+      });
 
       // Hover sync with vector map
       card.addEventListener('mouseenter', () => {
@@ -1481,7 +1912,24 @@
         } else if (action === 'book') {
           if (window.BookingEngine) window.BookingEngine.openBookingModal(business);
         } else if (action === 'call') {
-          openCallModal(business);
+          if (/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) && window.innerWidth <= 768) {
+            window.location.href = `tel:${business.phone.replace(/\s+/g, '')}`;
+          } else {
+            openCallModal(business);
+          }
+        } else if (action === 'directions' || action === 'visit') {
+          if (window.MapEngine) {
+            window.MapEngine.selectBusiness(id, true);
+          }
+          const isMobile = window.innerWidth <= 768;
+          if (isMobile) {
+            const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent((business.lat && business.lng) ? `${business.lat},${business.lng}` : `${business.name}, ${business.locality}, ${business.city}`)}`;
+            window.open(mapsUrl, '_blank', 'noopener');
+          } else {
+            showToast(`📍 Showing route & directions to ${business.name} on map`, 'info', 3500);
+            const mapSec = document.getElementById('interactiveMapContainer');
+            if (mapSec) mapSec.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
         } else if (action === 'whatsapp') {
           if (window.JDFeatures) {
             window.JDFeatures.openWhatsAppEnquiry(business.name, business.locality, business.city, business.phone);
@@ -1494,13 +1942,174 @@
           } else if (window.QuoteMarketplace) {
             window.QuoteMarketplace.openQuotesModal(business.category);
           }
-        } else if (action === 'jdpay') {
-          if (window.JDFeatures) {
-            window.JDFeatures.openJdPayModal('directpay');
-          }
+        } else if (action === 'jdpay' || action === 'pay') {
+          openPayStudio(business, business.startingPrice || 499);
         }
       });
     });
+  }
+
+  /* ==========================================================================
+     LocalCare Pay UPI & Digital Payment Studio
+     ========================================================================== */
+  let payTimerInterval = null;
+  let payTimerSeconds = 299;
+
+  function openPayStudio(biz, amount = 499, serviceName = null) {
+    const dialog = document.getElementById('localCarePayDialog');
+    if (!dialog) return;
+
+    const amtDisplay = document.getElementById('payAmountDisplay');
+    const merchantSubtitle = document.getElementById('payMerchantSubtitle');
+    const vpaDisplay = document.getElementById('payVpaDisplay');
+    const invoiceContainer = document.getElementById('payInvoiceContainer');
+
+    const cleanBiz = biz || state.activeDetailBusiness || getAllBusinesses()[0];
+    const finalAmt = amount || cleanBiz.startingPrice || 499;
+    const cleanServiceName = serviceName || (cleanBiz.services && cleanBiz.services[0] ? cleanBiz.services[0].name : 'Verified LocalCare Service');
+
+    dialog.dataset.bizId = cleanBiz.id;
+    dialog.dataset.bizName = cleanBiz.name;
+    dialog.dataset.bizGst = cleanBiz.gst || '29AABCU9603R1ZM';
+    dialog.dataset.amount = finalAmt;
+    dialog.dataset.service = cleanServiceName;
+
+    if (amtDisplay) amtDisplay.textContent = `₹${finalAmt}`;
+    if (merchantSubtitle) merchantSubtitle.textContent = `Merchant: ${cleanBiz.name} (${cleanBiz.locality}, ${cleanBiz.city})`;
+    if (vpaDisplay) vpaDisplay.textContent = `localcare.${cleanBiz.name.toLowerCase().replace(/[^a-z0-9]/g, '')}@icici`;
+    if (invoiceContainer) {
+      invoiceContainer.style.display = 'none';
+      invoiceContainer.innerHTML = '';
+    }
+
+    // Start 4:59 countdown timer
+    clearInterval(payTimerInterval);
+    payTimerSeconds = 299;
+    const timerClock = document.getElementById('payTimerClock');
+    payTimerInterval = setInterval(() => {
+      payTimerSeconds--;
+      if (payTimerSeconds <= 0) {
+        clearInterval(payTimerInterval);
+        if (timerClock) timerClock.textContent = 'Expired';
+      } else {
+        const m = String(Math.floor(payTimerSeconds / 60)).padStart(2, '0');
+        const s = String(payTimerSeconds % 60).padStart(2, '0');
+        if (timerClock) timerClock.textContent = `${m}:${s}`;
+      }
+    }, 1000);
+
+    dialog.showModal();
+    if (window.SoundFX && window.SoundFX.playClick) window.SoundFX.playClick();
+  }
+
+  function simulateUpiApp(appName) {
+    showToast(`Launching ${appName} secure payment sheet...`, 'info');
+    setTimeout(() => {
+      completePaymentSimulation(appName);
+    }, 800);
+  }
+
+  function completePaymentSimulation(sourceApp = 'LocalCare Pay UPI') {
+    clearInterval(payTimerInterval);
+    const dialog = document.getElementById('localCarePayDialog');
+    if (!dialog) return;
+
+    const bizName = dialog.dataset.bizName || 'Verified Professional';
+    const bizGst = dialog.dataset.bizGst || '29AABCU9603R1ZM';
+    const amount = parseInt(dialog.dataset.amount || '499', 10);
+    const serviceName = dialog.dataset.service || 'Verified Service';
+    const invoiceNo = 'LC-INV-' + Math.floor(100000 + Math.random() * 900000);
+    const txnId = 'UPI-' + Date.now().toString().slice(-8);
+    const dateStr = new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+    const timeStr = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+
+    const baseAmount = Math.round(amount / 1.05);
+    const gstAmount = amount - baseAmount;
+
+    if (window.SoundFX && window.SoundFX.playSuccess) window.SoundFX.playSuccess();
+    showToast(`Payment of ₹${amount} successful via ${sourceApp}! Instant receipt generated.`, 'success', 6000);
+
+    const invoiceContainer = document.getElementById('payInvoiceContainer');
+    if (invoiceContainer) {
+      invoiceContainer.innerHTML = `
+        <div class="upi-invoice-sheet" id="printableTaxInvoice">
+          <div class="invoice-header-row">
+            <div>
+              <div style="font-weight: 900; font-size: 1.1rem; color: var(--primary);">LOCALCARE INFINITY X</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">GST TAX INVOICE & OFFICIAL PAYMENT RECEIPT</div>
+            </div>
+            <div style="text-align: right;">
+              <span class="bid-badge" style="background: #ecfdf5; color: #065f46; font-weight: 700;">✓ PAID via ${escapeHtml(sourceApp)}</span>
+              <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem;">${dateStr} ${timeStr}</div>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; font-size: 0.8rem; margin-bottom: 0.75rem;">
+            <div>
+              <span style="color: var(--text-muted);">Billed By:</span>
+              <div style="font-weight: 700;">${escapeHtml(bizName)}</div>
+              <div style="color: var(--text-secondary);">GSTIN: ${escapeHtml(bizGst)}</div>
+            </div>
+            <div style="text-align: right;">
+              <span style="color: var(--text-muted);">Invoice No:</span>
+              <div style="font-weight: 700; font-family: monospace;">${invoiceNo}</div>
+              <div style="color: var(--text-secondary);">Txn Ref: ${txnId}</div>
+            </div>
+          </div>
+
+          <table class="invoice-bill-table">
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th>HSN/SAC</th>
+                <th style="text-align: right;">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>${escapeHtml(serviceName)}</td>
+                <td>9987</td>
+                <td style="text-align: right;">₹${baseAmount}</td>
+              </tr>
+              <tr>
+                <td>LocalCare Shield Protection</td>
+                <td>9971</td>
+                <td style="text-align: right; color: #059669; font-weight: 700;">₹0 (Free)</td>
+              </tr>
+              <tr>
+                <td>GST (5% SGST + CGST)</td>
+                <td>--</td>
+                <td style="text-align: right;">₹${gstAmount}</td>
+              </tr>
+              <tr style="font-weight: 900; font-size: 0.95rem; border-top: 2px solid var(--border-subtle);">
+                <td colspan="2">TOTAL PAID (INR)</td>
+                <td style="text-align: right; color: var(--primary);">₹${amount}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+            <button type="button" class="action-btn action-btn-primary" style="flex: 1; padding: 0.5rem; font-size: 0.85rem;" onclick="window.print()">
+              🖨️ Print Tax Invoice
+            </button>
+            <button type="button" class="action-btn action-btn-outline" style="flex: 1; padding: 0.5rem; font-size: 0.85rem;" onclick="window.LocalCare.showToast('Official PDF Invoice downloaded to device', 'success')">
+              📥 Download PDF
+            </button>
+          </div>
+        </div>
+      `;
+      invoiceContainer.style.display = 'block';
+      invoiceContainer.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    if (window.LocalCare && window.LocalCare.addNotification) {
+      window.LocalCare.addNotification({
+        title: `Payment Successful: ₹${amount}`,
+        desc: `Paid to ${bizName} via ${sourceApp}. Tax invoice ref #${invoiceNo}`,
+        icon: '💳',
+        actionType: 'dashboard-payments'
+      });
+    }
   }
 
   /* ==========================================================================
@@ -1572,6 +2181,165 @@
   }
 
   /* ==========================================================================
+     Notification Center & Real-Time Alerts (Section 16)
+     ========================================================================== */
+  const DEFAULT_NOTIFICATIONS = [
+    {
+      id: 'notif-1',
+      title: 'Booking Confirmed',
+      desc: 'Your appointment with Dr. Suresh Rao (Dental Specialist) is confirmed for tomorrow 10:30 AM.',
+      time: '10 mins ago',
+      icon: '📅',
+      unread: true,
+      actionType: 'dashboard-bookings'
+    },
+    {
+      id: 'notif-2',
+      title: 'New Quotation Bids Received',
+      desc: '3 verified professionals responded to your AC Repair request with bids starting at ₹399.',
+      time: '45 mins ago',
+      icon: '⚡',
+      unread: true,
+      actionType: 'dashboard-quotes'
+    },
+    {
+      id: 'notif-3',
+      title: 'Shield Guarantee Activated',
+      desc: 'LocalCare ₹10,000 Property Damage Protection is active for your upcoming home electrical service.',
+      time: '2 hours ago',
+      icon: '🛡️',
+      unread: true,
+      actionType: 'shield'
+    },
+    {
+      id: 'notif-4',
+      title: 'Special Festive Offer in Your Area',
+      desc: 'Get flat 20% off on Complete Car Detailing & Wash at AutoShine Studios.',
+      time: 'Yesterday',
+      icon: '🏷️',
+      unread: false,
+      actionType: 'offers'
+    }
+  ];
+
+  let notifications = (() => {
+    try {
+      const stored = localStorage.getItem('localcare_notifications');
+      return stored ? JSON.parse(stored) : DEFAULT_NOTIFICATIONS;
+    } catch (e) {
+      return DEFAULT_NOTIFICATIONS;
+    }
+  })();
+
+  function updateNotificationBadge() {
+    const unreadCount = notifications.filter(n => n.unread).length;
+    const badge = document.getElementById('notificationCountBadge');
+    const status = document.getElementById('notificationStatusText');
+    if (badge) {
+      badge.textContent = unreadCount;
+      badge.style.display = unreadCount > 0 ? 'inline-flex' : 'none';
+    }
+    if (status) {
+      status.textContent = `${unreadCount} unread notification${unreadCount === 1 ? '' : 's'}`;
+    }
+  }
+
+  function openNotificationCenter() {
+    const drawer = document.getElementById('notificationDrawer');
+    const backdrop = document.getElementById('notificationBackdrop');
+    if (!drawer || !backdrop) return;
+    drawer.style.right = '0';
+    backdrop.style.display = 'block';
+    renderNotifications();
+    if (window.SoundFX) window.SoundFX.playPop();
+  }
+
+  function closeNotificationCenter() {
+    const drawer = document.getElementById('notificationDrawer');
+    const backdrop = document.getElementById('notificationBackdrop');
+    if (!drawer || !backdrop) return;
+    drawer.style.right = '-420px';
+    backdrop.style.display = 'none';
+  }
+
+  function markAllNotificationsRead() {
+    notifications.forEach(n => n.unread = false);
+    try {
+      localStorage.setItem('localcare_notifications', JSON.stringify(notifications));
+    } catch (e) {}
+    updateNotificationBadge();
+    renderNotifications();
+    showToast('All notifications marked as read', 'info');
+  }
+
+  function renderNotifications() {
+    const container = document.getElementById('notificationListContainer');
+    if (!container) return;
+    if (notifications.length === 0) {
+      container.innerHTML = `
+        <div style="text-align: center; padding: 3rem 1rem; color: var(--text-muted);">
+          <span style="font-size: 2.5rem; display: block; margin-bottom: 0.5rem;">🔔</span>
+          <p style="font-weight: 600; color: var(--text-primary); margin-bottom: 0.25rem;">No notifications yet</p>
+          <small>You're all caught up!</small>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = notifications.map((n, idx) => `
+      <div class="notification-drawer-item ${n.unread ? 'unread' : ''}" onclick="window.LocalCare.handleNotificationClick(${idx})">
+        <div class="notif-icon-circle">${n.icon}</div>
+        <div class="notif-content">
+          <div class="notif-title">${n.title}</div>
+          <div class="notif-desc">${n.desc}</div>
+          <div class="notif-time">${n.time}</div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function handleNotificationClick(idx) {
+    const n = notifications[idx];
+    if (!n) return;
+    n.unread = false;
+    try {
+      localStorage.setItem('localcare_notifications', JSON.stringify(notifications));
+    } catch (e) {}
+    updateNotificationBadge();
+    renderNotifications();
+    closeNotificationCenter();
+
+    if (n.actionType === 'dashboard-bookings') {
+      if (window.UserDashboard) window.UserDashboard.openDashboard('bookings');
+    } else if (n.actionType === 'dashboard-quotes') {
+      if (window.UserDashboard) window.UserDashboard.openDashboard('quotes');
+    } else if (n.actionType === 'shield') {
+      if (window.ShieldGuarantee) window.ShieldGuarantee.openShieldModal();
+    } else if (n.actionType === 'offers') {
+      filterOffersOnly(true);
+    }
+  }
+
+  function addNotification(item) {
+    const newNotif = {
+      id: 'notif-' + Date.now(),
+      title: item.title || 'Notification',
+      desc: item.desc || '',
+      time: 'Just now',
+      icon: item.icon || '🔔',
+      unread: true,
+      actionType: item.actionType || 'none'
+    };
+    notifications.unshift(newNotif);
+    if (notifications.length > 25) notifications.pop();
+    try {
+      localStorage.setItem('localcare_notifications', JSON.stringify(notifications));
+    } catch (e) {}
+    updateNotificationBadge();
+    renderNotifications();
+  }
+
+  /* ==========================================================================
      Recently Viewed Businesses (Section R)
      ========================================================================== */
   function addToRecentlyViewed(business) {
@@ -1617,26 +2385,316 @@
   }
 
   /* ==========================================================================
+     Multi-Service Cart & Checkout Suite (Urban Company Style)
+     ========================================================================== */
+  function getCartItemQty(bizId, sid) {
+    if (!state.activeCartBusiness || state.activeCartBusiness.id !== bizId) return 0;
+    const item = state.serviceCart.find(i => i.id === sid);
+    return item ? item.qty : 0;
+  }
+
+  function updateCartQty(bizId, serviceId, delta) {
+    const all = getAllBusinesses();
+    const biz = all.find(b => b.id === bizId);
+    if (!biz) return;
+
+    if (state.activeCartBusiness && state.activeCartBusiness.id !== bizId && state.serviceCart.length > 0) {
+      if (!confirm(`Your cart already contains services from "${state.activeCartBusiness.name}". Would you like to clear it and add services from "${biz.name}"?`)) {
+        return;
+      }
+      state.serviceCart = [];
+      state.cartCoupon = null;
+      state.cartDiscount = 0;
+    }
+
+    state.activeCartBusiness = biz;
+    let serviceObj = (biz.services || []).find((s, idx) => (s.id || `srv-${idx}`) === serviceId);
+    if (!serviceObj) {
+      serviceObj = { id: serviceId, name: 'Verified Service', price: biz.startingPrice || 299 };
+    }
+
+    const sid = serviceObj.id || serviceId;
+    let cartItem = state.serviceCart.find(i => i.id === sid);
+
+    if (cartItem) {
+      cartItem.qty += delta;
+      if (cartItem.qty <= 0) {
+        state.serviceCart = state.serviceCart.filter(i => i.id !== sid);
+      }
+    } else if (delta > 0) {
+      state.serviceCart.push({
+        id: sid,
+        name: serviceObj.name,
+        price: serviceObj.price,
+        duration: serviceObj.duration || '45 mins',
+        qty: 1
+      });
+      if (window.SoundFX && window.SoundFX.playBubble) window.SoundFX.playBubble();
+      showToast(`Added "${serviceObj.name}" to service cart 🛒`, 'success');
+    }
+
+    if (state.serviceCart.length === 0) {
+      state.activeCartBusiness = null;
+      state.cartCoupon = null;
+      state.cartDiscount = 0;
+    }
+
+    // Refresh rate card and sticky bar in detail dialog if visible
+    const rateCardContainer = document.getElementById('detailRateCardContainer');
+    const stickyCartSlot = document.getElementById('detailStickyCartSlot');
+    if (rateCardContainer && state.activeDetailBusiness && state.activeDetailBusiness.id === bizId) {
+      rateCardContainer.innerHTML = renderServicesListHTML(biz);
+    }
+    if (stickyCartSlot && state.activeDetailBusiness && state.activeDetailBusiness.id === bizId) {
+      stickyCartSlot.innerHTML = renderStickyCartBarHTML(biz);
+    }
+  }
+
+  function renderServicesListHTML(b) {
+    return (b.services || []).map((s, idx) => {
+      const sid = s.id || `srv-${idx}`;
+      const qty = getCartItemQty(b.id, sid);
+      return `
+        <div class="service-rate-item" data-service-id="${sid}">
+          <div class="service-rate-left">
+            <div class="service-rate-title">${escapeHtml(s.name)}</div>
+            <div class="service-rate-meta">⏱️ ${s.duration || '45 mins'} • 🛡️ 30-Day Quality Guarantee</div>
+          </div>
+          <div class="service-rate-right">
+            <strong class="service-rate-price">₹${s.price}</strong>
+            ${qty > 0 ? `
+              <div class="service-qty-stepper">
+                <button type="button" class="qty-btn" onclick="window.LocalCare.updateCartQty('${b.id}', '${sid}', -1)">−</button>
+                <span class="qty-num">${qty}</span>
+                <button type="button" class="qty-btn" onclick="window.LocalCare.updateCartQty('${b.id}', '${sid}', 1)">+</button>
+              </div>
+            ` : `
+              <button type="button" class="service-add-btn" onclick="window.LocalCare.updateCartQty('${b.id}', '${sid}', 1)">
+                + Add
+              </button>
+            `}
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function renderStickyCartBarHTML(b) {
+    if (!state.activeCartBusiness || state.activeCartBusiness.id !== b.id || state.serviceCart.length === 0) {
+      return '';
+    }
+    const totalItems = state.serviceCart.reduce((sum, item) => sum + item.qty, 0);
+    const totalAmount = state.serviceCart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+    return `
+      <div class="modal-sticky-cart-bar" id="modalStickyCartBar">
+        <div class="sticky-cart-info">
+          <span class="sticky-cart-count">🛒 ${totalItems} service${totalItems > 1 ? 's' : ''} in cart</span>
+          <span class="sticky-cart-amount">₹${totalAmount}</span>
+        </div>
+        <button type="button" class="sticky-cart-view-btn" onclick="window.LocalCare.openCartDrawer()">
+          View Cart & Bill Breakdown ➔
+        </button>
+      </div>
+    `;
+  }
+
+  function openCartDrawer() {
+    if (!state.activeCartBusiness || state.serviceCart.length === 0) {
+      showToast('Your service cart is currently empty', 'info');
+      return;
+    }
+
+    const dialog = document.getElementById('serviceCartDialog');
+    if (!dialog) return;
+
+    renderCartDrawerUI();
+    dialog.showModal();
+    if (window.SoundFX && window.SoundFX.playClick) window.SoundFX.playClick();
+  }
+
+  function renderCartDrawerUI() {
+    const biz = state.activeCartBusiness;
+    const itemsList = document.getElementById('cartServicesItems');
+    const subtitle = document.getElementById('cartBizSubtitle');
+    const itemsTotalEl = document.getElementById('cartBillItemsTotal');
+    const discountRow = document.getElementById('cartBillDiscountRow');
+    const discountEl = document.getElementById('cartBillDiscount');
+    const taxesEl = document.getElementById('cartBillTaxes');
+    const finalTotalEl = document.getElementById('cartBillFinalTotal');
+    const footerTotalEl = document.getElementById('cartFooterTotal');
+
+    if (subtitle && biz) {
+      subtitle.textContent = `Provider: ${biz.name} • ${biz.locality}`;
+    }
+
+    if (itemsList && biz) {
+      itemsList.innerHTML = state.serviceCart.map(item => `
+        <div class="cart-item-row">
+          <div>
+            <div class="cart-item-title">${escapeHtml(item.name)}</div>
+            <div style="font-size: 0.78rem; color: var(--text-muted);">₹${item.price} each • ⏱️ ${item.duration}</div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <div class="service-qty-stepper">
+              <button type="button" class="qty-btn" onclick="window.LocalCare.updateCartQty('${biz.id}', '${item.id}', -1); window.LocalCare.renderCartDrawerUI();">−</button>
+              <span class="qty-num">${item.qty}</span>
+              <button type="button" class="qty-btn" onclick="window.LocalCare.updateCartQty('${biz.id}', '${item.id}', 1); window.LocalCare.renderCartDrawerUI();">+</button>
+            </div>
+            <span class="cart-item-price">₹${item.price * item.qty}</span>
+            <button type="button" class="cart-item-remove-btn" title="Remove item" onclick="window.LocalCare.updateCartQty('${biz.id}', '${item.id}', -${item.qty}); window.LocalCare.renderCartDrawerUI();">✕</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    const itemsTotal = state.serviceCart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+    const taxes = Math.round(itemsTotal * 0.05); // 5% GST
+    const discount = state.cartDiscount || 0;
+    const finalTotal = Math.max(0, itemsTotal - discount + taxes);
+
+    if (itemsTotalEl) itemsTotalEl.textContent = `₹${itemsTotal}`;
+    if (taxesEl) taxesEl.textContent = `₹${taxes}`;
+    if (discountRow) {
+      discountRow.style.display = discount > 0 ? 'flex' : 'none';
+      if (discountEl) discountEl.textContent = `-₹${discount}`;
+    }
+    if (finalTotalEl) finalTotalEl.textContent = `₹${finalTotal}`;
+    if (footerTotalEl) footerTotalEl.textContent = `₹${finalTotal}`;
+
+    if (state.serviceCart.length === 0) {
+      document.getElementById('serviceCartDialog')?.close();
+    }
+  }
+
+  function applyCartCoupon() {
+    const input = document.getElementById('cartCouponInput');
+    const msg = document.getElementById('cartCouponMsg');
+    if (!input || !msg) return;
+    const code = input.value.trim().toUpperCase();
+    if (!code) return;
+
+    const itemsTotal = state.serviceCart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+    if (code === 'LOCALCARE50') {
+      if (itemsTotal < 200) {
+        msg.innerHTML = '<span style="color: #ef4444;">Coupon requires minimum order of ₹200</span>';
+        return;
+      }
+      state.cartCoupon = 'LOCALCARE50';
+      state.cartDiscount = 50;
+      msg.innerHTML = '<span style="color: #059669; font-weight: 700;">✓ Flat ₹50 discount applied successfully!</span>';
+    } else if (code === 'FIRSTCARE') {
+      state.cartCoupon = 'FIRSTCARE';
+      state.cartDiscount = Math.min(150, Math.round(itemsTotal * 0.15));
+      msg.innerHTML = `<span style="color: #059669; font-weight: 700;">✓ 15% discount applied! Saved ₹${state.cartDiscount}</span>`;
+    } else {
+      msg.innerHTML = '<span style="color: #ef4444;">Invalid coupon code. Try LOCALCARE50 or FIRSTCARE</span>';
+      return;
+    }
+
+    if (window.SoundFX && window.SoundFX.playSuccess) window.SoundFX.playSuccess();
+    renderCartDrawerUI();
+  }
+
+  function clearCart() {
+    state.serviceCart = [];
+    state.activeCartBusiness = null;
+    state.cartCoupon = null;
+    state.cartDiscount = 0;
+    document.getElementById('serviceCartDialog')?.close();
+    showToast('Service cart cleared', 'info');
+
+    // Refresh rate card in detail modal if open
+    if (state.activeDetailBusiness) {
+      const rateCardContainer = document.getElementById('detailRateCardContainer');
+      const stickyCartSlot = document.getElementById('detailStickyCartSlot');
+      if (rateCardContainer) rateCardContainer.innerHTML = renderServicesListHTML(state.activeDetailBusiness);
+      if (stickyCartSlot) stickyCartSlot.innerHTML = '';
+    }
+  }
+
+  function proceedCartToBooking() {
+    if (!state.activeCartBusiness || state.serviceCart.length === 0) {
+      showToast('Please add at least one service to your cart', 'warning');
+      return;
+    }
+
+    const itemsTotal = state.serviceCart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+    const taxes = Math.round(itemsTotal * 0.05);
+    const discount = state.cartDiscount || 0;
+    const finalTotal = Math.max(0, itemsTotal - discount + taxes);
+
+    const bundle = {
+      items: [...state.serviceCart],
+      itemsTotal: itemsTotal,
+      taxes: taxes,
+      discount: discount,
+      finalPrice: finalTotal,
+      coupon: state.cartCoupon
+    };
+
+    const biz = state.activeCartBusiness;
+
+    document.getElementById('serviceCartDialog')?.close();
+    document.getElementById('detailDialog')?.close();
+
+    if (window.BookingEngine && window.BookingEngine.openBookingModal) {
+      window.BookingEngine.openBookingModal(biz, null, bundle);
+    }
+  }
+
+  /* --------------------------------------------------------------------------
+     Mobile App Bottom Navigation Bar Handlers
+     -------------------------------------------------------------------------- */
+  function navToSection(sectionId) {
+    updateMobileNavActive('mNavHome');
+    if (sectionId === 'hero') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      const el = document.getElementById(sectionId);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
+  function focusSearch() {
+    updateMobileNavActive('mNavSearch');
+    const omni = document.getElementById('omniboxInput');
+    if (omni) {
+      omni.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setTimeout(() => omni.focus(), 300);
+    }
+  }
+
+  function toggleMap() {
+    updateMobileNavActive('mNavMap');
+    const container = document.getElementById('interactiveMapContainer') || document.getElementById('mapSection');
+    if (container) {
+      container.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
+  function openDashboard(tab) {
+    updateMobileNavActive('mNavBookings');
+    if (window.UserDashboard && window.UserDashboard.openUserDashboard) {
+      window.UserDashboard.openUserDashboard(tab || 'bookings');
+    }
+  }
+
+  function updateMobileNavActive(btnId) {
+    document.querySelectorAll('.mobile-nav-btn').forEach(b => {
+      b.classList.toggle('active', b.id === btnId);
+    });
+  }
+
+  /* ==========================================================================
      Business Detail Modal & Interactive Reviews System
      ========================================================================== */
   function openBusinessDetailModal(b) {
     state.activeDetailBusiness = b;
     addToRecentlyViewed(b);
 
-    const servicesRows = b.services.map(s => `
-      <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px dashed var(--border-subtle);">
-        <div>
-          <div style="font-weight: 700; font-size: 0.92rem;">${s.name}</div>
-          <div style="font-size: 0.78rem; color: var(--text-muted);">Duration: ${s.duration || '45 mins'}</div>
-        </div>
-        <div style="display: flex; align-items: center; gap: 0.75rem;">
-          <strong style="color: var(--primary); font-size: 1.05rem;">₹${s.price}</strong>
-          <button class="action-btn action-btn-primary" style="font-size: 0.78rem; padding: 0.3rem 0.7rem;" onclick="window.LocalCare.bookDirectService('${b.id}', '${s.id || ''}')">
-            Book
-          </button>
-        </div>
-      </div>
-    `).join('');
+    const servicesRows = renderServicesListHTML(b);
+    const stickyCartBar = renderStickyCartBarHTML(b);
 
     const featuresPills = b.features.map(f => `
       <span style="display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.35rem 0.7rem; background: var(--success-light); border: 1px solid var(--success-border); color: #065f46; border-radius: var(--radius-full); font-size: 0.78rem; font-weight: 600;">
@@ -1693,25 +2751,22 @@
     const yearsInBusiness = b.yearsInBusiness || 10;
     const enquiriesCount = b.enquiriesCount || Math.floor(130 + ((b.trustScore || 90) * 1.5));
     const landmark = b.landmark || (b.address ? b.address.split(',')[0] : b.locality);
-    const photos = (b.photos && b.photos.length) ? b.photos : [
-      b.image,
-      'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=600&q=80',
-      'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=600&q=80',
-      'https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&w=600&q=80'
-    ];
+    const tradeGallery = getTradePhotos(b);
+    const mainImg = b.image || tradeGallery[0];
+    const photos = (b.photos && b.photos.length >= 3) ? b.photos : tradeGallery;
 
     const photosGalleryHTML = photos.map((p, idx) => `
       <div style="position: relative; border-radius: var(--radius-md); overflow: hidden; height: 160px; border: 1px solid var(--border-subtle);">
-        <img src="${p}" alt="${b.name} Photo ${idx+1}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" />
+        <img src="${p}" alt="${b.name} Photo ${idx+1}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onclick="window.LocalCare.openLightbox('${b.id}', ${idx})" />
         <span style="position: absolute; bottom: 6px; left: 6px; background: rgba(0,0,0,0.65); color: #fff; font-size: 0.7rem; padding: 0.15rem 0.5rem; border-radius: var(--radius-sm); font-weight: 700;">Photo ${idx+1}</span>
       </div>
     `).join('');
 
     DOM.detailContent.innerHTML = `
       <div style="position: relative; height: 260px; overflow: hidden;">
-        <img src="${b.image}" alt="${b.name}" style="width: 100%; height: 100%; object-fit: cover;" />
+        <img src="${mainImg}" alt="${b.name}" style="width: 100%; height: 100%; object-fit: cover;" />
         <div class="card-overlay-badges">
-          ${b.verified ? '<span class="badge-verified">✓ JD Verified Business</span>' : ''}
+          ${b.verified ? '<span class="badge-verified" style="cursor: pointer;" onclick="event.stopPropagation(); window.LocalCare.openTrustAuditModal()" title="Click to view 7-Point Verification Audit">✓ LocalCare Verified Business 🔍</span>' : ''}
           <span class="badge-open">${b.openNow ? '🟢 Open Now' : 'Closed'}</span>
           <span style="background: rgba(0,0,0,0.7); color: #fff; font-size: 0.75rem; font-weight: 800; padding: 0.25rem 0.6rem; border-radius: var(--radius-full);">
             🏆 ${yearsInBusiness} Yrs in Business
@@ -1733,51 +2788,57 @@
           </div>
         </div>
 
-        <!-- Commercial Pro Direct Action Ribbon (Phase 5 Actions) -->
+        <!-- Commercial Pro Direct Action Ribbon (Phase 5 Actions - Powered by React Icons) -->
         <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem; margin: 1rem 0 0.5rem 0;">
           <a href="tel:${b.phone.replace(/\s+/g, '')}" class="action-btn action-btn-primary" style="justify-content: center; padding: 0.6rem 0.35rem; font-size: 0.82rem; background: #10b981; border-color: #10b981;" title="Call Verified Business">
-            <span>📞</span> Call Now
+            <span>${window.ReactIcons ? window.ReactIcons.render('phone', { size: 14 }) : '📞'}</span> Call Now
           </a>
           <button class="action-btn action-btn-primary" style="justify-content: center; padding: 0.6rem 0.35rem; font-size: 0.82rem; background: #25d366; border-color: #25d366;" onclick="window.JDFeatures.openWhatsAppEnquiry('${b.name}', '${b.locality}', '${b.city}', '${b.phone}')" title="Chat on WhatsApp">
-            <span>💬</span> WhatsApp
+            <span>${window.ReactIcons ? window.ReactIcons.render('messageSquare', { size: 14 }) : '💬'}</span> WhatsApp
           </button>
-          <button class="action-btn action-btn-outline" style="justify-content: center; padding: 0.6rem 0.35rem; font-size: 0.82rem;" onclick="DOM.detailDialog.close(); window.JDFeatures.openBestDealModal('${b.category}', '${b.name}');" title="Send Direct Enquiry">
-            <span>✉️</span> Enquire
+          <button class="action-btn action-btn-outline" style="justify-content: center; padding: 0.6rem 0.35rem; font-size: 0.82rem;" onclick="DOM.detailDialog.close(); window.LocalCare.openEnquiryModal('${b.id}');" title="Send Direct Enquiry">
+            <span>${window.ReactIcons ? window.ReactIcons.render('mail', { size: 14 }) : '✉️'}</span> Enquire
           </button>
           <button class="action-btn action-btn-primary" style="justify-content: center; padding: 0.6rem 0.35rem; font-size: 0.82rem; background: linear-gradient(135deg, #7c3aed, #4f46e5); border: none;" onclick="DOM.detailDialog.close(); window.QuoteMarketplace.openQuotesModal('${b.category}');" title="Request Price Quotes">
-            <span>⚡</span> Get Quote
+            <span>${window.ReactIcons ? window.ReactIcons.render('zap', { size: 14 }) : '⚡'}</span> Get Quote
           </button>
           <button class="action-btn action-btn-primary" style="justify-content: center; padding: 0.6rem 0.35rem; font-size: 0.82rem; background: var(--primary);" onclick="DOM.detailDialog.close(); window.BookingEngine.openBookingModal(window.LocalCare.getActiveBusiness());" title="Book Doorstep Appointment">
-            <span>📅</span> Book Slot
+            <span>${window.ReactIcons ? window.ReactIcons.render('calendar', { size: 14 }) : '📅'}</span> Book Slot
           </button>
         </div>
 
         <!-- Secondary Utility Actions Ribbon -->
         <div style="display: flex; gap: 0.5rem; margin-bottom: 1.25rem; flex-wrap: wrap;">
           <a href="https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent((b.lat && b.lng) ? `${b.lat},${b.lng}` : `${b.address || b.name}, ${b.city}`)}" target="_blank" rel="noopener" class="action-btn action-btn-ghost" style="font-size: 0.82rem; padding: 0.4rem 0.75rem; border: 1px solid var(--border-subtle);">
-            <span>🗺️</span> Get Directions
+            <span>${window.ReactIcons ? window.ReactIcons.render('compass', { size: 14 }) : '🗺️'}</span> Get Directions
           </a>
           <button class="action-btn action-btn-ghost" style="font-size: 0.82rem; padding: 0.4rem 0.75rem; border: 1px solid var(--border-subtle);" onclick="window.LocalCare.shareBusiness('${b.id}')">
-            <span>🔗</span> Share Listing
+            <span>${window.ReactIcons ? window.ReactIcons.render('share', { size: 14 }) : '🔗'}</span> Share Listing
           </button>
           <button class="action-btn action-btn-ghost" style="font-size: 0.82rem; padding: 0.4rem 0.75rem; border: 1px solid var(--border-subtle);" onclick="window.LocalCare.toggleSaveListing('${b.id}')">
-            <span>${state.savedIds.has(b.id) ? '❤️ Saved' : '🤍 Save to Favorites'}</span>
+            <span>${state.savedIds.has(b.id) ? (window.ReactIcons ? window.ReactIcons.render('heartFilled', { size: 14, className: 'react-icon-danger' }) : '❤️') : (window.ReactIcons ? window.ReactIcons.render('heart', { size: 14 }) : '🤍')}</span> ${state.savedIds.has(b.id) ? 'Saved' : 'Save to Favorites'}
+          </button>
+          <button class="action-btn action-btn-ghost" style="font-size: 0.82rem; padding: 0.4rem 0.75rem; border: 1px solid var(--border-subtle);" onclick="window.LocalCare.openPayStudio(window.LocalCare.getActiveBusiness())" title="Pay with LocalCare Pay">
+            <span>${window.ReactIcons ? window.ReactIcons.render('creditCard', { size: 14, className: 'react-icon-primary' }) : '💳'}</span> Pay Merchant
           </button>
           <button class="action-btn action-btn-ghost" style="font-size: 0.82rem; padding: 0.4rem 0.75rem; border: 1px solid var(--border-subtle);" onclick="window.VerificationEngine.openReportModal('${b.name}')">
-            <span>⚠️</span> Report
+            <span>${window.ReactIcons ? window.ReactIcons.render('alertTriangle', { size: 14 }) : '⚠️'}</span> Report
           </button>
         </div>
 
-        <!-- Justdial Interactive Tab Bar -->
+        <!-- Detail Interactive Tab Bar (Powered by React Icons) -->
         <div class="jdpay-tabs-bar" style="margin-bottom: 1.25rem; background: var(--bg-surface); border-bottom: 2px solid var(--border-subtle);">
           <button class="jdpay-tab-btn jd-detail-tab-btn active" data-tab="overview" onclick="window.LocalCare.switchDetailTab('overview')">
-            <span>📌</span> Overview & Rates
+            <span>${window.ReactIcons ? window.ReactIcons.render('clipboard', { size: 14 }) : '📌'}</span> Overview & Rates
           </button>
           <button class="jdpay-tab-btn jd-detail-tab-btn" data-tab="photos" onclick="window.LocalCare.switchDetailTab('photos')">
-            <span>🖼️</span> Photos (${photos.length})
+            <span>${window.ReactIcons ? window.ReactIcons.render('image', { size: 14 }) : '🖼️'}</span> Photos (${photos.length})
           </button>
           <button class="jdpay-tab-btn jd-detail-tab-btn" data-tab="reviews" onclick="window.LocalCare.switchDetailTab('reviews')">
-            <span>⭐</span> Ratings & Reviews (${b.reviewsCount})
+            <span>${window.ReactIcons ? window.ReactIcons.render('star', { size: 14 }) : '⭐'}</span> Ratings & Reviews (${b.reviewsCount})
+          </button>
+          <button class="jdpay-tab-btn jd-detail-tab-btn" data-tab="faqs" onclick="window.LocalCare.switchDetailTab('faqs')">
+            <span>${window.ReactIcons ? window.ReactIcons.render('helpCircle', { size: 14 }) : '❓'}</span> FAQs
           </button>
         </div>
 
@@ -1786,8 +2847,10 @@
           <!-- Trust Score Strip -->
           <div style="display: flex; align-items: center; justify-content: space-between; background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(2, 132, 199, 0.1) 100%); border: 1px solid var(--success-border); border-radius: var(--radius-md); padding: 0.75rem 1rem; margin-bottom: 1.25rem;">
             <div>
-              <span style="font-weight: 800; color: #065f46; font-size: 0.95rem;">🛡️ LocalCare Trust Score: ${b.trustScore || 96}/100</span>
-              <div style="font-size: 0.8rem; color: var(--text-secondary);">Police verified • GST: ${b.gst || '29AABCU9603R1ZM'} • On-ground address audited</div>
+              <span style="font-weight: 800; color: #065f46; font-size: 0.95rem; display: flex; align-items: center; gap: 0.4rem;">
+                ${window.ReactIcons ? window.ReactIcons.render('shieldCheck', { size: 16, className: 'react-icon-success' }) : '🛡️'} LocalCare Trust Score: ${b.trustScore || 96}/100
+              </span>
+              <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.2rem;">Police verified • GST: ${b.gst || '29AABCU9603R1ZM'} • On-ground address audited</div>
             </div>
             <button class="action-btn action-btn-outline" style="font-size: 0.78rem; padding: 0.3rem 0.65rem;" onclick="window.VerificationEngine.openTrustScore(window.LocalCare.getActiveBusiness())">
               Audit Breakdown ➔
@@ -1797,7 +2860,7 @@
           <!-- LocalCare Shield Protection Guarantee Strip -->
           <div class="shield-guarantee-banner" onclick="window.ShieldGuarantee.openShieldModal()" style="display: flex; align-items: center; justify-content: space-between; background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%); color: #ffffff; padding: 0.75rem 1rem; border-radius: var(--radius-md); margin-bottom: 1.25rem; cursor: pointer;">
             <div style="display: flex; align-items: center; gap: 0.6rem;">
-              <span style="font-size: 1.25rem;">🛡️</span>
+              <span style="font-size: 1.25rem;">${window.ReactIcons ? window.ReactIcons.render('shield', { size: 22 }) : '🛡️'}</span>
               <div>
                 <strong style="font-size: 0.9rem; color: #ffffff;">Backed by LocalCare Shield™ Guarantee</strong>
                 <div style="font-size: 0.75rem; color: rgba(255,255,255,0.85);">₹10,000 Damage Cover • 30-Day Free Revisit Guarantee</div>
@@ -1824,11 +2887,65 @@
             </div>
           </div>
 
-          <!-- Services & Rate Card -->
-          <div style="margin-bottom: 1rem;">
-            <h3 style="font-size: 1.15rem; margin-bottom: 0.75rem;">Verified Rate Card & Packages</h3>
-            <div style="border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 0.5rem 1rem; background: var(--bg-surface);">
+          ${b.category === 'food' ? `
+            <!-- Dedicated Restaurant Experience: Table Reservation & Cuisine Info -->
+            <div style="background: linear-gradient(135deg, rgba(249, 115, 22, 0.08) 0%, rgba(239, 68, 68, 0.08) 100%); border: 1.5px solid rgba(249, 115, 22, 0.25); border-radius: var(--radius-lg); padding: 1.25rem; margin-bottom: 1.5rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                  <span style="font-size: 1.4rem;">🍽️</span>
+                  <div>
+                    <strong style="font-size: 1rem; color: var(--text-primary);">Dine-In Table Reservation & Menu</strong>
+                    <div style="font-size: 0.78rem; color: var(--text-muted);">${b.isVeg ? '🌱 100% Pure Vegetarian' : '🍗 Multi-Cuisine & Non-Veg'} • Price for two: ₹${(b.startingPrice || 350) * 2} approx</div>
+                  </div>
+                </div>
+                <span class="bid-badge" style="background: #ffedd5; color: #c2410c; font-weight: 700; font-size: 0.78rem; padding: 4px 10px; border-radius: 999px;">Instant Confirmation</span>
+              </div>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.6rem; margin-top: 0.75rem;">
+                <button type="button" class="action-btn action-btn-primary" style="font-size: 0.82rem; padding: 0.5rem;" onclick="DOM.detailDialog.close(); window.BookingEngine.openBookingModal(window.LocalCare.getActiveBusiness());">
+                  📅 Reserve Table
+                </button>
+                <button type="button" class="action-btn action-btn-outline" style="font-size: 0.82rem; padding: 0.5rem;" onclick="window.JDFeatures.openWhatsAppEnquiry('${b.name}', '${b.locality}', '${b.city}', '${b.phone}')">
+                  💬 Pre-Order / Delivery
+                </button>
+              </div>
+            </div>
+          ` : ''}
+
+          ${(b.category === 'stays' || b.category === 'travel') ? `
+            <!-- Dedicated Hotel & Stay Experience: Room Categories & Amenities -->
+            <div style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(147, 51, 234, 0.08) 100%); border: 1.5px solid rgba(59, 130, 246, 0.25); border-radius: var(--radius-lg); padding: 1.25rem; margin-bottom: 1.5rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                  <span style="font-size: 1.4rem;">🏨</span>
+                  <div>
+                    <strong style="font-size: 1rem; color: var(--text-primary);">Hotel Stay & Room Booking</strong>
+                    <div style="font-size: 0.78rem; color: var(--text-muted);">From ₹${b.startingPrice || 1499}/night • Free Wi-Fi • AC • 24/7 Check-in</div>
+                  </div>
+                </div>
+                <span class="bid-badge" style="background: #dbeafe; color: #1e40af; font-weight: 700; font-size: 0.78rem; padding: 4px 10px; border-radius: 999px;">Pay at Hotel Available</span>
+              </div>
+              <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.75rem;">
+                <span style="font-size: 0.74rem; padding: 3px 8px; background: rgba(59, 130, 246, 0.12); color: #1d4ed8; border-radius: 4px; font-weight: 600;">✓ Free Cancellation</span>
+                <span style="font-size: 0.74rem; padding: 3px 8px; background: rgba(59, 130, 246, 0.12); color: #1d4ed8; border-radius: 4px; font-weight: 600;">✓ Couple Friendly</span>
+                <span style="font-size: 0.74rem; padding: 3px 8px; background: rgba(59, 130, 246, 0.12); color: #1d4ed8; border-radius: 4px; font-weight: 600;">✓ Breakfast Included</span>
+              </div>
+              <button type="button" class="action-btn action-btn-primary" style="font-size: 0.85rem; padding: 0.55rem; width: 100%;" onclick="DOM.detailDialog.close(); window.BookingEngine.openBookingModal(window.LocalCare.getActiveBusiness());">
+                🛏️ Check Availability & Book Room
+              </button>
+            </div>
+          ` : ''}
+
+          <!-- Services & Rate Card (Urban Company Grade) -->
+          <div style="margin-bottom: 1rem;" id="detailRateCardSection">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+              <h3 style="font-size: 1.15rem; margin: 0;">Verified Rate Card & Packages</h3>
+              <span style="font-size: 0.8rem; color: #059669; font-weight: 700;">🛡️ ₹10,000 Quality Shield Free</span>
+            </div>
+            <div id="detailRateCardContainer" style="border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 0.5rem 1rem; background: var(--bg-surface);">
               ${servicesRows}
+            </div>
+            <div id="detailStickyCartSlot">
+              ${stickyCartBar}
             </div>
           </div>
 
@@ -1842,7 +2959,7 @@
               </details>
               <details style="padding: 0.5rem 0; border-bottom: 1px solid var(--border-subtle);">
                 <summary style="font-weight: 700; cursor: pointer; font-size: 0.88rem;">What payment methods are supported?</summary>
-                <p style="font-size: 0.82rem; color: var(--text-secondary); margin-top: 0.35rem;">UPI, Net Banking, Credit/Debit cards, JD Pay Wallet, and post-service payment.</p>
+                <p style="font-size: 0.82rem; color: var(--text-secondary); margin-top: 0.35rem;">UPI, Net Banking, Credit/Debit cards, LocalCare Pay Wallet, and post-service payment.</p>
               </details>
               <details style="padding: 0.5rem 0;">
                 <summary style="font-weight: 700; cursor: pointer; font-size: 0.88rem;">Is there a service warranty or quality guarantee?</summary>
@@ -2327,10 +3444,10 @@
     DOM.interactiveMapContainer.classList.toggle('mobile-map-active', state.mobileMapVisible);
 
     if (state.mobileMapVisible) {
-      DOM.mobileMapToggleBtn.innerHTML = `<span>📋</span> View List`;
+      DOM.mobileMapToggleBtn.innerHTML = `<span>${window.ReactIcons ? window.ReactIcons.render('list', { size: 16 }) : '📋'}</span> View List`;
       DOM.interactiveMapContainer.scrollIntoView({ behavior: 'smooth' });
     } else {
-      DOM.mobileMapToggleBtn.innerHTML = `<span>🗺️</span> View Map`;
+      DOM.mobileMapToggleBtn.innerHTML = `<span>${window.ReactIcons ? window.ReactIcons.render('map', { size: 16 }) : '🗺️'}</span> View Map`;
       DOM.listingsGrid.scrollIntoView({ behavior: 'smooth' });
     }
   }
@@ -2366,17 +3483,19 @@
      Toast Notifications
      ========================================================================== */
   function showToast(message, type = 'info', duration = 3500) {
-    const icons = {
-      success: '✅',
-      warning: '⚠️',
-      info: 'ℹ️',
-      danger: '❌'
-    };
+    const iconHtml = window.ReactIcons ? {
+      success: window.ReactIcons.render('checkCircle', { size: 16, className: 'react-icon-success' }),
+      warning: window.ReactIcons.render('alertTriangle', { size: 16, className: 'react-icon-gold' }),
+      info: window.ReactIcons.render('info', { size: 16 }),
+      danger: window.ReactIcons.render('x', { size: 16, className: 'react-icon-danger' })
+    }[type] || window.ReactIcons.render('info', { size: 16 }) : (
+      { success: '✅', warning: '⚠️', info: 'ℹ️', danger: '❌' }[type] || 'ℹ️'
+    );
 
     const toast = document.createElement('div');
     toast.className = `toast toast-${type}`;
     toast.innerHTML = `
-      <span>${icons[type] || 'ℹ️'}</span>
+      <span>${iconHtml}</span>
       <span>${message}</span>
     `;
 
@@ -2482,10 +3601,297 @@
   /* ==========================================================================
      Global Exports
      ========================================================================== */
+
+  /* ==========================================================================
+     Airbnb-Grade Sticky Subnav, Lightbox & Trust Audit Controllers
+     ========================================================================== */
+  let currentLightboxBiz = null;
+  let currentLightboxIndex = 0;
+  let currentLightboxPhotos = [];
+
+  function openLightbox(bizId, index = 0) {
+    const all = getAllBusinesses();
+    const b = all.find(item => item.id === bizId);
+    if (!b) return;
+
+    currentLightboxBiz = b;
+    currentLightboxIndex = index;
+    currentLightboxPhotos = (b.photos && b.photos.length >= 3) ? b.photos : getTradePhotos(b);
+
+    const overlay = document.getElementById('photoLightbox');
+    if (!overlay) return;
+
+    overlay.style.display = 'flex';
+    updateLightboxStage();
+    if (window.SoundFX) window.SoundFX.playPop();
+  }
+
+  function closeLightbox() {
+    const overlay = document.getElementById('photoLightbox');
+    if (overlay) overlay.style.display = 'none';
+  }
+
+  function nextLightboxPhoto() {
+    if (!currentLightboxPhotos.length) return;
+    currentLightboxIndex = (currentLightboxIndex + 1) % currentLightboxPhotos.length;
+    updateLightboxStage();
+  }
+
+  function prevLightboxPhoto() {
+    if (!currentLightboxPhotos.length) return;
+    currentLightboxIndex = (currentLightboxIndex - 1 + currentLightboxPhotos.length) % currentLightboxPhotos.length;
+    updateLightboxStage();
+  }
+
+  function setLightboxIndex(idx) {
+    currentLightboxIndex = idx;
+    updateLightboxStage();
+  }
+
+  function updateLightboxStage() {
+    const img = document.getElementById('lightboxMainImg');
+    const nameEl = document.getElementById('lightboxBizName');
+    const counterEl = document.getElementById('lightboxCounter');
+    const thumbsContainer = document.getElementById('lightboxThumbsReel');
+
+    if (!img || !currentLightboxPhotos.length) return;
+
+    img.src = currentLightboxPhotos[currentLightboxIndex];
+    if (nameEl) nameEl.textContent = `${currentLightboxBiz.name} • ${currentLightboxBiz.subcategory || currentLightboxBiz.category.toUpperCase()}`;
+    if (counterEl) counterEl.textContent = `Photo ${currentLightboxIndex + 1} of ${currentLightboxPhotos.length}`;
+
+    if (thumbsContainer) {
+      thumbsContainer.innerHTML = currentLightboxPhotos.map((p, idx) => `
+        <div class="lightbox-thumb-item ${idx === currentLightboxIndex ? 'active' : ''}" onclick="window.LocalCare.setLightboxIndex(${idx})">
+          <img src="${p}" alt="Photo ${idx + 1}" />
+        </div>
+      `).join('');
+    }
+  }
+
+  window.addEventListener('keydown', (e) => {
+    const overlay = document.getElementById('photoLightbox');
+    if (!overlay || overlay.style.display === 'none') return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowRight') nextLightboxPhoto();
+    if (e.key === 'ArrowLeft') prevLightboxPhoto();
+  });
+
+  function openTrustAuditModal(bizId) {
+    const all = getAllBusinesses();
+    const b = all.find(item => item.id === bizId) || state.activeDetailBusiness;
+    const dialog = document.getElementById('trustAuditDialog');
+    const sub = document.getElementById('trustAuditBizSub');
+    if (sub && b) {
+      sub.textContent = `${b.name} (${b.locality}, ${b.city}) • Verification Audit Score: ${b.trustScore || 96}/100`;
+    }
+    if (dialog) {
+      dialog.showModal();
+      if (window.SoundFX) window.SoundFX.playBell();
+    }
+  }
+
+  function renderStickyChips() {
+    const container = document.getElementById('stickyChipsScroll');
+    if (!container) return;
+
+    const all = getAllBusinesses();
+    const cityBusinesses = all.filter(b => b.city.toLowerCase() === state.selectedCity.toLowerCase());
+
+    const catCounts = {};
+    cityBusinesses.forEach(b => {
+      catCounts[b.category] = (catCounts[b.category] || 0) + 1;
+    });
+
+    const isAllActive = state.selectedCategory === 'all';
+    let chipsHtml = `
+      <button class="sticky-chip-btn ${isAllActive ? 'active' : ''}" onclick="window.LocalCare.filterCategory('all')">
+        <span class="chip-icon-wrap">${window.ReactIcons ? window.ReactIcons.render('grid', { size: 14 }) : '✨'}</span> All
+        <span class="sticky-chip-count">${cityBusinesses.length}</span>
+      </button>
+    `;
+
+    CATEGORIES.forEach(cat => {
+      const count = catCounts[cat.id] || 0;
+      const isActive = state.selectedCategory === cat.id;
+      chipsHtml += `
+        <button class="sticky-chip-btn ${isActive ? 'active' : ''}" onclick="window.LocalCare.filterCategory('${cat.id}')">
+          <span class="chip-icon-wrap">${window.ReactIcons ? window.ReactIcons.getCategoryIcon(cat.id, { size: 14 }) : cat.icon}</span> ${cat.title.split(' ')[0]}
+          <span class="sticky-chip-count">${count}</span>
+        </button>
+      `;
+    });
+
+    container.innerHTML = chipsHtml;
+  }
+
+  function toggleBudgetPopup(event) {
+    if (event) event.stopPropagation();
+    const card = document.getElementById('budgetPopupCard');
+    if (!card) return;
+    const isShown = card.style.display !== 'none';
+    card.style.display = isShown ? 'none' : 'block';
+  }
+
+  function closeBudgetPopup() {
+    const card = document.getElementById('budgetPopupCard');
+    if (card) card.style.display = 'none';
+  }
+
+  function applyQuickBudget(val) {
+    closeBudgetPopup();
+    const label = document.getElementById('stickyBudgetLabel');
+    if (label) label.textContent = val ? `Under ₹${val}` : 'Any Budget';
+    const slider = document.getElementById('budgetRangeInput');
+    if (slider) slider.value = val || 1500;
+    const disp = document.getElementById('budgetSliderDisplay');
+    if (disp) disp.textContent = val ? `₹${val}` : 'All';
+    setBudgetFilter(val);
+  }
+
+  function onBudgetSliderChange(val) {
+    const disp = document.getElementById('budgetSliderDisplay');
+    if (disp) disp.textContent = `₹${val}`;
+    const label = document.getElementById('stickyBudgetLabel');
+    if (label) label.textContent = `Under ₹${val}`;
+    setBudgetFilter(parseInt(val, 10));
+  }
+
+  function toggleRatingFilter() {
+    const btn = document.getElementById('stickyRatingBtn');
+    if (state.filterMinRating === 4.5) {
+      state.filterMinRating = null;
+      if (btn) btn.classList.remove('active');
+      showToast('Rating filter cleared', 'info');
+    } else {
+      state.filterMinRating = 4.5;
+      if (btn) btn.classList.add('active');
+      showToast('Showing top-rated 4.5+ providers', 'success');
+    }
+    renderListings(true);
+  }
+
+  function toggleSplitMap() {
+    const mapCol = document.getElementById('interactiveMapContainer');
+    const label = document.getElementById('stickyMapLabel');
+    const mapBtn = document.getElementById('stickyMapToggleBtn');
+    if (!mapCol) return;
+    const isHidden = mapCol.style.display === 'none';
+    if (isHidden) {
+      mapCol.style.display = 'block';
+      if (label) label.textContent = 'Hide Map';
+      if (mapBtn) mapBtn.classList.add('active');
+    } else {
+      mapCol.style.display = 'none';
+      if (label) label.textContent = 'Show Map';
+      if (mapBtn) mapBtn.classList.remove('active');
+    }
+  }
+
+  /* --------------------------------------------------------------------------
+     Dedicated Direct Enquiry Dialog Controller
+     -------------------------------------------------------------------------- */
+  function openEnquiryModal(bizId) {
+    const dialog = document.getElementById('enquiryDialog');
+    if (!dialog) return;
+
+    let biz = null;
+    const all = getAllBusinesses();
+    if (typeof bizId === 'object' && bizId) {
+      biz = bizId;
+    } else if (bizId) {
+      biz = all.find(b => b.id === bizId);
+    }
+    if (!biz) biz = state.activeDetailBusiness;
+
+    const titleEl = document.getElementById('enquiryBusinessName');
+    const bizIdInput = document.getElementById('enquiryBizId');
+    const nameInput = document.getElementById('enquiryCustomerName');
+    const phoneInput = document.getElementById('enquiryCustomerPhone');
+    const dateInput = document.getElementById('enquiryPreferredDate');
+
+    if (biz) {
+      if (titleEl) titleEl.textContent = `Enquiring directly with ${biz.name} (${biz.locality}, ${biz.city})`;
+      if (bizIdInput) bizIdInput.value = biz.id;
+    }
+
+    // Pre-fill user profile if logged in
+    const currentUser = (window.Auth && window.Auth.getCurrentUser) ? window.Auth.getCurrentUser() : null;
+    if (currentUser) {
+      if (nameInput && !nameInput.value) nameInput.value = currentUser.name || currentUser.email || '';
+      if (phoneInput && !phoneInput.value) phoneInput.value = currentUser.phone || '';
+    }
+
+    // Default to tomorrow's date
+    if (dateInput && !dateInput.value) {
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      dateInput.value = tomorrow.toISOString().split('T')[0];
+    }
+
+    dialog.showModal();
+  }
+
+  async function submitDirectEnquiry(e) {
+    e.preventDefault();
+    const bizId = document.getElementById('enquiryBizId')?.value;
+    const name = document.getElementById('enquiryCustomerName')?.value;
+    const phone = document.getElementById('enquiryCustomerPhone')?.value;
+    const date = document.getElementById('enquiryPreferredDate')?.value;
+    const urgency = document.getElementById('enquiryUrgency')?.value;
+    const notes = document.getElementById('enquiryNotes')?.value;
+
+    const biz = getAllBusinesses().find(b => b.id === bizId) || { name: 'Verified Provider' };
+
+    const payload = {
+      businessId: bizId,
+      businessName: biz.name,
+      customerName: name,
+      customerPhone: phone,
+      preferredDate: date,
+      urgency,
+      requirement: notes,
+      status: 'Enquiry Received',
+      timestamp: new Date().toISOString()
+    };
+
+    // Store in localStorage for User Dashboard & Business Dashboard sync
+    try {
+      const stored = JSON.parse(localStorage.getItem('localcare_enquiries') || '[]');
+      stored.unshift(payload);
+      localStorage.setItem('localcare_enquiries', JSON.stringify(stored));
+    } catch (err) {}
+
+    // Send to backend quote/enquiry API if available
+    try {
+      await fetch('/api/quotes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          category: biz.category || 'general',
+          locality: biz.locality || 'Bengaluru',
+          description: `Direct Enquiry for ${biz.name}: ${notes}`,
+          urgency,
+          budget: `Starts ₹${biz.startingPrice || 399}`
+        })
+      });
+    } catch (err) {}
+
+    const dialog = document.getElementById('enquiryDialog');
+    if (dialog) dialog.close();
+
+    showToast(`⚡ Enquiry sent directly to ${biz.name}! A team member will call you shortly.`, 'success');
+  }
+
   window.LocalCare = {
     setCity,
+    filterLocationByState,
     autoDetectLocation,
     filterCategory,
+    filterBySubcategory,
+    updateCategoryBanner,
+    openEnquiryModal,
+    submitDirectEnquiry,
     filterOffersOnly,
     filterByRadius,
     resetAllFilters,
@@ -2556,6 +3962,30 @@
       const b = getAllBusinesses().find(item => item.id === id);
       if (b) openCallModal(b);
     },
+    openCallById: (id) => {
+      const b = getAllBusinesses().find(item => item.id === id);
+      if (b) {
+        if (/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) && window.innerWidth <= 768) {
+          window.location.href = `tel:${b.phone.replace(/\s+/g, '')}`;
+        } else {
+          openCallModal(b);
+        }
+      }
+    },
+    openDirectionsById: (id) => {
+      const b = getAllBusinesses().find(item => item.id === id);
+      if (b) {
+        if (window.MapEngine) window.MapEngine.selectBusiness(id, true);
+        if (window.innerWidth <= 768) {
+          const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent((b.lat && b.lng) ? `${b.lat},${b.lng}` : `${b.name}, ${b.locality}, ${b.city}`)}`;
+          window.open(mapsUrl, '_blank', 'noopener');
+        } else {
+          showToast(`📍 Showing route & directions to ${b.name} on map`, 'info', 3500);
+          const mapSec = document.getElementById('interactiveMapContainer');
+          if (mapSec) mapSec.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      }
+    },
     openQuoteModalById: (id) => {
       const b = id ? getAllBusinesses().find(item => item.id === id) : null;
       if (window.QuoteMarketplace) window.QuoteMarketplace.openQuotesModal(b ? b.category : null);
@@ -2624,60 +4054,111 @@
       compact.style.display = 'flex';
       island.classList.remove('island-active');
     },
+    openLightbox,
+    closeLightbox,
+    nextLightboxPhoto,
+    prevLightboxPhoto,
+    setLightboxIndex,
+    openTrustAuditModal,
+    renderStickyChips,
+    toggleBudgetPopup,
+    closeBudgetPopup,
+    applyQuickBudget,
+    onBudgetSliderChange,
+    toggleRatingFilter,
+    toggleSplitMap,
     renderCuratedShowcase,
     switchCuratedTab,
-    sortDetailReviews
+    sortDetailReviews,
+    openNotificationCenter,
+    closeNotificationCenter,
+    markAllNotificationsRead,
+    handleNotificationClick,
+    addNotification,
+    updateNotificationBadge,
+    updateCartQty,
+    openCartDrawer,
+    renderCartDrawerUI,
+    applyCartCoupon,
+    clearCart,
+    proceedCartToBooking,
+    navToSection,
+    focusSearch,
+    toggleMap,
+    openDashboard,
+    openPayStudio,
+    simulateUpiApp,
+    completePaymentSimulation
   };
 
   /* ==========================================================================
      App Bootstrapping
      ========================================================================== */
   function init() {
-    initTheme();
-    initMegaMenuAndDrawer();
-    initCitySelector();
-    initCategories();
-    renderDeals();
-    renderRecentSearches();
-    renderRecentlyViewed();
-    renderCityHighlights();
-    renderCuratedShowcase();
-    initSearch();
-    initFiltersAndSort();
-    initSavedDrawer();
-    initVendorOnboarding();
-    initDialogDismissals();
-    updateSavedCounter();
+    try { if (window.ReactIcons) window.ReactIcons.replaceAll(); } catch (e) { console.warn(e); }
+    try { initTheme(); } catch (e) { console.warn('initTheme:', e); }
+    try { initMegaMenuAndDrawer(); } catch (e) { console.warn('initMegaMenuAndDrawer:', e); }
+    try { initCitySelector(); } catch (e) { console.warn('initCitySelector:', e); }
+    try { initCategories(); } catch (e) { console.warn('initCategories:', e); }
+    try { renderDeals(); } catch (e) { console.warn('renderDeals:', e); }
+    try { renderRecentSearches(); } catch (e) { console.warn('renderRecentSearches:', e); }
+    try { renderRecentlyViewed(); } catch (e) { console.warn('renderRecentlyViewed:', e); }
+    try { renderCityHighlights(); } catch (e) { console.warn('renderCityHighlights:', e); }
+    try { renderCuratedShowcase(); } catch (e) { console.warn('renderCuratedShowcase:', e); }
+    try { initSearch(); } catch (e) { console.warn('initSearch:', e); }
+    try { initFiltersAndSort(); } catch (e) { console.warn('initFiltersAndSort:', e); }
+    try { initSavedDrawer(); } catch (e) { console.warn('initSavedDrawer:', e); }
+    try { initVendorOnboarding(); } catch (e) { console.warn('initVendorOnboarding:', e); }
+    try { initDialogDismissals(); } catch (e) { console.warn('initDialogDismissals:', e); }
+    try { updateSavedCounter(); } catch (e) { console.warn('updateSavedCounter:', e); }
+    try { updateNotificationBadge(); } catch (e) { console.warn('updateNotificationBadge:', e); }
+    try { if (window.ReactIcons) window.ReactIcons.replaceAll(); } catch (e) {}
 
-    // Initialize all modules
-    if (window.SoundFX) window.SoundFX.init();
-    if (window.ProComparison) window.ProComparison.init();
-    if (window.CostEstimator) window.CostEstimator.init();
-    if (window.TeleConsult) window.TeleConsult.init();
-    if (window.ReviewEngine) window.ReviewEngine.init();
-    if (window.ShieldGuarantee) window.ShieldGuarantee.init();
-    if (window.MapEngine) window.MapEngine.init('interactiveMapCanvas');
-    if (window.CareAI) window.CareAI.init();
-    if (window.CareAISuite) window.CareAISuite.init();
-    if (window.BookingEngine) window.BookingEngine.init();
-    if (window.TrackingEngine) window.TrackingEngine.init();
-    if (window.QuoteMarketplace) window.QuoteMarketplace.init();
-    if (window.QuoteArena) window.QuoteArena.init();
-    if (window.VoiceSearch) window.VoiceSearch.init();
-    if (window.VerificationEngine) window.VerificationEngine.init();
-    if (window.EmergencyMode) window.EmergencyMode.init();
-    if (window.UserDashboard) window.UserDashboard.init();
-    if (window.BusinessDashboard) window.BusinessDashboard.init();
-    if (window.AdminPanel) window.AdminPanel.init();
-    if (window.AuthService) window.AuthService.init();
+    // Initialize all modules safely
+    const modules = [
+      window.SoundFX,
+      window.ProComparison,
+      window.CostEstimator,
+      window.TeleConsult,
+      window.ReviewEngine,
+      window.ShieldGuarantee,
+      window.CareAI,
+      window.CareAISuite,
+      window.BookingEngine,
+      window.TrackingEngine,
+      window.QuoteMarketplace,
+      window.QuoteArena,
+      window.VoiceSearch,
+      window.VerificationEngine,
+      window.EmergencyMode,
+      window.UserDashboard,
+      window.BusinessDashboard,
+      window.AdminPanel,
+      window.AuthService
+    ];
 
-    initKeyboardShortcuts();
-    startPulseTickerCycle();
+    modules.forEach(m => {
+      try {
+        if (m && typeof m.init === 'function') m.init();
+      } catch (err) {
+        console.warn('Module init error:', err);
+      }
+    });
 
-    // Initial render of listings & map
+    try {
+      if (window.MapEngine && typeof window.MapEngine.init === 'function') {
+        window.MapEngine.init('interactiveMapCanvas');
+      }
+    } catch (e) { console.warn('MapEngine init error:', e); }
+
+    try { initKeyboardShortcuts(); } catch (e) {}
+    try { startPulseTickerCycle(); } catch (e) {}
+
+    // Guaranteed Render of Listings & Interactive Map
     renderListings();
+    loadBackendData();
 
-    // Deep Linking Support: Check if ?biz=<id> is in the URL
+    // Deep Linking Support: Check if ?biz=<id> or ?category=<cat> is in the URL
     try {
       const urlParams = new URLSearchParams(window.location.search);
       const deepBizId = urlParams.get('biz');
@@ -2687,6 +4168,12 @@
         if (found) {
           setTimeout(() => openBusinessDetailModal(found), 250);
         }
+      }
+      const deepCategory = urlParams.get('category');
+      if (deepCategory && deepCategory !== 'all') {
+        state.selectedCategory = deepCategory;
+        updateCategoryActiveStates();
+        updateCategoryBanner();
       }
     } catch (e) {}
 
@@ -2702,7 +4189,8 @@
     // Register Progressive Web App Service Worker if supported
     if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
       navigator.serviceWorker.register('/sw.js').then(reg => {
-        console.log('[PWA] Service Worker registered with scope:', reg.scope);
+        reg.update();
+        console.log('[PWA] Service Worker registered & updated with scope:', reg.scope);
       }).catch(err => {
         console.log('[PWA] Service Worker registration skipped:', err.message);
       });

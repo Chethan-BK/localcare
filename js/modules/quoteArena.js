@@ -196,6 +196,19 @@ window.QuoteArena = (function () {
       </div>
     `;
 
+    dialog.addEventListener('click', (e) => {
+      const rect = dialog.getBoundingClientRect();
+      const isInDialog = (
+        rect.top <= e.clientY &&
+        e.clientY <= rect.top + rect.height &&
+        rect.left <= e.clientX &&
+        e.clientX <= rect.left + rect.width
+      );
+      if (!isInDialog) {
+        closeArena();
+      }
+    });
+
     document.body.appendChild(dialog);
   }
 
